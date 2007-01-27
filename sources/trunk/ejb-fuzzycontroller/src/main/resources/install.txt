@@ -1,10 +1,10 @@
                                INSTALL
                                =======
                                
-                         JFuzzy, Version 1.0
+                     Fuzzy Services, Version 1.0
 
 
-Last changed at: 2007/01/03
+Last changed at: 2007/01/27
 
 
 
@@ -21,44 +21,44 @@ III.  Web Pages and Contact
 I. Introduction
 ===============
 
-Thank you for downloading this part of JFuzzy. JFuzzy is a program library for 
-processing fuzzy information. It is implemented in the Java programming 
-language and distributed under the GNU GENERAL PUBLIC LICENSE.
+Thank you for downloading this part of Fuzzy Services. It belongs to a program 
+library for processing fuzzy information. It is implemented in the Java 
+programming language and distributed under the GNU GENERAL PUBLIC LICENSE.
 
 
 
 II. System Requirements and Installation
 ========================================
 
-In general, you need a Java Runtime Environment (JRE). JFuzzy in this version is 
-build and tested with 1.5.0_09. The JRE is not part of this package. You can 
-get it from http://java.sun.com.
+In general, you need a Java Runtime Environment (JRE). Fuzzy Services in this 
+version are build and tested with 1.5.0_09. The JRE is not part of this 
+package. You can get it from http://java.sun.com.
 
-If you downloaded an enterprise component of JFuzzy (called with prefix 
-JFuzzy EE) it is required a so-called application server, too. The packages are 
-prepared for BEA Weblogic (TM) and JBoss Application Server (TM), because they 
-contain product provider depending deployment descriptors. But, JFuzzy do not 
-have any special requirements for such environments. Therefore, the deployment 
-on other application servers may be also possible. If you find out any 
-incompatibilities please let us know.
+If you downloaded an enterprise component of Fuzzy Services (called with prefix 
+Fuzzy Services EE) it is required a so-called application server, too. The 
+packages are prepared for BEA Weblogic (TM) and JBoss Application Server (TM),
+because they contain product provider depending deployment descriptors. 
+But, Fuzzy Services do not have any special requirements for such environments.
+Therefore, the deployment on other application servers may be also possible. 
+If you find out any incompatibilities please let me know.
 
-The installation of JFuzzy Core and JavaBeans is really simple. 
+The installation of Fuzzy Services Core and JavaBeans is really simple. 
 Add the downloaded Java Archive file (JAR) to your CLASSPATH environment 
 variable, eg:
 
-  export CLASSPATH=/jfuzzy-core-1.0.jar:$CLASSPATH
+  export CLASSPATH=/fuzzyservices-core-1.0.jar:$CLASSPATH
 or
-  set CLASSPATH="c:\jfuzzy-core-1.0.jar";%CLASSPATH%
+  set CLASSPATH="c:\fuzzyservices-core-1.0.jar";%CLASSPATH%
 
 It is also possible to add the archive to the start command of your 
 application:
 
-  java -cp jfuzzy-core-1.0.jar my.application.Main
+  java -cp fuzzyservices-core-1.0.jar my.application.Main
 
-Have in mind, that the JavaBeans package need JFuzzy Core.
+Have in mind, that the JavaBeans package needs Fuzzy Services Core.
 
 
-JFuzzy EE components are delivered as prepared EJB-JARs with appropriate 
+Fuzzy Services EE components are delivered as prepared EJB-JARs with appropriate 
 deployment descriptors. Please refer to the documentation of your application 
 server in order to deploy the JAR into the container.
 
@@ -69,9 +69,8 @@ VIII. Web Pages and Contact
 
 For additional information, refer to these pages on the World Wide Web:
 
-The homepage of JFuzzy with articles, further documentation, and links about Fuzzy.
-http://www.fuzzy-services.com
 
-Feedback is most welcome. Do not hesitate to get in touch with us.
-mailto:feedback@fuzzy-services.com
+http://sourceforge.net/projects/fuzzyservices
 
+Feedback is most welcome. Do not hesitate to get in touch with me.
+mailto:uweng@users.sourceforge.net

@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Fuzzy Services on Sourceforge.net</name>
-  <url>http://sourceforge.net/projects/fs-on-sf/</url>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
 
   <licenses>
     <license>
@@ -22,7 +22,7 @@
   
   <organization>
     <name>Fuzzy Services</name>
-    <url>http://sourceforge.net/projects/fs-on-sf/</url>
+    <url>http://sourceforge.net/projects/fuzzyservices</url>
   </organization>
   
   <developers>
@@ -32,7 +32,7 @@
       <email>uweng@users.sourceforge.net</email>
       <url>http://sourceforge.net/users/uweng/</url>
       <organization>Fuzzy Services</organization>
-      <organizationUrl>http://sourceforge.net/projects/fs-on-sf/</organizationUrl>
+      <organizationUrl>http://sourceforge.net/projects/fuzzyservices</organizationUrl>
       <roles>
         <role>developer</role>
         <role>project leader</role>
@@ -220,7 +220,7 @@
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>http://asterix/repos/jfuzzy/tags</tagBase>
+          <tagBase>https://fuzzyservices.svn.sourceforge.net/svnroot/sources/tags</tagBase>
         </configuration>
       </plugin>
         -->

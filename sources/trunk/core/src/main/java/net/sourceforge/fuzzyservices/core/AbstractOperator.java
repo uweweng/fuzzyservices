@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -38,12 +39,12 @@ import java.util.Enumeration;
  * bases for defining fuzzy operators. It contains abstract methods because the
  * computation rule and attributes are different between operators.
  *
- * @see com.jfuzzy.core.operator.AbstractComplexOperator
- * @see com.jfuzzy.core.operator.AbstractDrasticOperator
- * @see com.jfuzzy.core.operator.AbstractLinearOperator
- * @see com.jfuzzy.core.operator.AbstractParameteredOperator
- * @see com.jfuzzy.core.operator.AbstractComplexParameteredOperator
- * @see com.jfuzzy.core.operator.AbstractMultiplyingParameteredOperator
+ * @see net.sourceforge.fuzzyservices.core.operator.AbstractComplexOperator
+ * @see net.sourceforge.fuzzyservices.core.operator.AbstractDrasticOperator
+ * @see net.sourceforge.fuzzyservices.core.operator.AbstractLinearOperator
+ * @see net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator
+ * @see net.sourceforge.fuzzyservices.core.operator.AbstractComplexParameteredOperator
+ * @see net.sourceforge.fuzzyservices.core.operator.AbstractMultiplyingParameteredOperator
  *
  * @since 1.0
  * @author Uwe Weng
@@ -121,7 +122,7 @@ public abstract class AbstractOperator implements Serializable {
      * Indicates whether an operator needs a parameter for calculations.
      * @return <code>true</code>, if the operator needs a parameter,
      * <code>false</code> otherwise
-     * @see com.jfuzzy.core.operator.AbstractParameteredOperator
+     * @see net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator
      */
     public boolean requiresParameter() {
         return false;

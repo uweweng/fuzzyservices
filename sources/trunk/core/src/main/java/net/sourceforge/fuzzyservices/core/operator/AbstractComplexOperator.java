@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -54,7 +55,7 @@ public abstract class AbstractComplexOperator extends AbstractOperator
             float granularity;
             int numSteps;
             float x;
-            
+
             if ((fs1.isDefined()) && (fs2.isDefined())) {
                 granularity = fs1.getGranularity(fs2);
                 numSteps = fs1.getNumSteps(fs2);
@@ -66,7 +67,7 @@ public abstract class AbstractComplexOperator extends AbstractOperator
                 if ((!fs1.isDefined()) && (!fs2.isDefined())) {
                     return fs;
                 }
-                
+
                 if (fs1.isDefined()) {
                     granularity = fs2.getGranularity(fs2);
                     numSteps = fs2.getNumSteps(fs2);
@@ -77,7 +78,7 @@ public abstract class AbstractComplexOperator extends AbstractOperator
                     x = fs1.getMinDefinedX();
                 }
             }
-            
+
             if (granularity > 0.0f) {
                 for (int i = 0; i < numSteps; i++) {
                     fs.set(x,
@@ -86,26 +87,26 @@ public abstract class AbstractComplexOperator extends AbstractOperator
                     x += granularity;
                 }
             }
-            
+
             // Finally, we iterate all membership function points
             int size1 = fs1.size();
             int size2 = fs2.size();
             Enumeration elements;
-            
+
             // Due to performance we iterate the fuzzy set with the most points
             // at first.
             if (size1 >= size2) {
                 elements = fs1.elements();
-                
+
                 while (elements.hasMoreElements()) {
                     x = ((Float) elements.nextElement()).floatValue();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
-                
+
                 elements = fs2.elements();
-                
+
                 while (elements.hasMoreElements()) {
                     x = ((Float) elements.nextElement()).floatValue();
                     fs.set(x,
@@ -113,19 +114,19 @@ public abstract class AbstractComplexOperator extends AbstractOperator
                             fs2.getDegreeOfMembership(x)));
                 }
             }
-            
+
             if (size1 < size2) { // the else-clause of the prior if-clause
                 elements = fs2.elements();
-                
+
                 while (elements.hasMoreElements()) {
                     x = ((Float) elements.nextElement()).floatValue();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
-                
+
                 elements = fs1.elements();
-                
+
                 while (elements.hasMoreElements()) {
                     x = ((Float) elements.nextElement()).floatValue();
                     fs.set(x,
@@ -133,12 +134,12 @@ public abstract class AbstractComplexOperator extends AbstractOperator
                             fs2.getDegreeOfMembership(x)));
                 }
             }
-            
+
             fs.reduce();
-            
+
             return fs;
         }
-        
+
         return null;
     }
 }

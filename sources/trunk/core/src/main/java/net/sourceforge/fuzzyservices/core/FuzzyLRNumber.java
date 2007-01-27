@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -48,7 +49,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Default constructor is private
      * because an undefined membership function can not be a valid fuzzy number of type LR.
@@ -56,7 +57,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public FuzzyLRNumber() {
         // Not allowed
     }
-    
+
     /**
      * Creates a fuzzy number of type LR with identical reference functions L(x) and R(x).
      * @param x the x value with degree of membership of 1.0
@@ -72,7 +73,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));
     }
-    
+
     /**
      * Constructs a fuzzy LR number with a membership function like a triangle.
      * @param x the x value with degree of membership of 1.0
@@ -89,7 +90,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));
     }
-    
+
     /**
      * Creates a fuzzy number of type LR by converting a fuzzy number.
      * The fuzzy number has to fulfill the requirements of a fuzzy LR number.
@@ -100,16 +101,16 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public FuzzyLRNumber(final FuzzyNumber fn) throws NullPointerException, IllegalArgumentException{
         if (fn.isValidFuzzyLRNumber()) {
             ListIterator elements = fn.points.listIterator();
-            
+
             while (elements.hasNext())
                 points.add(((MembershipFunctionPoint) elements.next()).clone());
-            
+
             this.reduce();
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));
     }
-    
+
     /**
      * Creates a fuzzy number of type LR by converting a fuzzy set.
      * The fuzzy set has to fulfill the requirements of a fuzzy LR number.
@@ -120,14 +121,14 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public FuzzyLRNumber(final FuzzySet fs) throws NullPointerException, IllegalArgumentException{
         if (fs.isValidFuzzyLRNumber()) {
             ListIterator elements = fs.points.listIterator();
-            
+
             while (elements.hasNext())
                 points.add(((MembershipFunctionPoint) elements.next()).clone());
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));
     }
-    
+
     /**
      * Returns the spread on the left falling edge. It is the so-called alpha value.
      * @return the spread alpha
@@ -135,15 +136,15 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public synchronized float getAlpha() {
         FuzzyLRNumber fn = (FuzzyLRNumber) this.clone();
         fn.reduce();
-        
+
         float x0;
         float x1;
         x0 = ((MembershipFunctionPoint) fn.points.get(0)).getX();
         x1 = ((MembershipFunctionPoint) fn.points.get(1)).getX();
-        
+
         return FuzzyManager.round(x1 - x0);
     }
-    
+
     /**
      * Returns the spread on the right falling edge. It is the so-called beta value.
      * @return the spread beta
@@ -151,16 +152,16 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public synchronized float getBeta() {
         FuzzyLRNumber fn = (FuzzyLRNumber) this.clone();
         fn.reduce();
-        
+
         float x0;
         float x1;
         int size = fn.points.size();
         x0 = ((MembershipFunctionPoint) fn.points.get(size - 2)).getX();
         x1 = ((MembershipFunctionPoint) fn.points.get(size - 1)).getX();
-        
+
         return FuzzyManager.round(x1 - x0);
     }
-    
+
     /**
      * Creates the inverse of the membership function. Due to mathematical restrictions it is impossible
      * to calculate the inverse at <tt>x = 0</tt>, because there is a definition lack.
@@ -171,7 +172,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public synchronized void invert() throws ArithmeticException{
         super.invert();
     }
-    
+
     /**
      * Checks whether the fuzzy number of type LR is negative. A fuzzy LR number is negative
      * if degree of membership is only greater than zero when x is lower than zero.
@@ -180,19 +181,19 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public synchronized boolean isNegative() {
         MembershipFunctionPoint entry;
         ListIterator elements = points.listIterator();
-        
+
         while (elements.hasNext()) {
             entry = (MembershipFunctionPoint) elements.next();
-            
+
             if (entry.getX() >= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f)
                     return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * Checks whether the fuzzy number of type LR is positive. A fuzzy LR number is positive
      * if degree of membership is only greater than zero when x is also greater than zero.
@@ -201,28 +202,28 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
     public synchronized boolean isPositive() {
         MembershipFunctionPoint entry;
         ListIterator elements = points.listIterator();
-        
+
         while (elements.hasNext()) {
             entry = (MembershipFunctionPoint) elements.next();
-            
+
             if (entry.getX() <= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f)
                     return false;
             } else
-                
+
                 return true;
         }
-        
+
         return true;
     }
-    
+
     /**
      * Negates the fuzzy number of type LR.
      */
     public synchronized void negate() {
         super.negate();
     }
-    
+
     /**
      * Sets the degree of membership at <code>x</code> to 0.0.
      * @param x the x coodinate
@@ -234,16 +235,16 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
         // Fuzzy-LR-Zahl in eine Fuzzy-Zahl konvertieren, Punkt loeschen und auf Fuzzy-Intervall pruefen.
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.remove(x);
-        
+
         if (fs.isValidFuzzyLRNumber()) {
             this.points = fs.points;
-            
+
             return retfloat;
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));
     }
-    
+
     /**
      * Defines at <code>x</code> a new degree of membership.
      * @param x the x coodinate
@@ -256,17 +257,17 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
         // Fuzzy-LR-Zahl in eine Fuzzy-Zahl konvertieren, Punkt einfuegen und auf Fuzzy-LR-Zahl pruefen.
         FuzzyNumber fn = new FuzzyNumber(this);
         float retfloat = fn.set(x, dom);
-        
+
         if (fn.isValidFuzzyLRNumber()) {
             this.points = fn.points;
-            
+
             //                    this.reduce();
             return retfloat;
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));
     }
-    
+
     /**
      * Returns a textual representation of the fuzzy LR number
      * @param withPoints Decides whether the membership function points are part of the representation
@@ -276,7 +277,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
         if (withPoints)
             return super.toString();
         else
-            
+
             return FuzzyResourceManager.getString(this, "FUZZY_LR_NUMBER_WITHOUT_POINTS",
                     new Object[] { Integer.toString(points.size()) });
     }

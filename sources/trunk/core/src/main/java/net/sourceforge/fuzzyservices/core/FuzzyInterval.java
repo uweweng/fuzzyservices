@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -45,7 +46,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Default constructor is private
      * because an undefined membership function can not be a valid fuzzy interval.
@@ -53,7 +54,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public FuzzyInterval() {
         // Not allowed
     }
-    
+
     /**
      * Creates a fuzzy interval with a membership function like a trapezium.
      * The degree of membership between <code>plateau1</code> and <code>plateau2</code> is 1.0.
@@ -77,7 +78,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
         } else
             throw new IllegalArgumentException();
     }
-    
+
     /**
      * Creates a fuzzy interval by converting a fuzzy interval of type LR.
      * A fuzzy LR interval is always a valid fuzzy interval.
@@ -86,11 +87,11 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      */
     public FuzzyInterval(final FuzzyLRInterval fi) throws NullPointerException{
         ListIterator elements = fi.points.listIterator();
-        
+
         while (elements.hasNext())
             points.add(((MembershipFunctionPoint) elements.next()).clone());
     }
-    
+
     /**
      * Creates a fuzzy interval by converting a fuzzy set.
      * The fuzzy set has to fulfill the requirements of a fuzzy interval.
@@ -101,14 +102,14 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public FuzzyInterval(final FuzzySet fs) throws NullPointerException, IllegalArgumentException{
         if (fs.isValidFuzzyInterval()) {
             ListIterator elements = fs.points.listIterator();
-            
+
             while (elements.hasNext())
                 points.add(((MembershipFunctionPoint) elements.next()).clone());
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
     }
-    
+
     /**
      * Creates the inverse of the membership function. Due to mathematical restrictions it is impossible
      * to calculate the inverse at <tt>x = 0</tt>, because there is a definition lack.
@@ -119,7 +120,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public synchronized void invert() throws ArithmeticException{
         super.invert();
     }
-    
+
     /**
      * Checks whether the fuzzy interval is negative. A fuzzy interval is negative
      * if degree of membership is only greater than zero when x is lower than zero.
@@ -128,19 +129,19 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public synchronized boolean isNegative() {
         MembershipFunctionPoint entry;
         ListIterator elements = points.listIterator();
-        
+
         while (elements.hasNext()) {
             entry = (MembershipFunctionPoint) elements.next();
-            
+
             if (entry.getX() >= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f)
                     return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * Checks whether the fuzzy interval is positive. A fuzzy interval is positive
      * if degree of membership is only greater than zero when x is also greater than zero.
@@ -149,21 +150,21 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public synchronized boolean isPositive() {
         MembershipFunctionPoint entry;
         ListIterator elements = points.listIterator();
-        
+
         while (elements.hasNext()) {
             entry = (MembershipFunctionPoint) elements.next();
-            
+
             if (entry.getX() <= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f)
                     return false;
             } else
-                
+
                 return true;
         }
-        
+
         return true;
     }
-    
+
     /**
      * Checks whether the membership function of this fuzzy interval fulfills the requirements of a fuzzy LR interval.
      * In addition to the requirements for a fuzzy interval the membership function must be represented
@@ -173,17 +174,17 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public synchronized boolean isValidFuzzyLRInterval() {
         FuzzyInterval fi = (FuzzyInterval) this.clone();
         fi.reduce();
-        
+
         return ((fi.size() == 4) ? true : false);
     }
-    
+
     /**
      * Negates the fuzzy interval.
      */
     public synchronized void negate() {
         super.negate();
     }
-    
+
     /**
      * Sets the degree of membership at <code>x</code> to 0.0.
      * @param x the x coodinate
@@ -195,16 +196,16 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
         // Fuzzy-Intervall in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Intervall pruefen
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.remove(x);
-        
+
         if (fs.isValidFuzzyInterval()) {
             this.points = fs.points;
-            
+
             return retfloat;
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
     }
-    
+
     /**
      * Defines at <code>x</code> a new degree of membership.
      * @param x the x coodinate
@@ -217,16 +218,16 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
         // Fuzzy-Intervall in eine Fuzzy-Menge konvertieren, Punkt einfuegen und auf Fuzzy-Intervall pruefen.
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.set(x, dom);
-        
+
         if (fs.isValidFuzzyInterval()) {
             this.points = fs.points;
-            
+
             return retfloat;
         } else
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
     }
-    
+
     /**
      * Returns a textual representation of the fuzzy interval
      * @param withPoints Decides whether the membership function points are part of the representation
@@ -236,7 +237,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
         if (withPoints)
             return super.toString();
         else
-            
+
             return FuzzyResourceManager.getString(this, "FUZZY_INTERVAL_WITHOUT_POINTS",
                     new Object[] { Integer.toString(points.size()) });
     }

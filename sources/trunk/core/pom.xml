@@ -13,7 +13,7 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Fuzzy Services Core</name>
-  <url>http://sourceforge.net/projects/fs-on-sf/</url>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

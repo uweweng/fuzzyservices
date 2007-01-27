@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -34,7 +35,7 @@ import java.io.Serializable;
 /**
  * This class represents a rule base according to JavaBeans conventions.
  *
- * @see com.jfuzzy.core.RuleBase
+ * @see net.sourceforge.fuzzyservices.core.RuleBase
  *
  * @since 1.0
  * @author Uwe Weng
@@ -77,9 +78,9 @@ public class RuleBaseBean implements VetoableChangeListener, Serializable {
     /**
      * Default <code>RuleBaseBean</code> constructor.  This constructor sets a
      * default accumulation operator specified in
-     * {@link com.jfuzzy.core.RuleBase}, and registers itself as a vetoable
+     * {@link net.sourceforge.fuzzyservices.core.RuleBase}, and registers itself as a vetoable
      * change listener.
-     * @see com.jfuzzy.core.RuleBase#getDefaultAccumulationOperator
+     * @see net.sourceforge.fuzzyservices.core.RuleBase#getDefaultAccumulationOperator
      */
     public RuleBaseBean() {
         accumulationOperator = FuzzyBeanUtils.convert(

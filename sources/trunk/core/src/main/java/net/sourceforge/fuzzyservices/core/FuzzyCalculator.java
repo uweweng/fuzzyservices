@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -37,7 +38,7 @@ import java.util.ListIterator;
 public final class FuzzyCalculator {
     /** The singleton instance of this fuzzy calculator. */
     private static transient FuzzyCalculator instance = null;
-    
+
     /**
      * Gets an instance of this fuzzy calculator.
      * @return an instance of this class
@@ -46,10 +47,10 @@ public final class FuzzyCalculator {
         if (instance == null) {
             instance = new FuzzyCalculator();
         }
-        
+
         return instance;
     }
-    
+
     /**
      * Adds fuzzy interval <code>operand1</code> to fuzzy interval
      * <code>operand2</code>.
@@ -61,7 +62,7 @@ public final class FuzzyCalculator {
     public FuzzyInterval add(final FuzzyInterval operand1,
             final FuzzyInterval operand2) {
         FuzzySet fs = new FuzzySet();
-        
+
         // Determine the degree of memberships in ascending order.
         float x;
         float dom = 0.0f;
@@ -72,13 +73,13 @@ public final class FuzzyCalculator {
         int pos1 = 0;
         int pos2 = 0;
         float add;
-        
+
         // Durchlaufen der aufsteigenden Flanke.
         while (dom != 1.0f) {
             if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                 pos1++;
             } else {
-                
+
                 while (((MembershipFunctionPoint) operand1.points.get(
                         pos1)).getDegreeOfMembership() < dom) {
                     pos1++;
@@ -87,7 +88,7 @@ public final class FuzzyCalculator {
             if (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                 pos2++;
             } else {
-                
+
                 while (((MembershipFunctionPoint) operand2.points.get(
                         pos2)).getDegreeOfMembership() < dom) {
                     pos2++;
@@ -101,7 +102,7 @@ public final class FuzzyCalculator {
             add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                     entryLeft1.getX())));
-            
+
             if ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) != 0.0f) {
                 x = entryLeft1.getX() + add;
@@ -110,7 +111,7 @@ public final class FuzzyCalculator {
             add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                     entryLeft2.getX()));
-            
+
             if ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) != 0.0f) {
                 x = x + add;
@@ -121,40 +122,40 @@ public final class FuzzyCalculator {
             ? entryRight1.getDegreeOfMembership()
             : entryRight2.getDegreeOfMembership());
         }
-        
+
         // Das "Plateau" einfuegen.
         while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
             pos1++;
         }
-        
+
         while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
             pos2++;
         }
-        
+
         // linke obere Ecke
         fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
                 ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
                 1.0f);
-        
+
         while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == 1.0f) {
             pos1++;
         }
-        
+
         while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == 1.0f) {
             pos2++;
         }
-        
+
         // rechte obere Ecke
         fs.set(((MembershipFunctionPoint) operand1.points.get(pos1--)).getX() +
                 ((MembershipFunctionPoint) operand2.points.get(pos2--)).getX(),
                 1.0f);
-        
+
         // Durchlaufen der abfallenden Flanke.
         while (dom != 0.0f) {
             if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                 pos1++;
             } else {
-                
+
                 while (((MembershipFunctionPoint) operand1.points.get(
                         pos1)).getDegreeOfMembership() > dom)
                     pos1++;
@@ -162,7 +163,7 @@ public final class FuzzyCalculator {
             if (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                 pos2++;
             } else {
-                
+
                 while (((MembershipFunctionPoint) operand2.points.get(
                         pos2)).getDegreeOfMembership() > dom)
                     pos2++;
@@ -181,48 +182,48 @@ public final class FuzzyCalculator {
             add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                     entryLeft1.getX())));
-            
+
             if ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) != 0.0f) {
                 x = entryLeft1.getX() + add;
             }
-            
+
             x = x + entryLeft2.getX();
             add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                     entryLeft2.getX()));
-            
+
             if ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) != 0.0f) {
                 x = x + add;
             }
-            
+
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
             dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
             ? entryRight1.getDegreeOfMembership()
             : entryRight2.getDegreeOfMembership());
         }
-        
+
         // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
         // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
         while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
             pos1++;
         }
-        
+
         while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
             pos2++;
         }
-        
+
         fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
                 ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
                 0.0f);
         // Zum Schluss unnoetige Punkte eliminieren.
         fs.reduce();
-        
+
         return new FuzzyInterval(fs);
     }
-    
+
     /**
      * Adds fuzzy LR interval <code>operand1</code> to fuzzy LR interval
      * <code>operand2</code>.
@@ -241,18 +242,18 @@ public final class FuzzyCalculator {
          * ergibt alpha, die Differenz zwischen den x-Werten des dritten und
          * vierten Punktes ergibt beta.
          */
-        
+
         // Auf einer Kopie arbeiten.
         FuzzyLRInterval op1 = (FuzzyLRInterval) operand1.clone();
         FuzzyLRInterval op2 = (FuzzyLRInterval) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 4) || (op2.size() != 4)) {
             throw new RuntimeException();
         }
-        
+
         FuzzySet fs = new FuzzySet(); // das spaetere Ergebnis
         MembershipFunctionPoint entry;
         MembershipFunctionPoint entryNext;
@@ -266,7 +267,7 @@ public final class FuzzyCalculator {
         float beta;
         float gamma;
         float delta;
-        
+
         // Werte fuer den ersten Operanden ermitteln.
         ListIterator elements = op1.points.listIterator();
         entry = (MembershipFunctionPoint) elements.next();
@@ -296,10 +297,10 @@ public final class FuzzyCalculator {
         fs.set(sum1, 1.0f);
         fs.set(sum2, 1.0f);
         fs.set(sum2 + (beta + delta), 0.0f);
-        
+
         return new FuzzyLRInterval(fs);
     }
-    
+
     /**
      * Adds fuzzy LR number <code>operand1</code> to fuzzy LR number
      * <code>operand2</code>.
@@ -318,18 +319,18 @@ public final class FuzzyCalculator {
          * ergibt alpha, die Differenz zwischen den x-Werten des zweiten und
          * dritten Punktes ergibt beta.
          */
-        
+
         // Auf einer Kopie arbeiten.
         FuzzyLRNumber op1 = (FuzzyLRNumber) operand1.clone();
         FuzzyLRNumber op2 = (FuzzyLRNumber) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 3) || (op2.size() != 3)) {
             throw new RuntimeException();
         }
-        
+
         MembershipFunctionPoint entry;
         MembershipFunctionPoint entryNext;
         float x1;
@@ -339,7 +340,7 @@ public final class FuzzyCalculator {
         float beta;
         float gamma;
         float delta;
-        
+
         // Werte fuer den ersten Operanden ermitteln.
         ListIterator elements = op1.points.listIterator();
         entry = (MembershipFunctionPoint) elements.next();
@@ -360,10 +361,10 @@ public final class FuzzyCalculator {
         x2 = entry.getX();
         // Aus den ermittelten Werten das Ergebnis bestimmen.
         xSum = x1 + x2;
-        
+
         return new FuzzyLRNumber(xSum, (alpha + gamma), (beta + delta));
     }
-    
+
     /**
      * Adds fuzzy number <code>operand1</code> to fuzzy number
      * <code>operand2</code>.
@@ -375,7 +376,7 @@ public final class FuzzyCalculator {
      */
     public FuzzyNumber add(final FuzzyNumber operand1, final FuzzyNumber operand2) {
         FuzzySet fs = new FuzzySet();
-        
+
         // Es werden die spezifizierten Zugehoerigkeitsgrade in aufsteigender
         // Reihenfolge untersucht.
         float x;
@@ -387,7 +388,7 @@ public final class FuzzyCalculator {
         int pos1 = 0;
         int pos2 = 0;
         float add;
-        
+
         // Durchlaufen der aufsteigenden Flanke
         while (dom != 1.0f) {
             if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
@@ -416,7 +417,7 @@ public final class FuzzyCalculator {
             add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                     entryLeft1.getX())));
-            
+
             if ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) != 0.0f) {
                 x = entryLeft1.getX() + add;
@@ -425,7 +426,7 @@ public final class FuzzyCalculator {
             add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                     entryLeft2.getX()));
-            
+
             if ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) != 0.0f) {
                 x = x + add;
@@ -436,20 +437,20 @@ public final class FuzzyCalculator {
             ? entryRight1.getDegreeOfMembership()
             : entryRight2.getDegreeOfMembership());
         }
-        
+
         // Die "Spitze" einfuegen.
         while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
             pos1++;
         }
-        
+
         while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
             pos2++;
         }
-        
+
         fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
                 ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
                 1.0f);
-        
+
         // Durchlaufen der abfallenden Flanke.
         while (dom != 0.0f) {
             if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
@@ -482,7 +483,7 @@ public final class FuzzyCalculator {
             add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                     entryLeft1.getX())));
-            
+
             if ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) != 0.0f) {
                 x = entryLeft1.getX() + add;
@@ -491,7 +492,7 @@ public final class FuzzyCalculator {
             add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                     entryLeft2.getX()));
-            
+
             if ((entryRight2.getDegreeOfMembership() -
                     entryLeft2.getDegreeOfMembership()) != 0.0f) {
                 x = x + add;
@@ -502,26 +503,26 @@ public final class FuzzyCalculator {
             ? entryRight1.getDegreeOfMembership()
             : entryRight2.getDegreeOfMembership());
         }
-        
+
         // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
         // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein
         while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
             pos1++;
         }
-        
+
         while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
             pos2++;
         }
-        
+
         fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
                 ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
                 0.0f);
         // Zum Schluss unnoetige Punkte eliminieren.
         fs.reduce();
-        
+
         return new FuzzyNumber(fs);
     }
-    
+
     /**
      * Devides fuzzy interval <code>operand1</code> through fuzzy interval
      * <code>operand2</code>.
@@ -540,20 +541,20 @@ public final class FuzzyCalculator {
             if (operand1.getDegreeOfMembership(0.0f) > 0.0f) {
                 return (FuzzyInterval) operand1.clone(); // entspricht 0 / operand2
             }
-            
+
             // Die Division kann auf die Multiplikation zurueckgefuehrt werden, indem operand2 invertiert und
             // anschliessend zu operand1 multipliziert wird.
-            
+
             FuzzyInterval operand2a = (FuzzyInterval) operand2.clone();
             operand2a.invert();
-            
+
             return multiply(operand1, operand2a);
         } else {
             throw new ArithmeticException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_DIVIDE_BY_ZERO"));
         }
     }
-    
+
     /**
      * Devides fuzzy LR interval <code>operand1</code> through fuzzy LR
      * interval <code>operand2</code>.
@@ -573,30 +574,30 @@ public final class FuzzyCalculator {
         FuzzyLRInterval op2 = (FuzzyLRInterval) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 4) || (op2.size() != 4)) {
             throw new RuntimeException();
         }
-        
+
         if (operand2.getDegreeOfMembership(0.0f) == 0.0f) {
             if (operand1.getDegreeOfMembership(0.0f) > 0.0f) {
                 return (FuzzyLRInterval) operand1.clone(); // entspricht 0 / operand2
             }
-            
+
             // Die Division kann auf die Multiplikation zurueckgefuehrt werden,
             // indem operand2 invertiert und anschliessend zu operand1 multipliziert wird.
-            
+
             FuzzyLRInterval operand2a = (FuzzyLRInterval) operand2.clone();
             operand2a.invert();
-            
+
             return multiply(operand1, operand2a);
         } else {
             throw new ArithmeticException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_DIVIDE_BY_ZERO"));
         }
     }
-    
+
     /**
      * Devides fuzzy LR number <code>operand1</code> through fuzzy LR number
      * <code>operand2</code>.
@@ -616,29 +617,29 @@ public final class FuzzyCalculator {
         FuzzyLRNumber op2 = (FuzzyLRNumber) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 3) || (op2.size() != 3)) {
             throw new RuntimeException();
         }
-        
+
         if (operand2.getDegreeOfMembership(0.0f) == 0.0f) {
             if (operand1.getDegreeOfMembership(0.0f) > 0.0f) {
                 return (FuzzyLRNumber) operand1.clone(); // entspricht 0 / operand2
             }
             // Die Division kann auf die Multiplikation zurueckgefuehrt werden,
             // indem operand2 invertiert und anschliessend zu operand1 multipliziert wird.
-            
+
             FuzzyLRNumber operand2a = (FuzzyLRNumber) operand2.clone();
             operand2a.invert();
-            
+
             return multiply(operand1, operand2a);
         } else {
             throw new ArithmeticException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_DIVIDE_BY_ZERO"));
         }
     }
-    
+
     /**
      * Devides fuzzy number <code>operand1</code> through fuzzy number
      * <code>operand2</code>.
@@ -656,21 +657,21 @@ public final class FuzzyCalculator {
             if (operand1.getDegreeOfMembership(0.0f) > 0.0f) {
                 return (FuzzyNumber) operand1.clone(); // entspricht 0 / operand2
             }
-            
+
             // Die Division kann auf die Multiplikation zurueckgefuehrt werden,
             // indem operand2 invertiert und
             // anschliessend zu operand1 multipliziert wird.
-            
+
             FuzzyNumber operand2a = (FuzzyNumber) operand2.clone();
             operand2a.invert();
-            
+
             return multiply(operand1, operand2a);
         } else {
             throw new ArithmeticException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_DIVIDE_BY_ZERO"));
         }
     }
-    
+
     /**
      * Multiplies fuzzy interval <code>operand1</code> with fuzzy interval
      * <code>operand2</code>.
@@ -688,7 +689,7 @@ public final class FuzzyCalculator {
                 (operand2.getDegreeOfMembership(0.0f) != 0.0f))) {
             boolean op1Positive = operand1.isPositive();
             boolean op2Positive = operand2.isPositive();
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden haben unterschiedliches Vorzeichen.
@@ -699,9 +700,9 @@ public final class FuzzyCalculator {
                     operand2.negate();
                 }
             }
-            
+
             FuzzySet fs = new FuzzySet();
-            
+
             // Es werden die spezifizierten Zugehoerigkeitsgrade in aufsteigender Reihenfolge untersucht.
             float x;
             float dom = 0.0f;
@@ -712,7 +713,7 @@ public final class FuzzyCalculator {
             int pos1 = 0;
             int pos2 = 0;
             float add;
-            
+
             // Durchlaufen der aufsteigenden Flanke.
             while (dom != 1.0f) {
                 if (((MembershipFunctionPoint) operand1.points.get(
@@ -724,7 +725,7 @@ public final class FuzzyCalculator {
                         pos1++;
                     }
                 }
-                
+
                 if (((MembershipFunctionPoint) operand2.points.get(
                         pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
@@ -734,7 +735,7 @@ public final class FuzzyCalculator {
                         pos2++;
                     }
                 }
-                
+
                 entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
                         1);
                 entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
@@ -745,23 +746,23 @@ public final class FuzzyCalculator {
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                         entryLeft1.getX())));
-                
+
                 if ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) != 0.0f) {
                     x = entryLeft1.getX() + add;
                 }
-                
+
                 add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                         entryLeft2.getX()));
-                
+
                 if ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) != 0.0f) {
                     add = add + entryLeft2.getX();
                 } else {
                     add = entryLeft2.getX();
                 }
-                
+
                 x = x * add;
                 //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
                 // ((entryRight1.getDegreeOfMembership() -
@@ -775,7 +776,7 @@ public final class FuzzyCalculator {
                 ? entryRight1.getDegreeOfMembership()
                 : entryRight2.getDegreeOfMembership());
             }
-            
+
             // Das "Plateau" einfuegen.
             while (((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getDegreeOfMembership() < dom) {
@@ -785,27 +786,27 @@ public final class FuzzyCalculator {
                     pos2)).getDegreeOfMembership() < dom) {
                 pos2++;
             }
-            
+
             // linke obere Ecke
             fs.set(((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getX(), 1.0f);
-            
+
             while (((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getDegreeOfMembership() == 1.0f) {
                 pos1++;
             }
-            
+
             while (((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getDegreeOfMembership() == 1.0f) {
                 pos2++;
             }
-            
+
             // rechte obere Ecke
             fs.set(((MembershipFunctionPoint) operand1.points.get(
                     pos1--)).getX() * ((MembershipFunctionPoint) operand2.points.get(
                     pos2--)).getX(), 1.0f);
-            
+
             // Durchlaufen der abfallenden Flanke.
             while (dom != 0.0f) {
                 if (((MembershipFunctionPoint) operand1.points.get(
@@ -817,7 +818,7 @@ public final class FuzzyCalculator {
                         pos1++;
                     }
                 }
-                
+
                 if (((MembershipFunctionPoint) operand2.points.get(
                         pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
@@ -827,7 +828,7 @@ public final class FuzzyCalculator {
                         pos2++;
                     }
                 }
-                
+
                 entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
                         1);
                 entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
@@ -838,23 +839,23 @@ public final class FuzzyCalculator {
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                         entryLeft1.getX())));
-                
+
                 if ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) != 0.0f) {
                     x = entryLeft1.getX() + add;
                 }
-                
+
                 add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                         entryLeft2.getX()));
-                
+
                 if ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) != 0.0f) {
                     add = add + entryLeft2.getX();
                 } else {
                     add = entryLeft2.getX();
                 }
-                
+
                 x = x * add;
                 // x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
                 // ((entryRight1.getDegreeOfMembership() -
@@ -868,27 +869,27 @@ public final class FuzzyCalculator {
                 ? entryRight1.getDegreeOfMembership()
                 : entryRight2.getDegreeOfMembership());
             }
-            
+
             // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
             // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
             while (((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getDegreeOfMembership() > dom) {
                 pos1++;
             }
-            
+
             while (((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getDegreeOfMembership() > dom) {
                 pos2++;
             }
-            
+
             fs.set(((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getX(), 0.0f);
             // Zum Schluss unnoetige Punkte eliminieren.
             fs.reduce();
-            
+
             FuzzyInterval result = new FuzzyInterval(fs);
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden hatten unterschiedliches Vorzeichen.
@@ -899,18 +900,18 @@ public final class FuzzyCalculator {
                 } else {
                     operand2.negate();
                 }
-                
+
                 // Ausserdem muss das Ergebnis negiert werden.
                 result.negate();
             }
-            
+
             return result;
         } else {
             return (FuzzyInterval) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
             ? operand1.clone() : operand2.clone());
         }
     }
-    
+
     /**
      * Multiplies fuzzy LR interval <code>operand1</code> with fuzzy LR
      * interval <code>operand2</code>.
@@ -929,30 +930,30 @@ public final class FuzzyCalculator {
          * ergibt alpha, die Differenz zwischen den x-Werten des dritten und
          * vierten Punktes ergibt beta.
          */
-        
+
         // Auf einer Kopie arbeiten.
         FuzzyLRInterval op1 = (FuzzyLRInterval) operand1.clone();
         FuzzyLRInterval op2 = (FuzzyLRInterval) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 4) || (op2.size() != 4)) {
             throw new RuntimeException();
         }
-        
+
         if (((op1.getDegreeOfMembership(0.0f) == 0.0f) &&
                 (op2.getDegreeOfMembership(0.0f) == 0.0f)) ||
                 ((op1.getDegreeOfMembership(0.0f) != 0.0f) &&
                 (op2.getDegreeOfMembership(0.0f) != 0.0f))) {
             boolean op1Positive = op1.isPositive();
             boolean op2Positive = op2.isPositive();
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden haben unterschiedliches Vorzeichen.
                 // Deshalb muss ein Operand temporaer negiert werden.
-                
+
                 /*
                                 if (op1.size() <= op2.size())
                                     op1.negate();
@@ -960,7 +961,7 @@ public final class FuzzyCalculator {
                  */
                 op2.negate();
             }
-            
+
             FuzzySet fs = new FuzzySet(); // das spaetere Ergebnis
             MembershipFunctionPoint entry;
             MembershipFunctionPoint entryNext;
@@ -974,7 +975,7 @@ public final class FuzzyCalculator {
             float beta;
             float gamma;
             float delta;
-            
+
             // Werte fuer den ersten Operanden ermitteln.
             ListIterator elements = op1.points.listIterator();
             entry = (MembershipFunctionPoint) elements.next();
@@ -1005,33 +1006,33 @@ public final class FuzzyCalculator {
             fs.set(mul1, 1.0f);
             fs.set(mul2, 1.0f);
             fs.set(mul2 + ((m2 * delta) + (n2 * beta) + (beta * delta)), 0.0f);
-            
+
             FuzzyLRInterval result = new FuzzyLRInterval(fs);
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden hatten unterschiedliches Vorzeichen.
                 // Deshalb wurde ein Operand temporaer negiert.
                 // Dies wird hier wieder rueckgaengig gemacht.
-                
+
                 /*
                                 if (op1.size() <= op2.size())
                                     op1.negate();
                                 else
                                     op2.negate();
                  */
-                
+
                 // Ausserdem muss das Ergebnis negiert werden.
                 result.negate();
             }
-            
+
             return result;
         }
-        
+
         return (FuzzyLRInterval) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
         ? operand1.clone() : operand2.clone());
     }
-    
+
     /**
      * Multiplies fuzzy LR number <code>operand1</code> with fuzzy LR number
      * <code>operand2</code>.
@@ -1050,30 +1051,30 @@ public final class FuzzyCalculator {
          * ergibt alpha, die Differenz zwischen den x-Werten des zweiten und
          * dritten Punktes ergibt beta.
          */
-        
+
         // Auf einer Kopie arbeiten.
         FuzzyLRNumber op1 = (FuzzyLRNumber) operand1.clone();
         FuzzyLRNumber op2 = (FuzzyLRNumber) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 3) || (op2.size() != 3)) {
             throw new RuntimeException();
         }
-        
+
         if (((op1.getDegreeOfMembership(0.0f) == 0.0f) &&
                 (op2.getDegreeOfMembership(0.0f) == 0.0f)) ||
                 ((op1.getDegreeOfMembership(0.0f) != 0.0f) &&
                 (op2.getDegreeOfMembership(0.0f) != 0.0f))) {
             boolean op1Positive = op1.isPositive();
             boolean op2Positive = op2.isPositive();
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden haben unterschiedliches Vorzeichen.
                 // Deshalb muss ein Operand temporaer negiert werden.
-                
+
                 /*
                  if (op1.size() <= op2.size())
                     op1.negate();
@@ -1081,7 +1082,7 @@ public final class FuzzyCalculator {
                  */
                 op2.negate();
             }
-            
+
             MembershipFunctionPoint entry;
             MembershipFunctionPoint entryNext;
             float x1;
@@ -1091,7 +1092,7 @@ public final class FuzzyCalculator {
             float beta;
             float gamma;
             float delta;
-            
+
             // Werte fuer den ersten Operanden ermitteln.
             ListIterator elements = op1.points.listIterator();
             entry = (MembershipFunctionPoint) elements.next();
@@ -1112,35 +1113,35 @@ public final class FuzzyCalculator {
             x2 = entry.getX();
             // Aus den ermittelten Werten das Ergebnis bestimmen (nach Dubois und Prade).
             xMul = x1 * x2;
-            
+
             FuzzyLRNumber result = new FuzzyLRNumber(xMul,
                     (((x1 * gamma) + (x2 * alpha)) - (alpha * gamma)),
                     ((x1 * delta) + (x2 * beta) + (beta * delta)));
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden hatten unterschiedliches Vorzeichen.
                 // Deshalb wurde ein Operand temporaer negiert.
                 // Dies wird hier wieder rueckgaengig gemacht.
-                
+
                 /*
                                 if (op1.size() <= op2.size())
                                     op1.negate();
                                 else
                                     op2.negate();
                  */
-                
+
                 // Ausserdem muss das Ergebnis negiert werden.
                 result.negate();
             }
-            
+
             return result;
         }
-        
+
         return (FuzzyLRNumber) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
         ? operand1.clone() : operand2.clone());
     }
-    
+
     /**
      * Multiplies fuzzy number <code>operand1</code> with fuzzy number
      * <code>operand2</code>.
@@ -1157,7 +1158,7 @@ public final class FuzzyCalculator {
                 (operand2.getDegreeOfMembership(0.0f) != 0.0f))) {
             boolean op1Positive = operand1.isPositive();
             boolean op2Positive = operand2.isPositive();
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden haben unterschiedliches Vorzeichen.
@@ -1168,9 +1169,9 @@ public final class FuzzyCalculator {
                     operand2.negate();
                 }
             }
-            
+
             FuzzySet fs = new FuzzySet();
-            
+
             // Es werden die spezifizierten Zugehoerigkeitsgrade in aufsteigender Reihenfolge untersucht.
             float x;
             float dom = 0.0f;
@@ -1181,7 +1182,7 @@ public final class FuzzyCalculator {
             int pos1 = 0;
             int pos2 = 0;
             float add;
-            
+
             // Durchlaufen der aufsteigenden Flanke.
             while (dom != 1.0f) {
                 if (((MembershipFunctionPoint) operand1.points.get(
@@ -1193,7 +1194,7 @@ public final class FuzzyCalculator {
                         pos1++;
                     }
                 }
-                
+
                 if (((MembershipFunctionPoint) operand2.points.get(
                         pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
@@ -1203,7 +1204,7 @@ public final class FuzzyCalculator {
                         pos2++;
                     }
                 }
-                
+
                 entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
                         1);
                 entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
@@ -1214,23 +1215,23 @@ public final class FuzzyCalculator {
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                         entryLeft1.getX())));
-                
+
                 if ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) != 0.0f) {
                     x = entryLeft1.getX() + add;
                 }
-                
+
                 add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                         entryLeft2.getX()));
-                
+
                 if ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) != 0.0f) {
                     add = add + entryLeft2.getX();
                 } else {
                     add = entryLeft2.getX();
                 }
-                
+
                 x = x * add;
                 //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
                 // ((entryRight1.getDegreeOfMembership() -
@@ -1244,46 +1245,46 @@ public final class FuzzyCalculator {
                 ? entryRight1.getDegreeOfMembership()
                 : entryRight2.getDegreeOfMembership());
             }
-            
+
             // Die "Spitze" einfuegen.
             while (((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getDegreeOfMembership() < dom) {
                 pos1++;
             }
-            
+
             while (((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getDegreeOfMembership() < dom) {
                 pos2++;
             }
-            
+
             fs.set(((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getX(), 1.0f);
-            
+
             // Durchlaufen der abfallenden Flanke.
             while (dom != 0.0f) {
                 if (((MembershipFunctionPoint) operand1.points.get(
                         pos1)).getDegreeOfMembership() == dom) {
                     pos1++;
                 } else {
-                    
+
                     while (((MembershipFunctionPoint) operand1.points.get(
                             pos1)).getDegreeOfMembership() > dom) {
                         pos1++;
                     }
                 }
-                
+
                 if (((MembershipFunctionPoint) operand2.points.get(
                         pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
                 } else {
-                    
+
                     while (((MembershipFunctionPoint) operand2.points.get(
                             pos2)).getDegreeOfMembership() > dom) {
                         pos2++;
                     }
                 }
-                
+
                 entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
                         1);
                 entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
@@ -1294,23 +1295,23 @@ public final class FuzzyCalculator {
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
                         entryLeft1.getX())));
-                
+
                 if ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) != 0.0f) {
                     x = entryLeft1.getX() + add;
                 }
-                
+
                 add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
                         entryLeft2.getX()));
-                
+
                 if ((entryRight2.getDegreeOfMembership() -
                         entryLeft2.getDegreeOfMembership()) != 0.0f) {
                     add = add + entryLeft2.getX();
                 } else {
                     add = entryLeft2.getX();
                 }
-                
+
                 x = x * add;
                 //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
                 // ((entryRight1.getDegreeOfMembership() -
@@ -1324,27 +1325,27 @@ public final class FuzzyCalculator {
                 ? entryRight1.getDegreeOfMembership()
                 : entryRight2.getDegreeOfMembership());
             }
-            
+
             // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
             // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
             while (((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getDegreeOfMembership() > dom) {
                 pos1++;
             }
-            
+
             while (((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getDegreeOfMembership() > dom) {
                 pos2++;
             }
-            
+
             fs.set(((MembershipFunctionPoint) operand1.points.get(
                     pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
                     pos2)).getX(), 0.0f);
             // Zum Schluss unnoetige Punkte eliminieren.
             fs.reduce();
-            
+
             FuzzyNumber result = new FuzzyNumber(fs);
-            
+
             if (((op1Positive) && (!op2Positive)) ||
                     ((!op1Positive) && (op2Positive))) {
                 // Die Operanden hatten unterschiedliches Vorzeichen.
@@ -1355,18 +1356,18 @@ public final class FuzzyCalculator {
                 } else {
                     operand2.negate();
                 }
-                
+
                 // Ausserdem muss das Ergebnis negiert werden.
                 result.negate();
             }
-            
+
             return result;
         }
-        
+
         return (FuzzyNumber) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
         ? operand1.clone() : operand2.clone());
     }
-    
+
     /**
      * Subtracts fuzzy interval <code>operand2</code> from fuzzy interval
      * <code>operand1</code>.
@@ -1381,10 +1382,10 @@ public final class FuzzyCalculator {
         // Die Subtraktion kann auf die Addition zurueckgefuehrt werden, indem operand2 negiert und anschliessend zu operand1 addiert wird.
         FuzzyInterval operand2a = (FuzzyInterval) operand2.clone();
         operand2a.negate();
-        
+
         return add(operand1, operand2a);
     }
-    
+
     /**
      * Subtracts fuzzy LR interval <code>operand2</code> from fuzzy LR interval
      * <code>operand1</code>.
@@ -1403,18 +1404,18 @@ public final class FuzzyCalculator {
         FuzzyLRInterval op2 = (FuzzyLRInterval) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 4) || (op2.size() != 4)) {
             throw new RuntimeException();
         }
-        
+
         FuzzyLRInterval operand2a = (FuzzyLRInterval) operand2.clone();
         operand2a.negate();
-        
+
         return add(operand1, operand2a);
     }
-    
+
     /**
      * Subtracts fuzzy LR number <code>operand2</code> from fuzzy LR number
      * <code>operand1</code>.
@@ -1433,18 +1434,18 @@ public final class FuzzyCalculator {
         FuzzyLRNumber op2 = (FuzzyLRNumber) operand2.clone();
         op1.reduce();
         op2.reduce();
-        
+
         // Naechste Bedingung sollte nie erfuellt sein.
         if ((op1.size() != 3) || (op2.size() != 3)) {
             throw new RuntimeException();
         }
-        
+
         FuzzyLRNumber operand2a = (FuzzyLRNumber) operand2.clone();
         operand2a.negate();
-        
+
         return add(operand1, operand2a);
     }
-    
+
     /**
      * Subtracts fuzzy number <code>operand2</code> from fuzzy number
      * <code>operand1</code>.
@@ -1458,7 +1459,7 @@ public final class FuzzyCalculator {
         // Die Subtraktion kann auf die Addition zurueckgefuehrt werden, indem operand2 negiert und anschliessend zu operand1 addiert wird
         FuzzyNumber operand2a = (FuzzyNumber) operand2.clone();
         operand2a.negate();
-        
+
         return add(operand1, operand2a);
     }
 }

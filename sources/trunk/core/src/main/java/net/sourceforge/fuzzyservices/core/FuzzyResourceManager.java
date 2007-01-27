@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -40,12 +41,12 @@ public final class FuzzyResourceManager {
      * Resource in the right language.
      */
     private static transient Locale locale = Locale.getDefault();
-    
+
     /** Creates a new instance of FuzzyResourceManager */
     private FuzzyResourceManager() {
         // Not allowed
     }
-    
+
     /**
      * Returns a string resource
      * @param caller determine location of resource via caller object
@@ -55,7 +56,7 @@ public final class FuzzyResourceManager {
     public static String getString(final Object caller, final String name) {
         return getString(caller.getClass().getPackage().getName(), name, null);
     }
-    
+
     /**
      * Returns a string resource
      * @param caller determine location of resource via caller class
@@ -65,7 +66,7 @@ public final class FuzzyResourceManager {
     public static String getString(final Class caller, final String name) {
         return getString(caller.getPackage().getName(), name, null);
     }
-    
+
     /**
      * Returns a parametrized string resource.
      * @param caller determine location of resource via caller object
@@ -77,7 +78,7 @@ public final class FuzzyResourceManager {
             final Object[] params) {
         return getString(caller.getClass().getPackage().getName(), name, params);
     }
-    
+
     /**
      * Returns a parametrized string resource.
      * @param caller determine location of resource via caller class
@@ -89,7 +90,7 @@ public final class FuzzyResourceManager {
             final Object[] params) {
         return getString(caller.getPackage().getName(), name, params);
     }
-    
+
     /**
      * Returns a parametrized string resource.
      * @param packagename determine location of resource along package path
@@ -99,15 +100,15 @@ public final class FuzzyResourceManager {
      */
     private static String getString(final String packagename, final String name,
             final Object[] params) {
-        
+
         // Load resource bundle
         ResourceBundle res = ResourceBundle.getBundle(
                 ((packagename != null) ? (packagename + ".") : "")+ "resources",
                 locale);
-        
+
         // Get resource
         String value  = res.getString(name);
-        
+
         if ((params != null) && (params.length > 0)) {
             // Format resource string with arguments if required
             MessageFormat formatter = new MessageFormat(value);
@@ -116,7 +117,7 @@ public final class FuzzyResourceManager {
         }
         return value;
     }
-    
+
     /**
      * Returns the current locale.
      * @return the locale
@@ -124,7 +125,7 @@ public final class FuzzyResourceManager {
     public static Locale getLocale() {
         return locale;
     }
-    
+
     /**
      * Defines a new locale for the resource manager
      * @param newLocale the new locale

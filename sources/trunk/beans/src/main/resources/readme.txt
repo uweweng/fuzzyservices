@@ -1,10 +1,10 @@
                                README
                                ======
                                
-                         JFuzzy, Version 1.0
+                     Fuzzy Services, Version 1.0
 
 
-Last changed at: 2007/01/03
+Last changed at: 2007/01/27
 
 
 
@@ -26,9 +26,9 @@ VIII. Web Pages and Contact
 I. Introduction
 ===============
 
-Thank you for downloading this part of JFuzzy. JFuzzy is a program library for 
-processing fuzzy information. It is implemented in the Java programming 
-language and distributed under the GNU GENERAL PUBLIC LICENSE.
+Thank you for downloading this part of Fuzzy Services. It belongs to a program
+library for processing fuzzy information. It is implemented in the Java 
+programming language and distributed under the GNU GENERAL PUBLIC LICENSE.
 
 
 
@@ -36,7 +36,8 @@ II. System Requirements and Installation
 ========================================
 
 In general, you need a Java Runtime Environment. If you downloaded an 
-enterprise component of JFuzzy it is further required an application server.
+enterprise component of Fuzzy Services it is further required an application 
+server.
 For detailed information please see the file called "install.txt".
 
 
@@ -44,7 +45,7 @@ For detailed information please see the file called "install.txt".
 III. Licensing
 ==============
 
-All parts of JFuzzy are distributed under the terms of 
+All parts of Fuzzy Services are distributed under the terms of 
 GNU GENERAL PUBLIC LICENSE. You will find a copy in license,txt.
 For further details please visit the homepage of the Free Software Foundation
 (http://www.gnu.org).
@@ -55,8 +56,8 @@ IV. Documentation
 =================
 
 The documentation for this release can be found at 
-http://www.fuzzy-services.com. A download version of the API (as JavaDoc) 
-is available, too.
+http://sourceforge.net/projects/fuzzyservices. 
+A download version of the API (as JavaDoc) is available, too.
 
 
 
@@ -72,7 +73,7 @@ VI. Compatibility
 
 Please see the file called "release.txt".
 Any compatibility problems after releasing are announced at 
-http://www.fuzzy-services.com.
+http://sourceforge.net/projects/fuzzyservices.
 
 
 
@@ -80,7 +81,8 @@ VII. Known Bugs
 ===============
 
 Please see the file called "release.txt".
-Any issues after releasing are announced at http://www.fuzzy-services.com.
+Any issues after releasing are announced at 
+http://sourceforge.net/projects/fuzzyservices.
 
 
 
@@ -89,9 +91,8 @@ VIII. Web Pages and Contact
 
 For additional information, refer to these pages on the World Wide Web:
 
-The homepage of JFuzzy with articles, further documentation, and links about Fuzzy.
-http://www.fuzzy-services.com
+The development is hosted on http://sourceforge.net/projects/fuzzyservices
 
-Feedback is most welcome. Do not hesitate to get in touch with us.
-mailto:feedback@fuzzy-services.com
+Feedback is most welcome. Do not hesitate to get in touch with me.
+mailto:uweng@users.sourceforge.net
 

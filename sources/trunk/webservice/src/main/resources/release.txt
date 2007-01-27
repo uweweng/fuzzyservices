@@ -1,10 +1,10 @@
                                RELEASE NOTES
                                =============
 
-                             JFuzzy, Version 1.0
+                         Fuzzy Services, Version 1.0
 
 
-Last changed at: 2007/01/03
+Last changed at: 2007/01/27
 
 
 
@@ -27,9 +27,9 @@ I. New Features and Enhancements
 Version 1.0
 -----------
 
-It is the first official release of JFuzzy and contains following modules:
+It is the first official release of Fuzzy Services and contains following modules:
 
-- JFuzzy Core
+- Fuzzy Services Core
 
   Basement for all other components. This package implements core fuzzy 
   elements (eg. discrete and continous Fuzzy set, linguistic variables, 
@@ -37,26 +37,25 @@ It is the first official release of JFuzzy and contains following modules:
   and fuzzy numbers and intervals for arithmetic operations with the fuzzy 
   calculator in object-oriented software design.
 
-- JFuzzy JavaBeans
+- Fuzzy Services JavaBeans
 
   Wrapper classes which follow the JavaBeans coding conventions.
 
-- JFuzzy EE Fuzzy Controller
+- Fuzzy Services EE Fuzzy Controller
 
   Fuzzy controller, implemented as Enterprise Java Bean (EJB) according to 
   version 2.0
 
-- JFuzzy EE Fuzzy Calculator
+- Fuzzy Services EE Fuzzy Calculator
 
-  Fuzzy calculator for arithmetic operations, implemented as Enterprise Java Bean (EJB) according to 
-  version 2.0
+  Fuzzy calculator for arithmetic operations, implemented as Enterprise Java 
+  Bean (EJB) according to version 2.0
 
 
 II. Compatibility with Previous Releases
 ========================================
 
 It is the first release.
-
 
 
 
@@ -78,7 +77,8 @@ V. Known Bugs and Issues
 ========================
 
 At this time no bugs are known.
-Any issues after releasing are announced at http://www.fuzzy-services.com.
+Any issues after releasing are announced at 
+http://sourceforge.net/projects/fuzzyservices.
 
 
 
@@ -87,9 +87,8 @@ VI. Web Pages and Contact
 
 For additional information, refer to these pages on the World Wide Web:
 
-The homepage of JFuzzy with articles, further documentation, and links about Fuzzy.
-http://www.fuzzy-services.com
+The development is hosted on http://sourceforge.net/projects/fuzzyservices
 
-Feedback is most welcome. Do not hesitate to get in touch with us.
-mailto:feedback@fuzzy-services.com
+Feedback is most welcome. Do not hesitate to get in touch with me.
+mailto:uweng@users.sourceforge.net
 

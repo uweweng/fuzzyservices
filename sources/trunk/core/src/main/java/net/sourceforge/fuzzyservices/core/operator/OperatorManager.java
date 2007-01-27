@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -34,24 +35,24 @@ import java.util.Vector;
  * @author Uwe Weng
  */
 public class OperatorManager {
-    
+
     /**
      * Contains all known fuzzy operators of the fuzzy system with its name as
      * key.
      */
     private static Hashtable combineOperators = new Hashtable();
-    
+
     static {
         initCombineOperators();
     }
-    
+
     /**
      * The operator manager is a static class.
      */
     public OperatorManager() {
         // Not allowed
     }
-    
+
     /**
      * Initializes the list of fuzzy operators while loading the manager.
      */
@@ -95,11 +96,11 @@ public class OperatorManager {
         YagerUnion YagerUnionOp = new YagerUnion(1.0f);
         combineOperators.put(YagerUnionOp.toString(false), YagerUnionOp);
     }
-    
+
     /**
      * Returns all registered fuzzy operators as an array.
      * @return an array of fuzzy operators
-     * @see com.jfuzzy.core.AbstractOperator
+     * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
     public static AbstractOperator[] getOperators() {
         // Alle gefundenen Objekte in ein Standard-Array uebertragen
@@ -115,26 +116,26 @@ public class OperatorManager {
         }
         return null;
     }
-    
+
     /**
      * Returns a fuzzy operator with passed name.
      *
      * @param name the name as identifier
      * @return an instance of type <code>AbstractOperator</code> or
      * <code>null</code>
-     * @see com.jfuzzy.core.AbstractOperator
+     * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
     public static AbstractOperator getOperator(String name) {
         return (AbstractOperator) combineOperators.get(name);
     }
-    
+
     /**
      * Register a fuzzy operator on the fuzzy system.
      *
      * @param op the new fuzzy operator
      * @return an instance of type <code>AbstractOperator</code>
      * if such object with the same name already exists or <code>null</code>
-     * @see com.jfuzzy.core.AbstractOperator
+     * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
     public static AbstractOperator registerOperator(AbstractOperator op) {
         if (op.requiresParameter())

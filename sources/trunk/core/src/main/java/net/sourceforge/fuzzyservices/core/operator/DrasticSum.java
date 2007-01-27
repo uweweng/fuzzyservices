@@ -2,20 +2,21 @@
  *
  *  Copyright (C) 2007  Uwe Weng
  *
- *  This file is part of JFuzzy, a library for processing fuzzy information.
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
  *
- *  JFuzzy is free software; you can redistribute it and/or modify
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  JFuzzy is distributed in the hope that it will be useful,
+ *  Fuzzy Services are distributed in the hope that they will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with JFuzzy; if not, write to the Free Software
+ *  along with Fuzzy Services; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
@@ -43,7 +44,7 @@ public class DrasticSum extends AbstractDrasticOperator
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Returns the value if no condition is fullfiled
      * @return <code>1.0</code>
@@ -52,7 +53,7 @@ public class DrasticSum extends AbstractDrasticOperator
     float getDefaultValue() {
         return 1.0f;
     }
-    
+
     /**
      * Returns the value which has to be fullfiled
      * @return <code>0.0</code>
@@ -61,7 +62,7 @@ public class DrasticSum extends AbstractDrasticOperator
     float getConditionValue() {
         return 0.0f;
     }
-    
+
     /**
      * Indicates whether an operator fullfils the t-norm.
      * @return <code>false</code> because this operator does not fullfil the
@@ -70,7 +71,7 @@ public class DrasticSum extends AbstractDrasticOperator
     public boolean isValidTNorm() {
         return false;
     }
-    
+
     /**
      * Indicates whether an operator fullfils the s-norm.
      * @return <code>true</code> because this operator fullfils the s-norm.
@@ -78,7 +79,7 @@ public class DrasticSum extends AbstractDrasticOperator
     public boolean isValidSNorm() {
         return true;
     }
-    
+
     /**
      * Computes the new degree of membership using the calculation rule
      * <tt>c = min(a,b)</tt>.
@@ -96,7 +97,7 @@ public class DrasticSum extends AbstractDrasticOperator
         }
         return calc;
     }
-    
+
     /**
      * Returns a textual representation of the operator
      * @return a string representation of the operator
@@ -104,7 +105,7 @@ public class DrasticSum extends AbstractDrasticOperator
     public String toString() {
         return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_SUM");
     }
-    
+
     /**
      * Indicates whether some other object is "equal to" this operator
      * @param obj the reference object with which to compare

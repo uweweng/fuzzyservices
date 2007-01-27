@@ -13,7 +13,7 @@
   <packaging>ejb</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Fuzzy Services EJB Fuzzy Controller</name>
-  <url>http://sourceforge.net/projects/fs-on-sf/</url>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
   <profiles>
         <profile>
             <id>netbeans-public</id>
