@@ -12,14 +12,11 @@
     <license>
       <name>GNU GENERAL PUBLIC LICENSE</name>
       <url>http://www.gnu.org/licenses/gpl.txt</url>
-      <distribution>manual</distribution>
-      <!-- coming soon
       <distribution>repo</distribution>
-      -->
       <comments>Version 2, June 1991</comments>
     </license>
   </licenses>
-  
+
   <organization>
     <name>Fuzzy Services</name>
     <url>http://sourceforge.net/projects/fuzzyservices</url>
@@ -40,18 +37,52 @@
       <timezone>1</timezone>
     </developer>
   </developers>  
-  
+
+<scm>
+  <connection>scm:svn:https://svn.sourceforge.net/svnroot/fuzzyservices/sources/trunk</connection>
+  <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/fuzzyservices/sources/trunk</developerConnection>
+  <url>http://svn.sourceforge.net/viewcvs.cgi/fuzzyservices/sources/trunk</url>
+</scm>
+
+<issueManagement>
+  <system>sourceforge</system>
+  <url>http://sourceforge.net/tracker/?group_id=186696</url>
+</issueManagement>    
+
+<distributionManagement>
+  <site>
+   <id>sourceforge.net</id>
+   <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url>
+  </site>
+</distributionManagement>
+
   <modules>
     <module>build-tools</module>
     <module>core</module>
     <module>beans</module>
     <module>ejb-fuzzycalculator</module>
     <module>ejb-fuzzycontroller</module>
-<!--    <module>webservice</module> -->
+    <module>webservice</module>
   </modules>
   
   <reporting>
     <plugins>
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-changes-plugin</artifactId>
+  <inherited>false</inherited>
+  <reportSets>
+    <reportSet>
+      <reports>
+        <report>changes-report</report>
+      </reports>
+    </reportSet>
+  </reportSets>
+  <configuration>
+    <issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+  </configuration>
+</plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -164,7 +195,7 @@
   </reporting>
 
   <build>
-  
+<!--  
     <extensions>
       <extension>
         <groupId>${pom.groupId}</groupId>
@@ -172,7 +203,7 @@
         <version>${pom.version}</version>
       </extension>
     </extensions>
-  
+ --> 
   
     <plugins>
       <plugin>
@@ -216,14 +247,13 @@
         </configuration>
       </plugin>
 
-        <!--
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>https://fuzzyservices.svn.sourceforge.net/svnroot/sources/tags</tagBase>
+          <tagBase>https://fuzzyservices.svn.sourceforge.net/svnroot/fuzzyservices/sources/tags</tagBase>
         </configuration>
       </plugin>
-        -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -251,7 +281,16 @@
         </configuration>
       </plugin>
 
+
     </plugins>
   </build>
-  
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-release-plugin</artifactId>
+      <version>2.0-beta-4</version>
+    </dependency>
+  </dependencies>
+ 
 </project>
