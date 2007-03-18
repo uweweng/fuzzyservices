@@ -56,6 +56,23 @@
   </site>
 </distributionManagement>
 
+<mailingLists>
+  <mailingList>
+    <name>Fuzzyservices Development Mailing list</name>
+    <subscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-development</subscribe>
+    <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-development</unsubscribe>
+    <archive>http://sourceforge.net/mailarchive/forum.php?forum=fuzzyservices-development</archive>
+    <post>fuzzyservices-development@lists.sourceforge.net</post>
+  </mailingList>
+  <mailingList>
+    <name>Fuzzyservices User Mailing list</name>
+    <subscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-users</subscribe>
+    <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-users</unsubscribe>
+    <archive>http://sourceforge.net/mailarchive/forum.php?forum=fuzzyservices-users</archive>
+    <post>fuzzyservices-users@lists.sourceforge.net</post>
+  </mailingList>
+</mailingLists>
+
   <modules>
     <module>build-tools</module>
     <module>core</module>
@@ -68,21 +85,28 @@
   <reporting>
     <plugins>
 
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-changes-plugin</artifactId>
-  <inherited>false</inherited>
-  <reportSets>
-    <reportSet>
-      <reports>
-        <report>changes-report</report>
-      </reports>
-    </reportSet>
-  </reportSets>
-  <configuration>
-    <issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
-  </configuration>
-</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <inherited>false</inherited>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <configuration>
+          <issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-poject-info-reports-plugin</artifactId>
+        <configuration>
+        </configuration>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
