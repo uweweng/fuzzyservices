@@ -285,7 +285,6 @@
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <tagBase>https://fuzzyservices.svn.sourceforge.net/svnroot/fuzzyservices/sources/tags</tagBase>
         </configuration>
       </plugin>
 
