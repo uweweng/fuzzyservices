@@ -4,7 +4,7 @@
   <groupId>net.sourceforge.fuzzyservices</groupId>
   <artifactId>fuzzyservices</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Fuzzy Services on Sourceforge.net</name>
   <url>http://sourceforge.net/projects/fuzzyservices</url>
 
@@ -50,6 +50,10 @@
 </issueManagement>    
 
 <distributionManagement>
+  <repository>
+    <id>ftp-sourceforge.net</id>
+    <url>ftp://upload.sourceforge.net/incoming</url>
+  </repository>
   <site>
    <id>sourceforge.net</id>
    <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url>
@@ -228,6 +232,13 @@
       </extension>
     </extensions>
  --> 
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ftp</artifactId>
+         <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
   
     <plugins>
       <plugin>
