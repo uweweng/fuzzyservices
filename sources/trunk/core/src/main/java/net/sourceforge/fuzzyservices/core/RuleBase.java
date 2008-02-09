@@ -23,12 +23,11 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
-import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.Max;
-import java.util.Enumeration;
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A rule base consists of rules which makes statements about relations of linguistic variables.
@@ -47,29 +46,25 @@ public class RuleBase implements Cloneable, Serializable {
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-
     /**
      * By default, a MAX-AbstractOperator is used for accumulation.
      */
     private static AbstractOperator defaultAccumulationOperator = new Max(); // s-Norm
-
     /**
      * For accumulation an operator which fulfills the s-norm, is required.
      * Accumulation means the aggregation of partial results of inferencing.
      */
     private AbstractOperator accumulationOp = defaultAccumulationOperator; // accumulation-AbstractOperator (s-Norm)
-
     /**
      * All rules are stored in a vector.
      */
-    private java.util.Vector rules = new java.util.Vector();
-
+    private List<Rule> rules = new ArrayList<Rule>();
     /** A rule base can have a name. */
     protected String name = null;
 
     /** Default constructor which creates an empty rule base. */
     public RuleBase() {
-        // Default constructor
+    // Default constructor
     }
 
     /**
@@ -78,34 +73,27 @@ public class RuleBase implements Cloneable, Serializable {
      */
     public RuleBase(final Rule rule) {
         if (rule != null) {
-            rules.addElement(rule.clone());
+            rules.add(rule);
         }
     }
 
     /**
      * Adds a rule to the rule base.
      * @param rule the new rule of the rule base.
-     * @exception IllegalArgumentException if rule is incomplete
      */
-    public synchronized void add(final Rule rule) throws IllegalArgumentException{
+    public synchronized void add(final Rule rule) {
         if (rule == null) {
             return;
         }
 
-        Enumeration elementsAnte = rule.getAntecedents();
-        Enumeration elementsCon = rule.getConsequents();
-
-        if ((elementsAnte.hasMoreElements()) &&
-                (elementsCon.hasMoreElements())) {
-            if (!rules.contains(rule))
-                rules.addElement(rule.clone());
-        } else
-            throw new IllegalArgumentException();
+        if (!rules.contains(rule)) {
+            rules.add(rule);
+        }
     }
 
     /** Removes all rules from this rule base. */
     public synchronized void clear() {
-        rules.removeAllElements();
+        rules.clear();
     }
 
     /**
@@ -122,26 +110,6 @@ public class RuleBase implements Cloneable, Serializable {
     }
 
     /**
-     * Checks whether a linguistic variable is referenced in one of the rules within this rule base.
-     * @param lv the linguistic variable for checking
-     * @return <code>true</code> if at least one rule makes a statement about the linguistic variable
-     */
-    public synchronized boolean containsLinguisticVariable(
-            final LinguisticVariable lv) {
-        if (lv != null) {
-            java.util.Enumeration elements = rules.elements();
-
-            while (elements.hasMoreElements()) {
-                if (((Rule) elements.nextElement()).containsLinguisticVariable(
-                        lv))
-                    return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Checks whether a linguistic variable with <code>name</code> is referenced in one of the rules within this rule base.
      * @param lingVarName the name of the linguistic variable for checking
      * @return <code>true</code> if at least one rule makes a statement about the linguistic variable
@@ -149,24 +117,21 @@ public class RuleBase implements Cloneable, Serializable {
     public synchronized boolean containsLinguisticVariable(
             final String lingVarName) {
         if (lingVarName != null) {
-            java.util.Enumeration elements = rules.elements();
-
-            while (elements.hasMoreElements()) {
-                if (((Rule) elements.nextElement()).containsLinguisticVariable(
-                        lingVarName))
+            for (Rule rule : rules) {
+                if (rule.containsLinguisticVariable(lingVarName) == true) {
                     return true;
+                }
             }
         }
-
         return false;
     }
 
     /**
-     * Returns all rules as enumeration.
-     * @return an enumeration with all rules of this rule base
+     * Returns all rules as iterator.
+     * @return an iterator with all rules of this rule base
      */
-    public synchronized Enumeration elements() {
-        return rules.elements();
+    public synchronized Iterator<Rule> iterator() {
+        return rules.iterator();
     }
 
     /**
@@ -200,8 +165,8 @@ public class RuleBase implements Cloneable, Serializable {
      * @return die rule at this position
      * @exception IndexOutOfBoundsException if index <code>i</code> does not exist in rule base
      */
-    protected synchronized Rule getRule(final int i) throws IndexOutOfBoundsException{
-        return (Rule) rules.elementAt(i);
+    protected synchronized Rule getRule(final int i) throws IndexOutOfBoundsException {
+        return rules.get(i);
     }
 
     /**
@@ -218,8 +183,9 @@ public class RuleBase implements Cloneable, Serializable {
      * @return <code>true</code> if the rule was removed successfully, <code>false</code> otherwise.
      */
     public synchronized boolean remove(final Rule rule) {
-        if (rule != null)
-            return rules.removeElement(rule);
+        if (rule != null) {
+            return rules.remove(rule);
+        }
 
         return false;
     }
@@ -230,12 +196,12 @@ public class RuleBase implements Cloneable, Serializable {
      * @exception NullPointerException if <code>accOp</code> is <code>null</code>
      * @exception IllegalArgumentException if the operator does not fulfill the s-norm
      */
-    public synchronized void setAccumulationOperator(final AbstractOperator accOp) throws NullPointerException, IllegalArgumentException{
-        if (accOp.isValidSNorm())
+    public synchronized void setAccumulationOperator(final AbstractOperator accOp) throws NullPointerException, IllegalArgumentException {
+        if (accOp.isValidSNorm()) {
             accumulationOp = accOp;
-        else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_S_NORM_OPERATOR"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_S_NORM_OPERATOR"));
+        }
     }
 
     /**
@@ -245,12 +211,13 @@ public class RuleBase implements Cloneable, Serializable {
      * @exception IllegalArgumentException if the operator does not fulfill the s-norm
      */
     public static synchronized void setDefaultAccumulationOperator(
-            final AbstractOperator accOp) throws NullPointerException, IllegalArgumentException{
-        if (accOp.isValidSNorm())
+            final AbstractOperator accOp) throws NullPointerException, IllegalArgumentException {
+        if (accOp.isValidSNorm()) {
             defaultAccumulationOperator = accOp;
-        else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     RuleBase.class, "EXCEPTION_INVALID_S_NORM_OPERATOR"));
+        }
     }
 
     /**
@@ -268,8 +235,8 @@ public class RuleBase implements Cloneable, Serializable {
      * @param i the index within the rule base
      * @exception ArrayIndexOutOfBoundsException if the index does not exist in rule base
      */
-    protected synchronized void setRule(final Rule rule, final int i) throws ArrayIndexOutOfBoundsException{
-        rules.setElementAt(rule, i);
+    protected synchronized void setRule(final Rule rule, final int i) throws ArrayIndexOutOfBoundsException {
+        rules.set(i, rule);
     }
 
     /**
@@ -280,21 +247,16 @@ public class RuleBase implements Cloneable, Serializable {
         return rules.size();
     }
 
-    /**
-     * Creates and returns a copy of this rule base.
-     * @return a copy of this rule base
-     */
+    @Override
     public Object clone() {
         try {
             RuleBase newObj = (RuleBase) super.clone();
             // Duplicate the rules
-            newObj.rules = new java.util.Vector(rules.size());
+            newObj.rules = new ArrayList<Rule>(rules.size());
 
-            Enumeration elements = rules.elements();
-
-            while (elements.hasMoreElements())
-                newObj.rules.addElement(((Rule) elements.nextElement()).clone());
-
+            for (Rule rule : rules) {
+                newObj.rules.add((Rule) rule.clone());
+            }
             return newObj;
         } catch (java.lang.CloneNotSupportedException e) {
             // it is impossible
@@ -302,37 +264,30 @@ public class RuleBase implements Cloneable, Serializable {
         }
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this rule base
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this rule base is the same as the <code>obj</code> argument, <code>false</code> otherwise.
-     */
+    @Override
     public boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof RuleBase)) {
             // Compare only the operator and rules, not the name of the rule base
             if ((!accumulationOp.equals(((RuleBase) obj).accumulationOp)) ||
-                    (this.rules.size() != ((RuleBase) obj).rules.size()))
+                    (this.rules.size() != ((RuleBase) obj).rules.size()) ||
+                    (this.rules.equals(((RuleBase) obj).rules) == false)) {
                 return false;
-
-            // Compare rules pairwise
-            Enumeration elementsThis = this.rules.elements();
-            Enumeration elementsObj = ((RuleBase) obj).rules.elements();
-
-            while (elementsThis.hasMoreElements()) {
-                if (!elementsThis.nextElement().equals(elementsObj.nextElement()))
-                    return false;
             }
-
             return true;
         }
-
         return false;
     }
 
-    /**
-     * Returns a textual representation of the rule base
-     * @return a string representation of the rule base
-     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (this.accumulationOp != null ? this.accumulationOp.hashCode() : 0);
+        hash = 29 * hash + (this.rules != null ? this.rules.hashCode() : 0);
+        // hash = 29 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return toString(false);
     }
@@ -344,11 +299,11 @@ public class RuleBase implements Cloneable, Serializable {
      * @see Rule#toString
      */
     public String toString(final boolean withRules) {
-        if (withRules)
+        if (withRules) {
             return rules.toString();
-        else
-
+        } else {
             return FuzzyResourceManager.getString(this, "RULE_BASE_WITHOUT_RULES",
-                    new Object[] { Integer.toString(rules.size()) });
+                    new Object[]{Integer.toString(rules.size())});
+        }
     }
 }

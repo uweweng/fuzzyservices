@@ -28,8 +28,7 @@ import net.sourceforge.fuzzyservices.core.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
 import java.io.Serializable;
-import java.util.Enumeration;
-
+import java.util.Iterator;
 
 /**
  * The class <code>CenterOfArea</code> represents a defuzzification method. In
@@ -39,29 +38,24 @@ import java.util.Enumeration;
  * @author Uwe Weng
  * @since 1.0
  */
-public class CenterOfArea extends AbstractDefuzzificator
-        implements Serializable {
+public class CenterOfArea extends AbstractDefuzzificator implements Serializable {
+
     /**
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Defuzzifies the membership function object.
-     * @return The crisp value as result of the defuzzification
-     * @param f The membership function to be defuzzified
-     */
-    public float defuzzify(MembershipFunction f) {
+    @Override
+    public float defuzzify(MembershipFunction membershipFunction) {
 
-        if (f != null) {
-            Enumeration elements = f.elements();
+        if (membershipFunction != null) {
 
-            if (elements.hasMoreElements()) {
+            for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
 
-                float x1 = ((Float) elements.nextElement()).floatValue();
-                float y1 = f.getDegreeOfMembership(x1);
+                float x1 = it.next().floatValue();
+                float y1 = membershipFunction.getDegreeOfMembership(x1);
 
-                if (elements.hasMoreElements()) {
+                if (it.hasNext() == true) {
                     float x2;
                     float y2;
                     float diff;
@@ -71,9 +65,9 @@ public class CenterOfArea extends AbstractDefuzzificator
                     float zaehler = 0.0f;
                     float nenner = 0.0f;
 
-                    while (elements.hasMoreElements()) {
-                        x2 = ((Float) elements.nextElement()).floatValue();
-                        y2 = f.getDegreeOfMembership(x2);
+                    while (it.hasNext() == true) {
+                        x2 = it.next().floatValue();
+                        y2 = membershipFunction.getDegreeOfMembership(x2);
 
                         slope = (y2 - y1) / (x2 - x1);
                         diff = y1 - (slope * x1);
@@ -105,26 +99,9 @@ public class CenterOfArea extends AbstractDefuzzificator
         return Float.NaN;
     }
 
-    /**
-     * Returns a textual representation of the defuzzificator
-     * @return a string representation of the defzzificator
-     */
+    @Override
     public String toString() {
         return FuzzyResourceManager.getString(this,
                 "DEFUZZIFICATOR_CENTER_OF_AREA");
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this defuzzificator
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this defuzzificator is the same as the
-     * <code>obj</code> argument, <code>false</code> otherwise.
-     */
-    public boolean equals(Object obj) {
-        boolean isEqual = false;
-        if ((obj != null) && (obj instanceof CenterOfArea)) {
-            isEqual = true;
-        }
-        return isEqual;
     }
 }

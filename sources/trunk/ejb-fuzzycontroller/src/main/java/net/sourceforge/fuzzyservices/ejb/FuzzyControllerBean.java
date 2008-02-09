@@ -23,10 +23,16 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb;
 
+import javax.ejb.EJBHome;
+import javax.ejb.EJBObject;
+import javax.ejb.Handle;
+import javax.ejb.RemoveException;
 import net.sourceforge.fuzzyservices.beans.FactBaseBean;
 import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
 import net.sourceforge.fuzzyservices.core.FactBase;
 import net.sourceforge.fuzzyservices.core.RuleBase;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
+import net.sourceforge.fuzzyservices.core.LinguisticVariable;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 import java.rmi.RemoteException;
@@ -40,32 +46,64 @@ import javax.ejb.CreateException;
  * @since 1.0
  * @author Uwe Weng
  */
-public class FuzzyControllerBean implements SessionBean {
+public class FuzzyControllerBean implements SessionBean, FuzzyController {
 
     private SessionContext ctx;
 
+    @Override
     public void setSessionContext(SessionContext context) throws RemoteException, EJBException {
         ctx = context;
     }
 
+    @Override
     public void ejbActivate() throws EJBException {
     }
 
+    @Override
     public void ejbPassivate() throws EJBException {
     }
 
+    @Override
     public void ejbRemove() throws EJBException {
     }
 
     public void ejbCreate() throws CreateException, EJBException {
     }
 
+    @Override
     public FactBaseBean performApproximateReasoning(final RuleBaseBean ruleBase,
-        final FactBaseBean factBase) throws EJBException {
-            return net.sourceforge.fuzzyservices.beans.FuzzyControllerBean.getInstance().performApproximateReasoning(ruleBase, factBase);
+        final FactBaseBean factBase, final LinguisticVariableBean[] lv) throws EJBException {
+            return net.sourceforge.fuzzyservices.beans.FuzzyControllerBean.getInstance().performApproximateReasoning(ruleBase, factBase, lv);
     }
 
-    public FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase) throws EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance().performApproximateReasoning(ruleBase, factBase);
+    @Override
+    public FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] lv) throws EJBException {
+        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance().performApproximateReasoning(ruleBase, factBase, lv);
     }
+
+    @Override
+    public EJBHome getEJBHome() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object getPrimaryKey() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void remove() throws RemoteException, RemoveException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Handle getHandle() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isIdentical(EJBObject arg0) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

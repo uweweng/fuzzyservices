@@ -24,9 +24,7 @@
 package net.sourceforge.fuzzyservices.core;
 
 import junit.framework.*;
-import java.text.MessageFormat;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * Test for class <code>FuzzyResourceManager</code>
@@ -83,5 +81,4 @@ public class FuzzyResourceManagerTest extends TestCase {
         FuzzyResourceManager.setLocale(newLocale);
         assertEquals(FuzzyResourceManager.getLocale(), newLocale);
     }
-
 }

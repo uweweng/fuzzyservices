@@ -128,7 +128,7 @@ public class FactBaseBean implements VetoableChangeListener, Serializable {
             // Duplicate facts to one linguistic variable?
             for (int i = 0; i < (newFacts.length - 1); i++) {
                 if (newFacts[i] != null) {
-                    if (newFacts[i].getLinguisticVariable() == null) {
+                    if (newFacts[i].getLinguisticVariableName() == null) {
                         throw new IllegalArgumentException(
                                 FuzzyResourceManager.getString(this,
                                 "EXCEPTION_FACT_WITHOUT_LV"));
@@ -136,9 +136,9 @@ public class FactBaseBean implements VetoableChangeListener, Serializable {
 
                     for (int j = i + 1; j < newFacts.length; j++) {
                         if ((newFacts[j] != null) &&
-                                (newFacts[j].getLinguisticVariable() != null)) {
-                            if (newFacts[j].getLinguisticVariable()
-                            .equals(newFacts[i].getLinguisticVariable()) == true) {
+                                (newFacts[j].getLinguisticVariableName() != null)) {
+                            if (newFacts[j].getLinguisticVariableName()
+                            .equals(newFacts[i].getLinguisticVariableName()) == true) {
                                 throw new IllegalArgumentException(
                                         FuzzyResourceManager.getString(this,
                                         "EXCEPTION_FACT_BASE_WITH_DUPLICATE_LV"));
@@ -190,7 +190,7 @@ public class FactBaseBean implements VetoableChangeListener, Serializable {
     throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
         // Check facts
         if (newFacts != null) {
-            if (newFacts.getLinguisticVariable() == null) {
+            if (newFacts.getLinguisticVariableName() == null) {
                 throw new IllegalArgumentException(FuzzyResourceManager.getString(
                         this, "EXCEPTION_FACT_WITHOUT_LV"));
             }
@@ -198,8 +198,8 @@ public class FactBaseBean implements VetoableChangeListener, Serializable {
             // Duplicate facts to one linguistic variable?
             for (int i = 0; i < this.facts.length; i++) {
                 if ((this.facts[i] != null) && (i != index)) {
-                    if (newFacts.getLinguisticVariable()
-                    .equals(this.facts[i].getLinguisticVariable()) == true) {
+                    if (newFacts.getLinguisticVariableName()
+                    .equals(this.facts[i].getLinguisticVariableName()) == true) {
                         throw new IllegalArgumentException(
                                 FuzzyResourceManager.getString(this,
                                 "EXCEPTION_FACT_BASE_WITH_DUPLICATE_LV"));
@@ -239,20 +239,21 @@ public class FactBaseBean implements VetoableChangeListener, Serializable {
     public void vetoableChange(PropertyChangeEvent evt)
     throws PropertyVetoException {
         String prop = evt.getPropertyName();
-        if (prop.equals(FactBean.LINGUISTIC_VARIABLE_PROPERTY) == true) {
+        if (prop.equals(FactBean.LINGUISTIC_VARIABLE_NAME_PROPERTY) == true) {
+          
             if (evt.getNewValue() == null) {
                 throw new PropertyVetoException(FuzzyResourceManager.getString(
                         this, "EXCEPTION_FACT_WITHOUT_LV"), evt);
             }
 
-            // Check for duplicate facts to one linguistic variable
-            LinguisticVariableBean newLinguisticVariable
-                    = (LinguisticVariableBean) evt.getNewValue();
+            // Check for duplicate facts to one linguistic variable (name)
+            String newLinguisticVariableName
+                    = (String) evt.getNewValue();
 
             for (int i = 0; i < this.facts.length; i++) {
                 if ((this.facts[i] != null) &&
-                        (newLinguisticVariable.equals(
-                        this.facts[i].getLinguisticVariable()) == true)) {
+                        (newLinguisticVariableName.equals(
+                        this.facts[i].getLinguisticVariableName()) == true)) {
                     throw new PropertyVetoException(
                             FuzzyResourceManager.getString(this,
                             "EXCEPTION_FACT_BASE_WITH_DUPLICATE_LV"), evt);

@@ -52,6 +52,18 @@ public class FuzzyLRNumberBean implements Serializable {
     public static final String MEMBERSHIP_FUNCTION_PROPERTY
             = "membershipFunction";
 
+    /** Bound property name for <code>negative</code>. */
+    public static final String NEGATIVE_PROPERTY = "negative";
+
+    /** Bound property name for <code>positive</code>. */
+    public static final String POSITIVE_PROPERTY = "positive";
+
+    /** Bound property name for <code>alpha</code>. */
+    public static final String ALPHA_PROPERTY = "alpha";
+
+    /** Bound property name for <code>beta</code>. */
+    public static final String BETA_PROPERTY = "beta";
+
     /** The underlying membership function is described by an array of points.*/
     private MembershipFunctionPointBean[] membershipFunction = null;
 
@@ -156,12 +168,24 @@ public class FuzzyLRNumberBean implements Serializable {
             MembershipFunctionPointBean[] newMembershipFunction)
             throws IllegalArgumentException {
         MembershipFunctionPointBean[] oldValue = this.membershipFunction;
+        boolean oldPositive = isPositive();
+        boolean oldNegative = isNegative();
+        float oldAlpha = getAlpha();
+        float oldBeta = getBeta();
         this.membershipFunction = newMembershipFunction;
         // Update internal representation
         fuzzyLRNumber = FuzzyBeanUtils.createFuzzyLRNumber(
                 this.membershipFunction);
         propertyChangeSupport.firePropertyChange(MEMBERSHIP_FUNCTION_PROPERTY,
                 oldValue, newMembershipFunction);
+        propertyChangeSupport.firePropertyChange(POSITIVE_PROPERTY,
+                oldPositive, isPositive());
+        propertyChangeSupport.firePropertyChange(NEGATIVE_PROPERTY,
+                oldNegative, isNegative());
+        propertyChangeSupport.firePropertyChange(ALPHA_PROPERTY,
+                new Float(oldAlpha), new Float(getAlpha()));
+        propertyChangeSupport.firePropertyChange(BETA_PROPERTY,
+                new Float(oldBeta), new Float(getBeta()));
     }
 
     /**
@@ -178,6 +202,10 @@ public class FuzzyLRNumberBean implements Serializable {
             MembershipFunctionPointBean newMembershipFunction)
             throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
         MembershipFunctionPointBean oldValue = this.membershipFunction[index];
+        boolean oldPositive = isPositive();
+        boolean oldNegative = isNegative();
+        float oldAlpha = getAlpha();
+        float oldBeta = getBeta();
         this.membershipFunction[index] = newMembershipFunction;
 
         if ((oldValue != null) && !oldValue.equals(newMembershipFunction)) {
@@ -186,6 +214,14 @@ public class FuzzyLRNumberBean implements Serializable {
                     this.membershipFunction);
             propertyChangeSupport.firePropertyChange(MEMBERSHIP_FUNCTION_PROPERTY,
                     null, this.membershipFunction);
+            propertyChangeSupport.firePropertyChange(POSITIVE_PROPERTY,
+                    oldPositive, isPositive());
+            propertyChangeSupport.firePropertyChange(NEGATIVE_PROPERTY,
+                    oldNegative, isNegative());
+            propertyChangeSupport.firePropertyChange(ALPHA_PROPERTY,
+                    new Float(oldAlpha), new Float(getAlpha()));
+            propertyChangeSupport.firePropertyChange(BETA_PROPERTY,
+                    new Float(oldBeta), new Float(getBeta()));
         };
     }
 
@@ -212,5 +248,3 @@ public class FuzzyLRNumberBean implements Serializable {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
-
-

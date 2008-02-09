@@ -42,6 +42,7 @@ import java.util.ListIterator;
  * @author Uwe Weng
  */
 public class FuzzyNumber extends MembershipFunction implements Cloneable, Serializable {
+
     /**
      * Default serial version UID
      */
@@ -52,7 +53,7 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * because an undefined membership function can not be a valid fuzzy number.
      */
     public FuzzyNumber() {
-        // Not allowed
+        super();
     }
 
     /**
@@ -61,14 +62,14 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * @param spread the spread to x <code>x</code> with degree of membership 0.0
      * @exception IllegalArgumentException if <code>spread</code> is not positive.
      */
-    public FuzzyNumber(final float x, final float spread) throws IllegalArgumentException{
+    public FuzzyNumber(final float x, final float spread) throws IllegalArgumentException {
         if (spread > 0.0f) {
             points.add(new MembershipFunctionPoint((x - spread), 0.0f));
             points.add(new MembershipFunctionPoint(x, 1.0f));
             points.add(new MembershipFunctionPoint((x + spread), 0.0f));
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        }
     }
 
     /**
@@ -78,14 +79,14 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * @param beta the distance to <code>x</code> on the right side and degree of membership 0.0
      * @exception IllegalArgumentException if <code>alpha</code> or <code>beta</code> is not positive
      */
-    public FuzzyNumber(final float x, final float alpha, final float beta) throws IllegalArgumentException{
+    public FuzzyNumber(final float x, final float alpha, final float beta) throws IllegalArgumentException {
         if ((alpha > 0.0f) && (beta > 0.0f)) {
             points.add(new MembershipFunctionPoint((x - alpha), 0.0f));
             points.add(new MembershipFunctionPoint(x, 1.0f));
             points.add(new MembershipFunctionPoint((x + beta), 0.0f));
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        }
     }
 
     /**
@@ -94,11 +95,12 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * @param fn the fuzzy LR number
      * @exception NullPointerException if <code>fn</code> is <code>null</code>
      */
-    public FuzzyNumber(final FuzzyLRNumber fn) throws NullPointerException{
+    public FuzzyNumber(final FuzzyLRNumber fn) throws NullPointerException {
         ListIterator elements = fn.points.listIterator();
 
-        while (elements.hasNext())
-            points.add(((MembershipFunctionPoint) elements.next()).clone());
+        while (elements.hasNext()) {
+            points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+        }
     }
 
     /**
@@ -107,23 +109,19 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * @exception IllegalArgumentException if the fuzzy set does not fulfill the properties of a fuzzy number
      * @exception NullPointerException if <code>fs</code> is <code>null</code>
      */
-    public FuzzyNumber(final FuzzySet fs) throws NullPointerException, IllegalArgumentException{
+    public FuzzyNumber(final FuzzySet fs) throws NullPointerException, IllegalArgumentException {
         if (fs.isValidFuzzyNumber()) {
             ListIterator elements = fs.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        }
     }
 
-    /**
-     * Creates the inverse of the membership function. Due to mathematical restrictions it is impossible
-     * to calculate the inverse at <tt>x = 0</tt>, because there is a definition lack.
-     * @exception ArithmeticException
-     *                if the membership function is defined at <tt>x = 0</tt>
-     */
+    @Override
     public synchronized void invert() throws ArithmeticException {
         super.invert();
     }
@@ -141,8 +139,9 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
             entry = (MembershipFunctionPoint) elements.next();
 
             if (entry.getX() >= 0.0f) {
-                if (entry.getDegreeOfMembership() > 0.0f)
+                if (entry.getDegreeOfMembership() > 0.0f) {
                     return false;
+                }
             }
         }
 
@@ -162,22 +161,18 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
             entry = (MembershipFunctionPoint) elements.next();
 
             if (entry.getX() <= 0.0f) {
-                if (entry.getDegreeOfMembership() > 0.0f)
+                if (entry.getDegreeOfMembership() > 0.0f) {
                     return false;
-            } else
-
+                }
+            } else {
                 return true;
+            }
         }
 
         return true;
     }
 
-    /**
-     * Checks whether this fuzzy number fulfills the requirements of a fuzzy LR number.
-     * In addition to the requirements for a fuzzy number the membership function must be represented
-     * by two reference function L and R.
-     * @return <code>true</code> if the fuzzy number would be a fuzzy LR number <code>false</code>, otherwise
-     */
+    @Override
     public synchronized boolean isValidFuzzyLRNumber() {
         FuzzyNumber fn = (FuzzyNumber) this.clone();
         fn.reduce();
@@ -185,21 +180,13 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
         return ((fn.size() == 3) ? true : false);
     }
 
-    /**
-     * Negates the fuzzy number.
-     */
+    @Override
     public synchronized void negate() {
         super.negate();
     }
 
-    /**
-     * Sets the degree of membership at <code>x</code> to 0.0.
-     * @param x the x coodinate
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if the membership function would not fulfill the conditions of a
-     * fuzzy number after deletion
-     */
-    public synchronized float remove(final float x) throws IllegalArgumentException{
+    @Override
+    public synchronized float remove(final float x) throws IllegalArgumentException {
         // Fuzzy-Zahl in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Zahl pruefen
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.remove(x);
@@ -208,20 +195,13 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
             this.points = fs.points;
 
             return retfloat;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        }
     }
 
-    /**
-     * Defines at <code>x</code> a new degree of membership.
-     * @param x the x coodinate
-     * @param dom the new degree of membership at <code>x</code>
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if <code>x</code> is <code>Float.NaN</code>, or not 0.0 <= dom <= 1.0,
-     * or the membership function does not fulfill the conditions of a fuzzy number.
-     */
-    public synchronized float set(final float x, final float dom) throws IllegalArgumentException{
+    @Override
+    public synchronized float set(final float x, final float dom) throws IllegalArgumentException {
         // Fuzzy-Zahl in eine Fuzzy-Menge konvertieren, Punkt einfuegen und auf Fuzzy-Zahl pruefen.
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.set(x, dom);
@@ -230,9 +210,9 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
             this.points = fs.points;
 
             return retfloat;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        }
     }
 
     /**
@@ -241,11 +221,10 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * @return a string representation of the fuzzy number
      */
     public String toString(final boolean withPoints) {
-        if (withPoints)
+        if (withPoints) {
             return super.toString();
-        else
-
-            return FuzzyResourceManager.getString(this, "FUZZY_NUMBER_WITHOUT_POINTS",
-                    new Object[] { Integer.toString(points.size()) });
+        } else {
+            return FuzzyResourceManager.getString(this, "FUZZY_NUMBER_WITHOUT_POINTS", new Object[]{Integer.toString(points.size())});
+        }
     }
 }

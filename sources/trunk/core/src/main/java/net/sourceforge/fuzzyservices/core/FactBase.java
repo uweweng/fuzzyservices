@@ -23,10 +23,9 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A fact base contains a set of facts to different linguistic variables. It is
@@ -42,23 +41,22 @@ import java.util.Hashtable;
  * @author Uwe Weng
  */
 public class FactBase implements java.lang.Cloneable, java.io.Serializable {
+
     /**
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-
     /**
      * The facts are organized by a hashtable. The key is the name of the
      * corresponding linguistic variable. The value is the fact itself.
      */
-    protected Hashtable facts = new Hashtable(); // Set of facts
-
+    protected Map<String, Fact> facts = new HashMap<String, Fact>();
     /** The fact base can have a name. */
-    protected String name = null;
+    protected String name = "";
 
     /** Default constructor which creates a new empty fact base. */
     public FactBase() {
-        // do nothing
+    // do nothing
     }
 
     /**
@@ -68,8 +66,8 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
      *            the first fact
      */
     public FactBase(final Fact fact) {
-        if (fact != null)
-            facts.put(fact.getLinguisticVariableName(), fact);
+        this();
+        put(fact);
     }
 
     /**
@@ -83,8 +81,10 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
     }
 
     /** Removes all facts from this fact base. */
-    public synchronized void clear() {
-        facts.clear();
+    public void clear() {
+        synchronized (this) {
+            facts.clear();
+        }
     }
 
     /**
@@ -97,11 +97,7 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
      *         otherwise.
      */
     public synchronized boolean contains(final LinguisticVariable lv) {
-        if (lv != null)
-            return facts.containsKey(lv.getName());
-        else
-
-            return false;
+        return (lv != null) ? facts.containsKey(lv.getName()) : false;
     }
 
     /**
@@ -114,20 +110,16 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
      *         otherwise.
      */
     public synchronized boolean contains(final String lingVarName) {
-        if (lingVarName != null)
-            return facts.containsKey(lingVarName);
-        else
-
-            return false;
+        return (lingVarName != null) ? facts.containsKey(lingVarName) : false;
     }
 
     /**
-     * Returns all facts as enumeration.
+     * Returns all facts as iterator.
      *
-     * @return an enumeration with all facts of this fact base
+     * @return an iterator with all facts of this fact base
      */
-    public synchronized Enumeration elements() {
-        return facts.elements();
+    public synchronized Iterator<Fact> iterator() {
+        return facts.values().iterator();
     }
 
     /**
@@ -142,8 +134,9 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
         if (lv != null) {
             Object retfact = facts.get(lv.getName());
 
-            if (retfact != null)
+            if (retfact != null) {
                 return (Fact) retfact;
+            }
         }
 
         return null;
@@ -161,8 +154,9 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
         if (lingVarName != null) {
             Object retfact = facts.get(lingVarName);
 
-            if (retfact != null)
+            if (retfact != null) {
                 return (Fact) retfact;
+            }
         }
 
         return null;
@@ -203,11 +197,11 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
 
         Object retfact = facts.put(fact.getLinguisticVariable().getName(), fact);
 
-        if (retfact != null)
+        if (retfact != null) {
             return (Fact) retfact;
-        else
-
+        } else {
             return null;
+        }
     }
 
     /**
@@ -221,7 +215,7 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
     public synchronized boolean remove(final Fact fact) {
         if (fact != null) {
             return ((facts.remove(fact.getLinguisticVariable().getName()) != null)
-            ? true : false);
+                    ? true : false);
         }
 
         return false;
@@ -240,8 +234,9 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
         if (lv != null) {
             Object retfact = facts.remove(lv.getName());
 
-            if (retfact != null)
+            if (retfact != null) {
                 return (Fact) retfact;
+            }
         }
 
         return null;
@@ -260,8 +255,9 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
         if (lingVarName != null) {
             Object retfact = facts.remove(lingVarName);
 
-            if (retfact != null)
+            if (retfact != null) {
                 return (Fact) retfact;
+            }
         }
 
         return null;
@@ -287,22 +283,16 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
         return facts.size();
     }
 
-    /**
-     * Creates and returns a copy of this fact base.
-     *
-     * @return a copy of this fact base
-     */
+    @Override
     public Object clone() {
         try {
             FactBase newObj = (FactBase) super.clone();
             // Eintraege physisch duplizieren.
-            newObj.facts = new java.util.Hashtable();
+            newObj.facts = new HashMap<String, Fact>();
 
-            Enumeration elements = facts.elements();
-
-            while (elements.hasMoreElements()) {
-                Fact fact = (Fact) elements.nextElement();
-                newObj.facts.put(fact.getLinguisticVariableName(), fact.clone());
+            for (Iterator<Fact> it = facts.values().iterator(); it.hasNext();) {
+                Fact fact = it.next();
+                newObj.facts.put(fact.getLinguisticVariableName(), (Fact) fact.clone());
             }
 
             return newObj;
@@ -312,45 +302,40 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
         }
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this fact base
-     *
-     * @param obj
-     *            the reference object with which to compare
-     * @return <code>true</code> if this fact base is the same as the
-     *         <code>obj</code> argument, <code>false</code> otherwise.
-     */
+    @Override
     public boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof FactBase)) {
             // Comparing number of facts
             // The names are not compared because it is optional
-            if (this.facts.size() != ((FactBase) obj).facts.size())
+            if (this.facts.size() != ((FactBase) obj).facts.size()) {
                 return false;
-
-            // Comparing facts
-            Enumeration elementsObj = ((FactBase) obj).facts.keys();
-
-            while (elementsObj.hasMoreElements()) {
-                Object key = elementsObj.nextElement();
-
-                if (!this.facts.containsKey(key))
-                    return false;
-
-                if (!this.facts.get(key).equals(((FactBase) obj).facts.get(key)))
-                    return false;
             }
 
+            // Comparing facts
+            for (Iterator<String> it = ((FactBase) obj).facts.keySet().iterator(); it.hasNext();) {
+                String key = it.next();
+                if (!this.facts.containsKey(key)) {
+                    return false;
+                }
+
+                if (!this.facts.get(key).equals(((FactBase) obj).facts.get(key))) {
+                    return false;
+                }
+            }
             return true;
         }
-
         return false;
     }
 
-    /**
-     * Returns a textual representation of the fact base
-     *
-     * @return a string representation of the fact base
-     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.facts != null ? this.facts.hashCode() : 0);
+        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return toString(false);
     }
@@ -366,23 +351,23 @@ public class FactBase implements java.lang.Cloneable, java.io.Serializable {
      */
     public String toString(final boolean withFacts) {
         if (withFacts) {
-            String text = "{";
-            Enumeration elements = facts.elements();
+            String text = null;
 
-            if (elements.hasMoreElements())
-                text = text + ((Fact) elements.nextElement()).toString();
-
-            while (elements.hasMoreElements()) {
-                text = text + ", " +
-                    ((Fact) elements.nextElement()).toString();
+            for (Iterator<Fact> it = facts.values().iterator(); it.hasNext();) {
+                Fact fact = it.next();
+                if (text != null) {
+                    text = text + ", ";
+                
+                }
+                text = text + fact.toString();
             }
-
-            text = text + "}";
-
+            if (text != null) {
+                text = "{" + text + "}";
+            }
             return text;
         }
 
         return FuzzyResourceManager.getString(this, "FACT_BASE_WITHOUT_FACTS",
-            new Object[] { Integer.toString(facts.size()) });
+                new Object[]{Integer.toString(facts.size())});
     }
 }

@@ -23,10 +23,10 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
+import java.util.Collection;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * You can ask the manager for all implemented operators.
@@ -40,7 +40,7 @@ public class OperatorManager {
      * Contains all known fuzzy operators of the fuzzy system with its name as
      * key.
      */
-    private static Hashtable combineOperators = new Hashtable();
+    private static Map<String, AbstractOperator> combineOperators = new HashMap<String, AbstractOperator>();
 
     static {
         initCombineOperators();
@@ -50,7 +50,7 @@ public class OperatorManager {
      * The operator manager is a static class.
      */
     public OperatorManager() {
-        // Not allowed
+    // Not allowed
     }
 
     /**
@@ -58,61 +58,54 @@ public class OperatorManager {
      */
     private static void initCombineOperators() {
         Min MinOp = new Min();
-        combineOperators.put(MinOp.toString(), MinOp);
+        combineOperators.put(MinOp.getName(), MinOp);
         Max MaxOp = new Max();
-        combineOperators.put(MaxOp.toString(), MaxOp);
+        combineOperators.put(MaxOp.getName(), MaxOp);
         AlgebraicSum algSumOp = new AlgebraicSum();
-        combineOperators.put(algSumOp.toString(), algSumOp);
+        combineOperators.put(algSumOp.getName(), algSumOp);
         AlgebraicProduct algProdOp = new AlgebraicProduct();
-        combineOperators.put(algProdOp.toString(), algProdOp);
+        combineOperators.put(algProdOp.getName(), algProdOp);
         BoundedDifference boundedDiffOp = new BoundedDifference();
-        combineOperators.put(boundedDiffOp.toString(), boundedDiffOp);
+        combineOperators.put(boundedDiffOp.getName(), boundedDiffOp);
         BoundedSum boundedSumOp = new BoundedSum();
-        combineOperators.put(boundedSumOp.toString(), boundedSumOp);
+        combineOperators.put(boundedSumOp.getName(), boundedSumOp);
         DrasticProduct drasticProdOp = new DrasticProduct();
-        combineOperators.put(drasticProdOp.toString(), drasticProdOp);
+        combineOperators.put(drasticProdOp.getName(), drasticProdOp);
         DrasticSum drasticSumOp = new DrasticSum();
-        combineOperators.put(drasticSumOp.toString(), drasticSumOp);
+        combineOperators.put(drasticSumOp.getName(), drasticSumOp);
         EinsteinProduct EinsteinProdOp = new EinsteinProduct();
-        combineOperators.put(EinsteinProdOp.toString(), EinsteinProdOp);
+        combineOperators.put(EinsteinProdOp.getName(), EinsteinProdOp);
         EinsteinSum EinsteinSumOp = new EinsteinSum();
-        combineOperators.put(EinsteinSumOp.toString(), EinsteinSumOp);
+        combineOperators.put(EinsteinSumOp.getName(), EinsteinSumOp);
         HamacherIntersection HamacherInterOp = new HamacherIntersection(0.0f);
-        combineOperators.put(HamacherInterOp.toString(false), HamacherInterOp);
+        combineOperators.put(HamacherInterOp.getName(), HamacherInterOp);
         HamacherProduct HamacherProdOp = new HamacherProduct();
-        combineOperators.put(HamacherProdOp.toString(), HamacherProdOp);
+        combineOperators.put(HamacherProdOp.getName(), HamacherProdOp);
         HamacherSum HamacherSumOp = new HamacherSum();
-        combineOperators.put(HamacherSumOp.toString(), HamacherSumOp);
+        combineOperators.put(HamacherSumOp.getName(), HamacherSumOp);
         HamacherUnion HamacherUnionOp = new HamacherUnion(-1.0f);
-        combineOperators.put(HamacherUnionOp.toString(false), HamacherUnionOp);
+        combineOperators.put(HamacherUnionOp.getName(), HamacherUnionOp);
         MinMaxCompensation MinMaxCompOp = new MinMaxCompensation(0.0f);
-        combineOperators.put(MinMaxCompOp.toString(false), MinMaxCompOp);
+        combineOperators.put(MinMaxCompOp.getName(), MinMaxCompOp);
         WernersAnd WernersAndOp = new WernersAnd(0.0f);
-        combineOperators.put(WernersAndOp.toString(false), WernersAndOp);
+        combineOperators.put(WernersAndOp.getName(), WernersAndOp);
         WernersOr WernersOrOp = new WernersOr(0.0f);
-        combineOperators.put(WernersOrOp.toString(false), WernersOrOp);
+        combineOperators.put(WernersOrOp.getName(), WernersOrOp);
         YagerIntersection YagerInterOp = new YagerIntersection(1.0f);
-        combineOperators.put(YagerInterOp.toString(false), YagerInterOp);
+        combineOperators.put(YagerInterOp.getName(), YagerInterOp);
         YagerUnion YagerUnionOp = new YagerUnion(1.0f);
-        combineOperators.put(YagerUnionOp.toString(false), YagerUnionOp);
+        combineOperators.put(YagerUnionOp.getName(), YagerUnionOp);
     }
 
     /**
-     * Returns all registered fuzzy operators as an array.
-     * @return an array of fuzzy operators
+     * Returns all registered fuzzy operators as a collection.
+     * @return a collection of fuzzy operators
      * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
-    public static AbstractOperator[] getOperators() {
-        // Alle gefundenen Objekte in ein Standard-Array uebertragen
+    public static Collection<AbstractOperator> getOperators() {
         int size = combineOperators.size();
         if (size > 0) {
-            Vector combineVector = new Vector(size);
-            Enumeration elements = combineOperators.elements();
-            while (elements.hasMoreElements())
-                combineVector.addElement(elements.nextElement());
-            AbstractOperator[] retarray = new AbstractOperator[size];
-            combineVector.copyInto(retarray);
-            return retarray;
+            return combineOperators.values();
         }
         return null;
     }
@@ -126,7 +119,10 @@ public class OperatorManager {
      * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
     public static AbstractOperator getOperator(String name) {
-        return (AbstractOperator) combineOperators.get(name);
+        if (name != null) {
+            return combineOperators.get(name);
+        }
+        return null;
     }
 
     /**
@@ -138,10 +134,10 @@ public class OperatorManager {
      * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
     public static AbstractOperator registerOperator(AbstractOperator op) {
-        if (op.requiresParameter())
-            return (AbstractOperator) combineOperators.put(((AbstractParameteredOperator) op)
-            .toString(false), op);
-        else
-            return (AbstractOperator) combineOperators.put(op.toString(), op);
+        if (op.requiresParameter() == true) {
+            return combineOperators.put(((AbstractParameteredOperator) op).toString(false), op);
+        } else {
+            return combineOperators.put(op.toString(), op);
+        }
     }
 }

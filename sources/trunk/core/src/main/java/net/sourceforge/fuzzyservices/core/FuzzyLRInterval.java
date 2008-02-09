@@ -29,7 +29,7 @@ import java.util.ListIterator;
 /**
  * A fuzzy interval of type LR is a convex, normalized fuzzy set whose
  * membership function is at least segmentally continuous and has a mean
- * interval whose elements possess the membership function value f(x) = 1.
+ * interval whose iterator possess the membership function value f(x) = 1.
  * In comparison to fuzzy interval it is assumed a linear trend of two reference
  * functions L(X) and R(x) on the left and right side of this interval.
  * This class offers the functionality of a fuzzy LR interval. Comparable with
@@ -54,7 +54,7 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      * because an undefined membership function can not be a valid fuzzy interval of type LR.
      */
     public FuzzyLRInterval() {
-        // Not allowed
+        super();
     }
 
     /**
@@ -77,9 +77,9 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
             points.add(new MembershipFunctionPoint(plateau2, 1.0f));
             points.add(new MembershipFunctionPoint((plateau2 + beta),
                     0.0f));
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        }
     }
 
     /**
@@ -93,13 +93,14 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
         if (fi.isValidFuzzyLRInterval()) {
             ListIterator elements = fi.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
 
             this.reduce();
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        }
     }
 
     /**
@@ -113,11 +114,12 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
         if (fs.isValidFuzzyLRInterval()) {
             ListIterator elements = fs.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        }
     }
 
     /**
@@ -130,8 +132,8 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
 
         float x0;
         float x1;
-        x0 = ((MembershipFunctionPoint) fi.points.get(0)).getX();
-        x1 = ((MembershipFunctionPoint) fi.points.get(1)).getX();
+        x0 = (fi.points.get(0)).getX();
+        x1 = (fi.points.get(1)).getX();
 
         return FuzzyManager.round(x1 - x0);
     }
@@ -147,19 +149,13 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
         float x0;
         float x1;
         int size = fi.points.size();
-        x0 = ((MembershipFunctionPoint) fi.points.get(size - 2)).getX();
-        x1 = ((MembershipFunctionPoint) fi.points.get(size - 1)).getX();
+        x0 = (fi.points.get(size - 2)).getX();
+        x1 = (fi.points.get(size - 1)).getX();
 
         return FuzzyManager.round(x1 - x0);
     }
 
-    /**
-     * Creates the inverse of the membership function. Due to mathematical restrictions it is impossible
-     * to calculate the inverse at <tt>x = 0</tt>, because there is a definition lack.
-     *
-     * @exception ArithmeticException
-     *                if the membership function is defined at <tt>x = 0</tt>
-     */
+    @Override
     public synchronized void invert() throws ArithmeticException{
         super.invert();
     }
@@ -177,8 +173,9 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
             entry = (MembershipFunctionPoint) elements.next();
 
             if (entry.getX() >= 0.0f) {
-                if (entry.getDegreeOfMembership() > 0.0f)
+                if (entry.getDegreeOfMembership() > 0.0f) {
                     return false;
+                }
             }
         }
 
@@ -198,30 +195,23 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
             entry = (MembershipFunctionPoint) elements.next();
 
             if (entry.getX() <= 0.0f) {
-                if (entry.getDegreeOfMembership() > 0.0f)
+                if (entry.getDegreeOfMembership() > 0.0f) {
                     return false;
-            } else
-
+                }
+            } else {
                 return true;
+            }
         }
 
         return true;
     }
 
-    /**
-     * Negates the fuzzy interval of type LR.
-     */
+    @Override
     public synchronized void negate() {
         super.negate();
     }
 
-    /**
-     * Sets the degree of membership at <code>x</code> to 0.0.
-     * @param x the x coodinate
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if the membership function would not fulfill the conditions of a fuzzy LR
-     * interval after deletion
-     */
+    @Override
     public synchronized float remove(final float x) throws IllegalArgumentException{
         // Fuzzy-Zahl in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Intervall pruefen
         FuzzySet fs = new FuzzySet(this);
@@ -231,19 +221,12 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
             this.points = fs.points;
 
             return retfloat;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        }
     }
 
-    /**
-     * Defines at <code>x</code> a new degree of membership.
-     * @param x the x coodinate
-     * @param dom the new degree of membership at <code>x</code>
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if <code>x</code> is <code>Float.NaN</code>, or not 0.0 <= dom <= 1.0,
-     * or the membership function does not fulfill the conditions of a fuzzy LR interval.
-     */
+    @Override
     public synchronized float set(final float x, final float dom) throws IllegalArgumentException{
         // Fuzzy-LR-Intervall in ein Fuzzy-Intervall konvertieren, Punkt einfuegen und auf Fuzzy-LR-Intervall pruefen.
         FuzzyInterval fi = new FuzzyInterval(this);
@@ -254,9 +237,9 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
 
             //                    this.reduce();
             return retfloat;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
+        }
     }
 
     /**
@@ -265,11 +248,11 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      * @return a string representation of the fuzzy LR interval
      */
     public String toString(final boolean withPoints) {
-        if (withPoints)
+        if (withPoints) {
             return super.toString();
-        else
-
-            return FuzzyResourceManager.getString(this, "FUZZY_LR_INTERVAL_WITHOUT_POINTS",
-                    new Object[] { Integer.toString(points.size()) });
+        }
+        else {
+            return FuzzyResourceManager.getString(this, "FUZZY_LR_INTERVAL_WITHOUT_POINTS", new Object[]{Integer.toString(points.size())});
+        }
     }
 }

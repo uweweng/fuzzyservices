@@ -40,7 +40,7 @@ import net.sourceforge.fuzzyservices.core.Rule;
 import net.sourceforge.fuzzyservices.core.RuleBase;
 import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
 import java.beans.PropertyVetoException;
-
+import java.util.Iterator;
 
 /**
  * Utility class for converting between core and beans objects.
@@ -49,15 +49,17 @@ import java.beans.PropertyVetoException;
  * @author Uwe Weng
  */
 final class FuzzyBeanUtils {
+
     /**
      * Converts the fact bean to a basic fact.
      * @return A basic fact object
      * @param fact The fact bean to be converted
+     * @param lv The linguistic variable beans
      */
-    final static Fact convert(FactBean fact) {
+    final static Fact convert(FactBean fact, LinguisticVariableBean[] lv) {
         if (fact != null) {
-            Fact newFact = new Fact(convert(
-                    fact.getLinguisticVariable()), convert(fact.getValue()));
+            Fact newFact = new Fact(convert(convert(
+                    fact.getLinguisticVariableName(), lv)), convert(fact.getValue()));
 
             return newFact;
         }
@@ -69,8 +71,9 @@ final class FuzzyBeanUtils {
      * Converts the fact base bean to a basic fact base.
      * @return A basic fact base object
      * @param factBase The fact base bean to be converted
+     * @param lv The linguistic variable beans
      */
-    final static FactBase convert(FactBaseBean factBase) {
+    final static FactBase convert(FactBaseBean factBase, LinguisticVariableBean[] lv) {
         if (factBase != null) {
             FactBase newFactBase = new FactBase();
             newFactBase.setName(factBase.getName());
@@ -80,7 +83,7 @@ final class FuzzyBeanUtils {
             if (facts != null) {
                 for (int i = 0; i < facts.length; i++) {
                     if (facts[i] != null) {
-                        newFactBase.add(convert(facts[i]));
+                        newFactBase.add(convert(facts[i], lv));
                     }
                 }
             }
@@ -99,8 +102,7 @@ final class FuzzyBeanUtils {
     final static FuzzyInterval convert(FuzzyIntervalBean fuzzyInterval) {
         if (fuzzyInterval != null) {
             FuzzySet newFuzzySet = new FuzzySet();
-            MembershipFunctionPointBean[] points
-                    = fuzzyInterval.getMembershipFunction();
+            MembershipFunctionPointBean[] points = fuzzyInterval.getMembershipFunction();
 
             if (points != null) {
                 for (int i = 0; i < points.length; i++) {
@@ -126,8 +128,7 @@ final class FuzzyBeanUtils {
             FuzzyLRIntervalBean fuzzyLRInterval) {
         if (fuzzyLRInterval != null) {
             FuzzySet newFuzzySet = new FuzzySet();
-            MembershipFunctionPointBean[] points
-                    = fuzzyLRInterval.getMembershipFunction();
+            MembershipFunctionPointBean[] points = fuzzyLRInterval.getMembershipFunction();
 
             if (points != null) {
                 for (int i = 0; i < points.length; i++) {
@@ -152,8 +153,7 @@ final class FuzzyBeanUtils {
     final static FuzzyLRNumber convert(FuzzyLRNumberBean fuzzyLRNumber) {
         if (fuzzyLRNumber != null) {
             FuzzySet newFuzzySet = new FuzzySet();
-            MembershipFunctionPointBean[] points
-                    = fuzzyLRNumber.getMembershipFunction();
+            MembershipFunctionPointBean[] points = fuzzyLRNumber.getMembershipFunction();
 
             if (points != null) {
                 for (int i = 0; i < points.length; i++) {
@@ -178,8 +178,7 @@ final class FuzzyBeanUtils {
     final static FuzzyNumber convert(FuzzyNumberBean fuzzyNumber) {
         if (fuzzyNumber != null) {
             FuzzySet newFuzzySet = new FuzzySet();
-            MembershipFunctionPointBean[] points
-                    = fuzzyNumber.getMembershipFunction();
+            MembershipFunctionPointBean[] points = fuzzyNumber.getMembershipFunction();
 
             if (points != null) {
                 for (int i = 0; i < points.length; i++) {
@@ -204,8 +203,7 @@ final class FuzzyBeanUtils {
     final static FuzzySet convert(FuzzySetBean fuzzySet) {
         if (fuzzySet != null) {
             FuzzySet newFuzzySet = new FuzzySet();
-            MembershipFunctionPointBean[] points
-                    = fuzzySet.getMembershipFunction();
+            MembershipFunctionPointBean[] points = fuzzySet.getMembershipFunction();
 
             if (points != null) {
                 for (int i = 0; i < points.length; i++) {
@@ -223,6 +221,23 @@ final class FuzzyBeanUtils {
     }
 
     /**
+     * Determines the linguistic variable bean by name.
+     * @return A linguistic variable bean object
+     * @param name The name of a linguistic variable to be determined
+     * @param lv The linguistic variable beans
+     */
+    final static LinguisticVariableBean convert(String name, LinguisticVariableBean[] lv) {
+        for (int i = 0; i < lv.length; i++) {
+            if (lv[i] != null) {
+                if (name.equals(lv[i].getName()) == true) {
+                    return lv[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Converts the linguistic variable bean to a basic linguistic variable.
      * @return A basic linguistic variable object
      * @param linguisticVariable The linguistic variable bean to be converted
@@ -230,8 +245,7 @@ final class FuzzyBeanUtils {
     final static LinguisticVariable convert(
             LinguisticVariableBean linguisticVariable) {
         if (linguisticVariable != null) {
-            LinguisticVariable newLinguisticVariable
-                    = new LinguisticVariable(linguisticVariable.getName());
+            LinguisticVariable newLinguisticVariable = new LinguisticVariable(linguisticVariable.getName());
             LinguisticTermBean[] terms = linguisticVariable.getLinguisticTerms();
 
             if (terms != null) {
@@ -275,8 +289,9 @@ final class FuzzyBeanUtils {
      * Converts the rule bean to a basic rule.
      * @return A basic rule object
      * @param rule The rule bean to be converted
+     * @param lv The linguistic variable beans
      */
-    final static Rule convert(RuleBean rule) {
+    final static Rule convert(RuleBean rule, LinguisticVariableBean[] lv) {
         if (rule != null) {
             Rule newRule = new Rule();
             newRule.setAggregationOperator(convert(
@@ -290,8 +305,8 @@ final class FuzzyBeanUtils {
             if (antecedents != null) {
                 for (int i = 0; i < antecedents.length; i++) {
                     newRule.addAntecedent(convert(
-                            antecedents[i].getLinguisticVariable()),
-                            antecedents[i].getLinguisticTerm().getName(),
+                            convert(antecedents[i].getLinguisticVariableName(), lv)),
+                            antecedents[i].getLinguisticTermName(),
                             convert(antecedents[i].getCompatibilityOperator()));
                 }
             }
@@ -301,8 +316,8 @@ final class FuzzyBeanUtils {
             if (consequents != null) {
                 for (int i = 0; i < consequents.length; i++) {
                     newRule.addConsequent(convert(
-                            consequents[i].getLinguisticVariable()),
-                            consequents[i].getLinguisticTerm().getName());
+                            convert(consequents[i].getLinguisticVariableName(), lv)),
+                            consequents[i].getLinguisticTermName());
                 }
             }
         }
@@ -314,8 +329,9 @@ final class FuzzyBeanUtils {
      * Converts the rule base bean to a basic rule base.
      * @return A basic rule base object
      * @param ruleBase The rule base bean to be converted
+     * @param lv The linguistic variable beans
      */
-    final static RuleBase convert(RuleBaseBean ruleBase) {
+    final static RuleBase convert(RuleBaseBean ruleBase, LinguisticVariableBean[] lv) {
         if (ruleBase != null) {
             RuleBase newRuleBase = new RuleBase();
             newRuleBase.setName(ruleBase.getName());
@@ -327,7 +343,7 @@ final class FuzzyBeanUtils {
             if (rules != null) {
                 for (int i = 0; i < rules.length; i++) {
                     if (rules[i] != null) {
-                        newRuleBase.add(convert(rules[i]));
+                        newRuleBase.add(convert(rules[i], lv));
                     }
                 }
             }
@@ -348,11 +364,11 @@ final class FuzzyBeanUtils {
             FactBean newFact = new FactBean();
 
             try {
-                newFact.setLinguisticVariable(convert(
-                        fact.getLinguisticVariable()));
+                newFact.setLinguisticVariableName(
+                        fact.getLinguisticVariable().getName());
                 newFact.setValue(convert(fact.get()));
             } catch (PropertyVetoException e) {
-                // do nothing
+            // do nothing
             }
 
             return newFact;
@@ -375,11 +391,10 @@ final class FuzzyBeanUtils {
 
             if (size > 0) {
                 FactBean[] newFacts = new FactBean[size];
-                java.util.Enumeration facts = factBase.elements();
                 int i = 0;
 
-                while (facts.hasMoreElements() == true) {
-                    newFacts[i] = convert((Fact) facts.nextElement());
+                for (Iterator<Fact> it = factBase.iterator(); it.hasNext();) {
+                    newFacts[i] = convert(it.next());
                     i++;
                 }
 
@@ -484,8 +499,7 @@ final class FuzzyBeanUtils {
     final static LinguisticVariableBean convert(
             LinguisticVariable linguisticVariable) {
         if (linguisticVariable != null) {
-            LinguisticVariableBean newLinguisticVariable
-                    = new LinguisticVariableBean();
+            LinguisticVariableBean newLinguisticVariable = new LinguisticVariableBean();
 
             try {
                 newLinguisticVariable.setName(linguisticVariable.getName());
@@ -494,13 +508,12 @@ final class FuzzyBeanUtils {
 
                 if (size > 0) {
                     LinguisticTermBean[] terms = new LinguisticTermBean[size];
-                    java.util.Enumeration names = linguisticVariable.getNames();
                     int i = 0;
 
-                    while (names.hasMoreElements() == true) {
-                        String name = (String) names.nextElement();
-                        LinguisticTermBean newLinguisticTerm
-                                = new LinguisticTermBean();
+                    for (Iterator<String> it = linguisticVariable.getNames(); it.hasNext();) {
+
+                        String name = it.next();
+                        LinguisticTermBean newLinguisticTerm = new LinguisticTermBean();
                         newLinguisticTerm.setName(name);
                         newLinguisticTerm.setFuzzySet(convert(
                                 linguisticVariable.getFuzzySet(name)));
@@ -511,7 +524,7 @@ final class FuzzyBeanUtils {
                     newLinguisticVariable.setLinguisticTerms(terms);
                 }
             } catch (PropertyVetoException e) {
-                // do nothing
+            // do nothing
             }
 
             return newLinguisticVariable;
@@ -533,12 +546,11 @@ final class FuzzyBeanUtils {
                 op.setType(operator.toString());
 
                 if (operator.requiresParameter() == true) {
-                    AbstractParameteredOperator parameterOperator
-                            = (AbstractParameteredOperator) operator;
+                    AbstractParameteredOperator parameterOperator = (AbstractParameteredOperator) operator;
                     op.setParameter(parameterOperator.getParameter());
                 }
             } catch (PropertyVetoException e) {
-                // do nothing
+            // do nothing
             }
 
             return op;
@@ -564,23 +576,17 @@ final class FuzzyBeanUtils {
             int sizeOfAntecedents = rule.getSizeOfAntecedents();
 
             if (sizeOfAntecedents > 0) {
-                AntecedentBean[] newAntecedents
-                        = new AntecedentBean[sizeOfAntecedents];
+                AntecedentBean[] newAntecedents = new AntecedentBean[sizeOfAntecedents];
                 int i = 0;
-                java.util.Enumeration antecedents = rule.getAntecedents();
 
-                while (antecedents.hasMoreElements() == true) {
-                    Antecedent antecedent = (Antecedent) antecedents.nextElement();
+                for (Iterator<Antecedent> it = rule.getAntecedents(); it.hasNext();) {
+                    Antecedent antecedent = it.next();
                     AntecedentBean newAntecedent = new AntecedentBean();
                     newAntecedent.setCompatibilityOperator(convert(
                             antecedent.getCompatibilityOperator()));
 
-                    LinguisticVariableBean linguisticVariable
-                            = convert(antecedent.getLinguisticVariable());
-                    newAntecedent.setLinguisticVariable(linguisticVariable);
-                    newAntecedent.setLinguisticTerm(
-                            linguisticVariable.getLinguisticTerm(
-                            antecedent.getLinguisticTermName()));
+                    newAntecedent.setLinguisticVariableName(antecedent.getLinguisticVariable().getName());
+                    newAntecedent.setLinguisticTermName(antecedent.getLinguisticTermName());
                     newAntecedents[i] = newAntecedent;
                     i++;
                 }
@@ -591,20 +597,15 @@ final class FuzzyBeanUtils {
             int sizeOfConsequents = rule.getSizeOfConsequents();
 
             if (sizeOfConsequents > 0) {
-                ConsequentBean[] newConsequents
-                        = new ConsequentBean[sizeOfConsequents];
+                ConsequentBean[] newConsequents = new ConsequentBean[sizeOfConsequents];
                 int i = 0;
-                java.util.Enumeration consequents = rule.getConsequents();
 
-                while (consequents.hasMoreElements() == true) {
-                    Consequent consequent = (Consequent) consequents.nextElement();
+                for (Iterator<Consequent> it = rule.getConsequents(); it.hasNext();) {
+                    Consequent consequent = it.next();
+
                     ConsequentBean newConsequent = new ConsequentBean();
-                    LinguisticVariableBean linguisticVariable
-                            = convert(consequent.getLinguisticVariable());
-                    newConsequent.setLinguisticVariable(linguisticVariable);
-                    newConsequent.setLinguisticTerm(
-                            linguisticVariable.getLinguisticTerm(
-                            consequent.getLinguisticTermName()));
+                    newConsequent.setLinguisticVariableName(consequent.getLinguisticVariableName());
+                    newConsequent.setLinguisticTermName(consequent.getLinguisticTermName());
                     newConsequents[i] = newConsequent;
                     i++;
                 }
@@ -632,11 +633,10 @@ final class FuzzyBeanUtils {
 
             if (size > 0) {
                 RuleBean[] newRules = new RuleBean[size];
-                java.util.Enumeration rules = ruleBase.elements();
                 int i = 0;
 
-                while (rules.hasMoreElements() == true) {
-                    newRules[i] = convert((Rule) rules.nextElement());
+                for (Iterator<Rule> it = ruleBase.iterator(); it.hasNext();) {
+                    newRules[i] = convert(it.next());
                     i++;
                 }
 
@@ -720,13 +720,11 @@ final class FuzzyBeanUtils {
     final static MembershipFunctionPointBean[] toMembershipFunction(
             MembershipFunction membershipFunction) {
         if (membershipFunction != null) {
-            MembershipFunctionPointBean[] points
-                    = new MembershipFunctionPointBean[membershipFunction.size()];
+            MembershipFunctionPointBean[] points = new MembershipFunctionPointBean[membershipFunction.size()];
             int i = 0;
-            java.util.Enumeration enums = membershipFunction.elements();
 
-            while (enums.hasMoreElements() == true) {
-                float x = ((Float) enums.nextElement()).floatValue();
+            for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
+                float x = it.next();
                 points[i] = new MembershipFunctionPointBean(x,
                         membershipFunction.getDegreeOfMembership(x));
                 i++;

@@ -27,7 +27,6 @@ import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 import java.io.Serializable;
 
-
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = 1-min(1,((1-a)^p+(1-b)^p)^(1/p)), with p>=1.0</tt>.
@@ -37,6 +36,7 @@ import java.io.Serializable;
  */
 public class YagerIntersection extends AbstractComplexParameteredOperator
         implements Serializable {
+
     /**
      * Default serial version UID
      */
@@ -57,19 +57,14 @@ public class YagerIntersection extends AbstractComplexParameteredOperator
      * parameter
      */
     public YagerIntersection(final float param) throws IllegalArgumentException {
-        if (isValidParameter(param))
+        if (isValidParameter(param)) {
             this.parameter = param;
-        else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_OPERATOR_YAGER_INTERSECTION_INVALID_PARAMETER"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_OPERATOR_YAGER_INTERSECTION_INVALID_PARAMETER"));
+        }
     }
 
-    /**
-     * Combines two fuzzy sets to a new fuzzy set.
-     * @param fs1 The first operand
-     * @param fs2 The second operand
-     * @return the result of this operation. It is a new fuzzy set.
-     */
+    @Override
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         // Special cases
         if (parameter == 1.0f) {
@@ -88,40 +83,22 @@ public class YagerIntersection extends AbstractComplexParameteredOperator
         return super.combine(fs1, fs2);
     }
 
-    /**
-     * Indicates whether an operator fullfils the t-norm.
-     * @return <code>true</code> because this operator fullfils the t-norm.
-     */
+    @Override
     public boolean isValidTNorm() {
         return true;
     }
 
-    /**
-     * Indicates whether an operator fullfils the s-norm.
-     * @return <code>false</code> because this operator does not fullfil the
-     * s-norm.
-     */
+    @Override
     public boolean isValidSNorm() {
         return false;
     }
 
-    /**
-     * Indicates whether the argument is a valid parameter for this operator.
-     * @param param the value to be checked
-     * @return <code>true</code> if argument is a valid parameter,
-     * <code>false>/code> otherwise.
-     */
+    @Override
     public boolean isValidParameter(final float param) {
         return ((param >= 1.0f) ? true : false);
     }
 
-    /**
-     * Computes the new degree of membership using the calculation rule
-     * <tt>c = 1-min(1,((1-a)^p+(1-b)^p)^(1/p)), with p>=1.0</tt>.
-     * @param a a degree of membership
-     * @param b a degree of membership
-     * @return the calculated value
-     */
+    @Override
     public float compute(final float a, final float b) {
         return (1.0f -
                 Math.min(1.0f,
@@ -129,43 +106,25 @@ public class YagerIntersection extends AbstractComplexParameteredOperator
                 (float) (Math.pow((1.0f - b), parameter))), (1.0f / parameter))));
     }
 
-    /**
-     * Returns a textual representation of the operator
-     * @param withParameter Decides whether the parameter is part of the
-     * representation
-     * @return a string representation of the operator
-     */
+    @Override
     public String toString(final boolean withParameter) {
         String str = FuzzyResourceManager.getString(this,
                 "OPERATOR_YAGER_INTERSECTION");
         if (withParameter) {
             str = FuzzyResourceManager.getString(this,
                     "OPERATOR_YAGER_INTERSECTION_WITH_PARAMETER",
-                    new Object[] { Float.toString(parameter) });
+                    new Object[]{Float.toString(parameter)});
         }
         return str;
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this operator
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this operator is the same as the
-     * <code>obj</code> argument, <code>false</code> otherwise.
-     */
-    public boolean equals(Object obj) {
-        boolean isEqual = false;
-        if (((obj != null) && (obj instanceof YagerIntersection)) &&
-                (this.parameter == ((AbstractParameteredOperator) obj).parameter)){
-            isEqual = true;
-        }
-        return isEqual;
-    }
-
-    /**
-     * Returns the default parameter. In this case, it is <code>1.0</code>.
-     * @return The default parameter for this operator.
-     */
+    @Override
     public float getDefaultParameter() {
         return 1.0f;
+    }
+
+    @Override
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_YAGER_INTERSECTION");
     }
 }

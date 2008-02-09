@@ -24,7 +24,7 @@
 package net.sourceforge.fuzzyservices.beans;
 
 import net.sourceforge.fuzzyservices.core.FuzzyController;
-
+import net.sourceforge.fuzzyservices.core.LinguisticVariable;
 
 /**
  * This class represents a fuzzy controller according to JavaBeans conventions.
@@ -35,6 +35,7 @@ import net.sourceforge.fuzzyservices.core.FuzzyController;
  * @author Uwe Weng
  */
 public final class FuzzyControllerBean {
+
     /** The singleton instance of this fuzzy controller bean. */
     private static transient FuzzyControllerBean instance = null;
 
@@ -44,7 +45,7 @@ public final class FuzzyControllerBean {
      * @see #getInstance
      */
     public FuzzyControllerBean() {
-        // Do nothing
+    // Do nothing
     }
 
     /**
@@ -65,13 +66,22 @@ public final class FuzzyControllerBean {
      * @return A fact base with the result of this operation
      * @param ruleBase The rule base
      * @param factBase The fact base
+     * @param linguisticVariables The linguistic variable beans
      */
     public FactBaseBean performApproximateReasoning(RuleBaseBean ruleBase,
-            FactBaseBean factBase) {
+            FactBaseBean factBase, LinguisticVariableBean[] linguisticVariables) {
+        if ((linguisticVariables == null) || (linguisticVariables.length == 0)) {
+            return null;
+        }
+        LinguisticVariable[] lv = new LinguisticVariable[linguisticVariables.length];
+        for (int i = 0; i < linguisticVariables.length; i++) {
+            lv[i] = FuzzyBeanUtils.convert(linguisticVariables[i]);
+        }
+
         return FuzzyBeanUtils.convert(
                 FuzzyController.performApproximateReasoning(
-                FuzzyBeanUtils.convert(ruleBase),
-                FuzzyBeanUtils.convert(factBase)));
+                FuzzyBeanUtils.convert(ruleBase, linguisticVariables),
+                FuzzyBeanUtils.convert(factBase, linguisticVariables), lv));
     }
 }
 

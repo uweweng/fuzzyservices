@@ -59,6 +59,12 @@ public final class OperatorBean implements Serializable {
     /** Bound property name for <code>parameter</code>. */
     public static final String PARAMETER_PROPERTY = "parameter";
 
+    /** Bound property name for <code>validSNorm</code>. */
+    public static final String VALID_S_NORM_PROPERTY = "validSNorm";
+
+    /** Bound property name for <code>validTNorm</code>. */
+    public static final String VALID_T_NORM_PROPERTY = "validTNorm";
+
     /**
      * The operator type is characterized by his name.
      *  @see net.sourceforge.fuzzyservices.core.operator.OperatorManager#getOperator
@@ -115,6 +121,9 @@ public final class OperatorBean implements Serializable {
     public void setType(String type) throws PropertyVetoException {
         String oldValue = this.type;
         float oldParameter = this.parameter;
+        boolean oldIsValidSNorm = isValidSNorm();
+        boolean oldIsValidTNorm = isValidTNorm();
+
         AbstractOperator op = OperatorManager.getOperator(type);
 
         if ((op != null) && (op instanceof AbstractParameteredOperator)) {
@@ -132,7 +141,14 @@ public final class OperatorBean implements Serializable {
             AbstractParameteredOperator parameterOp
                     = (AbstractParameteredOperator) op;
             this.parameter = parameterOp.getDefaultParameter();
+            propertyChangeSupport.firePropertyChange(PARAMETER_PROPERTY,
+                    new Float(oldParameter), new Float(parameter));
         }
+
+         propertyChangeSupport.firePropertyChange(VALID_S_NORM_PROPERTY, 
+                 oldIsValidSNorm, isValidSNorm());
+         propertyChangeSupport.firePropertyChange(VALID_T_NORM_PROPERTY, 
+                 oldIsValidTNorm, isValidTNorm());
     }
 
     /**
@@ -146,6 +162,8 @@ public final class OperatorBean implements Serializable {
     public void setParameter(float param)
     throws IllegalArgumentException, PropertyVetoException {
         float oldValue = this.parameter;
+        boolean oldIsValidSNorm = isValidSNorm();
+        boolean oldIsValidTNorm = isValidTNorm();
         AbstractOperator op = OperatorManager.getOperator(this.type);
 
         if ((op != null) && (op instanceof AbstractParameteredOperator)) {
@@ -163,6 +181,10 @@ public final class OperatorBean implements Serializable {
         this.parameter = param;
         propertyChangeSupport.firePropertyChange(PARAMETER_PROPERTY,
                 new Float(oldValue), new Float(param));
+         propertyChangeSupport.firePropertyChange(VALID_S_NORM_PROPERTY, 
+                 oldIsValidSNorm, isValidSNorm());
+         propertyChangeSupport.firePropertyChange(VALID_T_NORM_PROPERTY, 
+                 oldIsValidTNorm, isValidTNorm());
     }
 
     /**

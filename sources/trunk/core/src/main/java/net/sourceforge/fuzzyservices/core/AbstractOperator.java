@@ -24,8 +24,6 @@
 package net.sourceforge.fuzzyservices.core;
 
 import java.io.Serializable;
-import java.util.Enumeration;
-
 
 /**
  * Fuzzy logic has got many more operators for combining values than classic
@@ -50,6 +48,7 @@ import java.util.Enumeration;
  * @author Uwe Weng
  */
 public abstract class AbstractOperator implements Serializable {
+
     /**
      * Combines two fuzzy sets to a new fuzzy set.
      * @param fs1 The first operand
@@ -57,52 +56,6 @@ public abstract class AbstractOperator implements Serializable {
      * @return the result of this operation. It is a new fuzzy set.
      */
     public abstract FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2);
-
-    /**
-     * Combines two discrete fuzzy sets to a new discrete fuzzy set.
-     * @param dfs1 The first operand
-     * @param dfs2 The second operand
-     * @return the result of this operation. It is a new discrete fuzzy set.
-     * @exception IllegalArgumentException if the operands contain objects with
-     *                                     different types
-     */
-    public final DiscreteFuzzySet combine(final DiscreteFuzzySet dfs1,
-            final DiscreteFuzzySet dfs2) throws IllegalArgumentException {
-        if ((dfs1 != null) && (dfs2 != null)) {
-            if (dfs1.getClass().equals(dfs2.getClass())) {
-                DiscreteFuzzySet dfs =
-                        new DiscreteFuzzySet(dfs1.getClassOfObjects());
-
-                // Iterating both discrete fuzzy sets and combinding the
-                // elements.
-                Object obj;
-                Enumeration elements = dfs1.elements();
-
-                while (elements.hasMoreElements()) {
-                    obj = elements.nextElement();
-                    dfs.put(obj,
-                            compute(dfs1.getDegreeOfMembership(obj),
-                            dfs2.getDegreeOfMembership(obj)));
-                }
-
-                elements = dfs2.elements();
-
-                while (elements.hasMoreElements()) {
-                    obj = elements.nextElement();
-                    dfs.put(obj,
-                            compute(dfs1.getDegreeOfMembership(obj),
-                            dfs2.getDegreeOfMembership(obj)));
-                }
-
-                return dfs;
-            } else
-                throw new IllegalArgumentException(
-                        FuzzyResourceManager.getString(this,
-                        "EXCEPTION_OPERATOR_INVALID_DISCRETE_FUZZY_SET_TYPE"));
-        }
-
-        return null;
-    }
 
     /**
      * Indicates whether an operator fullfils the t-norm.
@@ -117,6 +70,12 @@ public abstract class AbstractOperator implements Serializable {
      * <code>false</code> otherwise.
      */
     public abstract boolean isValidSNorm();
+    
+    /**
+     * Returns the name property.
+     * @return name of operator
+     */
+    public abstract String getName();
 
     /**
      * Indicates whether an operator needs a parameter for calculations.
@@ -146,19 +105,5 @@ public abstract class AbstractOperator implements Serializable {
      * @return the calculated value
      */
     public abstract float compute(final float a, final float b);
-
-    /**
-     * Returns a textual representation of the operator.
-     * @return a string representation of the operator
-     */
-    public abstract String toString();
-
-    /**
-     * Indicates whether some other object is "equal to" this operator.
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this operator is the same as the
-     * <code>obj</code> argument, <code>false</code> otherwise.
-     */
-    public abstract boolean equals(Object obj);
 }
 

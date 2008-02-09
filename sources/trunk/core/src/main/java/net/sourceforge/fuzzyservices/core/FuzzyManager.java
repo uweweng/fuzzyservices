@@ -32,30 +32,26 @@ package net.sourceforge.fuzzyservices.core;
  * @author Uwe Weng
  */
 public class FuzzyManager {
-    // Properties
 
     /**
      * Defines the increment for scanning fuzzy sets. It has to be a value greater than zero.
      * The default value is 0.01.
      */
     protected static float stepwidth = (float) (1.0 / 100.0); // 0.01f;
-
     /**
      * Defines the maximal number of steps fot iterating. If necessary the increment will be adjusted.
      * It must be a value greater than zero. The value 200 is preset.
      */
     protected static int maxNumStep = 200;
-
     /**
      * Defines the number of internal decimal places. This value is computed by the <code>stepwidth</code>.
      * For better performance this value is redundant.
      */
     protected static int scale = computeScale(stepwidth);							// berechnet
 
-
     /** The fuzzy manager is a static class. */
     private FuzzyManager() {
-        // Not allowed
+    // Not allowed
     }
 
     /**
@@ -71,13 +67,12 @@ public class FuzzyManager {
     /**
      * Sets the increment if value is greater than 0.0.
      *
-     * @param stepwidth
-     *            the new value
+     * @param width the new value
      * @see #stepwidth
      */
-    public static void setStepwidth(float stepwidth) {
-        if (stepwidth > 0.0f) {
-            stepwidth = stepwidth;
+    public static void setStepwidth(float width) {
+        if (width > 0.0f) {
+            stepwidth = width;
             scale = computeScale(stepwidth);
         }
     }
@@ -96,17 +91,17 @@ public class FuzzyManager {
      * Sets the maximum numbers of steps when combining two fuzzy sets
      * if new value is greater than 0.0.
      *
-     * @param maxNumStep
-     *            the new value
+     * @param max the new value
      * @see #maxNumStep
      */
-    public static void setMaxNumStep(int maxnumstep) {
-        if (maxnumstep > 0)
-            maxnumstep = maxnumstep;
+    public static void setMaxNumStep(int max) {
+        if (max > 0) {
+            maxNumStep = max;
+        }
     }
 
     /**
-     * Reduces the decimal plaes of value <code>x</code> to <code>scale</code>.
+     * Reduces the decimal places of value <code>x</code> to <code>scale</code>.
      *
      * @param x
      *           the value to reduce
@@ -116,6 +111,18 @@ public class FuzzyManager {
     public static float round(float x) {
         double dimension = Math.pow(10.0, scale);
         return ((float) (Math.round(x * dimension) / dimension));
+    }
+
+    /**
+     * Returns the delta between <code>x</code> and <code>round(x)</code>.
+     *
+     * @param x
+     *           the value to determine the delta
+     * @return the calculated delta
+     * @see #round
+     */
+    public static float getDelta(float x) {
+        return x - round(x);
     }
 
     /**

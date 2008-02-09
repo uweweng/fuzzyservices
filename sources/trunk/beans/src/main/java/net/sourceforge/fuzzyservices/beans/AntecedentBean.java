@@ -42,33 +42,33 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class AntecedentBean implements VetoableChangeListener, Serializable {
-
+    
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    
     //
     // Bound property names
     //
-
+    
     /** Bound property name for <code>compatibilityOperator</code>. */
     public static final String COMPATIBILITY_OPERATOR_PROPERTY
             = "compatibilityOperator";
-
-    /** Bound property name for <code>linguisticVariable</code>. */
-    public static final String LINGUISTIC_VARIABLE_PROPERTY
-            = "linguisticVariable";
-
-    /** Bound property name for <code>linguisticTerm</code>. */
-    public static final String LINGUISTIC_TERM_PROPERTY = "linguisticTerm";
-
-    /** The linguistic variable of this antecedent. */
-    private LinguisticVariableBean linguisticVariable = null;
-
-    /** The linguistic term which is part of the linguistic variable. */
-    private LinguisticTermBean linguisticTerm = null;
-
+    
+    /** Bound property name for <code>linguisticVariableName</code>. */
+    public static final String LINGUISTIC_VARIABLE_NAME_PROPERTY
+            = "linguisticVariableName";
+    
+    /** Bound property name for <code>linguisticTermName</code>. */
+    public static final String LINGUISTIC_TERM_NAME_PROPERTY = "linguisticTermName";
+    
+    /** The name of a linguistic variable for this antecedent. */
+    private String linguisticVariableName = null;
+    
+    /** The name of a linguistic term which is part of the linguistic variable. */
+    private String linguisticTermName = null;
+    
     /**
      * The operator for computing the compatibility between a fact and this
      * antecedent.
@@ -76,11 +76,11 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
     private OperatorBean compatibilityOperator
             = FuzzyBeanUtils.convert(
             Antecedent.getDefaultCompatibilityOperator());
-
+    
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport
             = new PropertyChangeSupport(this);
-
+    
     /**
      * Default <code>AntecedentBean</code> constructor.  This constructor sets a
      * default compatibility operator specified in
@@ -94,7 +94,7 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
         // Register vetoable change listener
         compatibilityOperator.addVetoableChangeListener(this);
     }
-
+    
     /**
      * Returns the compatibility operator of this antecedent.
      * @return the <code>compatibilityOperator</code> property
@@ -103,25 +103,25 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
     public OperatorBean getCompatibilityOperator() {
         return compatibilityOperator;
     }
-
+    
     /**
-     * Returns the linguistic term of this antecedent.
-     * @return the <code>linguisticTerm</code> property
-     * @see #setLinguisticTerm
+     * Returns the name of a linguistic term belongs to the antecedent.
+     * @return the <code>linguisticTermName</code> property
+     * @see #setLinguisticTermName
      */
-    public LinguisticTermBean getLinguisticTerm() {
-        return linguisticTerm;
+    public String getLinguisticTermName() {
+        return linguisticTermName;
     }
-
+    
     /**
-     * Returns the linguistic variable of this antecedent.
-     * @return the <code>linguisticVariable</code> property
-     * @see #setLinguisticVariable
+     * Returns the name of the linguistic variable belongs to this antecedent.
+     * @return the <code>linguisticVariableName</code> property
+     * @see #setLinguisticVariableName
      */
-    public LinguisticVariableBean getLinguisticVariable() {
-        return linguisticVariable;
+    public String getLinguisticVariableName() {
+        return linguisticVariableName;
     }
-
+    
     /**
      * Sets the compatibility operator of this rule.
      * @param compatibilityOp The new value for the property.
@@ -137,10 +137,10 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
         }
-
+        
         // Unregister vetoable change listener
         this.compatibilityOperator.removeVetoableChangeListener(this);
-
+        
         OperatorBean oldValue = this.compatibilityOperator;
         this.compatibilityOperator = compatibilityOp;
         // Register vetoable change listener
@@ -148,46 +148,34 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
         propertyChangeSupport.firePropertyChange(COMPATIBILITY_OPERATOR_PROPERTY,
                 oldValue, compatibilityOp);
     }
-
+    
     /**
-     * Sets the linguistic term of this antecedent.
-     * @param lingTerm The new value for the property.
-     * @exception IllegalArgumentException if <code>linguisticTerm</code> is
-     * not part of current linguistic variable property
-     * @see #getLinguisticTerm
+     * Sets the name of linguistic term belongs to the antecedent.
+     * @param lingTermName The new value for the property.
+     * @see #getLinguisticTermName
      */
-    public void setLinguisticTerm(final LinguisticTermBean lingTerm)
+    public void setLinguisticTermName(final String lingTermName)
     throws IllegalArgumentException {
-        if ((lingTerm != null)
-        && (this.linguisticVariable.contains(lingTerm) == false)) {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_TERM", new Object[] {
-                this.linguisticVariable.getName(), lingTerm.getName()
-            }));
-        }
-
-        LinguisticTermBean oldValue = this.linguisticTerm;
-        this.linguisticTerm = lingTerm;
-        propertyChangeSupport.firePropertyChange(LINGUISTIC_TERM_PROPERTY,
-                oldValue, lingTerm);
+        String oldLingTermName = this.linguisticTermName;
+        this.linguisticTermName = lingTermName;
+        propertyChangeSupport.firePropertyChange(LINGUISTIC_TERM_NAME_PROPERTY, oldLingTermName, lingTermName);
     }
-
+    
     /**
-     * Sets the linguistic variable of this consequent. Additionally, the
-     * <code>linguisticTerm</code> property is
+     * Sets the name of a linguistic variable belongs to the antecedent.
+     * Additionally, the <code>linguisticTermName</code> property is
      * set to <code>null</code>.
-     * @param lingVariable The new value for the property.
-     * @see #getLinguisticVariable
+     * @param lingVariableName The new value for the property.
+     * @see #getLinguisticVariableName
      */
-    public void setLinguisticVariable(final LinguisticVariableBean lingVariable) {
-        LinguisticVariableBean oldValue = this.linguisticVariable;
-        this.linguisticVariable = lingVariable;
-        propertyChangeSupport.firePropertyChange(LINGUISTIC_VARIABLE_PROPERTY,
-                oldValue, lingVariable);
+    public void setLinguisticVariableName(final String lingVariableName) {
+        String oldLingVariableName = this.linguisticVariableName;
+        this.linguisticVariableName = lingVariableName;
+        propertyChangeSupport.firePropertyChange(LINGUISTIC_VARIABLE_NAME_PROPERTY, oldLingVariableName, lingVariableName);
         // Delete linguistic term
-        setLinguisticTerm(null);
+        setLinguisticTermName(null);
     }
-
+    
     /**
      * Adds a <code>PropertyChangeListener</code> to the listener list. The
      * listener is registered for all properties. <p>
@@ -199,7 +187,7 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
             final PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
-
+    
     /**
      * Removes a <code>PropertyChangeListener</code> from the listener list.
      * This removes a <code>PropertyChangeListener</code> that was registered
@@ -210,7 +198,7 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
             final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
-
+    
     /**
      * This method gets called when a constrained property is changed.
      * @param     evt a <code>PropertyChangeEvent</code> object describing the
@@ -225,46 +213,19 @@ public class AntecedentBean implements VetoableChangeListener, Serializable {
             OperatorBean newOp = new OperatorBean();
             newOp.setType(this.compatibilityOperator.getType());
             newOp.setParameter(this.compatibilityOperator.getParameter());
-
+            
             String prop = evt.getPropertyName();
             if (prop.equals(OperatorBean.PARAMETER_PROPERTY) == true) {
                 newOp.setParameter(((Float) evt.getNewValue()).floatValue());
             }
-
+            
             if (prop.equals(OperatorBean.TYPE_PROPERTY) == true) {
                 newOp.setType((String) evt.getNewValue());
             }
-
+            
             if (newOp.isValidTNorm() == false) {
                 throw new PropertyVetoException(FuzzyResourceManager.getString(
                         this, "EXCEPTION_INVALID_T_NORM_OPERATOR"), evt);
-            }
-        }
-
-        if ((evt.getSource() == this.linguisticVariable) &&
-                (this.linguisticTerm != null)) {
-            // Is lingusitic term already defined?
-            boolean isDefined = false;
-            Object newValue = evt.getNewValue();
-            LinguisticTermBean[] newTerms = (LinguisticTermBean[]) newValue;
-
-            if (newTerms != null) {
-                for (int i = 0; i < newTerms.length; i++) {
-                    if ((newTerms[i] != null) &&
-                            (newTerms[i].equals(this.linguisticTerm) == true)) {
-                        isDefined = true;
-
-                        break;
-                    }
-                }
-            }
-
-            if (isDefined == false) {
-                throw new PropertyVetoException(FuzzyResourceManager.getString(
-                        this, "EXCEPTION_UNKNOWN_LINGUISTIC_TERM",
-                        new Object[] {
-                    ((LinguisticVariableBean) evt.getSource()).getName(),
-                    this.linguisticTerm.getName()}), evt);
             }
         }
     }

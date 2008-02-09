@@ -23,10 +23,10 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.defuzzification;
 
+import java.util.Collection;
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * You can ask the manager for all implemented defuzzificators.
@@ -37,10 +37,10 @@ import java.util.Vector;
 public class DefuzzificatorManager {
 
     /**
-     * Contains all knwon defuzzificators of the fuzzy system with its name as
+     * Contains all known defuzzificators of the fuzzy system with its name as
      * key.
      */
-    private static Hashtable defuzzyOperators = new Hashtable();
+    private static Map<String, AbstractDefuzzificator> defuzzyOperators = new HashMap<String, AbstractDefuzzificator>();
 
     static {
         initDefuzzificators();
@@ -50,7 +50,7 @@ public class DefuzzificatorManager {
      * The defuzzificator manager is a static class.
      */
     private DefuzzificatorManager() {
-        // Not allowed
+    // Not allowed
     }
 
     /**
@@ -70,21 +70,13 @@ public class DefuzzificatorManager {
     /**
      * Returns all registered defuzzificators as an array.
      *
-     * @return an array with defuzzificators
+     * @return a collection with defuzzificators
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static AbstractDefuzzificator[] getDefuzzificators() {
-        // Copying all defuzzificators into an array.
+    public static Collection<AbstractDefuzzificator> getDefuzzificators() {
         int size = defuzzyOperators.size();
         if (size > 0) {
-            Vector defuzzyVector = new Vector(size);
-            Enumeration elements = defuzzyOperators.elements();
-            while (elements.hasMoreElements()) {
-                defuzzyVector.addElement(elements.nextElement());
-            }
-            AbstractDefuzzificator[] ret = new AbstractDefuzzificator[size];
-            defuzzyVector.copyInto(ret);
-            return ret;
+            return defuzzyOperators.values();
         }
         return null;
     }
@@ -94,10 +86,11 @@ public class DefuzzificatorManager {
      *
      * @param name the name as identifierAbstractDefuzzificatornstance of type
      * <code>Defuzzificator</code> or <AbstractDefuzzificatore> if not found
+     * @return the selected defuzzificator
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
     public static AbstractDefuzzificator getDefuzzificator(String name) {
-        return (AbstractDefuzzificator) defuzzyOperators.get(name);
+        return defuzzyOperators.get(name);
     }
 
     /**
@@ -109,7 +102,6 @@ public class DefuzzificatorManager {
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
     public static AbstractDefuzzificator registerDefuzzificator(AbstractDefuzzificator defuzzy) {
-        return (AbstractDefuzzificator) defuzzyOperators.put(defuzzy.toString(),
-                defuzzy);
+        return defuzzyOperators.put(defuzzy.toString(), defuzzy);
     }
 }

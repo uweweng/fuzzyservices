@@ -28,7 +28,7 @@ import java.util.ListIterator;
 
 /**
  * A fuzzy interval is a convex, normalized fuzzy set whose membership function
- * is at least segmentally continuous and has a mean interval whose elements
+ * is at least segmentally continuous and has a mean interval whose iterator
  * possess the membership function value f(x) = 1.
  * This class offers the functionality of a fuzzy interval. Comparable with
  * traditional numbers and intervals arithmetic operations on fuzzy intervals
@@ -52,7 +52,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      * because an undefined membership function can not be a valid fuzzy interval.
      */
     public FuzzyInterval() {
-        // Not allowed
+        super();
     }
 
     /**
@@ -75,8 +75,9 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
             points.add(new MembershipFunctionPoint(plateau2, 1.0f));
             points.add(new MembershipFunctionPoint((plateau2 + beta),
                     0.0f));
-        } else
+        } else {
             throw new IllegalArgumentException();
+        }
     }
 
     /**
@@ -88,8 +89,9 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     public FuzzyInterval(final FuzzyLRInterval fi) throws NullPointerException{
         ListIterator elements = fi.points.listIterator();
 
-        while (elements.hasNext())
-            points.add(((MembershipFunctionPoint) elements.next()).clone());
+        while (elements.hasNext()) {
+            points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+        }
     }
 
     /**
@@ -103,20 +105,15 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
         if (fs.isValidFuzzyInterval()) {
             ListIterator elements = fs.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
+        }
     }
 
-    /**
-     * Creates the inverse of the membership function. Due to mathematical restrictions it is impossible
-     * to calculate the inverse at <tt>x = 0</tt>, because there is a definition lack.
-     *
-     * @exception ArithmeticException
-     *                if the membership function is defined at <tt>x = 0</tt>
-     */
+    @Override
     public synchronized void invert() throws ArithmeticException{
         super.invert();
     }
@@ -134,8 +131,9 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
             entry = (MembershipFunctionPoint) elements.next();
 
             if (entry.getX() >= 0.0f) {
-                if (entry.getDegreeOfMembership() > 0.0f)
+                if (entry.getDegreeOfMembership() > 0.0f) {
                     return false;
+                }
             }
         }
 
@@ -155,22 +153,18 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
             entry = (MembershipFunctionPoint) elements.next();
 
             if (entry.getX() <= 0.0f) {
-                if (entry.getDegreeOfMembership() > 0.0f)
+                if (entry.getDegreeOfMembership() > 0.0f) {
                     return false;
-            } else
-
+                }
+            } else {
                 return true;
+            }
         }
 
         return true;
     }
 
-    /**
-     * Checks whether the membership function of this fuzzy interval fulfills the requirements of a fuzzy LR interval.
-     * In addition to the requirements for a fuzzy interval the membership function must be represented
-     * by two reference function L and R.
-     * @return <code>true</code> if the fuzzy interval would be a fuzzy LR interval <code>false</code>, otherwise
-     */
+    @Override
     public synchronized boolean isValidFuzzyLRInterval() {
         FuzzyInterval fi = (FuzzyInterval) this.clone();
         fi.reduce();
@@ -178,20 +172,12 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
         return ((fi.size() == 4) ? true : false);
     }
 
-    /**
-     * Negates the fuzzy interval.
-     */
+    @Override
     public synchronized void negate() {
         super.negate();
     }
 
-    /**
-     * Sets the degree of membership at <code>x</code> to 0.0.
-     * @param x the x coodinate
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if the membership function would not fulfill the conditions of a fuzzy
-     * interval after deletion
-     */
+    @Override
     public synchronized float remove(final float x) throws IllegalArgumentException{
         // Fuzzy-Intervall in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Intervall pruefen
         FuzzySet fs = new FuzzySet(this);
@@ -201,19 +187,12 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
             this.points = fs.points;
 
             return retfloat;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
+        }
     }
 
-    /**
-     * Defines at <code>x</code> a new degree of membership.
-     * @param x the x coodinate
-     * @param dom the new degree of membership at <code>x</code>
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if <code>x</code> is <code>Float.NaN</code>, or not 0.0 <= dom <= 1.0,
-     * or the membership function does not fulfill the conditions of a fuzzy interval.
-     */
+    @Override
     public synchronized float set(final float x, final float dom) throws IllegalArgumentException{
         // Fuzzy-Intervall in eine Fuzzy-Menge konvertieren, Punkt einfuegen und auf Fuzzy-Intervall pruefen.
         FuzzySet fs = new FuzzySet(this);
@@ -223,9 +202,9 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
             this.points = fs.points;
 
             return retfloat;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
+        }
     }
 
     /**
@@ -234,11 +213,11 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      * @return a string representation of the fuzzy interval
      */
     public String toString(final boolean withPoints) {
-        if (withPoints)
+        if (withPoints) {
             return super.toString();
-        else
-
-            return FuzzyResourceManager.getString(this, "FUZZY_INTERVAL_WITHOUT_POINTS",
-                    new Object[] { Integer.toString(points.size()) });
+        }
+        else {
+            return FuzzyResourceManager.getString(this, "FUZZY_INTERVAL_WITHOUT_POINTS", new Object[]{Integer.toString(points.size())});
+        }
     }
 }

@@ -16,14 +16,13 @@
   <url>http://sourceforge.net/projects/fuzzyservices</url>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-core</artifactId>
+      <version>${pom.version}</version>
     </dependency>
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>fuzzyservices-core</artifactId>
+      <artifactId>fuzzyservices-swing</artifactId>
       <version>${pom.version}</version>
     </dependency>
     <dependency>

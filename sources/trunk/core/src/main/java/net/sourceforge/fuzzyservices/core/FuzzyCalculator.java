@@ -25,7 +25,6 @@ package net.sourceforge.fuzzyservices.core;
 
 import java.util.ListIterator;
 
-
 /**
  * A fuzzy calculator offers the four base aithmethic operations like a normal
  * calculator. It supports addition, substratcion, multiplication, and devision
@@ -36,6 +35,7 @@ import java.util.ListIterator;
  * @author Uwe Weng
  */
 public final class FuzzyCalculator {
+
     /** The singleton instance of this fuzzy calculator. */
     private static transient FuzzyCalculator instance = null;
 
@@ -47,7 +47,6 @@ public final class FuzzyCalculator {
         if (instance == null) {
             instance = new FuzzyCalculator();
         }
-
         return instance;
     }
 
@@ -76,28 +75,26 @@ public final class FuzzyCalculator {
 
         // Durchlaufen der aufsteigenden Flanke.
         while (dom != 1.0f) {
-            if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                 pos1++;
             } else {
 
-                while (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() < dom) {
+                while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
                     pos1++;
                 }
             }
-            if (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                 pos2++;
             } else {
 
-                while (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() < dom) {
+                while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
                     pos2++;
                 }
             }
-            entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1-1);
-            entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2-1);
-            entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-            entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+            entryLeft1 = operand1.points.get(pos1 - 1);
+            entryLeft2 = operand2.points.get(pos2 - 1);
+            entryRight1 = operand1.points.get(pos1);
+            entryRight2 = operand2.points.get(pos2);
             x = entryLeft1.getX();
             add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
@@ -119,61 +116,59 @@ public final class FuzzyCalculator {
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
             dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-            ? entryRight1.getDegreeOfMembership()
-            : entryRight2.getDegreeOfMembership());
+                    ? entryRight1.getDegreeOfMembership()
+                    : entryRight2.getDegreeOfMembership());
         }
 
         // Das "Plateau" einfuegen.
-        while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+        while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
             pos1++;
         }
 
-        while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+        while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
             pos2++;
         }
 
         // linke obere Ecke
-        fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
-                ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
+        fs.set((operand1.points.get(pos1)).getX() +
+                (operand2.points.get(pos2)).getX(),
                 1.0f);
 
-        while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == 1.0f) {
+        while ((operand1.points.get(pos1)).getDegreeOfMembership() == 1.0f) {
             pos1++;
         }
 
-        while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == 1.0f) {
+        while ((operand2.points.get(pos2)).getDegreeOfMembership() == 1.0f) {
             pos2++;
         }
 
         // rechte obere Ecke
-        fs.set(((MembershipFunctionPoint) operand1.points.get(pos1--)).getX() +
-                ((MembershipFunctionPoint) operand2.points.get(pos2--)).getX(),
+        fs.set((operand1.points.get(pos1--)).getX() +
+                (operand2.points.get(pos2--)).getX(),
                 1.0f);
 
         // Durchlaufen der abfallenden Flanke.
         while (dom != 0.0f) {
-            if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                 pos1++;
             } else {
 
-                while (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() > dom)
+                while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
                     pos1++;
+                }
             }
-            if (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                 pos2++;
             } else {
 
-                while (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() > dom)
+                while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
                     pos2++;
+                }
             }
-            entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                    1);
-            entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                    1);
-            entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-            entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+            entryLeft1 = operand1.points.get(pos1 - 1);
+            entryLeft2 = operand2.points.get(pos2 - 1);
+            entryRight1 = operand1.points.get(pos1);
+            entryRight2 = operand2.points.get(pos2);
             //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
             // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
             //                x = x + (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
@@ -201,22 +196,22 @@ public final class FuzzyCalculator {
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
             dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-            ? entryRight1.getDegreeOfMembership()
-            : entryRight2.getDegreeOfMembership());
+                    ? entryRight1.getDegreeOfMembership()
+                    : entryRight2.getDegreeOfMembership());
         }
 
         // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
         // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
-        while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+        while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
             pos1++;
         }
 
-        while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+        while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
             pos2++;
         }
 
-        fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
-                ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
+        fs.set((operand1.points.get(pos1)).getX() +
+                (operand2.points.get(pos2)).getX(),
                 0.0f);
         // Zum Schluss unnoetige Punkte eliminieren.
         fs.reduce();
@@ -391,28 +386,24 @@ public final class FuzzyCalculator {
 
         // Durchlaufen der aufsteigenden Flanke
         while (dom != 1.0f) {
-            if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                 pos1++;
             } else {
-                while (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() < dom) {
+                while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
                     pos1++;
                 }
             }
-            if (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                 pos2++;
             } else {
-                while (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() < dom) {
+                while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
                     pos2++;
                 }
             }
-            entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                    1);
-            entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                    1);
-            entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-            entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+            entryLeft1 = operand1.points.get(pos1 - 1);
+            entryLeft2 = operand2.points.get(pos2 - 1);
+            entryRight1 = operand1.points.get(pos1);
+            entryRight2 = operand2.points.get(pos2);
             x = entryLeft1.getX();
             add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                     entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
@@ -434,47 +425,43 @@ public final class FuzzyCalculator {
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
             dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-            ? entryRight1.getDegreeOfMembership()
-            : entryRight2.getDegreeOfMembership());
+                    ? entryRight1.getDegreeOfMembership()
+                    : entryRight2.getDegreeOfMembership());
         }
 
         // Die "Spitze" einfuegen.
-        while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+        while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
             pos1++;
         }
 
-        while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+        while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
             pos2++;
         }
 
-        fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
-                ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
+        fs.set((operand1.points.get(pos1)).getX() +
+                (operand2.points.get(pos2)).getX(),
                 1.0f);
 
         // Durchlaufen der abfallenden Flanke.
         while (dom != 0.0f) {
-            if (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                 pos1++;
             } else {
-                while (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() > dom) {
+                while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
                     pos1++;
                 }
             }
-            if (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                 pos2++;
             } else {
-                while (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() > dom) {
+                while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
                     pos2++;
                 }
             }
-            entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                    1);
-            entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                    1);
-            entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-            entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+            entryLeft1 = operand1.points.get(pos1 - 1);
+            entryLeft2 = operand2.points.get(pos2 - 1);
+            entryRight1 = operand1.points.get(pos1);
+            entryRight2 = operand2.points.get(pos2);
             //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
             // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
             //                x = x + (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
@@ -500,22 +487,22 @@ public final class FuzzyCalculator {
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
             dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-            ? entryRight1.getDegreeOfMembership()
-            : entryRight2.getDegreeOfMembership());
+                    ? entryRight1.getDegreeOfMembership()
+                    : entryRight2.getDegreeOfMembership());
         }
 
         // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
         // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein
-        while (((MembershipFunctionPoint) operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+        while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
             pos1++;
         }
 
-        while (((MembershipFunctionPoint) operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+        while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
             pos2++;
         }
 
-        fs.set(((MembershipFunctionPoint) operand1.points.get(pos1)).getX() +
-                ((MembershipFunctionPoint) operand2.points.get(pos2)).getX(),
+        fs.set((operand1.points.get(pos1)).getX() +
+                (operand2.points.get(pos2)).getX(),
                 0.0f);
         // Zum Schluss unnoetige Punkte eliminieren.
         fs.reduce();
@@ -716,32 +703,26 @@ public final class FuzzyCalculator {
 
             // Durchlaufen der aufsteigenden Flanke.
             while (dom != 1.0f) {
-                if (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() == dom) {
+                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                     pos1++;
                 } else {
-                    while (((MembershipFunctionPoint) operand1.points.get(
-                            pos1)).getDegreeOfMembership() < dom) {
+                    while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
                         pos1++;
                     }
                 }
 
-                if (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() == dom) {
+                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
                 } else {
-                    while (((MembershipFunctionPoint) operand2.points.get(
-                            pos2)).getDegreeOfMembership() < dom) {
+                    while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                        1);
-                entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                        1);
-                entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-                entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+                entryLeft1 = operand1.points.get(pos1 - 1);
+                entryLeft2 = operand2.points.get(pos2 - 1);
+                entryRight1 = operand1.points.get(pos1);
+                entryRight2 = operand2.points.get(pos2);
                 x = entryLeft1.getX();
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
@@ -773,68 +754,54 @@ public final class FuzzyCalculator {
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
                 dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-                ? entryRight1.getDegreeOfMembership()
-                : entryRight2.getDegreeOfMembership());
+                        ? entryRight1.getDegreeOfMembership()
+                        : entryRight2.getDegreeOfMembership());
             }
 
             // Das "Plateau" einfuegen.
-            while (((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getDegreeOfMembership() < dom) {
+            while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
                 pos1++;
             }
-            while (((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getDegreeOfMembership() < dom) {
+            while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
                 pos2++;
             }
 
             // linke obere Ecke
-            fs.set(((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getX(), 1.0f);
+            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 1.0f);
 
-            while (((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getDegreeOfMembership() == 1.0f) {
+            while ((operand1.points.get(pos1)).getDegreeOfMembership() == 1.0f) {
                 pos1++;
             }
 
-            while (((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getDegreeOfMembership() == 1.0f) {
+            while ((operand2.points.get(pos2)).getDegreeOfMembership() == 1.0f) {
                 pos2++;
             }
 
             // rechte obere Ecke
-            fs.set(((MembershipFunctionPoint) operand1.points.get(
-                    pos1--)).getX() * ((MembershipFunctionPoint) operand2.points.get(
-                    pos2--)).getX(), 1.0f);
+            fs.set((operand1.points.get(pos1--)).getX() * (operand2.points.get(pos2--)).getX(), 1.0f);
 
             // Durchlaufen der abfallenden Flanke.
             while (dom != 0.0f) {
-                if (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() == dom) {
+                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                     pos1++;
                 } else {
-                    while (((MembershipFunctionPoint) operand1.points.get(
-                            pos1)).getDegreeOfMembership() > dom) {
+                    while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
                         pos1++;
                     }
                 }
 
-                if (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() == dom) {
+                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
                 } else {
-                    while (((MembershipFunctionPoint) operand2.points.get(
-                            pos2)).getDegreeOfMembership() > dom) {
+                    while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                        1);
-                entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                        1);
-                entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-                entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+                entryLeft1 = operand1.points.get(pos1 - 1);
+                entryLeft2 = operand2.points.get(pos2 - 1);
+                entryRight1 = operand1.points.get(pos1);
+                entryRight2 = operand2.points.get(pos2);
                 x = entryLeft1.getX();
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
@@ -866,25 +833,21 @@ public final class FuzzyCalculator {
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
                 dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-                ? entryRight1.getDegreeOfMembership()
-                : entryRight2.getDegreeOfMembership());
+                        ? entryRight1.getDegreeOfMembership()
+                        : entryRight2.getDegreeOfMembership());
             }
 
             // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
             // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
-            while (((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getDegreeOfMembership() > dom) {
+            while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
                 pos1++;
             }
 
-            while (((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getDegreeOfMembership() > dom) {
+            while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
                 pos2++;
             }
 
-            fs.set(((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getX(), 0.0f);
+            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 0.0f);
             // Zum Schluss unnoetige Punkte eliminieren.
             fs.reduce();
 
@@ -908,7 +871,7 @@ public final class FuzzyCalculator {
             return result;
         } else {
             return (FuzzyInterval) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
-            ? operand1.clone() : operand2.clone());
+                    ? operand1.clone() : operand2.clone());
         }
     }
 
@@ -955,9 +918,9 @@ public final class FuzzyCalculator {
                 // Deshalb muss ein Operand temporaer negiert werden.
 
                 /*
-                                if (op1.size() <= op2.size())
-                                    op1.negate();
-                                else
+                if (op1.size() <= op2.size())
+                op1.negate();
+                else
                  */
                 op2.negate();
             }
@@ -1016,10 +979,10 @@ public final class FuzzyCalculator {
                 // Dies wird hier wieder rueckgaengig gemacht.
 
                 /*
-                                if (op1.size() <= op2.size())
-                                    op1.negate();
-                                else
-                                    op2.negate();
+                if (op1.size() <= op2.size())
+                op1.negate();
+                else
+                op2.negate();
                  */
 
                 // Ausserdem muss das Ergebnis negiert werden.
@@ -1030,7 +993,7 @@ public final class FuzzyCalculator {
         }
 
         return (FuzzyLRInterval) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
-        ? operand1.clone() : operand2.clone());
+                ? operand1.clone() : operand2.clone());
     }
 
     /**
@@ -1076,9 +1039,9 @@ public final class FuzzyCalculator {
                 // Deshalb muss ein Operand temporaer negiert werden.
 
                 /*
-                 if (op1.size() <= op2.size())
-                    op1.negate();
-                 else
+                if (op1.size() <= op2.size())
+                op1.negate();
+                else
                  */
                 op2.negate();
             }
@@ -1125,10 +1088,10 @@ public final class FuzzyCalculator {
                 // Dies wird hier wieder rueckgaengig gemacht.
 
                 /*
-                                if (op1.size() <= op2.size())
-                                    op1.negate();
-                                else
-                                    op2.negate();
+                if (op1.size() <= op2.size())
+                op1.negate();
+                else
+                op2.negate();
                  */
 
                 // Ausserdem muss das Ergebnis negiert werden.
@@ -1139,7 +1102,7 @@ public final class FuzzyCalculator {
         }
 
         return (FuzzyLRNumber) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
-        ? operand1.clone() : operand2.clone());
+                ? operand1.clone() : operand2.clone());
     }
 
     /**
@@ -1185,32 +1148,26 @@ public final class FuzzyCalculator {
 
             // Durchlaufen der aufsteigenden Flanke.
             while (dom != 1.0f) {
-                if (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() == dom) {
+                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                     pos1++;
                 } else {
-                    while (((MembershipFunctionPoint) operand1.points.get(
-                            pos1)).getDegreeOfMembership() < dom) {
+                    while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
                         pos1++;
                     }
                 }
 
-                if (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() == dom) {
+                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
                 } else {
-                    while (((MembershipFunctionPoint) operand2.points.get(
-                            pos2)).getDegreeOfMembership() < dom) {
+                    while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                        1);
-                entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                        1);
-                entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-                entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+                entryLeft1 = operand1.points.get(pos1 - 1);
+                entryLeft2 = operand2.points.get(pos2 - 1);
+                entryRight1 = operand1.points.get(pos1);
+                entryRight2 = operand2.points.get(pos2);
                 x = entryLeft1.getX();
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
@@ -1242,55 +1199,45 @@ public final class FuzzyCalculator {
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
                 dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-                ? entryRight1.getDegreeOfMembership()
-                : entryRight2.getDegreeOfMembership());
+                        ? entryRight1.getDegreeOfMembership()
+                        : entryRight2.getDegreeOfMembership());
             }
 
             // Die "Spitze" einfuegen.
-            while (((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getDegreeOfMembership() < dom) {
+            while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
                 pos1++;
             }
 
-            while (((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getDegreeOfMembership() < dom) {
+            while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
                 pos2++;
             }
 
-            fs.set(((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getX(), 1.0f);
+            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 1.0f);
 
             // Durchlaufen der abfallenden Flanke.
             while (dom != 0.0f) {
-                if (((MembershipFunctionPoint) operand1.points.get(
-                        pos1)).getDegreeOfMembership() == dom) {
+                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
                     pos1++;
                 } else {
 
-                    while (((MembershipFunctionPoint) operand1.points.get(
-                            pos1)).getDegreeOfMembership() > dom) {
+                    while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
                         pos1++;
                     }
                 }
 
-                if (((MembershipFunctionPoint) operand2.points.get(
-                        pos2)).getDegreeOfMembership() == dom) {
+                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
                     pos2++;
                 } else {
 
-                    while (((MembershipFunctionPoint) operand2.points.get(
-                            pos2)).getDegreeOfMembership() > dom) {
+                    while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = (MembershipFunctionPoint) operand1.points.get(pos1 -
-                        1);
-                entryLeft2 = (MembershipFunctionPoint) operand2.points.get(pos2 -
-                        1);
-                entryRight1 = (MembershipFunctionPoint) operand1.points.get(pos1);
-                entryRight2 = (MembershipFunctionPoint) operand2.points.get(pos2);
+                entryLeft1 = operand1.points.get(pos1 - 1);
+                entryLeft2 = operand2.points.get(pos2 - 1);
+                entryRight1 = operand1.points.get(pos1);
+                entryRight2 = operand2.points.get(pos2);
                 x = entryLeft1.getX();
                 add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
                         entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
@@ -1322,25 +1269,21 @@ public final class FuzzyCalculator {
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
                 dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-                ? entryRight1.getDegreeOfMembership()
-                : entryRight2.getDegreeOfMembership());
+                        ? entryRight1.getDegreeOfMembership()
+                        : entryRight2.getDegreeOfMembership());
             }
 
             // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
             // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
-            while (((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getDegreeOfMembership() > dom) {
+            while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
                 pos1++;
             }
 
-            while (((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getDegreeOfMembership() > dom) {
+            while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
                 pos2++;
             }
 
-            fs.set(((MembershipFunctionPoint) operand1.points.get(
-                    pos1)).getX() * ((MembershipFunctionPoint) operand2.points.get(
-                    pos2)).getX(), 0.0f);
+            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 0.0f);
             // Zum Schluss unnoetige Punkte eliminieren.
             fs.reduce();
 
@@ -1365,7 +1308,7 @@ public final class FuzzyCalculator {
         }
 
         return (FuzzyNumber) ((operand1.getDegreeOfMembership(0.0f) != 0.0f)
-        ? operand1.clone() : operand2.clone());
+                ? operand1.clone() : operand2.clone());
     }
 
     /**

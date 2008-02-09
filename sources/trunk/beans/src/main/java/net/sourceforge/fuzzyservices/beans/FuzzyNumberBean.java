@@ -26,6 +26,7 @@ package net.sourceforge.fuzzyservices.beans;
 import net.sourceforge.fuzzyservices.core.FuzzyNumber;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 
 
 /**
@@ -36,7 +37,7 @@ import java.beans.PropertyChangeSupport;
  * @since 1.0
  * @author Uwe Weng
  */
-public class FuzzyNumberBean implements java.io.Serializable {
+public class FuzzyNumberBean implements Serializable {
 
     /**
      * Default serial version UID.
@@ -50,6 +51,16 @@ public class FuzzyNumberBean implements java.io.Serializable {
     /** Bound property name for <code>membershipFunction</code>. */
     public static final String MEMBERSHIP_FUNCTION_PROPERTY
             = "membershipFunction";
+
+    /** Bound property name for <code>negative</code>. */
+    public static final String NEGATIVE_PROPERTY = "negative";
+
+    /** Bound property name for <code>positive</code>. */
+    public static final String POSITIVE_PROPERTY = "positive";
+
+    /** Bound property name for <code>validFuzzyLRNumber</code>. */
+    public static final String VALID_FUZZY_LR_NUMBER_PROPERTY 
+            = "validFuzzyLRNumber";
 
     /** The underlying membership function is described by an array of points.*/
     private MembershipFunctionPointBean[] membershipFunction = null;
@@ -146,11 +157,20 @@ public class FuzzyNumberBean implements java.io.Serializable {
             MembershipFunctionPointBean[] newMembershipFunction)
             throws IllegalArgumentException {
         MembershipFunctionPointBean[] oldValue = this.membershipFunction;
+        boolean oldPositive = isPositive();
+        boolean oldNegative = isNegative();
+        boolean oldIsValidFuzzyLRNumber = isValidFuzzyLRNumber();
         this.membershipFunction = newMembershipFunction;
         // Update internal representation
         fuzzyNumber = FuzzyBeanUtils.createFuzzyNumber(this.membershipFunction);
         propertyChangeSupport.firePropertyChange(MEMBERSHIP_FUNCTION_PROPERTY,
                 oldValue, newMembershipFunction);
+        propertyChangeSupport.firePropertyChange(POSITIVE_PROPERTY,
+                oldPositive, isPositive());
+        propertyChangeSupport.firePropertyChange(NEGATIVE_PROPERTY,
+                oldNegative, isNegative());
+        propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_NUMBER_PROPERTY,
+                oldIsValidFuzzyLRNumber, isValidFuzzyLRNumber());
     }
 
     /**
@@ -167,6 +187,9 @@ public class FuzzyNumberBean implements java.io.Serializable {
             MembershipFunctionPointBean newMembershipFunction)
             throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
         MembershipFunctionPointBean oldValue = this.membershipFunction[index];
+        boolean oldPositive = isPositive();
+        boolean oldNegative = isNegative();
+        boolean oldIsValidFuzzyLRNumber = isValidFuzzyLRNumber();
         this.membershipFunction[index] = newMembershipFunction;
 
         if ((oldValue != null) && !oldValue.equals(newMembershipFunction)) {
@@ -176,7 +199,13 @@ public class FuzzyNumberBean implements java.io.Serializable {
             propertyChangeSupport.firePropertyChange(
                     MEMBERSHIP_FUNCTION_PROPERTY, null,
                     this.membershipFunction);
-        };
+            propertyChangeSupport.firePropertyChange(POSITIVE_PROPERTY,
+                    oldPositive, isPositive());
+            propertyChangeSupport.firePropertyChange(NEGATIVE_PROPERTY,
+                    oldNegative, isNegative());
+            propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_NUMBER_PROPERTY,
+                    oldIsValidFuzzyLRNumber, isValidFuzzyLRNumber());
+        }
     }
 
     /**
@@ -202,5 +231,3 @@ public class FuzzyNumberBean implements java.io.Serializable {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
-
-

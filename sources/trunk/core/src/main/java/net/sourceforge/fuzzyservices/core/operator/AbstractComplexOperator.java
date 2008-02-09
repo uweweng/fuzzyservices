@@ -26,7 +26,7 @@ package net.sourceforge.fuzzyservices.core.operator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 import java.io.Serializable;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 
 /**
@@ -40,15 +40,8 @@ import java.util.Enumeration;
  */
 public abstract class AbstractComplexOperator extends AbstractOperator
         implements Serializable {
-    /**
-     * Combines two fuzzy sets to a new fuzzy set.
-     *
-     * @param fs1
-     *            The first operand
-     * @param fs2
-     *            The second operand
-     * @return the result of this operation. It is a new fuzzy set.
-     */
+
+    @Override
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         if ((fs1 != null) && (fs2 != null)) {
             FuzzySet fs = new FuzzySet();
@@ -91,24 +84,20 @@ public abstract class AbstractComplexOperator extends AbstractOperator
             // Finally, we iterate all membership function points
             int size1 = fs1.size();
             int size2 = fs2.size();
-            Enumeration elements;
 
             // Due to performance we iterate the fuzzy set with the most points
             // at first.
             if (size1 >= size2) {
-                elements = fs1.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
 
-                elements = fs2.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
@@ -116,19 +105,16 @@ public abstract class AbstractComplexOperator extends AbstractOperator
             }
 
             if (size1 < size2) { // the else-clause of the prior if-clause
-                elements = fs2.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
 
-                elements = fs1.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));

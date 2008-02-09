@@ -71,8 +71,9 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
             this.x = FuzzyManager.round(xValue);
             setDegreeOfMembership(aDegreeOfMembership);
 
-        } else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_NOT_A_NUMBER"));
+        }
     }
 
     /**
@@ -105,16 +106,12 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
             float retDoM = this.degreeOfMembership;
             this.degreeOfMembership = FuzzyManager.round(aDegreeOfMembership);
             return retDoM;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
-                    new Object[] { Float.toString(aDegreeOfMembership) }));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP", new Object[]{Float.toString(aDegreeOfMembership)}));
+        }
     }
 
-    /**
-     * Creates and returns a copy of this membership function point.
-     * @return a copy of this point
-     */
+    @Override
     public Object clone() {
         try {
             MembershipFunctionPoint newObj = (MembershipFunctionPoint) super.clone();
@@ -126,12 +123,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
         }
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this membership function point
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this membership function point is the same as the <code>obj</code> argument,
-     * <code>false</code> otherwise.
-     */
+    @Override
     public boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof MembershipFunctionPoint)) {
             return (x == ((MembershipFunctionPoint) obj).x);
@@ -140,10 +132,14 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
         return false;
     }
 
-    /**
-     * Returns a textual representation of the membership function point
-     * @return a string representation of the point
-     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Float.floatToIntBits(this.x);
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return new String("(" + x + ", " + degreeOfMembership + ")");
     }

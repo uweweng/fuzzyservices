@@ -26,8 +26,7 @@ package net.sourceforge.fuzzyservices.core;
 import net.sourceforge.fuzzyservices.core.defuzzification.CenterOfArea;
 import net.sourceforge.fuzzyservices.core.operator.Min;
 import java.io.Serializable;
-import java.util.Enumeration;
-
+import java.util.Iterator;
 
 /**
  * The class <code>Fact</code> defines a relationship between a value and a term of a linguistic variable.
@@ -40,30 +39,37 @@ import java.util.Enumeration;
  * @author Uwe Weng
  */
 public class Fact implements Cloneable, Serializable {
+
     /**
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-
     /** The current value is stored as a fuzzy set. Every crisp value is transformed to a fuzzy set. */
     private FuzzySet value;
-
     /** The linguistic variable as base for the fact. */
     private LinguisticVariable lingVar;
+
+    /**
+     * Default constructor. Linguistic Variable is unknown.
+     */
+    public Fact() {
+    }
 
     /**
      * Constructs a new fact with the linguistic variable <code>lv</code> as base.
      * The first value is of type <code>byte</code>.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      */
-    public Fact(final LinguisticVariable lv, final byte newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final byte newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet(newValue);
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
@@ -71,14 +77,16 @@ public class Fact implements Cloneable, Serializable {
      * The first value is of type <code>double</code>.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      */
-    public Fact(final LinguisticVariable lv, final double newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final double newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet((float) newValue);
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
@@ -86,14 +94,16 @@ public class Fact implements Cloneable, Serializable {
      * The first value is of type <code>float</code>.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      */
-    public Fact(final LinguisticVariable lv, final float newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final float newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet(newValue);
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
@@ -101,14 +111,16 @@ public class Fact implements Cloneable, Serializable {
      * The first value is of type <code>int</code>.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      */
-    public Fact(final LinguisticVariable lv, final int newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final int newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet(newValue);
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
@@ -116,14 +128,16 @@ public class Fact implements Cloneable, Serializable {
      * The first value is of type <code>long</code>.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      */
-    public Fact(final LinguisticVariable lv, final long newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final long newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet(newValue);
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
@@ -131,42 +145,45 @@ public class Fact implements Cloneable, Serializable {
      * The first value is of type <code>short</code>.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      */
-    public Fact(final LinguisticVariable lv, final short newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final short newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet(newValue);
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
      * Constructs a new fact with the linguistic variable <code>lv</code> as base. The first value is a membership function.
      * @param lv the linguistic variable as base.
      * @param newValue the first value which describes the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code>
      * @see FuzzySet
      * @see FuzzyNumber
      * @see FuzzyLRNumber
      * @see FuzzyInterval
      * @see FuzzyLRInterval
      */
-    public Fact(final LinguisticVariable lv, final MembershipFunction newValue) throws NullPointerException{
+    public Fact(final LinguisticVariable lv, final MembershipFunction newValue) throws IllegalArgumentException {
         if (lv != null) {
             this.lingVar = lv;
             this.value = new FuzzySet();
 
             if (newValue != null) {
-                Enumeration xvalues = newValue.elements();
 
-                while (xvalues.hasMoreElements()) {
-                    float x = ((Float)xvalues.nextElement()).floatValue();
+                for (Iterator<Float> it = newValue.iterator(); it.hasNext();) {
+                    float x = it.next();
                     this.value.set(x, newValue.getDegreeOfMembership(x));
                 }
             }
-        } else
-            throw new NullPointerException();
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
+        }
     }
 
     /**
@@ -174,20 +191,20 @@ public class Fact implements Cloneable, Serializable {
      * The first value is the linguistic term with the name <code>value</code> which belongs to the linguistic variable.
      * @param lv the linguistic variable as base.
      * @param newValue the name of a linguistic term describing the state of the linguistic variable.
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
-     * @exception IllegalArgumentException if linguistic variable has not got any term with this name.
+     * @exception IllegalArgumentException if <code>lv</code> is <code>null</code> or linguistic variable has not got any term with this name
      * @see LinguisticVariable
      */
-    public Fact(final LinguisticVariable lv, final String newValue) throws NullPointerException, IllegalArgumentException{
+    public Fact(final LinguisticVariable lv, final String newValue) throws IllegalArgumentException {
         FuzzySet termFSet = lv.getFuzzySet(newValue);
 
         if (termFSet != null) {
             this.lingVar = lv;
             this.value = termFSet;
-        } else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_UNKNOWN_LINGUISTIC_TERM",
-                    new Object[] { lv.getName(), newValue }));
+                    new Object[]{lv.getName(), newValue}));
+        }
     }
 
     /**
@@ -196,16 +213,13 @@ public class Fact implements Cloneable, Serializable {
      * @return a discrete fuzzy set with the names of linguistic terms and appropiated degree of memberships
      */
     public synchronized DiscreteFuzzySet evaluate() {
-        DiscreteFuzzySet dfs = new DiscreteFuzzySet(String.class);
-        String name; // the name of the term
+        DiscreteFuzzySet<String> dfs = new DiscreteFuzzySet<String>();
         Min min = new Min(); // the operator for computing the degree of membership
-        Enumeration terms = lingVar.getNames(); // the names of the linguistic terms
-        while (terms.hasMoreElements()) {
-            name = (String) terms.nextElement();
-            dfs.add(name,
-                (lingVar.getFuzzySet(name).combine(value, min)).getHeight());
-        }
+        for (Iterator<String> it = lingVar.getNames(); it.hasNext();) {
+            String name = it.next();
+            dfs.add(name, (lingVar.getFuzzySet(name).combine(value, min)).getHeight());
 
+        }
         return dfs;
     }
 
@@ -293,10 +307,8 @@ public class Fact implements Cloneable, Serializable {
             // At first, clear the old value
             this.value.clear();
 
-            Enumeration xvalues = newValue.elements();
-
-            while (xvalues.hasMoreElements()) {
-                float x = ((Float) xvalues.nextElement()).floatValue();
+            for (Iterator<Float> it = newValue.iterator(); it.hasNext();) {
+                float x = it.next();
                 this.value.set(x, newValue.getDegreeOfMembership(x));
             }
         }
@@ -309,36 +321,38 @@ public class Fact implements Cloneable, Serializable {
      * @see #get
      * @see LinguisticVariable
      */
-    public synchronized void set(final String newValue) throws IllegalArgumentException{
+    public synchronized void set(final String newValue) throws IllegalArgumentException {
         FuzzySet termFSet = lingVar.getFuzzySet(newValue);
 
-        if (termFSet != null)
+        if (termFSet != null) {
             this.value = termFSet;
-        else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_UNKNOWN_LINGUISTIC_TERM",
-                    new Object[] { lingVar.getName(), newValue }));
+                    new Object[]{lingVar.getName(), newValue}));
+        }
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this fact
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this fact is the same as the <code>obj</code> argument, <code>false</code> otherwise.
-     */
+    @Override
     public boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof Fact) &&
                 (value.equals(((Fact) obj).value)) &&
-                (lingVar.equals(((Fact) obj).lingVar)))
+                (lingVar.equals(((Fact) obj).lingVar))) {
             return true;
-        else
-
+        } else {
             return false;
+        }
     }
 
-    /**
-     * Creates and returns a copy of this fact.
-     * @return a copy of this fact
-     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + (this.value != null ? this.value.hashCode() : 0);
+        hash = 89 * hash + (this.lingVar != null ? this.lingVar.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public Object clone() {
         try {
             Fact newObj = (Fact) super.clone();
@@ -352,10 +366,7 @@ public class Fact implements Cloneable, Serializable {
         }
     }
 
-    /**
-     * Returns a textual representation of the fact
-     * @return a string representation of the fact
-     */
+    @Override
     public String toString() {
         return toString(false);
     }
@@ -370,45 +381,43 @@ public class Fact implements Cloneable, Serializable {
     public String toString(final boolean withLingVar) {
         String text = "";
 
-        if (withLingVar) // The long version
+        if (withLingVar) {
+            // The long version
             text = lingVar.toString() + "\n";
+        }
 
         String lingVarName = lingVar.getName();
 
-        if (value == null)
-            return text +
-            (lingVarName + " = " +
-            FuzzyResourceManager.getString(this, "FACT_UNKNOWN_LINGUISTIC_TERM"));
+        if (value == null) {
+            return text + (lingVarName + " = " + FuzzyResourceManager.getString(this, "FACT_UNKNOWN_LINGUISTIC_TERM"));
+        }
 
         // Compare the fuzzy set with all terms in order to print the name of the term.
-        String name;
-        Enumeration elements = lingVar.getNames();
-
-        while (elements.hasMoreElements()) {
-            name = (String) elements.nextElement();
-
-            if (value.equals(lingVar.getFuzzySet(name)))
+        for (Iterator<String> it = lingVar.getNames(); it.hasNext();) {
+            String name = it.next();
+            if (value.equals(lingVar.getFuzzySet(name))) {
                 return text + (lingVarName + " = " + name);
+            }
         }
 
         // Otherwise the value is defuzzified.
-        if (value.size() == 1)
+        if (value.size() == 1) {
             return text +
-            (lingVarName + " = " +
-            FuzzyResourceManager.getString(this, "FACT_CRISP_VALUE",
-                new Object[] {
-                    Float.toString(value.getMinDefinedX()),
-                    Float.toString(value.getHeight())
-                }));
-        else if (value.size() == 0)
+                    (lingVarName + " = " +
+                    FuzzyResourceManager.getString(this, "FACT_CRISP_VALUE",
+                    new Object[]{
+                Float.toString(value.getMinDefinedX()),
+                Float.toString(value.getHeight())
+            }));
+        } else if (value.size() == 0) {
             return text +
-            (lingVarName + " = " +
-            FuzzyResourceManager.getString(this, "FACT_UNKNOWN_LINGUISTIC_TERM"));
-        else
-
+                    (lingVarName + " = " +
+                    FuzzyResourceManager.getString(this, "FACT_UNKNOWN_LINGUISTIC_TERM"));
+        } else {
             return text +
-            (lingVarName + " = " +
-            FuzzyResourceManager.getString(this, "FACT_FUZZY_VALUE",
-                new Object[] { Float.toString((new CenterOfArea()).defuzzify(value)) }));
+                    (lingVarName + " = " +
+                    FuzzyResourceManager.getString(this, "FACT_FUZZY_VALUE",
+                    new Object[]{Float.toString((new CenterOfArea()).defuzzify(value))}));
+        }
     }
 }

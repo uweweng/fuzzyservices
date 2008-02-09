@@ -27,8 +27,7 @@ import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 import java.io.Serializable;
-import java.util.Enumeration;
-
+import java.util.Iterator;
 
 /**
  * The <strong>abstract</strong> class <code>AbstractLinearOperator</code> is
@@ -40,36 +39,28 @@ import java.util.Enumeration;
  */
 public abstract class AbstractLinearOperator extends AbstractOperator
         implements Serializable {
-    /**
-     * Combines two fuzzy sets to a new fuzzy set.
-     * @param fs1 The first operand
-     * @param fs2 The second operand
-     * @return the result of this operation. It is a new fuzzy set.
-     */
+
+    @Override
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         if ((fs1 != null) && (fs2 != null)) {
             FuzzySet fs = new FuzzySet();
             int size1 = fs1.size();
             int size2 = fs2.size();
             float x;
-            Enumeration elements;
 
             // Because of better performance we iterate the fuzzy set with most
             // points at first.
             if (size1 >= size2) {
-                elements = fs1.elements();
 
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
 
-                elements = fs2.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
@@ -77,19 +68,16 @@ public abstract class AbstractLinearOperator extends AbstractOperator
             }
 
             if (size1 < size2) { // it is the else-clause of if-clause above
-                elements = fs2.elements();
 
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
 
-                elements = fs1.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
@@ -98,8 +86,9 @@ public abstract class AbstractLinearOperator extends AbstractOperator
 
             // Singleton requires a special treatment.
             if (size1 == 1) {
-                elements = fs1.elements();
-                x = ((Float) elements.nextElement()).floatValue();
+
+                Iterator<Float> it = fs1.iterator();
+                x = it.next();
                 fs.set(x - FuzzyManager.getStepwidth(),
                         compute(0.0f,
                         fs2.getDegreeOfMembership(x - FuzzyManager.getStepwidth())));
@@ -109,8 +98,8 @@ public abstract class AbstractLinearOperator extends AbstractOperator
             }
 
             if (size2 == 1) {
-                elements = fs2.elements();
-                x = ((Float) elements.nextElement()).floatValue();
+                Iterator<Float> it = fs2.iterator();
+                x = it.next();
                 fs.set(x - FuzzyManager.getStepwidth(),
                         compute(fs1.getDegreeOfMembership(x -
                         FuzzyManager.getStepwidth()), 0.0f));
@@ -137,7 +126,7 @@ public abstract class AbstractLinearOperator extends AbstractOperator
                      * Vorzeichenwechsel bei der Zugehoerigkeitsdifferenz
                      * zwischen zwei Punkten vorliegt.
                      */
-                    elements = fs.elements();
+                    Iterator<Float> it = fs.iterator();
 
                     float xLeft;
                     float xRight;
@@ -147,12 +136,12 @@ public abstract class AbstractLinearOperator extends AbstractOperator
                     float domRight2;
                     float slope1;
                     float slope2;
-                    xLeft = ((Float) elements.nextElement()).floatValue();
+                    xLeft = it.next();
                     domLeft1 = fs1.getDegreeOfMembership(xLeft);
                     domLeft2 = fs2.getDegreeOfMembership(xLeft);
 
-                    while (elements.hasMoreElements()) {
-                        xRight = ((Float) elements.nextElement()).floatValue();
+                    while (it.hasNext()) {
+                        xRight = it.next();
                         domRight1 = fs1.getDegreeOfMembership(xRight);
                         domRight2 = fs2.getDegreeOfMembership(xRight);
 

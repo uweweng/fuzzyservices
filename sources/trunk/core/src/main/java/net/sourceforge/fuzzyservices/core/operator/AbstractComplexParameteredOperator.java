@@ -25,8 +25,7 @@ package net.sourceforge.fuzzyservices.core.operator;
 
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 import java.io.Serializable;
-import java.util.Enumeration;
-
+import java.util.Iterator;
 
 /**
  * The <strong>abstract</strong> class <code>AbstractComplexParameteredOperator
@@ -40,15 +39,8 @@ import java.util.Enumeration;
  */
 public abstract class AbstractComplexParameteredOperator extends AbstractParameteredOperator
         implements Serializable {
-    /**
-     * Combines two fuzzy sets to a new fuzzy set.
-     *
-     * @param fs1
-     *            The first operand
-     * @param fs2
-     *            The second operand
-     * @return the result of this operation. It is a new fuzzy set.
-     */
+
+    @Override
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         if ((fs1 != null) && (fs2 != null)) {
             FuzzySet fs = new FuzzySet();
@@ -60,7 +52,7 @@ public abstract class AbstractComplexParameteredOperator extends AbstractParamet
                 granularity = fs1.getGranularity(fs2);
                 numSteps = fs1.getNumSteps(fs2);
                 x = ((fs1.getMinDefinedX() < fs2.getMinDefinedX())
-                ? fs1.getMinDefinedX() : fs2.getMinDefinedX());
+                        ? fs1.getMinDefinedX() : fs2.getMinDefinedX());
             } else {
                 // Exception handling: At least one fuzzy set has got an
                 // undefined membership function.
@@ -90,23 +82,19 @@ public abstract class AbstractComplexParameteredOperator extends AbstractParamet
             // Finally, we are iterating all points on x axis
             int size1 = fs1.size();
             int size2 = fs2.size();
-            Enumeration elements;
 
             // For better performance we war iterating the fuzzy set with the most points
             if (size1 >= size2) {
-                elements = fs1.elements();
 
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
 
-                elements = fs2.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
@@ -114,19 +102,16 @@ public abstract class AbstractComplexParameteredOperator extends AbstractParamet
             }
 
             if (size1 < size2) { // it is the else-clause of if-clause before
-                elements = fs2.elements();
 
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));
                 }
 
-                elements = fs1.elements();
-
-                while (elements.hasMoreElements()) {
-                    x = ((Float) elements.nextElement()).floatValue();
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
                     fs.set(x,
                             compute(fs1.getDegreeOfMembership(x),
                             fs2.getDegreeOfMembership(x)));

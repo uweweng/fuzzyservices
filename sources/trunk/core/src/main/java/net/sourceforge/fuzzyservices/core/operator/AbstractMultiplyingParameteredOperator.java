@@ -25,8 +25,7 @@ package net.sourceforge.fuzzyservices.core.operator;
 
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 import java.io.Serializable;
-import java.util.Enumeration;
-
+import java.util.Iterator;
 
 /**
  * The <strong>abstract</strong> class
@@ -42,16 +41,9 @@ import java.util.Enumeration;
  * @author Uwe Weng
  */
 public abstract class AbstractMultiplyingParameteredOperator
-    extends AbstractComplexParameteredOperator implements Serializable {
-    /**
-     * Combines two fuzzy sets to a new fuzzy set.
-     *
-     * @param fs1
-     *            The first operand
-     * @param fs2
-     *            The second operand
-     * @return the result of this operation. It is a new fuzzy set.
-     */
+        extends AbstractComplexParameteredOperator implements Serializable {
+
+    @Override
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         if ((fs1 != null) && (fs2 != null)) {
             // Special cases
@@ -62,11 +54,12 @@ public abstract class AbstractMultiplyingParameteredOperator
             // Singleton requires a special treatment.
             if (fs1.size() == 1) {
                 FuzzySet fs = new FuzzySet();
-                Enumeration elements = fs1.elements();
-                float x = ((Float) elements.nextElement()).floatValue();
+                Iterator<Float> it = fs1.iterator();
+                float x = it.next();
                 fs.set(x,
-                    compute(fs1.getDegreeOfMembership(x),
+                        compute(fs1.getDegreeOfMembership(x),
                         fs2.getDegreeOfMembership(x)));
+
                 fs.reduce();
 
                 return fs;
@@ -74,11 +67,12 @@ public abstract class AbstractMultiplyingParameteredOperator
 
             if (fs2.size() == 1) {
                 FuzzySet fs = new FuzzySet();
-                Enumeration elements = fs2.elements();
-                float x = ((Float) elements.nextElement()).floatValue();
+                Iterator<Float> it = fs2.iterator();
+                float x = it.next();
                 fs.set(x,
-                    compute(fs1.getDegreeOfMembership(x),
+                        compute(fs1.getDegreeOfMembership(x),
                         fs2.getDegreeOfMembership(x)));
+
                 fs.reduce();
 
                 return fs;
@@ -111,14 +105,14 @@ public abstract class AbstractMultiplyingParameteredOperator
 
             // Alle Punkte aus dem gemeinsamen Intervall uebernehmen.
             float x;
-            Enumeration elements = fs1.elements();
-            x = ((Float) elements.nextElement()).floatValue();
+            Iterator<Float> it = fs1.iterator();
+            x = it.next();
 
             while (x < maxx) {
                 if (x > minx) {
                     tmp_fs1.set(x, fs1.getDegreeOfMembership(x));
                 }
-                x = ((Float) elements.nextElement()).floatValue();
+                x = it.next();
             }
 
             // Obere Grenze fuer fs1 in die neue, temporaere Fuzzy-Menge
@@ -129,14 +123,14 @@ public abstract class AbstractMultiplyingParameteredOperator
             // einfuegen.
             tmp_fs2.set(minx, fs2.getDegreeOfMembership(minx));
             // Alle Punkte aus dem gemeinsamen Intervall uebernehmen.
-            elements = fs2.elements();
-            x = ((Float) elements.nextElement()).floatValue();
+            it = fs2.iterator();
+            x = it.next();
 
             while (x < maxx) {
                 if (x > minx) {
                     tmp_fs2.set(x, fs2.getDegreeOfMembership(x));
                 }
-                x = ((Float) elements.nextElement()).floatValue();
+                x = it.next();
             }
 
             // Obere Grenze fuer fs2 in die neue, temporaere Fuzzy-Menge

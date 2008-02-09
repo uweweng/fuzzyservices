@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>net.sourceforge.fuzzyservices</groupId>
+    <artifactId>fuzzyservices</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.fuzzyservices</groupId>
+  <artifactId>fuzzyservices-swing-core</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Fuzzy Services Swing Models for Core Components</name>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
+  <dependencies>
+    <dependency>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-core</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-swing</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+  </dependencies>
+</project>

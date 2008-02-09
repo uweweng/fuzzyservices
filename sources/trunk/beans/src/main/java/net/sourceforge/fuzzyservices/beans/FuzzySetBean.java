@@ -51,6 +51,31 @@ public class FuzzySetBean implements Serializable {
     public static final String MEMBERSHIP_FUNCTION_PROPERTY
             = "membershipFunction";
 
+    /** Bound property name for <code>convex</code>. */
+    public static final String CONVEX_PROPERTY = "convex";
+
+    /** Bound property name for <code>height</code>. */
+    public static final String HEIGHT_PROPERTY = "height";
+
+    /** Bound property name for <code>normalized</code>. */
+    public static final String NORMALIZED_PROPERTY = "normalized";
+
+    /** Bound property name for <code>validFuzzyLRNumber</code>. */
+    public static final String VALID_FUZZY_NUMBER_PROPERTY 
+            = "validFuzzyNumber";
+
+    /** Bound property name for <code>validFuzzyLRNumber</code>. */
+    public static final String VALID_FUZZY_LR_NUMBER_PROPERTY 
+            = "validFuzzyLRNumber";
+
+    /** Bound property name for <code>validFuzzyInterval</code>. */
+    public static final String VALID_FUZZY_INTERVAL_PROPERTY 
+            = "validFuzzyInterval";
+
+    /** Bound property name for <code>validFuzzyLRInterval</code>. */
+    public static final String VALID_FUZZY_LR_INTERVAL_PROPERTY 
+            = "validFuzzyLRInterval";
+
     /** The underlying membership function is described by an array of points.*/
     private MembershipFunctionPointBean[] membershipFunction = null;
 
@@ -71,7 +96,7 @@ public class FuzzySetBean implements Serializable {
      * @return the <code>membershipFunction</code> property
      * @see #setMembershipFunction(MembershipFunctionPointBean[])
      */
-    public MembershipFunctionPointBean[] getMembershipFunction() {
+    public net.sourceforge.fuzzyservices.beans.MembershipFunctionPointBean[] getMembershipFunction() {
         return membershipFunction;
     }
 
@@ -84,7 +109,7 @@ public class FuzzySetBean implements Serializable {
      * invalid position
      * @see #setMembershipFunction(MembershipFunctionPointBean[])
      */
-    public MembershipFunctionPointBean getMembershipFunction(int index)
+    public net.sourceforge.fuzzyservices.beans.MembershipFunctionPointBean getMembershipFunction(int index)
     throws ArrayIndexOutOfBoundsException {
         return getMembershipFunction()[index];
     }
@@ -183,13 +208,35 @@ public class FuzzySetBean implements Serializable {
      * @see #getMembershipFunction()
      */
     public void setMembershipFunction(
-            MembershipFunctionPointBean[] newMembershipFunction) {
+            net.sourceforge.fuzzyservices.beans.MembershipFunctionPointBean[] newMembershipFunction) {
         MembershipFunctionPointBean[] oldValue = this.membershipFunction;
+        float oldHeight = getHeight();
+        boolean oldIsConvex = isConvex();
+        boolean oldIsNormalized = isNormalized();
+        boolean oldIsValidFuzzyNumber = isValidFuzzyNumber();
+        boolean oldIsValidFuzzyLRNumber = isValidFuzzyLRNumber();
+        boolean oldIsValidFuzzyInterval = isValidFuzzyInterval();
+        boolean oldIsValidFuzzyLRInterval = isValidFuzzyLRInterval();
+
         this.membershipFunction = newMembershipFunction;
         // Update internal representation
         fuzzySet = FuzzyBeanUtils.createFuzzySet(this.membershipFunction);
         propertyChangeSupport.firePropertyChange(MEMBERSHIP_FUNCTION_PROPERTY,
                 oldValue, newMembershipFunction);
+        propertyChangeSupport.firePropertyChange(HEIGHT_PROPERTY,
+                new Float(oldHeight), new Float(getHeight()));
+        propertyChangeSupport.firePropertyChange(CONVEX_PROPERTY,
+                oldIsConvex, isConvex());
+        propertyChangeSupport.firePropertyChange(NORMALIZED_PROPERTY,
+                oldIsNormalized, isNormalized());
+        propertyChangeSupport.firePropertyChange(VALID_FUZZY_NUMBER_PROPERTY,
+                oldIsValidFuzzyNumber, isValidFuzzyNumber());
+        propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_NUMBER_PROPERTY,
+                oldIsValidFuzzyLRNumber, isValidFuzzyLRNumber());
+        propertyChangeSupport.firePropertyChange(VALID_FUZZY_INTERVAL_PROPERTY,
+                oldIsValidFuzzyInterval, isValidFuzzyInterval());
+        propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_INTERVAL_PROPERTY,
+                oldIsValidFuzzyLRInterval, isValidFuzzyLRInterval());
     }
 
     /**
@@ -201,9 +248,17 @@ public class FuzzySetBean implements Serializable {
      * @see #getMembershipFunction()
      */
     public void setMembershipFunction(int index,
-            MembershipFunctionPointBean newMembershipFunction)
+            net.sourceforge.fuzzyservices.beans.MembershipFunctionPointBean newMembershipFunction)
             throws ArrayIndexOutOfBoundsException {
         MembershipFunctionPointBean oldValue = this.membershipFunction[index];
+        float oldHeight = getHeight();
+        boolean oldIsConvex = isConvex();
+        boolean oldIsNormalized = isNormalized();
+        boolean oldIsValidFuzzyNumber = isValidFuzzyNumber();
+        boolean oldIsValidFuzzyLRNumber = isValidFuzzyLRNumber();
+        boolean oldIsValidFuzzyInterval = isValidFuzzyInterval();
+        boolean oldIsValidFuzzyLRInterval = isValidFuzzyLRInterval();
+
         this.membershipFunction[index] = newMembershipFunction;
 
         if ((oldValue != null) && !oldValue.equals(newMembershipFunction)) {
@@ -212,6 +267,20 @@ public class FuzzySetBean implements Serializable {
             propertyChangeSupport.firePropertyChange(
                     MEMBERSHIP_FUNCTION_PROPERTY, null,
                     this.membershipFunction);
+            propertyChangeSupport.firePropertyChange(HEIGHT_PROPERTY,
+                    new Float(oldHeight), new Float(getHeight()));
+            propertyChangeSupport.firePropertyChange(CONVEX_PROPERTY,
+                    oldIsConvex, isConvex());
+            propertyChangeSupport.firePropertyChange(NORMALIZED_PROPERTY,
+                    oldIsNormalized, isNormalized());
+            propertyChangeSupport.firePropertyChange(VALID_FUZZY_NUMBER_PROPERTY,
+                    oldIsValidFuzzyNumber, isValidFuzzyNumber());
+            propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_NUMBER_PROPERTY,
+                    oldIsValidFuzzyLRNumber, isValidFuzzyLRNumber());
+            propertyChangeSupport.firePropertyChange(VALID_FUZZY_INTERVAL_PROPERTY,
+                    oldIsValidFuzzyInterval, isValidFuzzyInterval());
+            propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_INTERVAL_PROPERTY,
+                    oldIsValidFuzzyLRInterval, isValidFuzzyLRInterval());
         }
 
         ;

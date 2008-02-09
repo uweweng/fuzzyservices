@@ -31,25 +31,11 @@ package net.sourceforge.fuzzyservices.core;
  * @since 1.0
  * @author Uwe Weng
  */
-public abstract class AbstractDefuzzificator implements java.io.Serializable {
+public abstract class AbstractDefuzzificator {
     /**
      * Defuzzifies the membership function object.
      * @return The crisp value as result of the defuzzification
-     * @param f The membership function to be defuzzified
+     * @param membershipFunction The membership function to be defuzzified
      */
-    public abstract float defuzzify(final MembershipFunction f);
-
-    /**
-     * Returns a textual representation of the defuzzificator
-     * @return a string representation of the defuzzificator
-     */
-    public abstract String toString();
-
-    /**
-     * Indicates whether some other object is "equal to" this defuzzificator
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this defuzzificator is the same as the <code>obj</code> argument,
-     * <code>false</code> otherwise.
-     */
-    public abstract boolean equals(Object obj);
+    public abstract float defuzzify(final MembershipFunction membershipFunction);
 }

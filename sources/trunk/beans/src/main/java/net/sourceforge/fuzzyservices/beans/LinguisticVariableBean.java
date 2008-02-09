@@ -50,30 +50,22 @@ public class LinguisticVariableBean implements Serializable {
     //
     // Bound property names
     //
-
     /** Bound property name for <code>name</code>. */
     public static final String NAME_PROPERTY = "name";
-
     /** Bound property name for <code>linguisticTerms</code>. */
     public static final String LINGUISTIC_TERMS_PROPERTY = "linguisticTerms";
-
     /** Name property. */
-    private String name = null;
-
+    private String name = "";
     /** A linguistic variable consists of an array of linguistic terms. */
     private LinguisticTermBean[] linguisticTerms = null;
-
     /** Support for any PropertyChangeListeners which have been registered. */
-    private transient PropertyChangeSupport propertyChangeSupport
-            = new PropertyChangeSupport(this);
-
+    private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     /** Support for any VetoableChangeListeners which have been registered. */
-    private transient VetoableChangeSupport vetoableChangeSupport
-            = new VetoableChangeSupport(this);
+    private transient VetoableChangeSupport vetoableChangeSupport = new VetoableChangeSupport(this);
 
     /** Default <code>LinguisticVariableBean</code> constructor. */
     public LinguisticVariableBean() {
-        // Do nothing
+    // Do nothing
     }
 
     /**
@@ -104,7 +96,7 @@ public class LinguisticVariableBean implements Serializable {
      * @see #setLinguisticTerms(LinguisticTermBean[])
      */
     public LinguisticTermBean getLinguisticTerms(int index)
-    throws ArrayIndexOutOfBoundsException {
+            throws ArrayIndexOutOfBoundsException {
         return getLinguisticTerms()[index];
     }
 
@@ -119,9 +111,7 @@ public class LinguisticVariableBean implements Serializable {
         if (this.linguisticTerms != null) {
             for (int i = 0; i < linguisticTerms.length; i++) {
                 if (this.linguisticTerms[i] != null) {
-                    if ((aName == this.linguisticTerms[i].getName()) ||
-                            ((aName != null) &&
-                            (aName.equals(linguisticTerms[i].getName()) == true))) {
+                    if ((aName != null) && (aName.equals(linguisticTerms[i].getName()) == true)) {
                         return linguisticTerms[i];
                     }
                 }
@@ -140,7 +130,7 @@ public class LinguisticVariableBean implements Serializable {
      * @see #getLinguisticTerms()
      */
     public void setLinguisticTerms(LinguisticTermBean[] newLinguisticTerms)
-    throws IllegalArgumentException, PropertyVetoException {
+            throws IllegalArgumentException, PropertyVetoException {
         // Check linguistic terms
         if (newLinguisticTerms != null) {
             // Duplicate linguistic terms to one linguistic variable?
@@ -205,15 +195,12 @@ public class LinguisticVariableBean implements Serializable {
                     null, this.linguisticTerms);
         }
 
-        ;
         this.linguisticTerms[index] = newLinguisticTerms;
 
         if ((oldValue != null) && !oldValue.equals(newLinguisticTerms)) {
             propertyChangeSupport.firePropertyChange(LINGUISTIC_TERMS_PROPERTY,
                     null, this.linguisticTerms);
         }
-
-        ;
     }
 
     /**

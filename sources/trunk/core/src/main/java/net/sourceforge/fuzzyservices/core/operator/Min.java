@@ -26,7 +26,6 @@ package net.sourceforge.fuzzyservices.core.operator;
 import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 import java.io.Serializable;
 
-
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = min(a,b)</tt>.
@@ -35,58 +34,34 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class Min extends AbstractLinearOperator implements Serializable {
+
     /**
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Indicates whether an operator fullfils the t-norm.
-     * @return <code>true</code> because this operator fullfils the t-norm.
-     */
+    @Override
     public boolean isValidTNorm() {
         return true;
     }
 
-    /**
-     * Indicates whether an operator fullfils the s-norm.
-     * @return <code>false</code> because this operator does not fullfil the
-     * s-norm.
-     */
+    @Override
     public boolean isValidSNorm() {
         return false;
     }
 
-    /**
-     * Computes the new degree of membership using the calculation rule
-     * <tt>c = min(a,b)</tt>.
-     * @param a a degree of membership
-     * @param b a degree of membership
-     * @return the calculated value
-     */
+    @Override
     public float compute(final float a, final float b) {
         return (a <= b) ? a : b; // identical with Math.min(a, b);
     }
 
-    /**
-     * Returns a textual representation of the operator
-     * @return a string representation of the operator
-     */
+    @Override
     public String toString() {
         return FuzzyResourceManager.getString(this, "OPERATOR_MIN");
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this operator
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this operator is the same as the
-     * <code>obj</code> argument, <code>false</code> otherwise.
-     */
-    public boolean equals(Object obj) {
-        boolean isEqual = false;
-        if ((obj != null) && (obj instanceof Min)) {
-            isEqual = true;
-        }
-        return isEqual;
+    @Override
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_MIN");
     }
 }

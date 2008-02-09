@@ -27,9 +27,9 @@ import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 import java.io.Serializable;
-import java.util.Enumeration;
-import java.util.Vector;
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The <strong>abstract</strong> class <code>AbstractDrasticOperator</code> is
@@ -41,28 +41,21 @@ import java.util.Vector;
  */
 public abstract class AbstractDrasticOperator extends AbstractOperator
         implements Serializable {
+
     /**
      * Returns the value if no condition is fullfiled
      *
      * @return a value depending on the calculation rule
      */
-    abstract float getDefaultValue();
+    public abstract float getDefaultValue();
 
     /**
      * Returns the value which has to be fulfilled
      * @return a value depending on the calculation rule
      */
-    abstract float getConditionValue();
+    public abstract float getConditionValue();
 
-    /**
-     * Combines two fuzzy sets to a new fuzzy set.
-     *
-     * @param fs1
-     *            The first operand
-     * @param fs2
-     *            The second operand
-     * @return the result of this operation. It is a new fuzzy set.
-     */
+    @Override
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         if ((fs1 != null) && (fs2 != null)) {
             FuzzySet fs = new FuzzySet();
@@ -87,36 +80,36 @@ public abstract class AbstractDrasticOperator extends AbstractOperator
              * Es wird ausreichend Speicherplatz reserviert. Erst wird die
              * Fuzzy-Menge mit der groesseren Anzahl von Eintraegen kopiert.
              */
-            Vector x_values = new Vector((fs1.size() + fs2.size()) - 2);
+            List<Float> x_values = new ArrayList<Float>((fs1.size() + fs2.size()) - 2);
 
             int i = ((fs1.size() >= fs2.size()) ? 1 : 2);
-            Enumeration elements = ((i == 1) ? fs1.elements() : fs2.elements());
+            Iterator<Float> it = ((i == 1) ? fs1.iterator() : fs2.iterator());
 
             // x-Werte in einen Vektor kopieren
-            while (elements.hasMoreElements()) {
-                x_values.addElement(elements.nextElement());
+            while (it.hasNext()) {
+                x_values.add(it.next());
             }
 
             // Die Fuzzy-Menge mit der kleineren Anzahl wird nun einsortiert.
             // Dazu wird die binaere Suche zur Hilfe (vgl. FuzzySet.set())
             // genommen.
-            elements = ((i == 1) ? fs2.elements() : fs1.elements());
+            it = ((i == 1) ? fs2.iterator() : fs1.iterator());
 
-            Float x_value;
             float x;
 
-            while (elements.hasMoreElements()) {
-                x_value = (Float) elements.nextElement();
-                x = x_value.floatValue();
-                insertBlock:  {
-                    if (x > ((Float) x_values.lastElement()).floatValue()) {
-                        x_values.addElement(x_value);
+            while (it.hasNext()) {
+
+                x = it.next();
+                insertBlock:
+                {
+                    if (x > x_values.get(x_values.size() - 1)) {
+                        x_values.add(x);
 
                         break insertBlock;
                     }
 
-                    if (x < ((Float) x_values.firstElement()).floatValue()) {
-                        x_values.insertElementAt(x_value, 0);
+                    if (x < x_values.get(0)) {
+                        x_values.add(0, x);
 
                         break insertBlock;
                     }
@@ -128,17 +121,18 @@ public abstract class AbstractDrasticOperator extends AbstractOperator
                     while (maxPos != minPos) {
                         i = (maxPos + minPos) / 2;
 
-                        if (x == ((Float) x_values.elementAt(i)).floatValue())
+                        if (x == x_values.get(i)) {
                             break insertBlock;
-                        else if (x < ((Float) x_values.elementAt(i)).floatValue())
+                        } else if (x < x_values.get(i)) {
                             maxPos = i;
-                        else
+                        } else {
                             minPos = i + 1;
+                        }
                     }
 
-                    if (x != ((Float) x_values.elementAt(maxPos)).floatValue()) {
+                    if (x != x_values.get(maxPos)) {
                         // x-Wert ist noch nicht als Eintrag vorhanden
-                        x_values.insertElementAt(x_value, maxPos);
+                        x_values.add(maxPos, x);
                     }
                 } // insertBlock
             }
@@ -148,10 +142,10 @@ public abstract class AbstractDrasticOperator extends AbstractOperator
             float dom2;
             float tmp_dom1;
             float tmp_dom2;
-            elements = x_values.elements();
 
-            while (elements.hasMoreElements()) {
-                x = ((Float) elements.nextElement()).floatValue();
+            for (it = x_values.iterator(); it.hasNext();) {
+
+                x = it.next();
                 dom1 = fs1.getDegreeOfMembership(x);
                 dom2 = fs2.getDegreeOfMembership(x);
                 dom = compute(dom1, dom2);

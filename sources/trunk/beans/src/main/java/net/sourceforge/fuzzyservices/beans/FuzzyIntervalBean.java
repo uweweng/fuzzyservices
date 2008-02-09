@@ -51,6 +51,16 @@ public class FuzzyIntervalBean implements Serializable {
     public static final String MEMBERSHIP_FUNCTION_PROPERTY
             = "membershipFunction";
 
+    /** Bound property name for <code>negative</code>. */
+    public static final String NEGATIVE_PROPERTY = "negative";
+
+    /** Bound property name for <code>positive</code>. */
+    public static final String POSITIVE_PROPERTY = "positive";
+
+    /** Bound property name for <code>validFuzzyLRInterval</code>. */
+    public static final String VALID_FUZZY_LR_INTERVAL_PROPERTY 
+            = "validFuzzyLRInterval";
+
     /** The underlying membership function is described by an array of points. */
     private MembershipFunctionPointBean[] membershipFunction = null;
 
@@ -147,12 +157,21 @@ public class FuzzyIntervalBean implements Serializable {
             MembershipFunctionPointBean[] newMembershipFunction)
             throws IllegalArgumentException {
         MembershipFunctionPointBean[] oldValue = this.membershipFunction;
+        boolean oldPositive = isPositive();
+        boolean oldNegative = isNegative();
+        boolean oldIsValidFuzzyLRInterval = isValidFuzzyLRInterval();
         this.membershipFunction = newMembershipFunction;
         // Update internal representation
         fuzzyInterval = FuzzyBeanUtils.createFuzzyInterval(
                 this.membershipFunction);
         propertyChangeSupport.firePropertyChange(MEMBERSHIP_FUNCTION_PROPERTY,
                 oldValue, newMembershipFunction);
+        propertyChangeSupport.firePropertyChange(POSITIVE_PROPERTY,
+                oldPositive, isPositive());
+        propertyChangeSupport.firePropertyChange(NEGATIVE_PROPERTY,
+                oldNegative, isNegative());
+        propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_INTERVAL_PROPERTY,
+                oldIsValidFuzzyLRInterval, isValidFuzzyLRInterval());
     }
 
     /**
@@ -169,6 +188,9 @@ public class FuzzyIntervalBean implements Serializable {
             MembershipFunctionPointBean newMembershipFunction)
             throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
         MembershipFunctionPointBean oldValue = this.membershipFunction[index];
+        boolean oldPositive = isPositive();
+        boolean oldNegative = isNegative();
+        boolean oldIsValidFuzzyLRInterval = isValidFuzzyLRInterval();
         this.membershipFunction[index] = newMembershipFunction;
 
         if ((oldValue != null) && !oldValue.equals(newMembershipFunction)) {
@@ -177,6 +199,12 @@ public class FuzzyIntervalBean implements Serializable {
                     this.membershipFunction);
             propertyChangeSupport.firePropertyChange(
                     MEMBERSHIP_FUNCTION_PROPERTY, null, this.membershipFunction);
+            propertyChangeSupport.firePropertyChange(POSITIVE_PROPERTY,
+                    oldPositive, isPositive());
+            propertyChangeSupport.firePropertyChange(NEGATIVE_PROPERTY,
+                    oldNegative, isNegative());
+            propertyChangeSupport.firePropertyChange(VALID_FUZZY_LR_INTERVAL_PROPERTY,
+                    oldIsValidFuzzyLRInterval, isValidFuzzyLRInterval());
         }
 
         ;
@@ -205,5 +233,3 @@ public class FuzzyIntervalBean implements Serializable {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
-
-

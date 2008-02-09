@@ -42,6 +42,7 @@ import java.util.ListIterator;
  * @author Uwe Weng
  */
 public class FuzzySet extends MembershipFunction implements Cloneable, Serializable {
+
     /**
      * Default serial version UID
      */
@@ -52,7 +53,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * at beginning of the lifecycle of this object.
      */
     public FuzzySet() {
-        // Default constructor
+    // Default constructor
     }
 
     /**
@@ -69,14 +70,15 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * @param spread the spread to x <code>x</code> with degree of membership 0.0
      * @exception IllegalArgumentException if <code>spread</code> is not positive.
      */
-    public FuzzySet(final float x, final float spread) throws IllegalArgumentException{
+    public FuzzySet(final float x, final float spread) throws IllegalArgumentException {
         if (spread > 0.0f) {
             points.add(new MembershipFunctionPoint((x - spread), 0.0f));
             points.add(new MembershipFunctionPoint(x, 1.0f));
             points.add(new MembershipFunctionPoint((x + spread), 0.0f));
-        } else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_SET"));
+        }
     }
 
     /**
@@ -86,14 +88,15 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * @param beta the distance to <code>x</code> on the right side and degree of membership 0.0
      * @exception IllegalArgumentException if <code>alpha</code> or <code>beta</code> is not positive
      */
-    public FuzzySet(final float x, final float alpha, final float beta) throws IllegalArgumentException{
+    public FuzzySet(final float x, final float alpha, final float beta) throws IllegalArgumentException {
         if ((alpha > 0.0f) && (beta > 0.0f)) {
             points.add(new MembershipFunctionPoint((x - alpha), 0.0f));
             points.add(new MembershipFunctionPoint(x, 1.0f));
             points.add(new MembershipFunctionPoint((x + beta), 0.0f));
-        } else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_SET"));
+        }
     }
 
     /**
@@ -107,21 +110,23 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * <code>plateau2</code> < <code>plateau2 + beta</code>
      */
     public FuzzySet(final float plateau1, final float plateau2,
-            final float alpha, final float beta) throws IllegalArgumentException{
+            final float alpha, final float beta) throws IllegalArgumentException {
         if (((plateau1 - alpha) < plateau1) && (plateau1 <= plateau2) &&
                 (plateau2 < (plateau2 + beta))) {
             points.add(new MembershipFunctionPoint((plateau1 - alpha),
                     0.0f));
             points.add(new MembershipFunctionPoint(plateau1, 1.0f));
 
-            if (plateau2 != plateau1) // sonst Triangle
+            if (plateau2 != plateau1) {
+                // sonst Triangle
                 points.add(new MembershipFunctionPoint(plateau2, 1.0f));
+            }
 
             points.add(new MembershipFunctionPoint((plateau2 + beta),
                     0.0f));
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_INVALID_FUZZY_SET"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_SET"));
+        }
     }
 
     /**
@@ -132,8 +137,9 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
         if (fi != null) {
             ListIterator elements = fi.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
         }
     }
 
@@ -145,8 +151,9 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
         if (fi != null) {
             ListIterator elements = fi.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
         }
     }
 
@@ -158,8 +165,9 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
         if (fn != null) {
             ListIterator elements = fn.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
         }
     }
 
@@ -171,12 +179,13 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
         if (fn != null) {
             ListIterator elements = fn.points.listIterator();
 
-            while (elements.hasNext())
-                points.add(((MembershipFunctionPoint) elements.next()).clone());
+            while (elements.hasNext()) {
+                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            }
         }
     }
 
-    /** Reset the membership function to <tt>f(x) = 0.0</tt>. */
+    @Override
     public synchronized void clear() {
         super.clear();
     }
@@ -190,7 +199,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * @exception NullPointerException if <code>op</code> is <code>null</code>
      */
     public static FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2,
-            final AbstractOperator op) throws NullPointerException{
+            final AbstractOperator op) throws NullPointerException {
         return op.combine(fs1, fs2);
     }
 
@@ -294,17 +303,14 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
 
         // Checking, whether the default granularity is ok.
         // On calculation the number of steps take priority over default granularity.
-        if ((commonspread / FuzzyManager.maxNumStep) > FuzzyManager.stepwidth)
+        if ((commonspread / FuzzyManager.maxNumStep) > FuzzyManager.stepwidth) {
             return FuzzyManager.round(commonspread / FuzzyManager.maxNumStep);
-        else
-
+        } else {
             return FuzzyManager.stepwidth;
+        }
     }
 
-    /**
-     * Returns the height of the membership function. It is the maximum defined degree of membership.
-     * @return the maximum degree of membership as height
-     */
+    @Override
     public synchronized float getHeight() {
         return super.getHeight();
     }
@@ -324,76 +330,37 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
         return ((int) (commonspread / this.getGranularity(fs)));
     }
 
-    /**
-     * Checks whether the membership function is convex. A membership function is convex
-     * if there is only one change of sign from + to -.
-     * @return <code>true</code> if membership function is convex <code>false</code>, otherwise
-     */
+    @Override
     public synchronized boolean isConvex() {
         return super.isConvex();
     }
 
-    /**
-     * Checks whether the membership function is normalized. A membership function is normalized
-     * if its height is 1.0.
-     * @return <code>true</code> if membership function is normalized <code>false</code>, otherwise
-     * @see #getHeight
-     */
+    @Override
     public synchronized boolean isNormalized() {
         return super.isNormalized();
     }
 
-    /**
-     * Checks whether the membership function of this fuzzy set fulfills the requirements of a fuzzy interval.
-     * The membership function has to be convex and normalized. In addition, the maximum
-     * has to lie between a closed interval (<tt>[a,b]</tt> with <tt>a != b</tt>).
-     * @return <code>true</code> if the fuzzy set would be a fuzzy interval <code>false</code>, otherwise
-     * @see #isNormalized
-     * @see #isConvex
-     */
+    @Override
     public synchronized boolean isValidFuzzyInterval() {
         return super.isValidFuzzyInterval();
     }
 
-    /**
-     * Checks whether the membership function of this fuzzy set fulfills the requirements of a fuzzy LR interval.
-     * In addition to the requirements for a fuzzy interval the membership function must be represented
-     * by two reference function L and R.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy LR interval <code>false</code>, otherwise
-     * @see #isValidFuzzyInterval
-     */
+    @Override
     public synchronized boolean isValidFuzzyLRInterval() {
         return super.isValidFuzzyLRInterval();
     }
 
-    /**
-     * Checks whether the membership function of this fuzzy set fulfills the requirements of a fuzzy LR number.
-     * In addition to the requirements for a fuzzy number the membership function must be represented
-     * by two reference function L and R.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy LR number <code>false</code>, otherwise
-     * @see #isValidFuzzyNumber
-     */
+    @Override
     public synchronized boolean isValidFuzzyLRNumber() {
         return super.isValidFuzzyLRNumber();
     }
 
-    /**
-     * Checks whether the membership function of this fuzzy set fulfills the requirements of a fuzzy number.
-     * The membership function has to be convex and normalized. In addition, the maximum
-     * is reached at one point.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy number <code>false</code>, otherwise
-     * @see #isNormalized
-     * @see #isConvex
-     */
+    @Override
     public synchronized boolean isValidFuzzyNumber() {
         return super.isValidFuzzyNumber();
     }
 
-    /**
-     * Normalizes the membership function.
-     * Afterwards the degree of membership is alwalys in <tt>[0,1]</tt>.
-     * @see #isNormalized
-     */
+    @Override
     public synchronized void normalize() {
         super.normalize();
     }
@@ -409,23 +376,13 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
         }
     }
 
-    /**
-     * Sets the degree of membership at <code>x</code> to 0.0.
-     * @param x the x coodinate
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     */
+    @Override
     public synchronized float remove(final float x) {
         return removeWithoutChecking(x);
     }
 
-    /**
-     * Defines at <code>x</code> a new degree of membership.
-     * @param x the x coordinate
-     * @param dom the new degree of membership at <code>x</code>
-     * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if <code>x</code> is <code>Float.NaN</code> or not 0.0 <= x <= 1.0.
-     */
-    public synchronized float set(final float x, final float dom) throws IllegalArgumentException{
+    @Override
+    public synchronized float set(final float x, final float dom) throws IllegalArgumentException {
         return super.setWithoutChecking(x, dom);
     }
 
@@ -435,11 +392,11 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * @return a string representation of the fuzzy set
      */
     public String toString(final boolean withPoints) {
-        if (withPoints)
+        if (withPoints) {
             return super.toString();
-        else
-
+        } else {
             return FuzzyResourceManager.getString(this, "FUZZY_SET_WITHOUT_POINTS",
-                    new Object[] { Integer.toString(points.size()) });
+                    new Object[]{Integer.toString(points.size())});
+        }
     }
 }

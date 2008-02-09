@@ -23,6 +23,7 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import java.io.Serializable;
 
 /**
  * The class <code>Consequent</code> represents the then-clause of a rule.
@@ -34,19 +35,19 @@ package net.sourceforge.fuzzyservices.core;
  * @since 1.0
  * @author Uwe Weng
  */
-public final class Consequent extends AbstractRulePart implements java.io.Serializable {
+public final class Consequent extends AbstractRulePart implements Serializable {
+
     /**
-         * Default serial version UID
-         */
+     * Default serial version UID
+     */
     private static final long serialVersionUID = 1L;
 
     /**
-    * Constructs a conclusion.
-    * @param lv linguistic variable for describing a conclusion of an if-then-clause
-    * @param lingTermName the name of a linguistic term which is part of the linguistic variable representing the conclusion.
-    * @exception NullPointerException if one parameter is <code>null</code> at least
-    */
-    public Consequent(final LinguisticVariable lv, final String lingTermName) throws NullPointerException{
-        super(lv, lingTermName);
+     * Constructs a conclusion.
+     * @param lvName linguistic variable name for describing a conclusion of an if-then-clause
+     * @param lingTermName the name of a linguistic term which is part of the linguistic variable representing the conclusion.
+     */
+    public Consequent(final String lvName, final String lingTermName) {
+        super(lvName, lingTermName);
     }
 }

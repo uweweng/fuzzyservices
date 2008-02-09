@@ -23,12 +23,11 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
-import net.sourceforge.fuzzyservices.core.AbstractOperator;
+import java.util.ArrayList;
 import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
 import net.sourceforge.fuzzyservices.core.operator.Min;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A fuzzy rule is an if-then statement consisting of antecedents and consequents.
@@ -47,53 +46,43 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
-
     /** By default, the certainty is 1.0. */
     private static float defaultCertainty = 1.0f;
-
     /**
      * By default, a MIN-AbstractOperator is used for aggregation.
      */
     private static AbstractOperator defaultAggregationOperator = new Min(); // beliebig
-
     /**
      * By default, a MIN-AbstractOperator is used for reconciliation of
      * result and certainty factor. The operator has to fulfill the t-norm.
      */
     private static AbstractOperator defaultCertaintyOperator = new Min(); // t-Norm
-
     /**
      * By default, a MIN-AbstractOperator is used for inference.
      */
     private static AbstractOperator defaultInferenceOperator = new Min(); // t-Norm
-
     /**
      * The faith in a rule is expressed by a certainty factor.
      * It is a value in [0,1].
      */
     private float certainty = defaultCertainty;
-
     /** A fuzzy operator is required for aggregation. */
     private AbstractOperator aggregationOp = defaultAggregationOperator; // (bel.)
-
     /**
      * The premise of a rule must not higher than the certainty. Therefore,
      * a fuzzy operator of type t-norm is required.
      */
     private AbstractOperator certaintyOp = defaultCertaintyOperator; // (t-Norm)
-
     /** A fuzzy operator for inference is required. */
     private AbstractOperator inferenceOp = defaultInferenceOperator; // (t-Norm)
-
     /**
      * The antecedents of the rule are stored in a vector.
      */
-    private Vector antecedents = new Vector(); // of Antecedent
-
+    private List<Antecedent> antecedents = new ArrayList<Antecedent>();
     /**
      * The consequents of the rule are stored in a vector.
      */
-    private Vector consequents = new Vector(); // of Consequent
+    private List<Consequent> consequents = new ArrayList<Consequent>();
 
     /**
      * Adds a premise to this rule.
@@ -103,33 +92,32 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception NullPointerException
      *                if <code>ante</code> is <code>null</code>
      */
-    protected synchronized void addAntecedent(final Antecedent ante) throws NullPointerException{
-        antecedents.addElement(ante); // No check !!!
+    public synchronized void addAntecedent(final Antecedent ante) throws NullPointerException {
+        antecedents.add(ante); // No check !!!
     }
 
     /**
      * Adds a premise to this rule.
      *
-     * @param lv
-     *            the linguistic variable of the antecedent
+     * @param lvName
+     *            the linguistic variable name of the antecedent
      * @param lingTermName
      *            the name of the linguistic term
-     * @exception NullPointerException
-     *                if one of the parameter is <code>null</code>
      * @see #if_(LinguisticVariable, String)
      */
-    public synchronized void addAntecedent(final LinguisticVariable lv,
-            final String lingTermName) throws NullPointerException{
-        Antecedent ante = new Antecedent(lv, lingTermName);
-        if (!antecedents.contains(ante))
-            antecedents.addElement(ante);
+    public synchronized void addAntecedent(final String lvName,
+            final String lingTermName) {
+        Antecedent ante = new Antecedent(lvName, lingTermName);
+        if (!antecedents.contains(ante)) {
+            antecedents.add(ante);
+        }
     }
 
     /**
      * Adds a premise to this rule.
      *
-     * @param lv
-     *            the linguistic variable of the antecedent
+     * @param lvName
+     *            the linguistic variable name of the antecedent
      * @param lingTermName
      *            the name of the linguistic term
      * @param compOp
@@ -140,11 +128,12 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      *                if the fuzzy operator does not fulfill the t-norm
      * @see #if_(LinguisticVariable, String)
      */
-    public synchronized void addAntecedent(final LinguisticVariable lv,
-            final String lingTermName, final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException{
-        Antecedent ante = new Antecedent(lv, lingTermName, compOp);
-        if (!antecedents.contains(ante))
-            antecedents.addElement(ante);
+    public synchronized void addAntecedent(final String lvName,
+            final String lingTermName, final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException {
+        Antecedent ante = new Antecedent(lvName, lingTermName, compOp);
+        if (!antecedents.contains(ante)) {
+            antecedents.add(ante);
+        }
     }
 
     /**
@@ -155,26 +144,25 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception NullPointerException
      *                if <code>cons</code> is <code>null</code>
      */
-    protected synchronized void addConsequent(final Consequent cons) throws NullPointerException{
-        consequents.addElement(cons); // Keine Ueberpruefung !!!
+    public synchronized void addConsequent(final Consequent cons) throws NullPointerException {
+        consequents.add(cons); // No check !!!
     }
 
     /**
      * Adds a conclusion to this rule.
      *
-     * @param lv
-     *            the linguistic variable of the consequent
+     * @param lvName
+     *            the linguistic variable name of the consequent
      * @param lingTermName
      *            the name of the linguistic term
-     * @exception NullPointerException
-     *                if at least one parameter is <code>null</code>
      * @see #then_
      */
-    public synchronized void addConsequent(final LinguisticVariable lv,
-            final String lingTermName) throws NullPointerException{
-        Consequent cons = new Consequent(lv, lingTermName);
-        if (!consequents.contains(cons))
-            consequents.addElement(cons);
+    public synchronized void addConsequent(final String lvName,
+            final String lingTermName) {
+        Consequent cons = new Consequent(lvName, lingTermName);
+        if (!consequents.contains(cons)) {
+            consequents.add(cons);
+        }
     }
 
     /**
@@ -182,8 +170,8 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * fuzzy operators are reset.
      */
     public synchronized void clear() {
-        consequents.removeAllElements();
-        antecedents.removeAllElements();
+        consequents.clear();
+        antecedents.clear();
         certainty = defaultCertainty;
         certaintyOp = defaultCertaintyOperator;
         aggregationOp = defaultAggregationOperator;
@@ -193,24 +181,25 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
     /**
      * Checks whether an antecedent to a linguistic variable already exists.
      *
-     * @param lv
-     *            the linguistic variable of the antecedent
+     * @param lvName
+     *            the linguistic variable name of the antecedent
      * @param lingTermName
      *            the name of the linguistic term
      * @return <code>true</code> if such antecedent is defined, <code>false</code> otherwise
      */
-    public synchronized boolean containsAntecedent(final LinguisticVariable lv,
+    public synchronized boolean containsAntecedent(final String lvName,
             final String lingTermName) {
-        if ((lv != null) && (lingTermName != null))
-            return antecedents.contains(new Antecedent(lv, lingTermName));
+        if ((lvName != null) && (lingTermName != null)) {
+            return antecedents.contains(new Antecedent(lvName, lingTermName));
+        }
         return false;
     }
 
     /**
      * Checks whether an antecedent to a linguistic variable already exists.
      *
-     * @param lv
-     *            the linguistic variable of the consequent
+     * @param lvName
+     *            the linguistic variable name of the consequent
      * @param lingTermName
      *            the name of the linguistic term
      * @param compOp
@@ -219,53 +208,27 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception IllegalArgumentException
      *                if the fuzzy operator does not fulfill the t-norm
      */
-    public synchronized boolean containsAntecedent(final LinguisticVariable lv,
-            final String lingTermName, final AbstractOperator compOp) throws IllegalArgumentException{
-        if ((lv != null) && (lingTermName != null) && (compOp != null))
-            return antecedents
-                    .contains(new Antecedent(lv, lingTermName, compOp));
+    public synchronized boolean containsAntecedent(final String lvName,
+            final String lingTermName, final AbstractOperator compOp) throws IllegalArgumentException {
+        if ((lvName != null) && (lingTermName != null) && (compOp != null)) {
+            return antecedents.contains(new Antecedent(lvName, lingTermName, compOp));
+        }
         return false;
     }
 
     /**
      * Checks whether an consequent to a linguistic variable already exists.
      *
-     * @param lv
-     *            the linguistic variable of the consequent
+     * @param lvName
+     *            the linguistic variable name of the consequent
      * @param lingTermName
      *            the name of the linguistic term
      * @return <code>true</code> if such consequent is defined, <code>false</code> otherwise
      */
-    public synchronized boolean containsConsequent(final LinguisticVariable lv,
+    public synchronized boolean containsConsequent(final String lvName,
             final String lingTermName) {
-        if ((lv != null) && (lingTermName != null))
-            return consequents.contains(new Consequent(lv, lingTermName));
-        return false;
-    }
-
-    /**
-     * Checks whether a linguistic variable is used in one of the
-     * antecedents or consequents.
-     *
-     * @param lv
-     *            the linguistic variable
-     * @return <code>true</code> if this linguistic variable is referenced, <code>false</code> otherwise
-     */
-    public synchronized boolean containsLinguisticVariable(
-            final LinguisticVariable lv) {
-        if (lv != null) {
-            java.util.Enumeration elementsAnte = antecedents.elements();
-            while (elementsAnte.hasMoreElements()) {
-                if (lv == ((Antecedent) elementsAnte.nextElement())
-                .getLinguisticVariable())
-                    return true;
-            }
-            java.util.Enumeration elementsCon = consequents.elements();
-            while (elementsCon.hasMoreElements()) {
-                if (lv == ((Consequent) elementsCon.nextElement())
-                .getLinguisticVariable())
-                    return true;
-            }
+        if ((lvName != null) && (lingTermName != null)) {
+            return consequents.contains(new Consequent(lvName, lingTermName));
         }
         return false;
     }
@@ -281,18 +244,15 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
     public synchronized boolean containsLinguisticVariable(
             final String lingVarName) {
         if (lingVarName != null) {
-            java.util.Enumeration elementsAnte = antecedents.elements();
-            while (elementsAnte.hasMoreElements()) {
-                if (lingVarName
-                        .equals(((Antecedent) elementsAnte.nextElement())
-                        .getLinguisticVariableName()))
+            for (Antecedent antecedent : antecedents) {
+                if (lingVarName.equals(antecedent.getLinguisticVariableName()) == true) {
                     return true;
+                }
             }
-            java.util.Enumeration elementsCon = consequents.elements();
-            while (elementsCon.hasMoreElements()) {
-                if (lingVarName.equals(((Consequent) elementsCon.nextElement())
-                .getLinguisticVariableName()))
+            for (Consequent consequent : consequents) {
+                if (lingVarName.equals(consequent.getLinguisticVariableName()) == true) {
                     return true;
+                }
             }
         }
         return false;
@@ -316,17 +276,17 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception ArrayIndexOutOfBoundsException
      *                if no antecedent is defined at position <code>i</code>
      */
-    protected synchronized Antecedent getAntecedentAt(final int i) throws ArrayIndexOutOfBoundsException{
-        return (Antecedent) antecedents.elementAt(i);
+    public synchronized Antecedent getAntecedentAt(final int i) throws ArrayIndexOutOfBoundsException {
+        return antecedents.get(i);
     }
 
     /**
-     * Returns an enumeration of antecedents.
+     * Returns an iterator of antecedents.
      *
-     * @return an enumeration of antecedents
+     * @return an iterator of antecedents
      */
-    public synchronized Enumeration getAntecedents() {
-        return antecedents.elements();
+    public synchronized Iterator<Antecedent> getAntecedents() {
+        return antecedents.iterator();
     }
 
     /**
@@ -356,17 +316,17 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception ArrayIndexOutOfBoundsException
      *                if no consequent is defined at position <code>i</code>
      */
-    protected synchronized Consequent getConsequentAt(final int i) throws ArrayIndexOutOfBoundsException{
-        return (Consequent) consequents.elementAt(i);
+    public synchronized Consequent getConsequentAt(final int i) throws ArrayIndexOutOfBoundsException {
+        return consequents.get(i);
     }
 
     /**
-     * Returns an enumeration of consequents.
+     * Returns an iterator of consequents.
      *
-     * @return an enumeration of consequents
+     * @return an iterator of consequents
      */
-    public synchronized Enumeration getConsequents() {
-        return consequents.elements();
+    public synchronized Iterator<Consequent> getConsequents() {
+        return consequents.iterator();
     }
 
     /**
@@ -426,24 +386,24 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
     /**
      * Adds a premise to the rule.
      * @see #addAntecedent(Antecedent)
-     * @param lv the linguistic variable
+     * @param lvName the linguistic variable name
      * @param lingTermName name of a linguistic term which is member of <code>lv</code>
      */
-    public synchronized void if_(final LinguisticVariable lv,
+    public synchronized void if_(final String lvName,
             final String lingTermName) {
-        addAntecedent(lv, lingTermName);
+        addAntecedent(lvName, lingTermName);
     }
 
     /**
      * Adds a premise to the rule.
      * @see #addAntecedent(Antecedent)
-     * @param lv the linguistic variable
+     * @param lvName the linguistic variable name
      * @param lingTermName name of a linguistic term which is member of <code>lv</code>
      * @param compOp the compatibility operator
      */
-    public synchronized void if_(final LinguisticVariable lv,
+    public synchronized void if_(final String lvName,
             final String lingTermName, final AbstractOperator compOp) {
-        addAntecedent(lv, lingTermName, compOp);
+        addAntecedent(lvName, lingTermName, compOp);
     }
 
     /**
@@ -454,41 +414,42 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @return <code>true</code> if antecedent did really exist, <code>false</code> otherwise
      */
     protected synchronized boolean removeAntecedent(final Antecedent ante) {
-        if (ante != null)
-            return antecedents.removeElement(ante);
+        if (ante != null) {
+            return antecedents.remove(ante);
+        }
         return false;
     }
 
     /**
      * Removes a premise.
      *
-     * @param lv
-     *            the linguistic variable of the consequent
+     * @param lvName
+     *            the linguistic variable name of the consequent
      * @param lingTermName
      *            the name of the linguistic term
      * @return <code>true</code> if antecedent did really exist, <code>false</code> otherwise
      * @exception NullPointerException
      *                if at least one parameter is <code>null</code>
      */
-    public synchronized boolean removeAntecedent(final LinguisticVariable lv,
-            final String lingTermName) throws NullPointerException{
-        return antecedents.removeElement(new Antecedent(lv, lingTermName));
+    public synchronized boolean removeAntecedent(final String lvName,
+            final String lingTermName) throws NullPointerException {
+        return antecedents.remove(new Antecedent(lvName, lingTermName));
     }
 
     /**
      * Removes a premise.
      *
      * @return <code>true</code> if antecedent did really exist, <code>false</code> otherwise
-     * @param lv the linguistic variable of the antecedent
+     * @param lvName the linguistic variable name of the antecedent
      * @param lingTermName the name of the linguistic term
      * @param compOp the fuzzy operator for examining the compatibility
      * @exception NullPointerException
      *                if at least one parameter is <code>null</code>
      * @exception IllegalArgumentException if the fuzzy operator does not fulfill the t-norm
      */
-    public synchronized boolean removeAntecedent(final LinguisticVariable lv,
-            final String lingTermName, final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException{
-        return antecedents.removeElement(new Antecedent(lv, lingTermName,
+    public synchronized boolean removeAntecedent(final String lvName,
+            final String lingTermName, final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException {
+        return antecedents.remove(new Antecedent(lvName, lingTermName,
                 compOp));
     }
 
@@ -500,25 +461,26 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @return <code>true</code> if consequent did really exist, <code>false</code> otherwise
      */
     protected synchronized boolean removeConsequent(final Consequent cons) {
-        if (cons != null)
-            return consequents.removeElement(cons);
+        if (cons != null) {
+            return consequents.remove(cons);
+        }
         return false;
     }
 
     /**
      * Removes a conclusion.
      *
-     * @param lv
-     *            the linguistic variable of the consequent
+     * @param lvName
+     *            the linguistic variable name of the consequent
      * @param lingTermName
      *            the name of the linguistic term
      * @return <code>true</code> if consequent did really exist, <code>false</code> otherwise
      * @exception NullPointerException
      *                if at least one parameter is <code>null</code>
      */
-    public synchronized boolean removeConsequent(final LinguisticVariable lv,
-            final String lingTermName) throws NullPointerException{
-        return consequents.removeElement(new Consequent(lv, lingTermName));
+    public synchronized boolean removeConsequent(final String lvName,
+            final String lingTermName) throws NullPointerException {
+        return consequents.remove(new Consequent(lvName, lingTermName));
     }
 
     /**
@@ -530,13 +492,14 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception NullPointerException
      *                if <code>aggOp</code> is <code>null</code>
      */
-    public synchronized AbstractOperator setAggregationOperator(final AbstractOperator aggOp) throws NullPointerException{
+    public synchronized AbstractOperator setAggregationOperator(final AbstractOperator aggOp) throws NullPointerException {
         if (aggOp != null) {
             AbstractOperator oldAggOp = aggregationOp;
             aggregationOp = aggOp;
             return oldAggOp;
-        } else
+        } else {
             throw new NullPointerException();
+        }
     }
 
     /**
@@ -549,8 +512,8 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      *                if no antecedent is defined at position <code>i</code>
      */
     protected synchronized void setAntecedentAt(final Antecedent ante,
-            final int i) throws ArrayIndexOutOfBoundsException{
-        antecedents.setElementAt(ante, i);
+            final int i) throws ArrayIndexOutOfBoundsException {
+        antecedents.set(i, ante);
     }
 
     /**
@@ -563,8 +526,8 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      *                if no consequent is defined at position <code>i</code>
      */
     protected synchronized void setConsequentAt(final Consequent cons,
-            final int i) throws ArrayIndexOutOfBoundsException{
-        consequents.setElementAt(cons, i);
+            final int i) throws ArrayIndexOutOfBoundsException {
+        consequents.set(i, cons);
     }
 
     /**
@@ -576,15 +539,16 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception IllegalArgumentException
      *                if <code>cert</code> is not in <tt>[0,1]</tt>
      */
-    public synchronized float setCertainty(final float cert) throws IllegalArgumentException{
+    public synchronized float setCertainty(final float cert) throws IllegalArgumentException {
         if ((cert >= 0.0f) && (cert <= 1.0f)) {
             float oldCert = certainty;
             certainty = cert;
             return oldCert;
-        } else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_CERTAINTY",
-                    new Object[] { Float.toString(cert) }));
+                    new Object[]{Float.toString(cert)}));
+        }
     }
 
     /**
@@ -595,14 +559,14 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception NullPointerException if <code>certOp</code> is <code>null</code>
      * @exception IllegalArgumentException if the operator does not fulfill the t-norm
      */
-    public synchronized AbstractOperator setCertaintyOperator(final AbstractOperator certOp) throws NullPointerException, IllegalArgumentException{
+    public synchronized AbstractOperator setCertaintyOperator(final AbstractOperator certOp) throws NullPointerException, IllegalArgumentException {
         if (certOp.isValidTNorm()) {
             AbstractOperator oldCertOp = certaintyOp;
             certaintyOp = certOp;
             return oldCertOp;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager
-                    .getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        }
     }
 
     /**
@@ -613,13 +577,14 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception NullPointerException if <code>aggOp</code> is <code>null</code>
      */
     public static synchronized AbstractOperator setDefaultAggregationOperator(
-            final AbstractOperator aggOp) throws NullPointerException{
+            final AbstractOperator aggOp) throws NullPointerException {
         if (aggOp != null) {
             AbstractOperator oldAggOp = defaultAggregationOperator;
             defaultAggregationOperator = aggOp;
             return oldAggOp;
-        } else
+        } else {
             throw new NullPointerException();
+        }
     }
 
     /**
@@ -628,7 +593,7 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @return the default certainty
      */
     public static float getDefaultCertainty() {
-            return defaultCertainty;
+        return defaultCertainty;
     }
 
     /**
@@ -640,15 +605,16 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception IllegalArgumentException
      *                if <code>cert</code> is not in <tt>[0,1]</tt>
      */
-    public static synchronized float setDefaultCertainty(final float cert) throws IllegalArgumentException{
+    public static synchronized float setDefaultCertainty(final float cert) throws IllegalArgumentException {
         if ((cert >= 0.0f) && (cert <= 1.0f)) {
             float oldCert = defaultCertainty;
             defaultCertainty = cert;
             return oldCert;
-        } else
+        } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     Rule.class, "EXCEPTION_INVALID_CERTAINTY",
-                    new Object[] { Float.toString(cert) }));
+                    new Object[]{Float.toString(cert)}));
+        }
     }
 
     /**
@@ -660,14 +626,14 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception IllegalArgumentException if the operator does not fulfill the t-norm
      */
     public static synchronized AbstractOperator setDefaultCertaintyOperator(
-            final AbstractOperator certOp) throws NullPointerException, IllegalArgumentException{
+            final AbstractOperator certOp) throws NullPointerException, IllegalArgumentException {
         if (certOp.isValidTNorm()) {
             AbstractOperator oldCertOp = defaultCertaintyOperator;
             defaultCertaintyOperator = certOp;
             return oldCertOp;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager
-                    .getString(Rule.class, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(Rule.class, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        }
     }
 
     /**
@@ -679,14 +645,14 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception IllegalArgumentException if the operator does not fulfill the t-norm
      */
     public static synchronized AbstractOperator setDefaultInferenceOperator(
-            final AbstractOperator infOp) throws NullPointerException, IllegalArgumentException{
+            final AbstractOperator infOp) throws NullPointerException, IllegalArgumentException {
         if (infOp.isValidTNorm()) {
             AbstractOperator oldInfOp = defaultInferenceOperator;
             defaultInferenceOperator = infOp;
             return oldInfOp;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager
-                    .getString(Rule.class, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(Rule.class, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        }
     }
 
     /**
@@ -697,51 +663,47 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
      * @exception NullPointerException if <code>infOp</code> is <code>null</code>
      * @exception IllegalArgumentException if the operator does not fulfill the t-norm
      */
-    public synchronized AbstractOperator setInferenceOperator(final AbstractOperator infOp) throws NullPointerException, IllegalArgumentException{
+    public synchronized AbstractOperator setInferenceOperator(final AbstractOperator infOp) throws NullPointerException, IllegalArgumentException {
         if (infOp.isValidTNorm()) {
             AbstractOperator oldInfOp = inferenceOp;
             inferenceOp = infOp;
             return oldInfOp;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager
-                    .getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        }
     }
 
     /**
      * Adds a conclusion to this rule.
      *
-     * @param lv
-     *            the linguistic variable of the consequent
+     * @param lvName
+     *            the linguistic variable name of the consequent
      * @param lingTermName
      *            the name of the linguistic term
      * @exception NullPointerException
      *                if at least one parameter is <code>null</code>
      * @see #addConsequent(Consequent)
      */
-    public synchronized void then_(final LinguisticVariable lv,
-            final String lingTermName) throws NullPointerException{
-        addConsequent(lv, lingTermName);
+    public synchronized void then_(final String lvName,
+            final String lingTermName) throws NullPointerException {
+        addConsequent(lvName, lingTermName);
     }
 
-    /**
-     * Creates and returns a copy of this rule.
-     *
-     * @return a copy of this rule
-     */
+    @Override
     public Object clone() {
         try {
             Rule newObj = (Rule) super.clone();
             // Duplicate items physically.
-            newObj.antecedents = new java.util.Vector(antecedents.size());
-            Enumeration elements = antecedents.elements();
-            while (elements.hasMoreElements())
-                newObj.antecedents.addElement(((Antecedent) elements
-                        .nextElement()).clone());
-            newObj.consequents = new java.util.Vector(consequents.size());
-            elements = consequents.elements();
-            while (elements.hasMoreElements())
-                newObj.consequents.addElement(((Consequent) elements
-                        .nextElement()).clone());
+            newObj.antecedents = new ArrayList<Antecedent>(antecedents.size());
+            for (Antecedent antecedent : antecedents) {
+                newObj.antecedents.add((Antecedent) antecedent.clone());
+            }
+
+            newObj.consequents = new ArrayList<Consequent>(consequents.size());
+            for (Consequent consequent : consequents) {
+                newObj.consequents.add((Consequent) consequent.clone());
+            }
+
             return newObj;
         } catch (java.lang.CloneNotSupportedException e) {
             // kann nicht auftreten
@@ -749,52 +711,44 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
         }
     }
 
-    /**
-     * Indicates whether some other object is "equal to" this rule
-     *
-     * @param obj
-     *            the reference object with which to compare
-     * @return <code>true</code> if this rule is the same as the
-     *         <code>obj</code> argument, <code>false</code> otherwise.
-     */
+    @Override
     public boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof Rule)) {
             Rule r = (Rule) obj;
-            if ((certainty != r.certainty)
-            || (!aggregationOp.equals(r.aggregationOp))
-            || (!certaintyOp.equals(r.certaintyOp))
-            || (!inferenceOp.equals(r.inferenceOp)))
+            if ((certainty != r.certainty) || (!aggregationOp.equals(r.aggregationOp)) || (!certaintyOp.equals(r.certaintyOp)) || (!inferenceOp.equals(r.inferenceOp))) {
                 return false;
+            }
             // Comparing sizes of antecedents and consequents
-            if ((antecedents.size() != r.antecedents.size())
-            || (consequents.size() != r.consequents.size()))
+            if ((antecedents.size() != r.antecedents.size()) || (consequents.size() != r.consequents.size())) {
                 return false;
+            }
             // Comparing antecedents pairwise
-            Enumeration elementsAnteThis = this.antecedents.elements();
-            Enumeration elementsAnteObj = r.antecedents.elements();
-            while (elementsAnteThis.hasMoreElements()) {
-                if (!elementsAnteThis.nextElement().equals(
-                        elementsAnteObj.nextElement()))
-                    return false;
+            if (this.antecedents.equals(r.antecedents) == false) {
+                return false;
             }
             // Comparing consequents pairwise
-            Enumeration elementsConThis = this.consequents.elements();
-            Enumeration elementsConObj = r.consequents.elements();
-            while (elementsConThis.hasMoreElements()) {
-                if (!elementsConThis.nextElement().equals(
-                        elementsConObj.nextElement()))
-                    return false;
+            if (this.consequents.equals(r.consequents) == false) {
+                return false;
             }
+
             return true;
         }
         return false;
     }
 
-    /**
-     * Returns a textual representation of the rule
-     *
-     * @return a string representation of the rule
-     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Float.floatToIntBits(this.certainty);
+        hash = 89 * hash + (this.aggregationOp != null ? this.aggregationOp.hashCode() : 0);
+        hash = 89 * hash + (this.certaintyOp != null ? this.certaintyOp.hashCode() : 0);
+        hash = 89 * hash + (this.inferenceOp != null ? this.inferenceOp.hashCode() : 0);
+        hash = 89 * hash + (this.antecedents != null ? this.antecedents.hashCode() : 0);
+        hash = 89 * hash + (this.consequents != null ? this.consequents.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return toString(false);
     }
@@ -807,58 +761,61 @@ public class Rule implements java.lang.Cloneable, java.io.Serializable {
     public String toString(boolean oneLine) {
         String text = FuzzyResourceManager.getString(this, "RULE_IF") + " ";
         // Iterating the antecedents
+
         Antecedent ante;
-        Enumeration elements = antecedents.elements();
-        if (elements.hasMoreElements()) {
-            ante = (Antecedent) elements.nextElement();
+        Iterator<Antecedent> itAnte = antecedents.iterator();
+        if (itAnte.hasNext() == true) {
+            ante = itAnte.next();
             text = text + ante.toString();
             if (!oneLine) {
                 AbstractOperator op = ante.getCompatibilityOperator();
-                if (op.requiresParameter())
-                    text = text + " ("
-                            + ((AbstractParameteredOperator) op).toString(true) + ")";
-                else
+                if (op.requiresParameter()) {
+                    text = text + " (" + ((AbstractParameteredOperator) op).toString(true) + ")";
+                } else {
                     text = text + " (" + op.toString() + ")";
+                }
             }
         }
-        while (elements.hasMoreElements()) {
-            ante = (Antecedent) elements.nextElement();
-            if (!oneLine)
+        while (itAnte.hasNext() == true) {
+            ante = itAnte.next();
+            if (!oneLine) {
                 text = text + "\n    ";
-            if (aggregationOp.isValidTNorm())
-                text = text + " " + FuzzyResourceManager.getString(this, "RULE_AND")
-                + " " + ante.toString();
-            else
-                text = text + " " + FuzzyResourceManager.getString(this, "RULE_OR")
-                + " " + ante.toString();
+            }
+            if (aggregationOp.isValidTNorm()) {
+                text = text + " " + FuzzyResourceManager.getString(this, "RULE_AND") + " " + ante.toString();
+            } else {
+                text = text + " " + FuzzyResourceManager.getString(this, "RULE_OR") + " " + ante.toString();
+            }
             if (!oneLine) {
                 AbstractOperator op = ante.getCompatibilityOperator();
-                if (op.requiresParameter())
-                    text = text + " ("
-                            + ((AbstractParameteredOperator) op).toString(true) + ")";
-                else
+                if (op.requiresParameter()) {
+                    text = text + " (" + ((AbstractParameteredOperator) op).toString(true) + ")";
+                } else {
                     text = text + " (" + op.toString() + ")";
+                }
             }
         }
         text = text + ", ";
-        if (!oneLine)
+        if (!oneLine) {
             text = text + "\n";
+        }
         text = text + FuzzyResourceManager.getString(this, "RULE_THEN") + " ";
         // Iterating the consequents.
-        elements = consequents.elements();
-        if (elements.hasMoreElements())
-            text = text + ((Consequent) elements.nextElement()).toString();
-        while (elements.hasMoreElements()) {
-            if (!oneLine)
-                text = text + "\n    ";
-            text = text + " " + FuzzyResourceManager.getString(this, "RULE_AND")
-            + " " + ((Consequent) elements.nextElement()).toString();
+        Iterator<Consequent> itCons = consequents.iterator();
+        if (itCons.hasNext() == true) {
+            text = text + itCons.next().toString();
         }
-        if (!oneLine)
+        while (itCons.hasNext() == true) {
+            if (!oneLine) {
+                text = text + "\n    ";
+            }
+            text = text + " " + FuzzyResourceManager.getString(this, "RULE_AND") + " " + itCons.next().toString();
+        }
+        if (!oneLine) {
             text = text + "\n    ";
-        text = text
-                + FuzzyResourceManager.getString(this, "RULE_CERTAINTY",
-                new Object[] { Float.toString(certainty) });
+        }
+        text = text + FuzzyResourceManager.getString(this, "RULE_CERTAINTY",
+                new Object[]{Float.toString(certainty)});
         return text;
     }
 }

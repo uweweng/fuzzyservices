@@ -68,8 +68,7 @@ public class RuleBaseBean implements VetoableChangeListener, Serializable {
     private RuleBean[] rules = null;
 
     /** The operator for accumulating the matching results. */
-    private OperatorBean accumulationOperator
-            = FuzzyBeanUtils.convert(RuleBase.getDefaultAccumulationOperator());
+    private OperatorBean accumulationOperator = null;
 
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport

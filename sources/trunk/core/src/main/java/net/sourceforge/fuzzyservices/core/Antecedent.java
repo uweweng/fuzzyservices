@@ -23,8 +23,7 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
-import net.sourceforge.fuzzyservices.core.AbstractOperator;
+import java.io.Serializable;
 import net.sourceforge.fuzzyservices.core.operator.Min;
 
 /**
@@ -41,131 +40,125 @@ import net.sourceforge.fuzzyservices.core.operator.Min;
  * @since 1.0
  * @author Uwe Weng
  */
-public final class Antecedent extends AbstractRulePart implements java.io.Serializable {
-	/**
-	 * Default serial version UID
-	 */
-	private static final long serialVersionUID = 1L;
+public final class Antecedent extends AbstractRulePart implements Serializable {
 
-	/**
-	 * By default, a min-operator is used to determine the degree of
-	 * compatibility.
-	 *
-	 * @see Min
-	 */
-	private static AbstractOperator defaultCompatibilityOperator = new Min(); // t-Norm
+    /**
+     * Default serial version UID
+     */
+    private static final long serialVersionUID = 1L;
+    /**
+     * By default, a min-operator is used to determine the degree of
+     * compatibility.
+     *
+     * @see Min
+     */
+    private static AbstractOperator defaultCompatibilityOperator = new Min(); // t-Norm
+    /**
+     * This operator measures the compatibility between premise and fact. At
+     * initialization time it is the default operator. It has always to fulfill
+     * the t-norm.
+     */
+    private AbstractOperator compatibilityOp = defaultCompatibilityOperator; // compatibility-AbstractOperator
+    // (t-Norm)
+    /**
+     * Constructs a new premise of a rule.
+     *
+     * @param lvName
+     *            name of a linguistic variable for describing an antecedent of a
+     *            if-then-clause
+     * @param lingTermName
+     *            the name of a linguistic term which is part of the linguistic
+     *            variable representing the premise.
+     */
+    public Antecedent(final String lvName, final String lingTermName) {
+        this(lvName, lingTermName, null);
+    }
 
-	/**
-	 * This operator measures the compatibility between premise and fact. At
-	 * initialization time it is the default operator. It has always to fulfill
-	 * the t-norm.
-	 */
-	private AbstractOperator compatibilityOp = defaultCompatibilityOperator; // compatibility-AbstractOperator
-																		// (t-Norm)
+    /**
+     * Constructs a new premise of a rule consisting of a linguistic variable, a
+     * term, and a fuzzy operator to determine the compatibility. 
+     * If <code>compOp</code> is <code>null</code> the default operator is used instead.
+     *
+     * @param lvName
+     *            name of linguistic variable for describing an antecedent of a
+     *            if-then-clause
+     * @param lingTermName
+     *            the name of a linguistic term which is part of the linguistic
+     *            variable representing the premise.
+     * @param compOp
+     *            the fuzzy operator which is used to measure the compatibility
+     *            to a fact
+     * @exception IllegalArgumentException
+     *                if the fuzzy operator does not fulfill the t-norm
+     */
+    public Antecedent(final String lvName, final String lingTermName,
+            final AbstractOperator compOp) throws IllegalArgumentException {
+        super(lvName, lingTermName);
+        if (compOp != null) {
+            if (compOp.isValidTNorm()) {
+                this.compatibilityOp = compOp;
+            } else {
+                throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+            }
+        } else {
+            this.compatibilityOp = defaultCompatibilityOperator;
+        }
+    }
 
-	/**
-	 * Constructs a new premise of a rule.
-	 *
-	 * @param lv
-	 *            linguistic variable for describing an antecedent of a
-	 *            if-then-clause
-	 * @param lingTermName
-	 *            the name of a linguistic term which is part of the linguistic
-	 *            variable representing the premise.
-	 * @exception NullPointerException
-	 *                if one parameter is <code>null</code> at least
-	 */
-	public Antecedent(final LinguisticVariable lv, final String lingTermName) throws NullPointerException{
-		this(lv, lingTermName, null);
-	}
+    /**
+     * Returns the compatibility operator.
+     *
+     * @return the fuzzy operator to calculate the degree of compatibility.
+     */
+    public AbstractOperator getCompatibilityOperator() {
+        return compatibilityOp;
+    }
 
-	/**
-	 * Constructs a new premise of a rule consisting of a linguistic variable, a
-	 * term, and a fuzzy operator to determine the compatibility.
-	 *
-	 * @param lv
-	 *            linguistic variable for describing an antecedent of a
-	 *            if-then-clause
-	 * @param lingTermName
-	 *            the name of a linguistic term which is part of the linguistic
-	 *            variable representing the premise.
-	 * @param compOp
-	 *            the fuzzy operator which is used to measure the compatibility
-	 *            to a fact
-	 * @exception NullPointerException
-	 *                if <code>lv</code> or <code>lingTermName</code> is
-	 *                <code>null</code>. If <code>compOp</code> is
-	 *                <code>null</code> the default operator is used instead.
-	 * @exception IllegalArgumentException
-	 *                if the fuzzy operator does not fulfill the t-norm
-	 */
-	public Antecedent(final LinguisticVariable lv, final String lingTermName,
-			final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException{
-		super(lv, lingTermName);
-		if (compOp != null) {
-			if (compOp.isValidTNorm())
-				this.compatibilityOp = compOp;
-			else
-				throw new IllegalArgumentException(FuzzyResourceManager
-						.getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
-		} else
-			this.compatibilityOp = defaultCompatibilityOperator;
-	}
+    /**
+     * Returns the default compatibility operator.
+     *
+     * @return the default compatibility operator
+     */
+    public static AbstractOperator getDefaultCompatibilityOperator() {
+        return defaultCompatibilityOperator;
+    }
 
-	/**
-	 * Returns the compatibility operator.
-	 *
-	 * @return the fuzzy operator to calculate the degree of compatibility.
-	 */
-	public AbstractOperator getCompatibilityOperator() {
-		return compatibilityOp;
-	}
+    /**
+     * Defines the fuzzy operator for measuring the compatibility to a fact
+     * while approximate reasoning.
+     *
+     * @param compOp
+     *            the new operator which has to fulfill the t-norm.
+     * @exception NullPointerException
+     *                if parameter is <code>null</code>
+     * @exception IllegalArgumentException
+     *                if fuzzy operator does not fulfill the t-norm
+     */
+    public synchronized void setCompatibilityOperator(final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException {
+        if (compOp.isValidTNorm()) {
+            this.compatibilityOp = compOp;
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        }
+    }
 
-	/**
-	 * Returns the default compatibility operator.
-	 *
-	 * @return the default compatibility operator
-	 */
-	public static AbstractOperator getDefaultCompatibilityOperator() {
-		return defaultCompatibilityOperator;
-	}
-
-	/**
-	 * Defines the fuzzy operator for measuring the compatibility to a fact
-	 * while approximate reasoning.
-	 *
-	 * @param compOp
-	 *            the new operator which has to fulfill the t-norm.
-	 * @exception NullPointerException
-	 *                if parameter is <code>null</code>
-	 * @exception IllegalArgumentException
-	 *                if fuzzy operator does not fulfill the t-norm
-	 */
-	public synchronized void setCompatibilityOperator(final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException {
-		if (compOp.isValidTNorm())
-			this.compatibilityOp = compOp;
-		else
-			throw new IllegalArgumentException(FuzzyResourceManager
-					.getString(this, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
-	}
-
-	/**
-	 * Defines a new default fuzzy operator to determine the compatibility
-	 * between this premise and a fact at reasoning time. It has to fulfill the
-	 * t-norm.
-	 *
-	 * @param compOp
-	 *            the new operator which is used by default
-	 * @exception NullPointerException
-	 *                if parameter is <code>null</code>
-	 * @exception IllegalArgumentException
-	 *                if fuzzy operator does not fulfill the t-norm
-	 */
-	public static void setDefaultCompatibilityOperator(final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException{
-		if (compOp.isValidTNorm()) {
-			defaultCompatibilityOperator = compOp;
-		} else
-			throw new IllegalArgumentException(FuzzyResourceManager
-					.getString(Antecedent.class, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
-	}
+    /**
+     * Defines a new default fuzzy operator to determine the compatibility
+     * between this premise and a fact at reasoning time. It has to fulfill the
+     * t-norm.
+     *
+     * @param compOp
+     *            the new operator which is used by default
+     * @exception NullPointerException
+     *                if parameter is <code>null</code>
+     * @exception IllegalArgumentException
+     *                if fuzzy operator does not fulfill the t-norm
+     */
+    public static void setDefaultCompatibilityOperator(final AbstractOperator compOp) throws NullPointerException, IllegalArgumentException {
+        if (compOp.isValidTNorm()) {
+            defaultCompatibilityOperator = compOp;
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(Antecedent.class, "EXCEPTION_INVALID_T_NORM_OPERATOR"));
+        }
+    }
 }

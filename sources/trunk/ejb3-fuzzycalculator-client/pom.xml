@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>net.sourceforge.fuzzyservices</groupId>
+    <artifactId>fuzzyservices</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.fuzzyservices</groupId>
+  <artifactId>fuzzyservices-ejb3-fuzzycalculator-client</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Fuzzy Services EJB3 Fuzzy Calculator Client</name>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
+
+  <build>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+	<configuration>
+	  <includes>
+	    <include>none</include>
+	  </includes>
+	</configuration>
+	<executions>
+	  <execution>
+	    <id>run FuzzyCalculatorClientTest</id>
+	    <phase>integration-test</phase>
+	    <configuration>
+	      <includes>
+	        <include>**/FuzzyCalculatorClientTest.java</include>
+	      </includes>
+	    </configuration>
+	    <goals>
+	      <goal>test</goal>
+	    </goals>
+	  </execution>
+	</executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+  
+    <dependency>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-core</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-beans</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-ejb3-fuzzycalculator</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb-api</artifactId>
+      <version>3.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+</project>

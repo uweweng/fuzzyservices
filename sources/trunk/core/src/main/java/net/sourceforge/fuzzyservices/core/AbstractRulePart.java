@@ -23,9 +23,6 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
-
-
 /**
  * The <strong>abstract</strong> class <code>AbstractRulePart</code> describes one of two parts of
  * a if-then-clause. Every part consists of a linguistic variable and one of its terms
@@ -39,54 +36,34 @@ import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
  * @since 1.0
  * @author Uwe Weng
  */
-abstract class AbstractRulePart implements java.lang.Cloneable, java.io.Serializable {
-    /** The linguistic variable is the basis for the definition of a rule part. */
-    protected LinguisticVariable lingVar;
+public abstract class AbstractRulePart implements Cloneable {
 
+    /** The linguistic variable is the basis for the definition of a rule part. */
+    protected String lingVarName;
     /** The name of a linguistic name which has to fulfill. */
     protected String lingTermName;
 
     /** Constructor which can not be used. */
     private AbstractRulePart() {
-        // Not allowed
+    // Not allowed
     }
 
     /**
      * Constructs a new rule part consisting of a linguistic variable and a name of its linguistic terms.
-     * @param lv the linguistic variable
+     * @param lvName the linguistic variable name
      * @param lingTermName the name of a linguistic term
-     * @exception NullPointerException if one of the parameter is <code>null</code> at least
-     * @exception IllegalArgumentException if the linguistic variable does not have a linguistic term with this name
      */
-    public AbstractRulePart(final LinguisticVariable lv, final String lingTermName) throws NullPointerException, IllegalArgumentException {
-        if (lv.contains(lingTermName)) {
-            this.lingVar = lv; // Referenz uebergeben
-            this.lingTermName = lingTermName;
-        } else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_TERM",
-                    new Object[] { lv.getName(), lingTermName }));
+    public AbstractRulePart(final String lvName, final String lingTermName) {
+        this.lingVarName = lvName;
+        this.lingTermName = lingTermName;
     }
 
     /**
-     * Returns the linguistic variable.
-     * @return the linguistic variable
+     * Defines the linguistic variable name.
+     * @param lv the new linguistic variable name
      */
-    public LinguisticVariable getLinguisticVariable() {
-        return lingVar;
-    }
-
-    /**
-     * Defines the linguistic variable.
-     * @param lv the new linguistic variable
-     * @exception NullPointerException if <code>lv</code> is <code>null</code>
-     */
-    protected synchronized void setLinguisticVariable(
-        final LinguisticVariable lv) throws NullPointerException{
-        if (lv != null)
-            lingVar = lv; // Referenz uebergeben
-        else
-            throw new NullPointerException();
+    public synchronized void setLinguisticVariableName(final String lv) {
+        lingVarName = lv;
     }
 
     /**
@@ -94,7 +71,7 @@ abstract class AbstractRulePart implements java.lang.Cloneable, java.io.Serializ
      * @return the name of the linguistic variable
      */
     public String getLinguisticVariableName() {
-        return lingVar.getName();
+        return lingVarName;
     }
 
     /**
@@ -108,36 +85,30 @@ abstract class AbstractRulePart implements java.lang.Cloneable, java.io.Serializ
     /**
      * Defines the name of a linguistic term which belongs to the linguistic variable
      * @param name the name of a linguistic term
-     * @exception NullPointerException if <code>name</code> is <code>null</code>
-     * @exception IllegalArgumentException if the linguistic variable does not have a linguistic term with this name
      */
-    public synchronized void setLinguisticTermName(final String name) throws NullPointerException, IllegalArgumentException{
-        if (lingVar.contains(name))
-            lingTermName = name;
-        else
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_UNKNOWN_LINGUISTIC_TERM",
-                    new Object[] { lingVar.getName(), name }));
+    public synchronized void setLinguisticTermName(final String name) {
+        lingTermName = name;
     }
-
-    /**
-     * Indicates whether some other object is "equal to" this rule part
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this rule part is the same as the <code>obj</code> argument, <code>false</code> otherwise.
-     */
+  
+    @Override
     public boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof AbstractRulePart)) {
-            return ((lingVar.equals(((AbstractRulePart) obj).lingVar)) &&
-            (lingTermName.equals(((AbstractRulePart) obj).lingTermName)));
+            return ((lingVarName.equals(((AbstractRulePart) obj).lingVarName)) &&
+                    (lingTermName.equals(((AbstractRulePart) obj).lingTermName)));
         }
 
         return false;
     }
 
-    /**
-     * Creates and returns a copy of this rule part.
-     * @return a copy of this rule part
-     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + (this.lingVarName != null ? this.lingVarName.hashCode() : 0);
+        hash = 53 * hash + (this.lingTermName != null ? this.lingTermName.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
     public Object clone() {
         try {
             AbstractRulePart newObj = (AbstractRulePart) super.clone();
@@ -149,11 +120,8 @@ abstract class AbstractRulePart implements java.lang.Cloneable, java.io.Serializ
         }
     }
 
-    /**
-     * Returns a textual representation of the rule part.
-     * @return a string representation of the rule part
-     */
+    @Override
     public String toString() {
-        return lingVar.getName() + " = " + lingTermName;
+        return lingVarName + " = " + lingTermName;
     }
 }

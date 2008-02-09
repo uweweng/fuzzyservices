@@ -27,7 +27,6 @@ import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 import java.io.Serializable;
 
-
 /**
  * The <strong>abstract</strong> class <code>AbstractParameteredOperator</code>
  * is the base class for the definiton of parameterized fuzzy operators.
@@ -38,6 +37,7 @@ import java.io.Serializable;
  */
 public abstract class AbstractParameteredOperator extends AbstractOperator
         implements Serializable {
+
     /**
      * The parameter of the operator
      */
@@ -86,15 +86,11 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * @exception NullPointerException if <code>op</code> is <code>null</code>
      */
     public static boolean isValidParameter(final AbstractParameteredOperator op,
-            final float param) throws NullPointerException{
+            final float param) throws NullPointerException {
         return op.isValidParameter(param);
     }
 
-    /**
-     * Indicates whether the operator needs a parameter for calculations.
-     * @return <code>true</code>, because all operator subclasses need a
-     * parameter
-     */
+    @Override
     public boolean requiresParameter() {
         return true;
     }
@@ -106,20 +102,16 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * @see #getParameter
      */
     public synchronized void setParameter(final float param)
-    throws IllegalArgumentException{
+            throws IllegalArgumentException {
         if (isValidParameter(param) == true) {
             this.parameter = param;
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_OPERATOR_INVALID_PARAMETER", new Object[]
-                    { Float.toString(param) }));
+                    this, "EXCEPTION_OPERATOR_INVALID_PARAMETER", new Object[]{Float.toString(param)}));
         }
     }
 
-    /**
-     * Returns a textual representation of the operator (without parameter)
-     * @return a string representation of the operator
-     */
+    @Override
     public String toString() {
         return toString(false);
     }

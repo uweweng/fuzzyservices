@@ -28,7 +28,6 @@ import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
 import java.io.Serializable;
 
-
 /**
  * The class <code>MeanOfMax</code> represents a defuzzification method. In
  * this case, the medium defined x value with the highest degree of membership
@@ -38,45 +37,25 @@ import java.io.Serializable;
  * @since 1.0
  */
 public class MeanOfMax extends AbstractDefuzzificator implements Serializable {
+
     /**
      * Default serial version UID
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Defuzzifies the membership function object.
-     * @return The crisp value as result of the defuzzification
-     * @param f The membership function to be defuzzified
-     */
-    public float defuzzify(MembershipFunction f) {
+    @Override
+    public float defuzzify(MembershipFunction membershipFunction) {
         float value = Float.NaN;
-        if (f != null) {
-            value = (((new LeftOfMax()).defuzzify(f) +
-                    (new RightOfMax()).defuzzify(f)) / 2.0f);
+        if (membershipFunction != null) {
+            value = (((new LeftOfMax()).defuzzify(membershipFunction) +
+                    (new RightOfMax()).defuzzify(membershipFunction)) / 2.0f);
         }
         return value;
     }
 
-    /**
-     * Returns a textual representation of the defuzzificator
-     * @return a string representation of the defzzificator
-     */
+    @Override
     public String toString() {
         return FuzzyResourceManager.getString(this,
                 "DEFUZZIFICATOR_MEAN_OF_MAX");
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this defuzzificator
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this defuzzificator is the same as the
-     * <code>obj</code> argument, <code>false</code> otherwise.
-     */
-    public boolean equals(Object obj) {
-        boolean isEqual = false;
-        if ((obj != null) && (obj instanceof MeanOfMax)) {
-            isEqual = true;
-        }
-        return isEqual;
     }
 }

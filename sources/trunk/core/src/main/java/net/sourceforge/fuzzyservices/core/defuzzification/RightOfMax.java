@@ -27,7 +27,7 @@ import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
 import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
 import java.io.Serializable;
-import java.util.Enumeration;
+import java.util.Iterator;
 
 
 /**
@@ -47,54 +47,31 @@ public class RightOfMax extends AbstractDefuzzificator implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Defuzzifies the membership function object.
-     * @return The crisp value as result of the defuzzification
-     * @param f The membership function to be defuzzified
-     */
-    public float defuzzify(MembershipFunction f) {
+    @Override
+    public float defuzzify(final MembershipFunction membershipFunction) {
         float retfloat = Float.NaN;
 
-        if (f != null) {
+        if (membershipFunction != null) {
             float x;
             float dom;
             float maxDoM = 0.0f;
-            Enumeration elements = f.elements();
-
-            while (elements.hasMoreElements()) {
-                x = ((Float) elements.nextElement()).floatValue();
-                dom = f.getDegreeOfMembership(x);
+            for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
+                x = it.next().floatValue();
+                dom = membershipFunction.getDegreeOfMembership(x);
 
                 if (dom >= maxDoM) {
                     maxDoM = dom;
                     retfloat = x;
                 }
+
             }
         }
-
         return retfloat;
     }
 
-    /**
-     * Returns a textual representation of the defuzzificator
-     * @return a string representation of the defzzificator
-     */
+    @Override
     public String toString() {
         return FuzzyResourceManager.getString(this,
                 "DEFUZZIFICATOR_RIGHT_OF_MAX");
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this defuzzificator
-     * @param obj the reference object with which to compare
-     * @return <code>true</code> if this defuzzificator is the same as the
-     * <code>obj</code> argument, <code>false</code> otherwise.
-     */
-    public boolean equals(Object obj) {
-        boolean isEqual = false;
-        if ((obj != null) && (obj instanceof RightOfMax)) {
-            isEqual = true;
-        }
-        return isEqual;
     }
 }
