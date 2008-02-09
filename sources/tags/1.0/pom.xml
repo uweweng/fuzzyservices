@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.fuzzyservices</groupId>
+  <artifactId>fuzzyservices</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Fuzzy Services on Sourceforge.net</name>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
+
+  <licenses>
+    <license>
+      <name>GNU GENERAL PUBLIC LICENSE</name>
+      <url>http://www.gnu.org/licenses/gpl.txt</url>
+      <distribution>repo</distribution>
+      <comments>Version 2, June 1991</comments>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>Fuzzy Services</name>
+    <url>http://sourceforge.net/projects/fuzzyservices</url>
+  </organization>
+  
+  <developers>
+    <developer>
+      <id>uweng</id>
+      <name>Uwe</name>
+      <email>uweng@users.sourceforge.net</email>
+      <url>http://sourceforge.net/users/uweng/</url>
+      <organization>Fuzzy Services</organization>
+      <organizationUrl>http://sourceforge.net/projects/fuzzyservices</organizationUrl>
+      <roles>
+        <role>developer</role>
+        <role>project leader</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>  
+
+<scm>
+  <connection>scm:svn:https://svn.sourceforge.net/svnroot/fuzzyservices/sources/trunk</connection>
+  <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/fuzzyservices/sources/trunk</developerConnection>
+  <url>http://svn.sourceforge.net/viewcvs.cgi/fuzzyservices/sources/trunk</url>
+</scm>
+
+<issueManagement>
+  <system>sourceforge</system>
+  <url>http://sourceforge.net/tracker/?group_id=186696</url>
+</issueManagement>    
+
+<distributionManagement>
+  <repository>
+    <id>ftp-sourceforge.net</id>
+    <url>ftp://upload.sourceforge.net/incoming</url>
+  </repository>
+  <site>
+   <id>sourceforge.net</id>
+   <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url>
+  </site>
+</distributionManagement>
+
+<mailingLists>
+  <mailingList>
+    <name>Fuzzyservices Development Mailing list</name>
+    <subscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-development</subscribe>
+    <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-development</unsubscribe>
+    <archive>http://sourceforge.net/mailarchive/forum.php?forum=fuzzyservices-development</archive>
+    <post>fuzzyservices-development@lists.sourceforge.net</post>
+  </mailingList>
+  <mailingList>
+    <name>Fuzzyservices User Mailing list</name>
+    <subscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-users</subscribe>
+    <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-users</unsubscribe>
+    <archive>http://sourceforge.net/mailarchive/forum.php?forum=fuzzyservices-users</archive>
+    <post>fuzzyservices-users@lists.sourceforge.net</post>
+  </mailingList>
+</mailingLists>
+
+  <modules>
+    <module>build-tools</module>
+    <module>core</module>
+    <module>beans</module>
+    <module>ejb-fuzzycalculator</module>
+    <module>ejb-fuzzycontroller</module>
+    <module>webservice</module>
+  </modules>
+  
+  <reporting>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <inherited>false</inherited>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <configuration>
+          <issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-poject-info-reports-plugin</artifactId>
+        <configuration>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+          <target>1.4</target>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <optimize>false</optimize>
+        </configuration>
+      </plugin>
+    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <aggregate>false</aggregate>
+          <stylesheet>java</stylesheet>
+          <footer>${pom.url}</footer>
+          <header>${pom.name} ${pom.version}</header>
+          <keywords>true</keywords>
+          <show>private</show>
+          <source>1.4</source>
+          <!--
+          <linksource>true</linksource>
+          -->
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>fuzzyservices/checkstyle.xml</configLocation>
+          <headerLocation>fuzzyservices/LICENSE.txt</headerLocation>
+          <enableRulesSummary>false</enableRulesSummary>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.4</targetJdk>
+          <linkXref>true</linkXref>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>pmd</report>
+              <report>cpd</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <configuration>
+          <linkJavadoc>true</linkJavadoc>
+        </configuration>
+      </plugin>
+<!--
+      <plugin>
+        <groupId>triemax</groupId>
+        <artifactId>jalopy-maven</artifactId>
+      </plugin>
+-->
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jboss-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changelog-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>single-report</id>
+            <configuration>
+             <type>range</type>
+             <range>30</range>
+            </configuration>
+            <reports>
+              <report>changelog</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+    </plugins>
+  </reporting>
+
+  <build>
+<!--  
+    <extensions>
+      <extension>
+        <groupId>${pom.groupId}</groupId>
+        <artifactId>fuzzyservices-build-tools</artifactId>
+        <version>${pom.version}</version>
+      </extension>
+    </extensions>
+ --> 
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ftp</artifactId>
+         <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
+  
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jboss-maven-plugin</artifactId>
+        <configuration>
+          <jbossHome>C:/jboss-4.0.5</jbossHome>
+          <serverName>default</serverName>
+          <port>8080</port>
+          <server>default</server>
+
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <configuration>
+          <container>
+            <containerId>jboss4x</containerId>
+            <home>C:/jboss-4.0.5</home>
+          </container>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <configuration>
+          <ejbVersion>2.1</ejbVersion> 
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
+          <generateClient>true</generateClient>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <configuration>
+          <attach>true</attach>
+        </configuration>
+      </plugin>
+<!--
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jalopy-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </plugin>
+-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+        </configuration>
+      </plugin>
+
+
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-release-plugin</artifactId>
+      <version>2.0-beta-4</version>
+    </dependency>
+  </dependencies>
+ 
+</project>
