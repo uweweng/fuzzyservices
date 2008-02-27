@@ -23,10 +23,6 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb;
 
-import javax.ejb.EJBHome;
-import javax.ejb.EJBObject;
-import javax.ejb.Handle;
-import javax.ejb.RemoveException;
 import net.sourceforge.fuzzyservices.beans.FactBaseBean;
 import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
 import net.sourceforge.fuzzyservices.core.FactBase;
@@ -35,9 +31,7 @@ import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
 import net.sourceforge.fuzzyservices.core.LinguisticVariable;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-import java.rmi.RemoteException;
 import javax.ejb.EJBException;
-import javax.ejb.CreateException;
 
 /**
  * EJB implementation of a fuzzy controller for approximate reasoning.
@@ -46,64 +40,72 @@ import javax.ejb.CreateException;
  * @since 1.0
  * @author Uwe Weng
  */
-public class FuzzyControllerBean implements SessionBean, FuzzyController {
+public class FuzzyControllerBean implements SessionBean {
 
-    private SessionContext ctx;
+    /**
+     * Default serial version UID
+     */
+    private static final long serialVersionUID = 1L;
+    /**
+     * Session context for this bean instance.
+     */
+    private SessionContext context;
 
+    // <editor-fold defaultstate="collapsed" desc="EJB infrastructure methods. Click the + sign on the left to edit the code.">;
+    /**
+     * @param aContext session context for this bean instance
+     * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
+     */
     @Override
-    public void setSessionContext(SessionContext context) throws RemoteException, EJBException {
-        ctx = context;
+    public void setSessionContext(SessionContext aContext) {
+        context = aContext;
     }
 
+    /**
+     * @see javax.ejb.SessionBean#ejbActivate()
+     */
     @Override
-    public void ejbActivate() throws EJBException {
+    public void ejbActivate() {
+
     }
 
+    /**
+     * @see javax.ejb.SessionBean#ejbPassivate()
+     */
     @Override
-    public void ejbPassivate() throws EJBException {
+    public void ejbPassivate() {
+
     }
 
+    /**
+     * @see javax.ejb.SessionBean#ejbRemove()
+     */
     @Override
-    public void ejbRemove() throws EJBException {
+    public void ejbRemove() {
+
     }
 
-    public void ejbCreate() throws CreateException, EJBException {
-    }
-
-    @Override
+    // </editor-fold>;
+    /**
+     * Inference method for fuzzy JavaBeans.
+     * @param ruleBase the rule base
+     * @param factBase the fact base
+     * @param linguisticVariables the linguistic variables
+     * @return a new fact base with the result of this operation
+     */
     public FactBaseBean performApproximateReasoning(final RuleBaseBean ruleBase,
-        final FactBaseBean factBase, final LinguisticVariableBean[] lv) throws EJBException {
-            return net.sourceforge.fuzzyservices.beans.FuzzyControllerBean.getInstance().performApproximateReasoning(ruleBase, factBase, lv);
+            final FactBaseBean factBase, final LinguisticVariableBean[] linguisticVariables) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyControllerBean.getInstance().performApproximateReasoning(ruleBase, factBase, linguisticVariables);
     }
 
-    @Override
-    public FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] lv) throws EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance().performApproximateReasoning(ruleBase, factBase, lv);
+    /**
+     * Inference method for core fuzzy components.
+     * @param ruleBase the rule base
+     * @param factBase the fact base
+     * @param linguisticVariables the linguistic variables
+     * @return a new fact base with the result of this operation
+     */
+    public FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] linguisticVariables) {
+        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance().performApproximateReasoning(ruleBase, factBase, linguisticVariables);
     }
-
-    @Override
-    public EJBHome getEJBHome() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Object getPrimaryKey() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void remove() throws RemoteException, RemoveException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Handle getHandle() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean isIdentical(EJBObject arg0) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

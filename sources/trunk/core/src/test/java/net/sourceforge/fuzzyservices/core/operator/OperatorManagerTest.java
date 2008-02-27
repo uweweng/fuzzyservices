@@ -93,7 +93,7 @@ public class OperatorManagerTest {
 
     /**
      * Operator for tests.
-     * 
+     *
      * @version	1.0
      */
     public class TestOperator extends AbstractOperator {
@@ -128,6 +128,11 @@ public class OperatorManagerTest {
 
         @Override
         public String toString() {
+            return "TestOperator";
+        }
+
+        @Override
+        public String getName() {
             return "TestOperator";
         }
     }

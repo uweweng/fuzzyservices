@@ -304,8 +304,8 @@ final class FuzzyBeanUtils {
 
             if (antecedents != null) {
                 for (int i = 0; i < antecedents.length; i++) {
-                    newRule.addAntecedent(convert(
-                            convert(antecedents[i].getLinguisticVariableName(), lv)),
+                    newRule.addAntecedent(
+                            antecedents[i].getLinguisticVariableName(),
                             antecedents[i].getLinguisticTermName(),
                             convert(antecedents[i].getCompatibilityOperator()));
                 }
@@ -315,8 +315,8 @@ final class FuzzyBeanUtils {
 
             if (consequents != null) {
                 for (int i = 0; i < consequents.length; i++) {
-                    newRule.addConsequent(convert(
-                            convert(consequents[i].getLinguisticVariableName(), lv)),
+                    newRule.addConsequent(
+                            consequents[i].getLinguisticVariableName(),
                             consequents[i].getLinguisticTermName());
                 }
             }
@@ -585,7 +585,7 @@ final class FuzzyBeanUtils {
                     newAntecedent.setCompatibilityOperator(convert(
                             antecedent.getCompatibilityOperator()));
 
-                    newAntecedent.setLinguisticVariableName(antecedent.getLinguisticVariable().getName());
+                    newAntecedent.setLinguisticVariableName(antecedent.getLinguisticVariableName());
                     newAntecedent.setLinguisticTermName(antecedent.getLinguisticTermName());
                     newAntecedents[i] = newAntecedent;
                     i++;

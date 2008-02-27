@@ -25,7 +25,6 @@ package net.sourceforge.fuzzyservices.ejb;
 
 import javax.ejb.EJBObject;
 import java.rmi.RemoteException;
-import javax.ejb.EJBException;
 import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
 import net.sourceforge.fuzzyservices.beans.FactBaseBean;
 import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
@@ -49,10 +48,9 @@ public interface FuzzyController extends EJBObject {
      * @param linguisticVariables the linguistic variables
      * @return a new fact base with the result of this operation
      * @throws java.rmi.RemoteException
-     * @throws javax.ejb.EJBException
      */
     FactBaseBean performApproximateReasoning(final RuleBaseBean ruleBase, final FactBaseBean factBase, final LinguisticVariableBean[] linguisticVariables)
-        throws RemoteException, EJBException;
+            throws RemoteException;
 
     /**
      * Inference method for core fuzzy components.
@@ -61,7 +59,6 @@ public interface FuzzyController extends EJBObject {
      * @param linguisticVariables the linguistic variables
      * @return a new fact base with the result of this operation
      * @throws java.rmi.RemoteException
-     * @throws javax.ejb.EJBException
      */
-    FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] linguisticVariables) throws RemoteException, EJBException;
+    FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] linguisticVariables) throws RemoteException;
 }

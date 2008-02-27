@@ -14,18 +14,41 @@
   <version>1.0-SNAPSHOT</version>
   <name>Fuzzy Services EJB Fuzzy Controller</name>
   <url>http://sourceforge.net/projects/fuzzyservices</url>
-  <profiles>
-        <profile>
-            <id>netbeans-public</id>
-            <activation>
-                <property>
-                    <name>netbeans.execution</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build />
-        </profile>
-    </profiles>
+  <build>
+    <defaultGoal>package</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <configuration>
+          <ejbVersion>2.1</ejbVersion> 
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <configuration>
+          <container>
+            <containerId>${cargo.home}</containerId>
+            <home>${cargo.home}</home>
+          </container>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jboss-maven-plugin</artifactId>
+        <configuration>
+          <jbossHome>${jboss.home}</jbossHome>
+          <serverName>${jboss.server.name}</serverName>
+          <port>${jboss.port}</port>
+          <server>${jboss.home.server}</server>
+        </configuration>
+      </plugin>
+    
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>${pom.groupId}</groupId>
@@ -38,11 +61,9 @@
       <version>${pom.version}</version>
     </dependency>
     <dependency>
-      <groupId>jboss</groupId>
-      <artifactId>jboss-j2ee</artifactId>
-      <version>4.0.2</version>
-      <scope>provided</scope>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb</artifactId>
+      <version>2.0</version>
     </dependency>
-
   </dependencies>
 </project>

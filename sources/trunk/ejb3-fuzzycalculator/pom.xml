@@ -16,6 +16,7 @@
   <url>http://sourceforge.net/projects/fuzzyservices</url>
 
   <build>
+    <defaultGoal>package</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -30,8 +31,8 @@
         <artifactId>cargo-maven2-plugin</artifactId>
         <configuration>
           <container>
-            <containerId>jboss4x</containerId>
-            <home>C:/jboss-4.0.5</home>
+            <containerId>${cargo.home}</containerId>
+            <home>${cargo.home}</home>
           </container>
         </configuration>
       </plugin>
@@ -40,10 +41,10 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jboss-maven-plugin</artifactId>
         <configuration>
-          <jbossHome>C:/jboss-4.0.5</jbossHome>
-          <serverName>default</serverName>
-          <port>8080</port>
-          <server>default</server>
+          <jbossHome>${jboss.home}</jbossHome>
+          <serverName>${jboss.server.name}</serverName>
+          <port>${jboss.port}</port>
+          <server>${jboss.home.server}</server>
         </configuration>
       </plugin>
     
@@ -62,13 +63,11 @@
       <artifactId>fuzzyservices-beans</artifactId>
       <version>${pom.version}</version>
     </dependency>
-
     <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb-api</artifactId>
       <version>3.0</version>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 </project>

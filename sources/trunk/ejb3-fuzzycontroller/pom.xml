@@ -31,7 +31,8 @@
         <configuration>
           <container>
             <containerId>jboss4x</containerId>
-            <home>C:/jboss-4.0.5</home>
+            <home>C:/Programme/JBoss4</home>
+            <type>remote</type>
           </container>
         </configuration>
       </plugin>
@@ -40,10 +41,11 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jboss-maven-plugin</artifactId>
         <configuration>
-          <jbossHome>C:/jboss-4.0.5</jbossHome>
+          <jbossHome>C:/Programme/JBoss4</jbossHome>
           <serverName>default</serverName>
           <port>8080</port>
           <server>default</server>
+          <fileName>${project.build.directory}/${project.build.finalName}.jar</fileName>
         </configuration>
       </plugin>
     
@@ -62,7 +64,6 @@
       <artifactId>fuzzyservices-beans</artifactId>
       <version>${pom.version}</version>
     </dependency>
-
     <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb-api</artifactId>

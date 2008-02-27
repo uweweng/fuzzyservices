@@ -33,13 +33,8 @@ import net.sourceforge.fuzzyservices.beans.FuzzyLRIntervalBean;
 import net.sourceforge.fuzzyservices.beans.FuzzyLRNumberBean;
 import net.sourceforge.fuzzyservices.beans.FuzzyNumberBean;
 
-import java.rmi.RemoteException;
-
-import javax.ejb.CreateException;
-import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-
 
 /**
  * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and
@@ -50,37 +45,57 @@ import javax.ejb.SessionContext;
  */
 public class FuzzyCalculatorBean implements SessionBean {
 
-    public void setSessionContext(SessionContext context)
-        throws RemoteException, EJBException {
-        // Do nothing
+    /**
+     * Default serial version UID
+     */
+    private static final long serialVersionUID = 1L;
+    /**
+     * Session context for this bean instance.
+     */
+    private SessionContext context;
+
+    // <editor-fold defaultstate="collapsed" desc="EJB infrastructure methods. Click the + sign on the left to edit the code.">;
+    /**
+     * @param aContext session context for this bean instance
+     * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
+     */
+    @Override
+    public void setSessionContext(SessionContext aContext) {
+        context = aContext;
     }
 
-    public void ejbActivate() throws EJBException {
-        // Do nothing
+    /**
+     * @see javax.ejb.SessionBean#ejbActivate()
+     */
+    @Override
+    public void ejbActivate() {
+
     }
 
-    public void ejbPassivate() throws EJBException {
-        // Do nothing
+    /**
+     * @see javax.ejb.SessionBean#ejbPassivate()
+     */
+    @Override
+    public void ejbPassivate() {
+
     }
 
-    public void ejbRemove() throws EJBException {
-        // Do nothing
+    /**
+     * @see javax.ejb.SessionBean#ejbRemove()
+     */
+    @Override
+    public void ejbRemove() {
+
     }
 
-    public void ejbCreate() throws CreateException, EJBException {
-        // Do nothing
-    }
-
+    // </editor-fold>;
     /**
      * Adds fuzzy interval <code>operand1</code> to fuzzy interval <code>operand2</code>.
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyInterval add(FuzzyInterval operand1, FuzzyInterval operand2)
-        throws RemoteException, EJBException {
+    public FuzzyInterval add(FuzzyInterval operand1, FuzzyInterval operand2) {
         return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
     }
 
@@ -89,11 +104,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyLRInterval add(FuzzyLRInterval operand1,
-        FuzzyLRInterval operand2) throws RemoteException, EJBException {
+    public FuzzyLRInterval add(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
         return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
     }
 
@@ -102,11 +114,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyLRNumber add(FuzzyLRNumber operand1, FuzzyLRNumber operand2)
-        throws RemoteException, EJBException {
+    public FuzzyLRNumber add(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
         return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
     }
 
@@ -115,11 +124,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyNumber add(FuzzyNumber operand1, FuzzyNumber operand2)
-        throws RemoteException, EJBException {
+    public FuzzyNumber add(FuzzyNumber operand1, FuzzyNumber operand2) {
         return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
     }
 
@@ -128,13 +134,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyInterval divide(FuzzyInterval operand1, FuzzyInterval operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .divide(operand1, operand2);
+    public FuzzyInterval divide(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -142,13 +144,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRInterval divide(FuzzyLRInterval operand1,
-        FuzzyLRInterval operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .divide(operand1, operand2);
+            FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -156,13 +155,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyLRNumber divide(FuzzyLRNumber operand1, FuzzyLRNumber operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .divide(operand1, operand2);
+    public FuzzyLRNumber divide(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -170,13 +165,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyNumber divide(FuzzyNumber operand1, FuzzyNumber operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .divide(operand1, operand2);
+    public FuzzyNumber divide(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -184,13 +175,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyInterval multiply(FuzzyInterval operand1, FuzzyInterval operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .multiply(operand1, operand2);
+    public FuzzyInterval multiply(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -198,13 +185,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRInterval multiply(FuzzyLRInterval operand1,
-        FuzzyLRInterval operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .multiply(operand1, operand2);
+            FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -212,13 +196,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyLRNumber multiply(FuzzyLRNumber operand1, FuzzyLRNumber operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .multiply(operand1, operand2);
+    public FuzzyLRNumber multiply(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -226,13 +206,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyNumber multiply(FuzzyNumber operand1, FuzzyNumber operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .multiply(operand1, operand2);
+    public FuzzyNumber multiply(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -240,13 +216,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyInterval subtract(FuzzyInterval operand1, FuzzyInterval operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .subtract(operand1, operand2);
+    public FuzzyInterval subtract(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -254,13 +226,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRInterval subtract(FuzzyLRInterval operand1,
-        FuzzyLRInterval operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .subtract(operand1, operand2);
+            FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -268,13 +237,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyLRNumber subtract(FuzzyLRNumber operand1, FuzzyLRNumber operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .subtract(operand1, operand2);
+    public FuzzyLRNumber subtract(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -282,13 +247,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
-    public FuzzyNumber subtract(FuzzyNumber operand1, FuzzyNumber operand2)
-        throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
-                                         .subtract(operand1, operand2);
+    public FuzzyNumber subtract(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -296,13 +257,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyIntervalBean add(FuzzyIntervalBean operand1,
-        FuzzyIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .add(operand1, operand2);
+            FuzzyIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
     }
 
     /**
@@ -310,13 +268,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRIntervalBean add(FuzzyLRIntervalBean operand1,
-        FuzzyLRIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .add(operand1, operand2);
+            FuzzyLRIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
     }
 
     /**
@@ -324,13 +279,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRNumberBean add(FuzzyLRNumberBean operand1,
-        FuzzyLRNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .add(operand1, operand2);
+            FuzzyLRNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
     }
 
     /**
@@ -338,13 +290,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyNumberBean add(FuzzyNumberBean operand1,
-        FuzzyNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .add(operand1, operand2);
+            FuzzyNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
     }
 
     /**
@@ -352,13 +301,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyIntervalBean divide(FuzzyIntervalBean operand1,
-        FuzzyIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .divide(operand1, operand2);
+            FuzzyIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -366,13 +312,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRIntervalBean divide(FuzzyLRIntervalBean operand1,
-        FuzzyLRIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .divide(operand1, operand2);
+            FuzzyLRIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -380,13 +323,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRNumberBean divide(FuzzyLRNumberBean operand1,
-        FuzzyLRNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .divide(operand1, operand2);
+            FuzzyLRNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -394,13 +334,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyNumberBean divide(FuzzyNumberBean operand1,
-        FuzzyNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .divide(operand1, operand2);
+            FuzzyNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
     }
 
     /**
@@ -408,13 +345,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyIntervalBean multiply(FuzzyIntervalBean operand1,
-        FuzzyIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .multiply(operand1, operand2);
+            FuzzyIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -422,13 +356,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @return The result of this algebraic operation
      * @param operand1 The first operand
      * @param operand2 The second operand
-     * @throws RemoteException
-     * @throws EJBException
      */
     public FuzzyLRIntervalBean multiply(FuzzyLRIntervalBean operand1,
-        FuzzyLRIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .multiply(operand1, operand2);
+            FuzzyLRIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -438,9 +369,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRNumberBean multiply(FuzzyLRNumberBean operand1,
-        FuzzyLRNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .multiply(operand1, operand2);
+            FuzzyLRNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -450,9 +380,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyNumberBean multiply(FuzzyNumberBean operand1,
-        FuzzyNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .multiply(operand1, operand2);
+            FuzzyNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
     }
 
     /**
@@ -462,9 +391,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyIntervalBean subtract(FuzzyIntervalBean operand1,
-        FuzzyIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .subtract(operand1, operand2);
+            FuzzyIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -474,9 +402,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRIntervalBean subtract(FuzzyLRIntervalBean operand1,
-        FuzzyLRIntervalBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .subtract(operand1, operand2);
+            FuzzyLRIntervalBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -486,9 +413,8 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRNumberBean subtract(FuzzyLRNumberBean operand1,
-        FuzzyLRNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .subtract(operand1, operand2);
+            FuzzyLRNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
     }
 
     /**
@@ -498,8 +424,7 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyNumberBean subtract(FuzzyNumberBean operand1,
-        FuzzyNumberBean operand2) throws RemoteException, EJBException {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance()
-                                                   .subtract(operand1, operand2);
+            FuzzyNumberBean operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
     }
 }
