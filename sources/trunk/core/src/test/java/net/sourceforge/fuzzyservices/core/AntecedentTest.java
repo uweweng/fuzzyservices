@@ -21,11 +21,8 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,17 +32,6 @@ import static org.junit.Assert.*;
  * @author Uwe Weng
  */
 public class AntecedentTest {
-
-    public AntecedentTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     /**
      * Test of getCompatibilityOperator method, of class Antecedent.
@@ -57,7 +43,6 @@ public class AntecedentTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.getCompatibilityOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -70,7 +55,6 @@ public class AntecedentTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Antecedent.getDefaultCompatibilityOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -83,7 +67,6 @@ public class AntecedentTest {
         AbstractOperator compOp = null;
         Antecedent instance = null;
         instance.setCompatibilityOperator(compOp);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -95,7 +78,6 @@ public class AntecedentTest {
         System.out.println("setDefaultCompatibilityOperator");
         AbstractOperator compOp = null;
         Antecedent.setDefaultCompatibilityOperator(compOp);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

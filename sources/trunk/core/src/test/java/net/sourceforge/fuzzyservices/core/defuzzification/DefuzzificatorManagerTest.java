@@ -25,8 +25,6 @@ package net.sourceforge.fuzzyservices.core.defuzzification;
 
 import java.util.Collection;
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,17 +35,6 @@ import static org.junit.Assert.*;
  */
 public class DefuzzificatorManagerTest {
 
-    public DefuzzificatorManagerTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of getDefuzzificators method, of class DefuzzificatorManager.
      */
@@ -57,7 +44,6 @@ public class DefuzzificatorManagerTest {
         Collection<AbstractDefuzzificator> expResult = null;
         Collection<AbstractDefuzzificator> result = DefuzzificatorManager.getDefuzzificators();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +57,6 @@ public class DefuzzificatorManagerTest {
         AbstractDefuzzificator expResult = null;
         AbstractDefuzzificator result = DefuzzificatorManager.getDefuzzificator(name);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -85,7 +70,6 @@ public class DefuzzificatorManagerTest {
         AbstractDefuzzificator expResult = null;
         AbstractDefuzzificator result = DefuzzificatorManager.registerDefuzzificator(defuzzy);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -98,7 +82,6 @@ public class DefuzzificatorManagerTest {
         Collection<AbstractDefuzzificator> expResult = null;
         Collection<AbstractDefuzzificator> result = DefuzzificatorManager.getDefuzzificators();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -112,7 +95,6 @@ public class DefuzzificatorManagerTest {
         AbstractDefuzzificator expResult = null;
         AbstractDefuzzificator result = DefuzzificatorManager.getDefuzzificator(name);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -126,48 +108,6 @@ public class DefuzzificatorManagerTest {
         AbstractDefuzzificator expResult = null;
         AbstractDefuzzificator result = DefuzzificatorManager.registerDefuzzificator(defuzzy);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefuzzificators method, of class DefuzzificatorManager.
-     */
-    @Test
-    public void testGetDefuzzificators2() {
-        System.out.println("getDefuzzificators");
-        Collection<AbstractDefuzzificator> expResult = null;
-        Collection<AbstractDefuzzificator> result = DefuzzificatorManager.getDefuzzificators();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefuzzificator method, of class DefuzzificatorManager.
-     */
-    @Test
-    public void testGetDefuzzificator_String_1args() {
-        System.out.println("getDefuzzificator");
-        String name = "";
-        AbstractDefuzzificator expResult = null;
-        AbstractDefuzzificator result = DefuzzificatorManager.getDefuzzificator(name);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of registerDefuzzificator method, of class DefuzzificatorManager.
-     */
-    @Test
-    public void testRegisterDefuzzificator_AbstractDefuzzificator_1args() {
-        System.out.println("registerDefuzzificator");
-        AbstractDefuzzificator defuzzy = null;
-        AbstractDefuzzificator expResult = null;
-        AbstractDefuzzificator result = DefuzzificatorManager.registerDefuzzificator(defuzzy);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

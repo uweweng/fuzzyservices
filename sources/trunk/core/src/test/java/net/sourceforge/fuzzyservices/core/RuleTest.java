@@ -21,12 +21,9 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
 import java.util.Iterator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,17 +34,6 @@ import static org.junit.Assert.*;
  */
 public class RuleTest {
 
-    public RuleTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of addAntecedent method, of class Rule.
      */
@@ -57,7 +43,6 @@ public class RuleTest {
         Antecedent ante = null;
         Rule instance = new Rule();
         instance.addAntecedent(ante);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +56,6 @@ public class RuleTest {
         String lingTermName = "";
         Rule instance = new Rule();
         instance.addAntecedent(lvName, lingTermName);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -86,7 +70,6 @@ public class RuleTest {
         AbstractOperator compOp = null;
         Rule instance = new Rule();
         instance.addAntecedent(lvName, lingTermName, compOp);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -99,7 +82,6 @@ public class RuleTest {
         Consequent cons = null;
         Rule instance = new Rule();
         instance.addConsequent(cons);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -113,7 +95,6 @@ public class RuleTest {
         String lingTermName = "";
         Rule instance = new Rule();
         instance.addConsequent(lvName, lingTermName);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -125,7 +106,6 @@ public class RuleTest {
         System.out.println("clear");
         Rule instance = new Rule();
         instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -141,7 +121,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.containsAntecedent(lvName, lingTermName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -158,7 +137,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.containsAntecedent(lvName, lingTermName, compOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -174,7 +152,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.containsConsequent(lvName, lingTermName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -189,7 +166,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.containsLinguisticVariable(lingVarName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -203,7 +179,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.getAggregationOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -218,7 +193,6 @@ public class RuleTest {
         Antecedent expResult = null;
         Antecedent result = instance.getAntecedentAt(i);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -232,7 +206,6 @@ public class RuleTest {
         Iterator<Antecedent> expResult = null;
         Iterator<Antecedent> result = instance.getAntecedents();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -246,7 +219,6 @@ public class RuleTest {
         float expResult = 0.0F;
         float result = instance.getCertainty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -260,7 +232,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.getCertaintyOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -275,7 +246,6 @@ public class RuleTest {
         Consequent expResult = null;
         Consequent result = instance.getConsequentAt(i);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -289,7 +259,6 @@ public class RuleTest {
         Iterator<Consequent> expResult = null;
         Iterator<Consequent> result = instance.getConsequents();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -302,7 +271,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultAggregationOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -315,7 +283,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultCertaintyOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -328,7 +295,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultInferenceOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -342,7 +308,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.getInferenceOperator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -356,7 +321,6 @@ public class RuleTest {
         int expResult = 0;
         int result = instance.getSizeOfAntecedents();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -370,7 +334,6 @@ public class RuleTest {
         int expResult = 0;
         int result = instance.getSizeOfConsequents();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -384,7 +347,6 @@ public class RuleTest {
         String lingTermName = "";
         Rule instance = new Rule();
         instance.if_(lvName, lingTermName);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -399,7 +361,6 @@ public class RuleTest {
         AbstractOperator compOp = null;
         Rule instance = new Rule();
         instance.if_(lvName, lingTermName, compOp);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -415,7 +376,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.removeAntecedent(lvName, lingTermName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -432,7 +392,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.removeAntecedent(lvName, lingTermName, compOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -448,7 +407,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.removeConsequent(lvName, lingTermName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -463,7 +421,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.setAggregationOperator(aggOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -478,7 +435,6 @@ public class RuleTest {
         float expResult = 0.0F;
         float result = instance.setCertainty(cert);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -493,7 +449,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.setCertaintyOperator(certOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -507,7 +462,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.setDefaultAggregationOperator(aggOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -520,7 +474,6 @@ public class RuleTest {
         float expResult = 0.0F;
         float result = Rule.getDefaultCertainty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -534,7 +487,6 @@ public class RuleTest {
         float expResult = 0.0F;
         float result = Rule.setDefaultCertainty(cert);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -548,7 +500,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.setDefaultCertaintyOperator(certOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -562,7 +513,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.setDefaultInferenceOperator(infOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -577,7 +527,6 @@ public class RuleTest {
         AbstractOperator expResult = null;
         AbstractOperator result = instance.setInferenceOperator(infOp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -591,7 +540,6 @@ public class RuleTest {
         String lingTermName = "";
         Rule instance = new Rule();
         instance.then_(lvName, lingTermName);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -605,7 +553,6 @@ public class RuleTest {
         Object expResult = null;
         Object result = instance.clone();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -620,7 +567,6 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -634,7 +580,6 @@ public class RuleTest {
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -648,7 +593,6 @@ public class RuleTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -663,7 +607,6 @@ public class RuleTest {
         String expResult = "";
         String result = instance.toString(oneLine);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

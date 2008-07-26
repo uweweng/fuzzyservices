@@ -21,12 +21,9 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
 import java.util.Iterator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,17 +34,6 @@ import static org.junit.Assert.*;
  */
 public class FactBaseTest {
 
-    public FactBaseTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of add method, of class FactBase.
      */
@@ -57,7 +43,6 @@ public class FactBaseTest {
         Fact fact = null;
         FactBase instance = new FactBase();
         instance.add(fact);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -69,7 +54,6 @@ public class FactBaseTest {
         System.out.println("clear");
         FactBase instance = new FactBase();
         instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -84,7 +68,6 @@ public class FactBaseTest {
         boolean expResult = false;
         boolean result = instance.contains(lv);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -99,7 +82,6 @@ public class FactBaseTest {
         boolean expResult = false;
         boolean result = instance.contains(lingVarName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -113,7 +95,6 @@ public class FactBaseTest {
         Iterator<Fact> expResult = null;
         Iterator<Fact> result = instance.iterator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -128,7 +109,6 @@ public class FactBaseTest {
         Fact expResult = null;
         Fact result = instance.get(lv);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -143,7 +123,6 @@ public class FactBaseTest {
         Fact expResult = null;
         Fact result = instance.get(lingVarName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -157,7 +136,6 @@ public class FactBaseTest {
         String expResult = "";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -171,7 +149,6 @@ public class FactBaseTest {
         boolean expResult = false;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -186,7 +163,6 @@ public class FactBaseTest {
         Fact expResult = null;
         Fact result = instance.put(fact);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -201,7 +177,6 @@ public class FactBaseTest {
         boolean expResult = false;
         boolean result = instance.remove(fact);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -216,7 +191,6 @@ public class FactBaseTest {
         Fact expResult = null;
         Fact result = instance.remove(lv);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -231,7 +205,6 @@ public class FactBaseTest {
         Fact expResult = null;
         Fact result = instance.remove(lingVarName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -244,7 +217,6 @@ public class FactBaseTest {
         String name = "";
         FactBase instance = new FactBase();
         instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -258,7 +230,6 @@ public class FactBaseTest {
         int expResult = 0;
         int result = instance.size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -272,7 +243,6 @@ public class FactBaseTest {
         Object expResult = null;
         Object result = instance.clone();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -287,7 +257,6 @@ public class FactBaseTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -301,7 +270,6 @@ public class FactBaseTest {
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -315,7 +283,6 @@ public class FactBaseTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -330,7 +297,6 @@ public class FactBaseTest {
         String expResult = "";
         String result = instance.toString(withFacts);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

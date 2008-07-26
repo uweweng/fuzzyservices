@@ -21,11 +21,8 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,17 +33,6 @@ import static org.junit.Assert.*;
  */
 public class FuzzySetTest {
 
-    public FuzzySetTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of clear method, of class FuzzySet.
      */
@@ -55,7 +41,6 @@ public class FuzzySetTest {
         System.out.println("clear");
         FuzzySet instance = new FuzzySet();
         instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +56,6 @@ public class FuzzySetTest {
         FuzzySet expResult = null;
         FuzzySet result = FuzzySet.combine(fs1, fs2, op);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -87,7 +71,6 @@ public class FuzzySetTest {
         FuzzySet expResult = null;
         FuzzySet result = instance.combine(fs, op);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -99,7 +82,6 @@ public class FuzzySetTest {
         System.out.println("concentrate");
         FuzzySet instance = new FuzzySet();
         instance.concentrate();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -111,7 +93,6 @@ public class FuzzySetTest {
         System.out.println("dilate");
         FuzzySet instance = new FuzzySet();
         instance.dilate();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -126,7 +107,6 @@ public class FuzzySetTest {
         float expResult = 0.0F;
         float result = instance.getGranularity(fs);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -140,7 +120,6 @@ public class FuzzySetTest {
         float expResult = 0.0F;
         float result = instance.getHeight();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -155,7 +134,6 @@ public class FuzzySetTest {
         int expResult = 0;
         int result = instance.getNumSteps(fs);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -169,7 +147,6 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isConvex();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -183,7 +160,6 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isNormalized();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -197,7 +173,6 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyInterval();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -211,7 +186,6 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyLRInterval();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -225,7 +199,6 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyLRNumber();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -239,7 +212,6 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyNumber();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -251,7 +223,6 @@ public class FuzzySetTest {
         System.out.println("normalize");
         FuzzySet instance = new FuzzySet();
         instance.normalize();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -263,7 +234,6 @@ public class FuzzySetTest {
         System.out.println("reciproce");
         FuzzySet instance = new FuzzySet();
         instance.reciproce();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -278,7 +248,6 @@ public class FuzzySetTest {
         float expResult = 0.0F;
         float result = instance.remove(x);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -294,7 +263,6 @@ public class FuzzySetTest {
         float expResult = 0.0F;
         float result = instance.set(x, dom);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -309,7 +277,6 @@ public class FuzzySetTest {
         String expResult = "";
         String result = instance.toString(withPoints);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

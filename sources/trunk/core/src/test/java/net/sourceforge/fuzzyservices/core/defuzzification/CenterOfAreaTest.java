@@ -20,11 +20,10 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
- ******************************************************************************/package net.sourceforge.fuzzyservices.core.defuzzification;
+ ******************************************************************************/
+package net.sourceforge.fuzzyservices.core.defuzzification;
 
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,17 +33,6 @@ import static org.junit.Assert.*;
  * @author Uwe Weng
  */
 public class CenterOfAreaTest {
-
-    public CenterOfAreaTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     /**
      * Test of defuzzify method, of class CenterOfArea.
@@ -57,7 +45,6 @@ public class CenterOfAreaTest {
         float expResult = 0.0F;
         float result = instance.defuzzify(membershipFunction);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +58,6 @@ public class CenterOfAreaTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -86,7 +72,6 @@ public class CenterOfAreaTest {
         float expResult = 0.0F;
         float result = instance.defuzzify(membershipFunction);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -100,36 +85,6 @@ public class CenterOfAreaTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of defuzzify method, of class CenterOfArea.
-     */
-    @Test
-    public void testDefuzzify_MembershipFunction_1args() {
-        System.out.println("defuzzify");
-        MembershipFunction membershipFunction = null;
-        CenterOfArea instance = new CenterOfArea();
-        float expResult = 0.0F;
-        float result = instance.defuzzify(membershipFunction);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class CenterOfArea.
-     */
-    @Test
-    public void testToString2() {
-        System.out.println("toString");
-        CenterOfArea instance = new CenterOfArea();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

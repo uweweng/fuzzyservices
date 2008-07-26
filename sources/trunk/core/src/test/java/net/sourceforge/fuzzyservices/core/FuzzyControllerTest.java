@@ -21,11 +21,8 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,17 +33,6 @@ import static org.junit.Assert.*;
  */
 public class FuzzyControllerTest {
 
-    public FuzzyControllerTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of getInstance method, of class FuzzyController.
      */
@@ -56,7 +42,6 @@ public class FuzzyControllerTest {
         FuzzyController expResult = null;
         FuzzyController result = FuzzyController.getInstance();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -72,7 +57,6 @@ public class FuzzyControllerTest {
         FactBase expResult = null;
         FactBase result = FuzzyController.performApproximateReasoning(aRuleBase, aFactBase, linguisticVariables);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

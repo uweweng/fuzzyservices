@@ -21,11 +21,8 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,17 +33,6 @@ import static org.junit.Assert.*;
  */
 public class FuzzyNumberTest {
 
-    public FuzzyNumberTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of invert method, of class FuzzyNumber.
      */
@@ -55,7 +41,6 @@ public class FuzzyNumberTest {
         System.out.println("invert");
         FuzzyNumber instance = new FuzzyNumber();
         instance.invert();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -69,7 +54,6 @@ public class FuzzyNumberTest {
         boolean expResult = false;
         boolean result = instance.isNegative();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -83,7 +67,6 @@ public class FuzzyNumberTest {
         boolean expResult = false;
         boolean result = instance.isPositive();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -97,7 +80,6 @@ public class FuzzyNumberTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyLRNumber();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -109,7 +91,6 @@ public class FuzzyNumberTest {
         System.out.println("negate");
         FuzzyNumber instance = new FuzzyNumber();
         instance.negate();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -124,7 +105,6 @@ public class FuzzyNumberTest {
         float expResult = 0.0F;
         float result = instance.remove(x);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -140,7 +120,6 @@ public class FuzzyNumberTest {
         float expResult = 0.0F;
         float result = instance.set(x, dom);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -155,7 +134,6 @@ public class FuzzyNumberTest {
         String expResult = "";
         String result = instance.toString(withPoints);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

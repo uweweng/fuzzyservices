@@ -24,8 +24,6 @@
 package net.sourceforge.fuzzyservices.core.defuzzification;
 
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,17 +33,6 @@ import static org.junit.Assert.*;
  * @author Uwe Weng
  */
 public class LeftOfMaxTest {
-
-    public LeftOfMaxTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     /**
      * Test of defuzzify method, of class LeftOfMax.
@@ -58,7 +45,6 @@ public class LeftOfMaxTest {
         float expResult = 0.0F;
         float result = instance.defuzzify(membershipFunction);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -72,7 +58,6 @@ public class LeftOfMaxTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -87,7 +72,6 @@ public class LeftOfMaxTest {
         float expResult = 0.0F;
         float result = instance.defuzzify(membershipFunction);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -101,36 +85,6 @@ public class LeftOfMaxTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of defuzzify method, of class LeftOfMax.
-     */
-    @Test
-    public void testDefuzzify_MembershipFunction_1args() {
-        System.out.println("defuzzify");
-        MembershipFunction membershipFunction = null;
-        LeftOfMax instance = new LeftOfMax();
-        float expResult = 0.0F;
-        float result = instance.defuzzify(membershipFunction);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class LeftOfMax.
-     */
-    @Test
-    public void testToString2() {
-        System.out.println("toString");
-        LeftOfMax instance = new LeftOfMax();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

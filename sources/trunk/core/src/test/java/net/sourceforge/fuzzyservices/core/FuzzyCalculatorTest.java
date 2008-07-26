@@ -21,11 +21,8 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,17 +33,6 @@ import static org.junit.Assert.*;
  */
 public class FuzzyCalculatorTest {
 
-    public FuzzyCalculatorTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of getInstance method, of class FuzzyCalculator.
      */
@@ -56,7 +42,6 @@ public class FuzzyCalculatorTest {
         FuzzyCalculator expResult = null;
         FuzzyCalculator result = FuzzyCalculator.getInstance();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -72,7 +57,6 @@ public class FuzzyCalculatorTest {
         FuzzyInterval expResult = null;
         FuzzyInterval result = instance.add(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -88,7 +72,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRInterval expResult = null;
         FuzzyLRInterval result = instance.add(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -104,7 +87,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRNumber expResult = null;
         FuzzyLRNumber result = instance.add(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -120,7 +102,6 @@ public class FuzzyCalculatorTest {
         FuzzyNumber expResult = null;
         FuzzyNumber result = instance.add(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -136,7 +117,6 @@ public class FuzzyCalculatorTest {
         FuzzyInterval expResult = null;
         FuzzyInterval result = instance.divide(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -152,7 +132,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRInterval expResult = null;
         FuzzyLRInterval result = instance.divide(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -168,7 +147,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRNumber expResult = null;
         FuzzyLRNumber result = instance.divide(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -184,7 +162,6 @@ public class FuzzyCalculatorTest {
         FuzzyNumber expResult = null;
         FuzzyNumber result = instance.divide(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -200,7 +177,6 @@ public class FuzzyCalculatorTest {
         FuzzyInterval expResult = null;
         FuzzyInterval result = instance.multiply(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -216,7 +192,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRInterval expResult = null;
         FuzzyLRInterval result = instance.multiply(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -232,7 +207,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRNumber expResult = null;
         FuzzyLRNumber result = instance.multiply(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -248,7 +222,6 @@ public class FuzzyCalculatorTest {
         FuzzyNumber expResult = null;
         FuzzyNumber result = instance.multiply(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -264,7 +237,6 @@ public class FuzzyCalculatorTest {
         FuzzyInterval expResult = null;
         FuzzyInterval result = instance.subtract(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -280,7 +252,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRInterval expResult = null;
         FuzzyLRInterval result = instance.subtract(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -296,7 +267,6 @@ public class FuzzyCalculatorTest {
         FuzzyLRNumber expResult = null;
         FuzzyLRNumber result = instance.subtract(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -312,7 +282,6 @@ public class FuzzyCalculatorTest {
         FuzzyNumber expResult = null;
         FuzzyNumber result = instance.subtract(operand1, operand2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

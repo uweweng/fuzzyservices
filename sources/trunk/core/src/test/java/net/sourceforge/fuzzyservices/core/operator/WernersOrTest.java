@@ -26,10 +26,8 @@ package net.sourceforge.fuzzyservices.core.operator;
 import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -38,16 +36,6 @@ import org.junit.Test;
  * @author Uwe Weng
  */
 public class WernersOrTest {
-
-    @BeforeClass
-    public static void setUpClass()
-            throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-            throws Exception {
-    }
 
     /**
      * Test of combine method, of class WernersOr.
@@ -377,6 +365,336 @@ public class WernersOrTest {
         String result = instance.getName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of combine method, of class WernersOr.
+     */
+    @Test
+    public void testCombine_FuzzySet_FuzzySet_2args() {
+        System.out.println("combine");
+        FuzzySet fs1 = null;
+        FuzzySet fs2 = null;
+        WernersOr instance = new WernersOr();
+        FuzzySet expResult = null;
+        FuzzySet result = instance.combine(fs1, fs2);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidTNorm2() {
+        System.out.println("isValidTNorm");
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidSNorm2() {
+        System.out.println("isValidSNorm");
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidParameter method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidParameter_float_1args() {
+        System.out.println("isValidParameter");
+        float param = 0.0F;
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidParameter(param);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class WernersOr.
+     */
+    @Test
+    public void testCompute_float_float_2args() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        WernersOr instance = new WernersOr();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class WernersOr.
+     */
+    @Test
+    public void testToString_1args_1() {
+        System.out.println("toString");
+        boolean withParameter = false;
+        WernersOr instance = new WernersOr();
+        String expResult = "";
+        String result = instance.toString(withParameter);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getDefaultParameter method, of class WernersOr.
+     */
+    @Test
+    public void testGetDefaultParameter2() {
+        System.out.println("getDefaultParameter");
+        WernersOr instance = new WernersOr();
+        float expResult = 0.0F;
+        float result = instance.getDefaultParameter();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class WernersOr.
+     */
+    @Test
+    public void testGetName2() {
+        System.out.println("getName");
+        WernersOr instance = new WernersOr();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of combine method, of class WernersOr.
+     */
+    @Test
+    public void testCombine_2args_1() {
+        System.out.println("combine");
+        FuzzySet fs1 = null;
+        FuzzySet fs2 = null;
+        WernersOr instance = new WernersOr();
+        FuzzySet expResult = null;
+        FuzzySet result = instance.combine(fs1, fs2);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidTNorm3() {
+        System.out.println("isValidTNorm");
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidSNorm3() {
+        System.out.println("isValidSNorm");
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidParameter method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidParameter_1args_1() {
+        System.out.println("isValidParameter");
+        float param = 0.0F;
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidParameter(param);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class WernersOr.
+     */
+    @Test
+    public void testCompute_2args_1() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        WernersOr instance = new WernersOr();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class WernersOr.
+     */
+    @Test
+    public void testToString_1args_2() {
+        System.out.println("toString");
+        boolean withParameter = false;
+        WernersOr instance = new WernersOr();
+        String expResult = "";
+        String result = instance.toString(withParameter);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getDefaultParameter method, of class WernersOr.
+     */
+    @Test
+    public void testGetDefaultParameter3() {
+        System.out.println("getDefaultParameter");
+        WernersOr instance = new WernersOr();
+        float expResult = 0.0F;
+        float result = instance.getDefaultParameter();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class WernersOr.
+     */
+    @Test
+    public void testGetName3() {
+        System.out.println("getName");
+        WernersOr instance = new WernersOr();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of combine method, of class WernersOr.
+     */
+    @Test
+    public void testCombine_2args_2() {
+        System.out.println("combine");
+        FuzzySet fs1 = null;
+        FuzzySet fs2 = null;
+        WernersOr instance = new WernersOr();
+        FuzzySet expResult = null;
+        FuzzySet result = instance.combine(fs1, fs2);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidTNorm4() {
+        System.out.println("isValidTNorm");
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidSNorm4() {
+        System.out.println("isValidSNorm");
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidParameter method, of class WernersOr.
+     */
+    @Test
+    public void testIsValidParameter_1args_2() {
+        System.out.println("isValidParameter");
+        float param = 0.0F;
+        WernersOr instance = new WernersOr();
+        boolean expResult = false;
+        boolean result = instance.isValidParameter(param);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class WernersOr.
+     */
+    @Test
+    public void testCompute_2args_2() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        WernersOr instance = new WernersOr();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class WernersOr.
+     */
+    @Test
+    public void testToString_1args_3() {
+        System.out.println("toString");
+        boolean withParameter = false;
+        WernersOr instance = new WernersOr();
+        String expResult = "";
+        String result = instance.toString(withParameter);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getDefaultParameter method, of class WernersOr.
+     */
+    @Test
+    public void testGetDefaultParameter4() {
+        System.out.println("getDefaultParameter");
+        WernersOr instance = new WernersOr();
+        float expResult = 0.0F;
+        float result = instance.getDefaultParameter();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class WernersOr.
+     */
+    @Test
+    public void testGetName4() {
+        System.out.println("getName");
+        WernersOr instance = new WernersOr();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 }

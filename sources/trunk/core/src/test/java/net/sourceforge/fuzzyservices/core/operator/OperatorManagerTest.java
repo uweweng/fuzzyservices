@@ -26,10 +26,8 @@ package net.sourceforge.fuzzyservices.core.operator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -40,16 +38,6 @@ import java.util.Collection;
  * @author Uwe Weng
  */
 public class OperatorManagerTest {
-
-    @BeforeClass
-    public static void setUpClass()
-            throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-            throws Exception {
-    }
 
     /**
      * Test of getOperators method, of class OperatorManager.
@@ -214,6 +202,120 @@ public class OperatorManagerTest {
         AbstractOperator result = OperatorManager.registerOperator(op);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperators method, of class OperatorManager.
+     */
+    @Test
+    public void testGetOperators2() {
+        System.out.println("getOperators");
+        Collection<AbstractOperator> expResult = null;
+        Collection<AbstractOperator> result = OperatorManager.getOperators();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperator method, of class OperatorManager.
+     */
+    @Test
+    public void testGetOperator_String_1args() {
+        System.out.println("getOperator");
+        String name = "";
+        AbstractOperator expResult = null;
+        AbstractOperator result = OperatorManager.getOperator(name);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of registerOperator method, of class OperatorManager.
+     */
+    @Test
+    public void testRegisterOperator_AbstractOperator_1args() {
+        System.out.println("registerOperator");
+        AbstractOperator op = null;
+        AbstractOperator expResult = null;
+        AbstractOperator result = OperatorManager.registerOperator(op);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperators method, of class OperatorManager.
+     */
+    @Test
+    public void testGetOperators3() {
+        System.out.println("getOperators");
+        Collection<AbstractOperator> expResult = null;
+        Collection<AbstractOperator> result = OperatorManager.getOperators();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperator method, of class OperatorManager.
+     */
+    @Test
+    public void testGetOperator_1args_1() {
+        System.out.println("getOperator");
+        String name = "";
+        AbstractOperator expResult = null;
+        AbstractOperator result = OperatorManager.getOperator(name);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of registerOperator method, of class OperatorManager.
+     */
+    @Test
+    public void testRegisterOperator_1args_1() {
+        System.out.println("registerOperator");
+        AbstractOperator op = null;
+        AbstractOperator expResult = null;
+        AbstractOperator result = OperatorManager.registerOperator(op);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperators method, of class OperatorManager.
+     */
+    @Test
+    public void testGetOperators4() {
+        System.out.println("getOperators");
+        Collection<AbstractOperator> expResult = null;
+        Collection<AbstractOperator> result = OperatorManager.getOperators();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperator method, of class OperatorManager.
+     */
+    @Test
+    public void testGetOperator_1args_2() {
+        System.out.println("getOperator");
+        String name = "";
+        AbstractOperator expResult = null;
+        AbstractOperator result = OperatorManager.getOperator(name);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of registerOperator method, of class OperatorManager.
+     */
+    @Test
+    public void testRegisterOperator_1args_2() {
+        System.out.println("registerOperator");
+        AbstractOperator op = null;
+        AbstractOperator expResult = null;
+        AbstractOperator result = OperatorManager.registerOperator(op);
+        assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 }

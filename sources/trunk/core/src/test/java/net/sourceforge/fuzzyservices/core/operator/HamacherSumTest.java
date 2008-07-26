@@ -26,10 +26,8 @@ package net.sourceforge.fuzzyservices.core.operator;
 import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -38,16 +36,6 @@ import org.junit.Test;
  * @author Uwe Weng
  */
 public class HamacherSumTest {
-
-    @BeforeClass
-    public static void setUpClass()
-            throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-            throws Exception {
-    }
 
     /**
      * Test of combine method, of class HamacherSum.
@@ -248,6 +236,207 @@ public class HamacherSumTest {
         String result = instance.getName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class HamacherSum.
+     */
+    @Test
+    public void testIsValidTNorm2() {
+        System.out.println("isValidTNorm");
+        HamacherSum instance = new HamacherSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class HamacherSum.
+     */
+    @Test
+    public void testIsValidSNorm2() {
+        System.out.println("isValidSNorm");
+        HamacherSum instance = new HamacherSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class HamacherSum.
+     */
+    @Test
+    public void testCompute_float_float_2args() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        HamacherSum instance = new HamacherSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class HamacherSum.
+     */
+    @Test
+    public void testToString3() {
+        System.out.println("toString");
+        HamacherSum instance = new HamacherSum();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class HamacherSum.
+     */
+    @Test
+    public void testGetName2() {
+        System.out.println("getName");
+        HamacherSum instance = new HamacherSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class HamacherSum.
+     */
+    @Test
+    public void testIsValidTNorm3() {
+        System.out.println("isValidTNorm");
+        HamacherSum instance = new HamacherSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class HamacherSum.
+     */
+    @Test
+    public void testIsValidSNorm3() {
+        System.out.println("isValidSNorm");
+        HamacherSum instance = new HamacherSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class HamacherSum.
+     */
+    @Test
+    public void testCompute_2args_1() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        HamacherSum instance = new HamacherSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class HamacherSum.
+     */
+    @Test
+    public void testToString4() {
+        System.out.println("toString");
+        HamacherSum instance = new HamacherSum();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class HamacherSum.
+     */
+    @Test
+    public void testGetName3() {
+        System.out.println("getName");
+        HamacherSum instance = new HamacherSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class HamacherSum.
+     */
+    @Test
+    public void testIsValidTNorm4() {
+        System.out.println("isValidTNorm");
+        HamacherSum instance = new HamacherSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class HamacherSum.
+     */
+    @Test
+    public void testIsValidSNorm4() {
+        System.out.println("isValidSNorm");
+        HamacherSum instance = new HamacherSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class HamacherSum.
+     */
+    @Test
+    public void testCompute_2args_2() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        HamacherSum instance = new HamacherSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class HamacherSum.
+     */
+    @Test
+    public void testToString5() {
+        System.out.println("toString");
+        HamacherSum instance = new HamacherSum();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class HamacherSum.
+     */
+    @Test
+    public void testGetName4() {
+        System.out.println("getName");
+        HamacherSum instance = new HamacherSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 }

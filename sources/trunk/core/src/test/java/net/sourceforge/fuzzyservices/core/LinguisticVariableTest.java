@@ -21,12 +21,9 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
 import java.util.Iterator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,17 +34,6 @@ import static org.junit.Assert.*;
  */
 public class LinguisticVariableTest {
 
-    public LinguisticVariableTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     /**
      * Test of clear method, of class LinguisticVariable.
      */
@@ -56,7 +42,6 @@ public class LinguisticVariableTest {
         System.out.println("clear");
         LinguisticVariable instance = new LinguisticVariable();
         instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +56,6 @@ public class LinguisticVariableTest {
         boolean expResult = false;
         boolean result = instance.contains(aName);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -86,7 +70,6 @@ public class LinguisticVariableTest {
         FuzzySet expResult = null;
         FuzzySet result = instance.getFuzzySet(name);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -100,7 +83,6 @@ public class LinguisticVariableTest {
         float expResult = 0.0F;
         float result = instance.getMaxDefinedX();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -114,7 +96,6 @@ public class LinguisticVariableTest {
         float expResult = 0.0F;
         float result = instance.getMinDefinedX();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -128,7 +109,6 @@ public class LinguisticVariableTest {
         String expResult = "";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -141,7 +121,6 @@ public class LinguisticVariableTest {
         String newName = "";
         LinguisticVariable instance = new LinguisticVariable();
         instance.setName(newName);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -155,7 +134,6 @@ public class LinguisticVariableTest {
         Iterator<String> expResult = null;
         Iterator<String> result = instance.getNames();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -169,7 +147,6 @@ public class LinguisticVariableTest {
         boolean expResult = false;
         boolean result = instance.isDefined();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -183,7 +160,6 @@ public class LinguisticVariableTest {
         boolean expResult = false;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -198,7 +174,6 @@ public class LinguisticVariableTest {
         FuzzySet expResult = null;
         FuzzySet result = instance.remove(name);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -214,7 +189,6 @@ public class LinguisticVariableTest {
         FuzzySet expResult = null;
         FuzzySet result = instance.set(name, fs);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -228,7 +202,6 @@ public class LinguisticVariableTest {
         int expResult = 0;
         int result = instance.size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -242,7 +215,6 @@ public class LinguisticVariableTest {
         Object expResult = null;
         Object result = instance.clone();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -257,7 +229,6 @@ public class LinguisticVariableTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -271,7 +242,6 @@ public class LinguisticVariableTest {
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -285,7 +255,6 @@ public class LinguisticVariableTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

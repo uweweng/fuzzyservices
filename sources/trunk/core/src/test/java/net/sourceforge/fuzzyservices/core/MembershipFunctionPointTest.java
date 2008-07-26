@@ -21,11 +21,8 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,17 +32,6 @@ import static org.junit.Assert.*;
  * @author Uwe Weng
  */
 public class MembershipFunctionPointTest {
-
-    public MembershipFunctionPointTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     /**
      * Test of getDegreeOfMembership method, of class MembershipFunctionPoint.
@@ -57,7 +43,6 @@ public class MembershipFunctionPointTest {
         float expResult = 0.0F;
         float result = instance.getDegreeOfMembership();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +56,6 @@ public class MembershipFunctionPointTest {
         float expResult = 0.0F;
         float result = instance.getX();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -86,7 +70,6 @@ public class MembershipFunctionPointTest {
         float expResult = 0.0F;
         float result = instance.setDegreeOfMembership(aDegreeOfMembership);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -100,7 +83,6 @@ public class MembershipFunctionPointTest {
         Object expResult = null;
         Object result = instance.clone();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -115,7 +97,6 @@ public class MembershipFunctionPointTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -129,7 +110,6 @@ public class MembershipFunctionPointTest {
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -143,7 +123,6 @@ public class MembershipFunctionPointTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 

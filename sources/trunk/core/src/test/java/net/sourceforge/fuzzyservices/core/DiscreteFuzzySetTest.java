@@ -21,13 +21,10 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-
 package net.sourceforge.fuzzyservices.core;
 
 import java.util.Collection;
 import java.util.Iterator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,17 +34,6 @@ import static org.junit.Assert.*;
  * @author Uwe Weng
  */
 public class DiscreteFuzzySetTest {
-
-    public DiscreteFuzzySetTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     /**
      * Test of add method, of class DiscreteFuzzySet.
@@ -59,7 +45,6 @@ public class DiscreteFuzzySetTest {
         float dom = 0.0F;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.add(obj, dom);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -71,7 +56,6 @@ public class DiscreteFuzzySetTest {
         System.out.println("clear");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -85,7 +69,6 @@ public class DiscreteFuzzySetTest {
         Object expResult = null;
         Object result = instance.clone();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -101,7 +84,6 @@ public class DiscreteFuzzySetTest {
         DiscreteFuzzySet<Object> expResult = null;
         DiscreteFuzzySet<Object> result = instance.combine(dfs, op);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -113,7 +95,6 @@ public class DiscreteFuzzySetTest {
         System.out.println("concentrate");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.concentrate();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -128,7 +109,6 @@ public class DiscreteFuzzySetTest {
         boolean expResult = false;
         boolean result = instance.contains(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -140,7 +120,6 @@ public class DiscreteFuzzySetTest {
         System.out.println("dilate");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.dilate();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -154,7 +133,6 @@ public class DiscreteFuzzySetTest {
         Iterator<Object> expResult = null;
         Iterator<Object> result = instance.iterator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -169,7 +147,6 @@ public class DiscreteFuzzySetTest {
         Collection<Object> expResult = null;
         Collection<Object> result = instance.getAlphaCut(alpha);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -184,7 +161,6 @@ public class DiscreteFuzzySetTest {
         Collection<Object> expResult = null;
         Collection<Object> result = instance.getStrictAlphaCut(alpha);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -199,7 +175,6 @@ public class DiscreteFuzzySetTest {
         float expResult = 0.0F;
         float result = instance.getDegreeOfMembership(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -213,7 +188,6 @@ public class DiscreteFuzzySetTest {
         float expResult = 0.0F;
         float result = instance.getMaximumDegreeOfMembership();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -227,7 +201,6 @@ public class DiscreteFuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -243,7 +216,6 @@ public class DiscreteFuzzySetTest {
         float expResult = 0.0F;
         float result = instance.put(obj, dom);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -255,7 +227,6 @@ public class DiscreteFuzzySetTest {
         System.out.println("reciproce");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.reciproce();
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -270,7 +241,6 @@ public class DiscreteFuzzySetTest {
         float expResult = 0.0F;
         float result = instance.remove(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -284,7 +254,6 @@ public class DiscreteFuzzySetTest {
         int expResult = 0;
         int result = instance.size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -298,7 +267,6 @@ public class DiscreteFuzzySetTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -313,7 +281,6 @@ public class DiscreteFuzzySetTest {
         String expResult = "";
         String result = instance.toString(withObjects);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -328,7 +295,6 @@ public class DiscreteFuzzySetTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -342,7 +308,6 @@ public class DiscreteFuzzySetTest {
         int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
