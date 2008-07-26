@@ -26,13 +26,13 @@ package net.sourceforge.fuzzyservices.swing;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * DefaultDiscreteFuzzySetModel
  *
  * @author Uwe Weng
  */
 public class DefaultDiscreteFuzzySetModel extends AbstractDiscreteFuzzySetModel {
-
     private List<Entry> objects = new ArrayList<Entry>();
 
     public DefaultDiscreteFuzzySetModel() {
@@ -44,37 +44,36 @@ public class DefaultDiscreteFuzzySetModel extends AbstractDiscreteFuzzySetModel 
     }
 
     @Override
-    public float getDegreeOfMembershipOf(Object object) {
+    public final float getDegreeOfMembershipOf(final Object object) {
         return objects.get(objects.indexOf(object)).degreeOfMembership;
     }
 
     @Override
-    public Object getObjectAt(int rowIndex) {
+    public Object getObjectAt(final int rowIndex) {
         return objects.get(rowIndex).object;
     }
 
-    class Entry {
-
-        public Object object;
-        public float degreeOfMembership;
-
-        public Entry(Object object, float degreeOfMembership) {
-            this.object = object;
-            this.degreeOfMembership = degreeOfMembership;
-        }
-    }
-
     @Override
-    public void setDegreeOfMembershipAt(float degreeOfMembership, int rowIndex) {
+    public final void setDegreeOfMembershipAt(final float degreeOfMembership, final int rowIndex) {
         objects.get(rowIndex).degreeOfMembership = degreeOfMembership;
         fireDegreeOfMembershipChanged(this, objects.get(rowIndex).object);
     }
 
     @Override
-    public void setObjectAt(Object aValue, int rowIndex) {
+    public final void setObjectAt(final Object aValue, final int rowIndex) {
         Object oldObject = objects.get(rowIndex).object;
         objects.get(rowIndex).object = aValue;
         fireObjectRemoved(this, oldObject);
         fireObjectAdded(this, aValue);
+    }
+
+    class Entry {
+        public Object object;
+        public float degreeOfMembership;
+
+        public Entry(final Object object, final float degreeOfMembership) {
+            this.object = object;
+            this.degreeOfMembership = degreeOfMembership;
+        }
     }
 }

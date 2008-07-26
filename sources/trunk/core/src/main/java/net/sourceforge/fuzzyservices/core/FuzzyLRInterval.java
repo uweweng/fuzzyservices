@@ -25,6 +25,8 @@ package net.sourceforge.fuzzyservices.core;
 
 import java.io.Serializable;
 import java.util.ListIterator;
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * A fuzzy interval of type LR is a convex, normalized fuzzy set whose
@@ -91,10 +93,10 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      */
     public FuzzyLRInterval(final FuzzyInterval fi) throws NullPointerException, IllegalArgumentException{
         if (fi.isValidFuzzyLRInterval()) {
-            ListIterator elements = fi.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fi.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
 
             this.reduce();
@@ -112,10 +114,10 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      */
     public FuzzyLRInterval(final FuzzySet fs) throws NullPointerException, IllegalArgumentException{
         if (fs.isValidFuzzyLRInterval()) {
-            ListIterator elements = fs.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fs.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
@@ -126,7 +128,7 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      * Returns the spread on the left falling edge. It is the so-called alpha value.
      * @return the spread alpha
      */
-    public synchronized float getAlpha() {
+    public final synchronized float getAlpha() {
         FuzzyLRInterval fi = (FuzzyLRInterval) this.clone();
         fi.reduce();
 
@@ -142,7 +144,7 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      * Returns the spread on the right falling edge. It is the so-called beta value.
      * @return the spread beta
      */
-    public synchronized float getBeta() {
+    public final synchronized float getBeta() {
         FuzzyLRInterval fi = (FuzzyLRInterval) this.clone();
         fi.reduce();
 
@@ -156,7 +158,7 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
     }
 
     @Override
-    public synchronized void invert() throws ArithmeticException{
+    public final synchronized void invert() throws ArithmeticException{
         super.invert();
     }
 
@@ -167,10 +169,10 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      */
     public synchronized boolean isNegative() {
         MembershipFunctionPoint entry;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            entry = (MembershipFunctionPoint) elements.next();
+            entry = elements.next();
 
             if (entry.getX() >= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f) {
@@ -189,10 +191,10 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      */
     public synchronized boolean isPositive() {
         MembershipFunctionPoint entry;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            entry = (MembershipFunctionPoint) elements.next();
+            entry = elements.next();
 
             if (entry.getX() <= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f) {
@@ -207,12 +209,12 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
     }
 
     @Override
-    public synchronized void negate() {
+    public final synchronized void negate() {
         super.negate();
     }
 
     @Override
-    public synchronized float remove(final float x) throws IllegalArgumentException{
+    public final synchronized float remove(final float x) throws IllegalArgumentException{
         // Fuzzy-Zahl in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Intervall pruefen
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.remove(x);
@@ -227,7 +229,7 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
     }
 
     @Override
-    public synchronized float set(final float x, final float dom) throws IllegalArgumentException{
+    public final synchronized float set(final float x, final float dom) throws IllegalArgumentException{
         // Fuzzy-LR-Intervall in ein Fuzzy-Intervall konvertieren, Punkt einfuegen und auf Fuzzy-LR-Intervall pruefen.
         FuzzyInterval fi = new FuzzyInterval(this);
         float retfloat = fi.set(x, dom);

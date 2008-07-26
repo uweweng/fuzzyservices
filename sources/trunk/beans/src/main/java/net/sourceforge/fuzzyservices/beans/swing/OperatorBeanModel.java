@@ -23,35 +23,39 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.swing;
 
+import net.sourceforge.fuzzyservices.beans.Operator;
+import net.sourceforge.fuzzyservices.core.AbstractOperator;
+import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
+import net.sourceforge.fuzzyservices.swing.AbstractOperatorModel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyVetoException;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sourceforge.fuzzyservices.beans.OperatorBean;
-import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
-import net.sourceforge.fuzzyservices.swing.AbstractOperatorModel;
+
 
 /**
  * OperatorBeanModel
  *
  * @author Uwe Weng
  */
-public class OperatorBeanModel extends AbstractOperatorModel implements PropertyChangeListener {
-
-    private OperatorBean operator = null;
+public class OperatorBeanModel extends AbstractOperatorModel
+    implements PropertyChangeListener {
+    private Operator operator = null;
     private String[] operatorNames = null;
 
     public OperatorBeanModel() {
-        operator = new OperatorBean();
+        operator = new Operator();
         operator.addPropertyChangeListener(this);
     }
 
-    public OperatorBeanModel(OperatorBean operator) {
+    public OperatorBeanModel(Operator operator) {
         this.operator = operator;
+
         if (this.operator != null) {
             this.operator.addPropertyChangeListener(this);
         }
@@ -61,16 +65,21 @@ public class OperatorBeanModel extends AbstractOperatorModel implements Property
     public String[] getOperatorNames() {
         if (operatorNames == null) {
             Collection<AbstractOperator> op = OperatorManager.getOperators();
+
             if (op != null) {
                 operatorNames = new String[op.size()];
+
                 int i = 0;
-                for (Iterator<AbstractOperator> it = op.iterator(); it.hasNext();) {
+
+                for (Iterator<AbstractOperator> it = op.iterator();
+                        it.hasNext();) {
                     AbstractOperator abstractOperator = it.next();
                     operatorNames[i] = abstractOperator.getName();
                     i++;
                 }
             }
         }
+
         return operatorNames;
     }
 
@@ -80,44 +89,50 @@ public class OperatorBeanModel extends AbstractOperatorModel implements Property
     }
 
     @Override
-    public void setSelectedOperatorName(String name) {
+    public final void setSelectedOperatorName(String name) {
         if (operator != null) {
             try {
                 operator.setType(name);
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(OperatorBeanModel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperatorBeanModel.class.getName())
+                      .log(Level.SEVERE, null, ex);
             }
         }
     }
 
     @Override
-    public float getParameter() {
+    public final float getParameter() {
         return (operator != null) ? operator.getParameter() : 0.0f;
     }
 
     @Override
-    public void setParameter(float parameter) {
+    public final void setParameter(float parameter) {
         if (operator != null) {
             try {
                 operator.setParameter(parameter);
             } catch (IllegalArgumentException ex) {
-                Logger.getLogger(OperatorBeanModel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperatorBeanModel.class.getName())
+                      .log(Level.SEVERE, null, ex);
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(OperatorBeanModel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperatorBeanModel.class.getName())
+                      .log(Level.SEVERE, null, ex);
             }
         }
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
 
-        if (OperatorBean.PARAMETER_PROPERTY.equals(propertyName) == true) {
+        if (Operator.PARAMETER_PROPERTY.equals(propertyName) == true) {
             fireParameterChanged(this);
+
             return;
         }
-        if (OperatorBean.TYPE_PROPERTY.equals(propertyName) == true) {
+
+        if (Operator.TYPE_PROPERTY.equals(propertyName) == true) {
             fireTypeChanged(this);
+
             return;
         }
     }

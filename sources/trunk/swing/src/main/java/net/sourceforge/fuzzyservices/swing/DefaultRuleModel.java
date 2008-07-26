@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -25,13 +25,13 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.ArrayList;
 
+
 /**
  * DefaultRuleModel
  *
  * @author Uwe Weng
  */
 public class DefaultRuleModel extends AbstractRuleModel {
-
     private OperatorModel certaintyOperator = new DefaultOperatorModel();
     private OperatorModel inferenceOperator = new DefaultOperatorModel();
     private OperatorModel aggregationOperator = new DefaultOperatorModel();
@@ -55,12 +55,12 @@ public class DefaultRuleModel extends AbstractRuleModel {
     }
 
     @Override
-    public float getCertainty() {
+    public final float getCertainty() {
         return certainty;
     }
 
     @Override
-    public void setCertainty(float certainty) {
+    public final void setCertainty(float certainty) {
         this.certainty = certainty;
     }
 
@@ -80,7 +80,7 @@ public class DefaultRuleModel extends AbstractRuleModel {
     }
 
     @Override
-    public void setLingVarNameOfAntecedentAt(String name, int index) {
+    public final void setLingVarNameOfAntecedentAt(String name, int index) {
         antecedents.get(index).lingVarName = name;
     }
 
@@ -90,7 +90,7 @@ public class DefaultRuleModel extends AbstractRuleModel {
     }
 
     @Override
-    public void setLingTermNameOfAntecedentAt(String name, int index) {
+    public final void setLingTermNameOfAntecedentAt(String name, int index) {
         antecedents.get(index).lingTermName = name;
     }
 
@@ -105,7 +105,7 @@ public class DefaultRuleModel extends AbstractRuleModel {
     }
 
     @Override
-    public void setLingVarNameOfConsequentAt(String name, int index) {
+    public final void setLingVarNameOfConsequentAt(String name, int index) {
         consequents.get(index).lingVarName = name;
     }
 
@@ -115,15 +115,16 @@ public class DefaultRuleModel extends AbstractRuleModel {
     }
 
     @Override
-    public void setLingTermNameOfConsequentAt(String name, int index) {
+    public final void setLingTermNameOfConsequentAt(String name, int index) {
         consequents.get(index).lingTermName = name;
     }
-    
+
     private class AntecedentModel {
         public String lingVarName;
         public String lingTermName;
         public OperatorModel compatibilityOperator = new DefaultOperatorModel();
     }
+
     private class ConsequentModel {
         public String lingVarName;
         public String lingTermName;

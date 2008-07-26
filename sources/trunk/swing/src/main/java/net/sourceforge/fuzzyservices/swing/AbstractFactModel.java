@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,7 +24,9 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractFactModel
@@ -32,17 +34,16 @@ import javax.swing.event.EventListenerList;
  * @author Uwe Weng
  */
 public abstract class AbstractFactModel implements FactModel {
-
     /** Stores the listeners on this model. */
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addFactModelListener(FactModelListener l) {
+    public final void addFactModelListener(FactModelListener l) {
         listenerList.add(FactModelListener.class, l);
     }
 
     @Override
-    public void removeFactModelListener(FactModelListener l) {
+    public final void removeFactModelListener(FactModelListener l) {
         listenerList.remove(FactModelListener.class, l);
     }
 
@@ -62,11 +63,13 @@ public abstract class AbstractFactModel implements FactModel {
     protected void fireValueChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == FactBaseModelListener.class) {
-                FactModelEvent event = new FactModelEvent(source, FactModelEvent.VALUE_CHANGED);
+                FactModelEvent event = new FactModelEvent(source,
+                        FactModelEvent.VALUE_CHANGED);
                 ((FactModelListener) listeners[i + 1]).factChanged(event);
             }
         }
@@ -80,11 +83,13 @@ public abstract class AbstractFactModel implements FactModel {
     protected void fireLinguisticVariableChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == FactBaseModelListener.class) {
-                FactModelEvent event = new FactModelEvent(source, FactModelEvent.LINGUISTIC_VARIABLE_CHANGED);
+                FactModelEvent event = new FactModelEvent(source,
+                        FactModelEvent.LINGUISTIC_VARIABLE_CHANGED);
                 ((FactModelListener) listeners[i + 1]).factChanged(event);
             }
         }

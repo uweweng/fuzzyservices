@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,9 +24,11 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.awt.Component;
+
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
+
 
 /**
  * RuleCellRenderer
@@ -34,13 +36,14 @@ import javax.swing.ListCellRenderer;
  * @author Uwe Weng
  */
 public class RuleCellRenderer extends JTextArea implements ListCellRenderer {
-
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value,
+        int index, boolean isSelected, boolean cellHasFocus) {
         // TODO ausimplementieren
-        assert value instanceof RuleModel;
+        //        assert value instanceof RuleModel;
         String s = value.toString();
         setText(s);
+
         if (isSelected) {
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());
@@ -48,9 +51,11 @@ public class RuleCellRenderer extends JTextArea implements ListCellRenderer {
             setBackground(list.getBackground());
             setForeground(list.getForeground());
         }
+
         setEnabled(list.isEnabled());
         setFont(list.getFont());
         setOpaque(true);
+
         return this;
     }
 }

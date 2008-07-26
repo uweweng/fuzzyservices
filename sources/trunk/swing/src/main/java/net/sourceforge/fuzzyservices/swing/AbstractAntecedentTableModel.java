@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,8 +23,10 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import javax.swing.table.AbstractTableModel;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+
 
 /**
  * AbstractAntecedentTableModel
@@ -32,12 +34,11 @@ import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
  * @author Uwe Weng
  */
 public abstract class AbstractAntecedentTableModel extends AbstractTableModel {
-
     final public static int INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN = 0;
     final public static int INDEX_LINGUISTIC_TERM_NAME_COLUMN = 1;
     final public static int INDEX_COMPATIBILITY_OPERATOR_COLUMN = 2;
     final public static int INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN = 3;
-    
+
     @Override
     public int getColumnCount() {
         return 4;
@@ -46,18 +47,24 @@ public abstract class AbstractAntecedentTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
-            case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
-                return FuzzyResourceManager.getString(this, "ANTECEDENT_TABLE_MODEL_COLUMN_LINGUISTIC_VARIABLE_NAME");
-            case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
-                return FuzzyResourceManager.getString(this, "ANTECEDENT_TABLE_MODEL_COLUMN_LINGUISTIC_TERM_NAME");
-            case INDEX_COMPATIBILITY_OPERATOR_COLUMN:
-                return FuzzyResourceManager.getString(this, "ANTECEDENT_TABLE_MODEL_COLUMN_COMPATIBILITY_OPERATOR_NAME");
-            case INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN:
-                return FuzzyResourceManager.getString(this, "ANTECEDENT_TABLE_MODEL_COLUMN_COMPATIBILITY_OPERATOR_PARAMETER");
-            default:
-                return null;
+        case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "ANTECEDENT_TABLE_MODEL_COLUMN_LINGUISTIC_VARIABLE_NAME");
+
+        case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "ANTECEDENT_TABLE_MODEL_COLUMN_LINGUISTIC_TERM_NAME");
+
+        case INDEX_COMPATIBILITY_OPERATOR_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "ANTECEDENT_TABLE_MODEL_COLUMN_COMPATIBILITY_OPERATOR_NAME");
+
+        case INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "ANTECEDENT_TABLE_MODEL_COLUMN_COMPATIBILITY_OPERATOR_PARAMETER");
+
+        default:
+            return null;
         }
     }
-    
-    
 }

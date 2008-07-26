@@ -25,13 +25,13 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventObject;
 
+
 /**
  * DiscreteFuzzySetModelEvent
  *
  * @author Uwe Weng
  */
 public class DiscreteFuzzySetModelEvent extends EventObject {
-
     public final static int OBJECT_ADDED = 1;
     public final static int OBJECT_REMOVED = 2;
     public final static int DEGREE_OF_MEMBERSHIP_CHANGED = 3;

@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,18 +23,17 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+
 /**
  * DefaultAntecedentTableModel
  *
  * @author Uwe Weng
  */
 public class DefaultAntecedentTableModel extends AbstractAntecedentTableModel {
-
     private RuleModel model = new DefaultRuleModel();
 
     public DefaultAntecedentTableModel(RuleModel ruleModel) {
         this.model = ruleModel;
-
     }
 
     @Override
@@ -42,42 +41,62 @@ public class DefaultAntecedentTableModel extends AbstractAntecedentTableModel {
         if (model == null) {
             return null;
         }
+
         switch (columnIndex) {
-            case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
-                return model.getLingVarNameOfAntecedentAt(rowIndex);
-            case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
-                return model.getLingTermNameOfAntecedentAt(rowIndex);
-            case INDEX_COMPATIBILITY_OPERATOR_COLUMN:
-                return model.getCompatibilityOperatorOfAntecedentAt(rowIndex).getSelectedOperatorName();
-            case INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN:
-                return model.getCompatibilityOperatorOfAntecedentAt(rowIndex).getParameter();
-            default:
-                return null;
+        case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
+            return model.getLingVarNameOfAntecedentAt(rowIndex);
+
+        case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
+            return model.getLingTermNameOfAntecedentAt(rowIndex);
+
+        case INDEX_COMPATIBILITY_OPERATOR_COLUMN:
+            return model.getCompatibilityOperatorOfAntecedentAt(rowIndex)
+                        .getSelectedOperatorName();
+
+        case INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN:
+            return model.getCompatibilityOperatorOfAntecedentAt(rowIndex)
+                        .getParameter();
+
+        default:
+            return null;
         }
     }
 
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    public final void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if (model == null) {
             return;
         }
+
         switch (columnIndex) {
-            case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
-                model.setLingVarNameOfAntecedentAt(aValue.toString(), rowIndex);
-                break;
-            case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
-                model.setLingTermNameOfAntecedentAt(aValue.toString(), rowIndex);
-                break;
-            case INDEX_COMPATIBILITY_OPERATOR_COLUMN:
-                model.getCompatibilityOperatorOfAntecedentAt(rowIndex).setSelectedOperatorName(aValue.toString());
-                break;
-            case INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN:
-                model.getCompatibilityOperatorOfAntecedentAt(rowIndex).setParameter(Float.parseFloat(aValue.toString()));
-                break;
-            default:
+        case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
+            model.setLingVarNameOfAntecedentAt(aValue.toString(), rowIndex);
+
+            break;
+
+        case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
+            model.setLingTermNameOfAntecedentAt(aValue.toString(), rowIndex);
+
+            break;
+
+        case INDEX_COMPATIBILITY_OPERATOR_COLUMN:
+            model.getCompatibilityOperatorOfAntecedentAt(rowIndex)
+                 .setSelectedOperatorName(aValue.toString());
+
+            break;
+
+        case INDEX_COMPATIBILITY_OPERATOR_PARAMETER_COLUMN:
+            model.getCompatibilityOperatorOfAntecedentAt(rowIndex)
+                 .setParameter(Float.parseFloat(aValue.toString()));
+
+            break;
+
+        default:
         }
+
         fireTableCellUpdated(rowIndex, columnIndex);
     }
+
     @Override
     public int getRowCount() {
         return (model != null) ? model.getSizeOfAntecedents() : 0;

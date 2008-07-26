@@ -23,20 +23,20 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
-import net.sourceforge.fuzzyservices.beans.FactBaseBean;
-import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
+import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.beans.RuleBase;
 import net.sourceforge.fuzzyservices.core.FactBase;
-import net.sourceforge.fuzzyservices.core.RuleBase;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
 import net.sourceforge.fuzzyservices.core.LinguisticVariable;
+import net.sourceforge.fuzzyservices.core.RuleBase;
+
 
 /**
  * EJB implementation of a fuzzy controller for approximate reasoning.
  * It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyControllerClient {
-
 }

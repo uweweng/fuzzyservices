@@ -23,7 +23,8 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.io.Serializable;
 
 /**
@@ -34,56 +35,69 @@ import java.io.Serializable;
  *
  * @see #compute(float, float)
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class DrasticSum extends AbstractDrasticOperator
-        implements Serializable {
-
+public class DrasticSum
+    extends AbstractDrasticOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public float getDefaultValue() {
+    public final float getDefaultValue(  )
+    {
         return 1.0f;
     }
 
     @Override
-    public float getConditionValue() {
+    public final float getConditionValue(  )
+    {
         return 0.0f;
     }
 
     @Override
-    public boolean isValidTNorm() {
+    public final boolean isValidTNorm(  )
+    {
         return false;
     }
 
     @Override
-    public boolean isValidSNorm() {
+    public final boolean isValidSNorm(  )
+    {
         return true;
     }
 
     @Override
-    public float compute(final float a, final float b) {
+    public final float compute( final float a, final float b )
+    {
         float calc = 1.0f;
-        if (a == 0.0f) {
+
+        if ( a == 0.0f )
+        {
             calc = b;
         }
-        if (b == 0.0f) {
+
+        if ( b == 0.0f )
+        {
             calc = a;
         }
+
         return calc;
     }
 
     @Override
-    public String toString() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_SUM");
+    public String toString(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_SUM" );
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_SUM");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_SUM" );
     }
 }

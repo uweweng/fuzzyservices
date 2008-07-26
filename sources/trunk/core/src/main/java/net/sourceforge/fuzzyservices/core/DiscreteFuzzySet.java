@@ -23,6 +23,8 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,24 +38,28 @@ import java.util.Map;
  * It is the so-called degree of membership.
  *
  * @param <E> the type of elements maintained by this set
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
-
+public class DiscreteFuzzySet<E>
+    implements Cloneable,
+               Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
+
     /**
      * Set of objects (as key) with its degree of membership as value
      */
-    private Map<E, Float> objects = new HashMap<E, Float>();
+    private Map<E, Float> objects = new HashMap<E, Float>(  );
 
     /**
      * Constructs a discrete fuzzy set of type <code>E</code>.
      */
-    public DiscreteFuzzySet() {
+    public DiscreteFuzzySet(  )
+    {
     }
 
     /**
@@ -69,12 +75,19 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @exception IllegalArgumentException
      *                if <code>dom</code> is not in <tt>[0,1]</tt>
      */
-    public DiscreteFuzzySet(E obj, float dom) throws NullPointerException, IllegalArgumentException {
-
-        if ((dom >= 0.0f) && (dom <= 1.0f)) {
-            objects.put(obj, new Float(FuzzyManager.round(dom)));
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP", new Object[]{Float.toString(dom)}));
+    public DiscreteFuzzySet( E obj, float dom )
+                     throws NullPointerException, IllegalArgumentException
+    {
+        if ( ( dom >= 0.0f ) && ( dom <= 1.0f ) )
+        {
+            objects.put( obj,
+                         new Float( FuzzyManager.round( dom ) ) );
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString(
+                                                                                this,
+                                                                                "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
+                                                                                new Object[] { Float.toString( dom ) } ) );
         }
     }
 
@@ -90,29 +103,43 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @exception IllegalArgumentException
      *                if <code>dom</code> is not in <tt>[0,1]</tt>
      */
-    public synchronized void add(E obj, float dom) throws NullPointerException, IllegalArgumentException {
-        if ((dom >= 0.0f) && (dom <= 1.0f)) {
-            if (dom > 0.0f) {
-                objects.put(obj, new Float(FuzzyManager.round(dom)));
+    public final synchronized void add( E obj, float dom )
+                          throws NullPointerException, IllegalArgumentException
+    {
+        if ( ( dom >= 0.0f ) && ( dom <= 1.0f ) )
+        {
+            if ( dom > 0.0f )
+            {
+                objects.put( obj,
+                             new Float( FuzzyManager.round( dom ) ) );
             }
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP", new Object[]{Float.toString(dom)}));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString(
+                                                                                this,
+                                                                                "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
+                                                                                new Object[] { Float.toString( dom ) } ) );
         }
     }
 
     /** Deletes all objects from the fuzzy set. */
-    public synchronized void clear() {
-        objects.clear();
+    public final synchronized void clear(  )
+    {
+        objects.clear(  );
     }
 
     @Override
-    public Object clone() {
-        try {
-            DiscreteFuzzySet newObj = (DiscreteFuzzySet) super.clone();
+    public Object clone(  )
+    {
+        try
+        {
+            DiscreteFuzzySet newObj = (DiscreteFuzzySet) super.clone(  );
+
             return newObj;
-        } catch (java.lang.CloneNotSupportedException e) {
+        } catch ( java.lang.CloneNotSupportedException e )
+        {
             // it is impossible
-            throw new InternalError(e.toString());
+            throw new InternalError( e.toString(  ) );
         }
     }
 
@@ -124,42 +151,48 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @return the result of this operation. It is a new discrete fuzzy set.
      * @exception NullPointerException if <code>op</code> is <code>null</code>
      */
-    public synchronized DiscreteFuzzySet<E> combine(DiscreteFuzzySet<E> dfs,
-            AbstractOperator op) throws NullPointerException {
-
-        if (dfs != null) {
-
-            DiscreteFuzzySet<E> resultDiscreteFuzzySet = new DiscreteFuzzySet<E>();
+    public synchronized DiscreteFuzzySet<E> combine( DiscreteFuzzySet<E> dfs, AbstractOperator op )
+                                             throws NullPointerException
+    {
+        if ( dfs != null )
+        {
+            DiscreteFuzzySet<E> resultDiscreteFuzzySet = new DiscreteFuzzySet<E>(  );
 
             // Iterating both discrete fuzzy sets and combinding the elements
-            for (Iterator<E> it = iterator(); it.hasNext();) {
-                E object = it.next();
-                resultDiscreteFuzzySet.put(object,
-                        op.compute(getDegreeOfMembership(object),
-                        dfs.getDegreeOfMembership(object)));
-
+            for ( Iterator<E> it = iterator(  ); it.hasNext(  ); )
+            {
+                E object = it.next(  );
+                resultDiscreteFuzzySet.put( object,
+                                            op.compute(
+                                                        getDegreeOfMembership( object ),
+                                                        dfs.getDegreeOfMembership( object ) ) );
             }
 
-            for (Iterator<E> it = dfs.iterator(); it.hasNext();) {
-                E object = it.next();
-                resultDiscreteFuzzySet.put(object,
-                        op.compute(getDegreeOfMembership(object),
-                        dfs.getDegreeOfMembership(object)));
-
+            for ( Iterator<E> it = dfs.iterator(  ); it.hasNext(  ); )
+            {
+                E object = it.next(  );
+                resultDiscreteFuzzySet.put( object,
+                                            op.compute(
+                                                        getDegreeOfMembership( object ),
+                                                        dfs.getDegreeOfMembership( object ) ) );
             }
+
             return resultDiscreteFuzzySet;
         }
+
         return null;
     }
 
     /** Concentrates the discrete fuzzy set. That means, degree of memberships  are squared.*/
-    public synchronized void concentrate() {
-        for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
-            E obj = it.next();
-            objects.put(obj, new Float(FuzzyManager.round(
-                    (float) Math.pow(
-                    objects.get(obj).floatValue(), 2.0))));
-
+    public final synchronized void concentrate(  )
+    {
+        for ( Iterator<E> it = objects.keySet(  ).iterator(  ); it.hasNext(  ); )
+        {
+            E obj = it.next(  );
+            objects.put( obj,
+                         new Float( FuzzyManager.round( (float) Math.pow(
+                                                                          objects.get( obj ).floatValue(  ),
+                                                                          2.0 ) ) ) );
         }
     }
 
@@ -170,18 +203,21 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *            the object
      * @return <code>true</code> if <code>obj</code> is part of the set
      */
-    public synchronized boolean contains(E obj) {
-        return (getDegreeOfMembership(obj) > 0.0f);
+    public synchronized boolean contains( E obj )
+    {
+        return ( getDegreeOfMembership( obj ) > 0.0f );
     }
 
     /** Dilates the fuzzy set. It is extracted a root.*/
-    public synchronized void dilate() {
-        for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
-            E obj = it.next();
-            objects.put(obj, new Float(FuzzyManager.round(
-                    (float) Math.pow(
-                    objects.get(obj).floatValue(), (1.0 / 2.0)))));
-
+    public final synchronized void dilate(  )
+    {
+        for ( Iterator<E> it = objects.keySet(  ).iterator(  ); it.hasNext(  ); )
+        {
+            E obj = it.next(  );
+            objects.put( obj,
+                         new Float( FuzzyManager.round( (float) Math.pow(
+                                                                          objects.get( obj ).floatValue(  ),
+                                                                          ( 1.0 / 2.0 ) ) ) ) );
         }
     }
 
@@ -190,8 +226,9 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *
      * @return an iterator of all objects with a degree of membership > 0.0
      */
-    public synchronized Iterator<E> iterator() {
-        return objects.keySet().iterator();
+    public synchronized Iterator<E> iterator(  )
+    {
+        return objects.keySet(  ).iterator(  );
     }
 
     /**
@@ -204,20 +241,31 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *                if <code>alpha</code> is not in interval <tt>[0,1]</tt>
      * @see #getStrictAlphaCut
      */
-    public synchronized Collection<E> getAlphaCut(float alpha) throws IllegalArgumentException {
-        if ((alpha >= 0.0) && (alpha <= 1.0f)) {
-            Collection<E> col = new ArrayList<E>(objects.size());
+    public synchronized Collection<E> getAlphaCut( float alpha )
+                                           throws IllegalArgumentException
+    {
+        if ( ( alpha >= 0.0 ) && ( alpha <= 1.0f ) )
+        {
+            Collection<E> col = new ArrayList<E>( objects.size(  ) );
 
-            for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
-                E obj = it.next();
-                if (objects.get(obj).floatValue() >= alpha) {
+            for ( Iterator<E> it = objects.keySet(  ).iterator(  ); it.hasNext(  ); )
+            {
+                E obj = it.next(  );
+
+                if ( objects.get( obj ).floatValue(  ) >= alpha )
+                {
                     // Object fulfills the alpha cut
-                    col.add(obj);
+                    col.add( obj );
                 }
             }
+
             return col;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_ALPHA", new Object[]{Float.toString(alpha)}));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString(
+                                                                                this,
+                                                                                "EXCEPTION_INVALID_ALPHA",
+                                                                                new Object[] { Float.toString( alpha ) } ) );
         }
     }
 
@@ -231,20 +279,31 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *                if <code>alpha</code> is not in interval <tt>[0,1]</tt>
      * @see #getAlphaCut
      */
-    public synchronized Collection<E> getStrictAlphaCut(float alpha) throws IllegalArgumentException {
-        if ((alpha >= 0.0) && (alpha <= 1.0f)) {
-            Collection<E> col = new ArrayList<E>(objects.size());
+    public synchronized Collection<E> getStrictAlphaCut( float alpha )
+                                                 throws IllegalArgumentException
+    {
+        if ( ( alpha >= 0.0 ) && ( alpha <= 1.0f ) )
+        {
+            Collection<E> col = new ArrayList<E>( objects.size(  ) );
 
-            for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
-                E obj = it.next();
-                if (objects.get(obj).floatValue() > alpha) {
+            for ( Iterator<E> it = objects.keySet(  ).iterator(  ); it.hasNext(  ); )
+            {
+                E obj = it.next(  );
+
+                if ( objects.get( obj ).floatValue(  ) > alpha )
+                {
                     // Object fulfills the alpha cut
-                    col.add(obj);
+                    col.add( obj );
                 }
             }
+
             return col;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_ALPHA", new Object[]{Float.toString(alpha)}));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString(
+                                                                                this,
+                                                                                "EXCEPTION_INVALID_ALPHA",
+                                                                                new Object[] { Float.toString( alpha ) } ) );
         }
     }
 
@@ -257,12 +316,16 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @exception IllegalArgumentException
      *                if <code>obj</code> is not of the same type as all other objects of this fuzzy set
      */
-    public synchronized float getDegreeOfMembership(E obj) throws IllegalArgumentException {
-        if (obj != null) {
-            Float dom = objects.get(obj);
+    public final synchronized float getDegreeOfMembership( E obj )
+                                             throws IllegalArgumentException
+    {
+        if ( obj != null )
+        {
+            Float dom = objects.get( obj );
 
-            return (dom == null) ? 0.0f : dom.floatValue();
+            return ( dom == null ) ? 0.0f : dom.floatValue(  );
         }
+
         return 0.0f;
     }
 
@@ -271,15 +334,21 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *
      * @return the highest value
      */
-    public synchronized float getMaximumDegreeOfMembership() {
+    public final synchronized float getMaximumDegreeOfMembership(  )
+    {
         float maxDoM = 0.0f;
-        for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
-            E obj = it.next();
-            float dom = objects.get(obj).floatValue();
-            if (dom > maxDoM) {
+
+        for ( Iterator<E> it = objects.keySet(  ).iterator(  ); it.hasNext(  ); )
+        {
+            E obj = it.next(  );
+            float dom = objects.get( obj ).floatValue(  );
+
+            if ( dom > maxDoM )
+            {
                 maxDoM = dom;
             }
         }
+
         return maxDoM;
     }
 
@@ -288,8 +357,9 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *
      * @return <code>true</code> if objects are member of the fuzzy set, <code>false</code> otherwise
      */
-    public synchronized boolean isEmpty() {
-        return objects.isEmpty();
+    public synchronized boolean isEmpty(  )
+    {
+        return objects.isEmpty(  );
     }
 
     /**
@@ -305,37 +375,53 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @exception IllegalArgumentException
      *                if <code>dom</code> is not in interval <tt>[0,1]</tt>
      */
-    public synchronized float put(E obj, float dom) throws NullPointerException, IllegalArgumentException {
-        if ((dom >= 0.0f) && (dom <= 1.0f)) {
-            if (dom > 0.0f) {
-                Float retfloat = objects.put(obj, new Float(FuzzyManager.round(dom)));
+    public final synchronized float put( E obj, float dom )
+                           throws NullPointerException, IllegalArgumentException
+    {
+        if ( ( dom >= 0.0f ) && ( dom <= 1.0f ) )
+        {
+            if ( dom > 0.0f )
+            {
+                Float retfloat = objects.put( obj,
+                                              new Float( FuzzyManager.round( dom ) ) );
 
-                if (retfloat != null) {
-                    return retfloat.floatValue();
-                } else {
+                if ( retfloat != null )
+                {
+                    return retfloat.floatValue(  );
+                } else
+                {
                     return 0.0f;
                 }
-            } else {
-                return remove(obj);
+            } else
+            {
+                return remove( obj );
             }
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP", new Object[]{Float.toString(dom)}));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString(
+                                                                                this,
+                                                                                "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
+                                                                                new Object[] { Float.toString( dom ) } ) );
         }
     }
 
     /**
      * Assigns the objects the complementary degree of membership.
      */
-    public synchronized void reciproce() {
+    public final synchronized void reciproce(  )
+    {
+        for ( Iterator<E> it = objects.keySet(  ).iterator(  ); it.hasNext(  ); )
+        {
+            E obj = it.next(  );
+            float newDoM = FuzzyManager.round( 1.0f - objects.get( obj ).floatValue(  ) );
 
-        for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
-            E obj = it.next();
-            float newDoM = FuzzyManager.round(1.0f -
-                    objects.get(obj).floatValue());
-            if (newDoM > 0.0f) {
-                objects.put(obj, new Float(newDoM));
-            } else {
-                objects.remove(obj);
+            if ( newDoM > 0.0f )
+            {
+                objects.put( obj,
+                             new Float( newDoM ) );
+            } else
+            {
+                objects.remove( obj );
             }
         }
     }
@@ -347,16 +433,21 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *            the object to be removed
      * @return the degree of membership before deleting
      */
-    public synchronized float remove(E obj) {
-        if (obj != null) {
-            Float retfloat = objects.remove(obj);
+    public final synchronized float remove( E obj )
+    {
+        if ( obj != null )
+        {
+            Float retfloat = objects.remove( obj );
 
-            if (retfloat != null) {
-                return retfloat.floatValue();
-            } else {
+            if ( retfloat != null )
+            {
+                return retfloat.floatValue(  );
+            } else
+            {
                 return 0.0f;
             }
-        } else {
+        } else
+        {
             return Float.NaN;
         }
     }
@@ -366,13 +457,15 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *
      * @return the number of objects which are part of the discrete fuzzy set
      */
-    public synchronized int size() {
-        return objects.size();
+    public final synchronized int size(  )
+    {
+        return objects.size(  );
     }
 
     @Override
-    public String toString() {
-        return toString(false);
+    public String toString(  )
+    {
+        return toString( false );
     }
 
     /**
@@ -381,26 +474,35 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *            <code>true</code> if a textual representation of all objects is also needed
      * @return a string representation of the discrete fuzzy set
      */
-    public String toString(final boolean withObjects) {
-        if (withObjects) {
-            return super.toString();
-        } else {
-            return FuzzyResourceManager.getString(this, "DISCRETE_FUZZY_SET_WITHOUT_OBJECTS",
-                    new Object[]{Integer.toString(objects.size())});
+    public String toString( final boolean withObjects )
+    {
+        if ( withObjects )
+        {
+            return super.toString(  );
+        } else
+        {
+            return FuzzyResourceManager.getString( this,
+                                                   "DISCRETE_FUZZY_SET_WITHOUT_OBJECTS",
+                                                   new Object[] { Integer.toString( objects.size(  ) ) } );
         }
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
+    public final boolean equals( Object obj )
+    {
+        if ( obj == this )
+        {
             return true;
         }
-        if (!(obj instanceof DiscreteFuzzySet)) {
+
+        if ( ! ( obj instanceof DiscreteFuzzySet ) )
+        {
             return false;
         }
 
         // Are the objects equal?
-        if (!objects.equals(((DiscreteFuzzySet) obj).objects)) {
+        if ( ! objects.equals( ( (DiscreteFuzzySet) obj ).objects ) )
+        {
             return false;
         }
 
@@ -408,9 +510,11 @@ public class DiscreteFuzzySet<E> implements Cloneable, Serializable {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode(  )
+    {
         int hash = 7;
-        hash = 13 * hash + (this.objects != null ? this.objects.hashCode() : 0);
+        hash = ( 13 * hash ) + ( ( this.objects != null ) ? this.objects.hashCode(  ) : 0 );
+
         return hash;
     }
 }

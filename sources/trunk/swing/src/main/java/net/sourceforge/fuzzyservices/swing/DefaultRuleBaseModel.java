@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -26,13 +26,13 @@ package net.sourceforge.fuzzyservices.swing;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
 /**
  * DefaultRuleBaseModel
  *
  * @author Uwe Weng
  */
 public class DefaultRuleBaseModel extends AbstractRuleBaseModel {
-    
     private String name = "";
     private ArrayList<RuleModel> rules = new ArrayList<RuleModel>();
     private OperatorModel accumulationOperator = new DefaultOperatorModel();
@@ -43,7 +43,7 @@ public class DefaultRuleBaseModel extends AbstractRuleBaseModel {
     }
 
     @Override
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -56,5 +56,4 @@ public class DefaultRuleBaseModel extends AbstractRuleBaseModel {
     public OperatorModel getAccumulationOperator() {
         return accumulationOperator;
     }
-
 }

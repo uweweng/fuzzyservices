@@ -23,48 +23,60 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.defuzzification;
 
-import java.util.Collection;
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * You can ask the manager for all implemented defuzzificators.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class DefuzzificatorManager {
-
+public class DefuzzificatorManager
+{
     /**
      * Contains all known defuzzificators of the fuzzy system with its name as
      * key.
      */
-    private static Map<String, AbstractDefuzzificator> defuzzyOperators = new HashMap<String, AbstractDefuzzificator>();
+    private static Map<String, AbstractDefuzzificator> defuzzyOperators =
+        new HashMap<String, AbstractDefuzzificator>(  );
 
-    static {
-        initDefuzzificators();
+    static
+    {
+        initDefuzzificators(  );
     }
 
     /**
      * The defuzzificator manager is a static class.
      */
-    private DefuzzificatorManager() {
-    // Not allowed
+    private DefuzzificatorManager(  )
+    {
+        // Not allowed
     }
 
     /**
      * Initializes the list of defuzzicators while loading the fuzzy manager.
      */
-    private static void initDefuzzificators() {
-        CenterOfArea center = new CenterOfArea();
-        defuzzyOperators.put(center.toString(), center);
-        LeftOfMax left = new LeftOfMax();
-        defuzzyOperators.put(left.toString(), left);
-        MeanOfMax mean = new MeanOfMax();
-        defuzzyOperators.put(mean.toString(), mean);
-        RightOfMax right = new RightOfMax();
-        defuzzyOperators.put(right.toString(), right);
+    private static void initDefuzzificators(  )
+    {
+        CenterOfArea center = new CenterOfArea(  );
+        defuzzyOperators.put( center.toString(  ),
+                              center );
+
+        LeftOfMax left = new LeftOfMax(  );
+        defuzzyOperators.put( left.toString(  ),
+                              left );
+
+        MeanOfMax mean = new MeanOfMax(  );
+        defuzzyOperators.put( mean.toString(  ),
+                              mean );
+
+        RightOfMax right = new RightOfMax(  );
+        defuzzyOperators.put( right.toString(  ),
+                              right );
     }
 
     /**
@@ -73,11 +85,15 @@ public class DefuzzificatorManager {
      * @return a collection with defuzzificators
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static Collection<AbstractDefuzzificator> getDefuzzificators() {
-        int size = defuzzyOperators.size();
-        if (size > 0) {
-            return defuzzyOperators.values();
+    public static Collection<AbstractDefuzzificator> getDefuzzificators(  )
+    {
+        int size = defuzzyOperators.size(  );
+
+        if ( size > 0 )
+        {
+            return defuzzyOperators.values(  );
         }
+
         return null;
     }
 
@@ -89,8 +105,9 @@ public class DefuzzificatorManager {
      * @return the selected defuzzificator
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static AbstractDefuzzificator getDefuzzificator(String name) {
-        return defuzzyOperators.get(name);
+    public static AbstractDefuzzificator getDefuzzificator( String name )
+    {
+        return defuzzyOperators.get( name );
     }
 
     /**
@@ -101,7 +118,9 @@ public class DefuzzificatorManager {
      * with tAbstractDefuzzificatorlready exists or <code>null</code>
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static AbstractDefuzzificator registerDefuzzificator(AbstractDefuzzificator defuzzy) {
-        return defuzzyOperators.put(defuzzy.toString(), defuzzy);
+    public static AbstractDefuzzificator registerDefuzzificator( AbstractDefuzzificator defuzzy )
+    {
+        return defuzzyOperators.put( defuzzy.toString(  ),
+                                     defuzzy );
     }
 }

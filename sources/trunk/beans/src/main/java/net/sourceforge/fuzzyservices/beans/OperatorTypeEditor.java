@@ -24,23 +24,25 @@
 package net.sourceforge.fuzzyservices.beans;
 
 import java.beans.PropertyEditorSupport;
+
 import java.util.Collection;
 import java.util.Iterator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
 
 /**
- * Editor support for type property of a operator bean.
+ * Editor support for type property of an operator bean.
+ * 
+ * @version 1.0
  * @author Uwe Weng
  */
-public class OperatorTypeEditor extends PropertyEditorSupport {
+public final class OperatorTypeEditor extends PropertyEditorSupport {
 
     private static Collection<AbstractOperator> supportedTypes = OperatorManager.getOperators();
     private static String[] typeNames = null;
-    private int selectedType;
 
     @Override
-    public void setAsText(String text) throws java.lang.IllegalArgumentException {
+    public void setAsText(final String text) {
         if ((text == null) || (text.equals(""))) {
             setValue(null);
             return;
@@ -58,6 +60,7 @@ public class OperatorTypeEditor extends PropertyEditorSupport {
         String value = (String) getValue();
         if (value != null) {
             AbstractOperator op = OperatorManager.getOperator(value);
+
             if (op != null) {
                 return op.toString();
             }
@@ -70,13 +73,14 @@ public class OperatorTypeEditor extends PropertyEditorSupport {
         if (typeNames == null) {
             typeNames = new String[supportedTypes.size() + 1];
             typeNames[0] = "";
+
             int i = 0;
-            for (Iterator<AbstractOperator> it = supportedTypes.iterator(); it.hasNext();) {
+            for (Iterator<AbstractOperator> it = supportedTypes.iterator();
+                    it.hasNext();) {
                 AbstractOperator abstractOperator = it.next();
                 typeNames[i] = abstractOperator.toString();
                 i++;
             }
-
         }
         return typeNames;
     }

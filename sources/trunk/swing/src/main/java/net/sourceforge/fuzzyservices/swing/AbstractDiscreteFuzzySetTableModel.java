@@ -23,16 +23,18 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import javax.swing.table.AbstractTableModel;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+
 
 /**
  * AbstractDiscreteFuzzySetTableModel
  *
  * @author Uwe Weng
  */
-public abstract class AbstractDiscreteFuzzySetTableModel extends AbstractTableModel {
-
+public abstract class AbstractDiscreteFuzzySetTableModel
+    extends AbstractTableModel {
     final public static int INDEX_OBJECT_COLUMN = 0;
     final public static int INDEX_DEGREE_OF_MEMBERSHIP_COLUMN = 1;
 
@@ -44,13 +46,16 @@ public abstract class AbstractDiscreteFuzzySetTableModel extends AbstractTableMo
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
-            case INDEX_OBJECT_COLUMN:
-                return FuzzyResourceManager.getString(this, "DISCRETE_FUZZY_SET_TABLE_MODEL_COLUMN_OBJECT");
-            case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
-                return FuzzyResourceManager.getString(this, "DISCRETE_FUZZY_SET_TABLE_MODEL_COLUMN_DEGREE_OF_MEMBERSHIP");
-            default:
-                return null;
+        case INDEX_OBJECT_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "DISCRETE_FUZZY_SET_TABLE_MODEL_COLUMN_OBJECT");
+
+        case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "DISCRETE_FUZZY_SET_TABLE_MODEL_COLUMN_DEGREE_OF_MEMBERSHIP");
+
+        default:
+            return null;
         }
     }
-
 }

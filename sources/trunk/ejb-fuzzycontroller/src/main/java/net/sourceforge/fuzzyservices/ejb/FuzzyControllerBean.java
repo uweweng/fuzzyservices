@@ -23,29 +23,30 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb;
 
-import net.sourceforge.fuzzyservices.beans.FactBaseBean;
-import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
+import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.beans.RuleBase;
 import net.sourceforge.fuzzyservices.core.FactBase;
-import net.sourceforge.fuzzyservices.core.RuleBase;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
 import net.sourceforge.fuzzyservices.core.LinguisticVariable;
+import net.sourceforge.fuzzyservices.core.RuleBase;
+
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-import javax.ejb.EJBException;
+
 
 /**
  * EJB implementation of a fuzzy controller for approximate reasoning.
  * It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyControllerBean implements SessionBean {
-
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
+
     /**
      * Session context for this bean instance.
      */
@@ -57,7 +58,7 @@ public class FuzzyControllerBean implements SessionBean {
      * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
      */
     @Override
-    public void setSessionContext(SessionContext aContext) {
+    public final void setSessionContext(SessionContext aContext) {
         context = aContext;
     }
 
@@ -65,24 +66,21 @@ public class FuzzyControllerBean implements SessionBean {
      * @see javax.ejb.SessionBean#ejbActivate()
      */
     @Override
-    public void ejbActivate() {
-
+    public final void ejbActivate() {
     }
 
     /**
      * @see javax.ejb.SessionBean#ejbPassivate()
      */
     @Override
-    public void ejbPassivate() {
-
+    public final void ejbPassivate() {
     }
 
     /**
      * @see javax.ejb.SessionBean#ejbRemove()
      */
     @Override
-    public void ejbRemove() {
-
+    public final void ejbRemove() {
     }
 
     // </editor-fold>;
@@ -93,9 +91,12 @@ public class FuzzyControllerBean implements SessionBean {
      * @param linguisticVariables the linguistic variables
      * @return a new fact base with the result of this operation
      */
-    public FactBaseBean performApproximateReasoning(final RuleBaseBean ruleBase,
-            final FactBaseBean factBase, final LinguisticVariableBean[] linguisticVariables) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyControllerBean.getInstance().performApproximateReasoning(ruleBase, factBase, linguisticVariables);
+    public FactBase performApproximateReasoning(
+        final RuleBase ruleBase, final FactBase factBase,
+        final LinguisticVariable[] linguisticVariables) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyController.getInstance()
+                                                                      .performApproximateReasoning(ruleBase,
+            factBase, linguisticVariables);
     }
 
     /**
@@ -105,7 +106,10 @@ public class FuzzyControllerBean implements SessionBean {
      * @param linguisticVariables the linguistic variables
      * @return a new fact base with the result of this operation
      */
-    public FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] linguisticVariables) {
-        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance().performApproximateReasoning(ruleBase, factBase, linguisticVariables);
+    public FactBase performApproximateReasoning(final RuleBase ruleBase,
+        final FactBase factBase, final LinguisticVariable[] linguisticVariables) {
+        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance()
+                                                                 .performApproximateReasoning(ruleBase,
+            factBase, linguisticVariables);
     }
 }

@@ -1,37 +1,67 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+/*******************************************************************************
+ *
+ *  Copyright (C) 2007  Uwe Weng
+ *
+ *  This file is part of Fuzzy Services, a library for processing fuzzy
+ *  information.
+ *
+ *  Fuzzy Services are free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Fuzzy Services are distributed in the hope that they will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Fuzzy Services; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *  The license is also available at http://www.gnu.org/licenses/gpl.txt
+ *
+ ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
+
 
 /**
  *
- * @author Administrator
+ * @author Uwe Weng
  */
 public interface RuleModel {
-
     OperatorModel getCertaintyOperator();
+
     OperatorModel getInferenceOperator();
+
     OperatorModel getAggregationOperator();
+
     float getCertainty();
+
     void setCertainty(float certainty);
-    
+
     int getSizeOfAntecedents();
+
     OperatorModel getCompatibilityOperatorOfAntecedentAt(int index);
+
     String getLingVarNameOfAntecedentAt(int index);
+
     void setLingVarNameOfAntecedentAt(String name, int index);
+
     String getLingTermNameOfAntecedentAt(int index);
+
     void setLingTermNameOfAntecedentAt(String name, int index);
-    
+
     int getSizeOfConsequents();
+
     String getLingVarNameOfConsequentAt(int index);
+
     void setLingVarNameOfConsequentAt(String name, int index);
+
     String getLingTermNameOfConsequentAt(int index);
+
     void setLingTermNameOfConsequentAt(String name, int index);
-    
+
     void addRuleModelListener(RuleModelListener l);
-    
+
     void removeRuleModelListener(RuleModelListener l);
-    
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,20 +23,24 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+
 /**
  *
  * @author Uwe Weng
  */
 public interface LinguisticVariableModel {
     String getName();
+
     void setName(String name);
-    
+
     int size();
+
     MembershipFunctionModel getMembershipFunctionOfLinguisticTermAt(int index);
+
     String getNameOfLinguisticTermAt(int index);
 
     void addLinguisticVariableModelListener(LinguisticVariableModelListener l);
 
-    void removeLinguisticVariableModelListener(LinguisticVariableModelListener l);
-    
+    void removeLinguisticVariableModelListener(
+        LinguisticVariableModelListener l);
 }

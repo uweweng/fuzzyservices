@@ -23,23 +23,27 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import org.junit.Test;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import org.junit.Test;
+
 
 /**
  * EJB implementation of a fuzzy controller for approximate reasoning.
  * It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyControllerClientTest {
-
     @Test
-    public void runRemoteClient() throws Exception {
+    public final void runRemoteClient() throws Exception {
+/*
         Context ctx = new InitialContext();
-        FuzzyControllerRemote controller = (FuzzyControllerRemote) ctx.lookup("FuzzyController");
+        FuzzyControllerRemote controller = (FuzzyControllerRemote) ctx.lookup(
+                "FuzzyController");
+*/
         //removable.remove("Look at the server's log");
     }
 }

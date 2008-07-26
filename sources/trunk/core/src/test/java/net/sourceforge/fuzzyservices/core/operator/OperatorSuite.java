@@ -24,14 +24,37 @@
 package net.sourceforge.fuzzyservices.core.operator;
 
 import org.junit.runner.RunWith;
+
 import org.junit.runners.Suite;
 
 /**
  *
  * @author Uwe Weng
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({net.sourceforge.fuzzyservices.core.operator.DrasticProductTest.class,net.sourceforge.fuzzyservices.core.operator.EinsteinSumTest.class,net.sourceforge.fuzzyservices.core.operator.BoundedDifferenceTest.class,net.sourceforge.fuzzyservices.core.operator.BoundedSumTest.class,net.sourceforge.fuzzyservices.core.operator.YagerUnionTest.class,net.sourceforge.fuzzyservices.core.operator.WernersOrTest.class,net.sourceforge.fuzzyservices.core.operator.OperatorManagerTest.class,net.sourceforge.fuzzyservices.core.operator.HamacherUnionTest.class,net.sourceforge.fuzzyservices.core.operator.HamacherProductTest.class,net.sourceforge.fuzzyservices.core.operator.DrasticSumTest.class,net.sourceforge.fuzzyservices.core.operator.MaxTest.class,net.sourceforge.fuzzyservices.core.operator.MinTest.class,net.sourceforge.fuzzyservices.core.operator.EinsteinProductTest.class, net.sourceforge.fuzzyservices.core.operator.AlgebraicProductTest.class,net.sourceforge.fuzzyservices.core.operator.HamacherIntersectionTest.class,net.sourceforge.fuzzyservices.core.operator.YagerIntersectionTest.class,net.sourceforge.fuzzyservices.core.operator.WernersAndTest.class,net.sourceforge.fuzzyservices.core.operator.MinMaxCompensationTest.class,net.sourceforge.fuzzyservices.core.operator.HamacherSumTest.class,net.sourceforge.fuzzyservices.core.operator.AlgebraicSumTest.class})
-public class OperatorSuite {
-
+@RunWith( Suite.class )
+@Suite.SuiteClasses( 
+        {net.sourceforge.fuzzyservices.core.operator.DrasticProductTest.class,
+    net.sourceforge.fuzzyservices.core.operator.EinsteinSumTest.class,
+    net.sourceforge.fuzzyservices.core.operator.BoundedDifferenceTest.class,
+    net.sourceforge.fuzzyservices.core.operator.BoundedSumTest.class,
+    net.sourceforge.fuzzyservices.core.operator.YagerUnionTest.class,
+    net.sourceforge.fuzzyservices.core.operator.WernersOrTest.class,
+    net.sourceforge.fuzzyservices.core.operator.OperatorManagerTest.class,
+    net.sourceforge.fuzzyservices.core.operator.HamacherUnionTest.class,
+    net.sourceforge.fuzzyservices.core.operator.HamacherProductTest.class,
+    net.sourceforge.fuzzyservices.core.operator.DrasticSumTest.class,
+    net.sourceforge.fuzzyservices.core.operator.MaxTest.class,
+    net.sourceforge.fuzzyservices.core.operator.MinTest.class,
+    net.sourceforge.fuzzyservices.core.operator.EinsteinProductTest.class,
+    net.sourceforge.fuzzyservices.core.operator.AlgebraicProductTest.class,
+    net.sourceforge.fuzzyservices.core.operator.HamacherIntersectionTest.class,
+    net.sourceforge.fuzzyservices.core.operator.YagerIntersectionTest.class,
+    net.sourceforge.fuzzyservices.core.operator.WernersAndTest.class,
+    net.sourceforge.fuzzyservices.core.operator.MinMaxCompensationTest.class,
+    net.sourceforge.fuzzyservices.core.operator.HamacherSumTest.class,
+    net.sourceforge.fuzzyservices.core.operator.AlgebraicSumTest.class
+}
+     )
+public class OperatorSuite
+{
 }

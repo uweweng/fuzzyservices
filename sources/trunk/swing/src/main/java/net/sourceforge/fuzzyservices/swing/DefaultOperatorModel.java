@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,13 +23,13 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+
 /**
  * DefaultOperatorModel
  *
  * @author Uwe Weng
  */
 public class DefaultOperatorModel extends AbstractOperatorModel {
-
     private String selectedOperatorName = null;
     private float parameter;
 
@@ -44,17 +44,17 @@ public class DefaultOperatorModel extends AbstractOperatorModel {
     }
 
     @Override
-    public void setSelectedOperatorName(String name) {
+    public final void setSelectedOperatorName(String name) {
         this.selectedOperatorName = name;
     }
 
     @Override
-    public float getParameter() {
+    public final float getParameter() {
         return parameter;
     }
 
     @Override
-    public void setParameter(float parameter) {
+    public final void setParameter(float parameter) {
         this.parameter = parameter;
     }
 }

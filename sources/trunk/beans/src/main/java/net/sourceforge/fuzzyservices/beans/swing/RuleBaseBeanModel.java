@@ -23,32 +23,36 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.swing;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
-import net.sourceforge.fuzzyservices.beans.RuleBean;
+import net.sourceforge.fuzzyservices.beans.RuleBase;
+import net.sourceforge.fuzzyservices.beans.Rule;
 import net.sourceforge.fuzzyservices.swing.AbstractRuleBaseModel;
 import net.sourceforge.fuzzyservices.swing.OperatorModel;
 import net.sourceforge.fuzzyservices.swing.RuleModel;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 /**
  * RuleBaseBeanModel
  *
  * @author Uwe Weng
  */
-public class RuleBaseBeanModel extends AbstractRuleBaseModel implements PropertyChangeListener {
-
-    private RuleBaseBean ruleBase;
+public class RuleBaseBeanModel extends AbstractRuleBaseModel
+    implements PropertyChangeListener {
+    private RuleBase ruleBase;
 
     public RuleBaseBeanModel() {
-        ruleBase = new RuleBaseBean();
+        ruleBase = new RuleBase();
         ruleBase.addPropertyChangeListener(this);
     }
 
-    public RuleBaseBeanModel(RuleBaseBean ruleBase) {
+    public RuleBaseBeanModel(RuleBase ruleBase) {
         this.ruleBase = ruleBase;
+
         if (this.ruleBase != null) {
             this.ruleBase.addPropertyChangeListener(this);
         }
@@ -60,7 +64,7 @@ public class RuleBaseBeanModel extends AbstractRuleBaseModel implements Property
     }
 
     @Override
-    public void setName(String name) {
+    public final void setName(String name) {
         if (ruleBase != null) {
             ruleBase.setName(name);
         }
@@ -69,36 +73,47 @@ public class RuleBaseBeanModel extends AbstractRuleBaseModel implements Property
     @Override
     public Collection<RuleModel> getRules() {
         if (ruleBase != null) {
-            RuleBean[] rules = ruleBase.getRules();
+            Rule[] rules = ruleBase.getRules();
+
             if ((rules != null) && (rules.length > 0)) {
                 Collection<RuleModel> col = new ArrayList<RuleModel>(rules.length);
+
                 for (int i = 0; i < rules.length; i++) {
                     col.add(new RuleBeanModel(rules[i]));
                 }
+
                 return col;
             }
         }
+
         return null;
     }
 
     @Override
     public OperatorModel getAccumulationOperator() {
-        return (ruleBase != null) ? new OperatorBeanModel(ruleBase.getAccumulationOperator()) : null;
+        return (ruleBase != null)
+        ? new OperatorBeanModel(ruleBase.getAccumulationOperator()) : null;
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
-        if (RuleBaseBean.NAME_PROPERTY.equals(propertyName) == true) {
+
+        if (RuleBase.NAME_PROPERTY.equals(propertyName) == true) {
             fireNameChanged(this);
+
             return;
         }
-        if (RuleBaseBean.RULES_PROPERTY.equals(propertyName) == true) {
+
+        if (RuleBase.RULES_PROPERTY.equals(propertyName) == true) {
             fireRulesChanged(this);
+
             return;
         }
-        if (RuleBaseBean.ACCUMULATION_OPERATOR_PROPERTY.equals(propertyName) == true) {
+
+        if (RuleBase.ACCUMULATION_OPERATOR_PROPERTY.equals(propertyName) == true) {
             fireAccumulationOperatorChanged(this);
+
             return;
         }
     }

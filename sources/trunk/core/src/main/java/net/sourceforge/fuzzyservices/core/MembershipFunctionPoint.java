@@ -23,6 +23,8 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import java.io.Serializable;
 
 /**
@@ -32,19 +34,17 @@ import java.io.Serializable;
  *
  * @see MembershipFunction
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class MembershipFunctionPoint implements Cloneable, Serializable {
 
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
     /** The x value. */
     private float x;
-
     /** The degree of membership. */
     private float degreeOfMembership;
 
@@ -54,8 +54,8 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      * This constructor is primarly for persistence purpose.
      */
     public MembershipFunctionPoint() {
-        x=0.0f;
-        degreeOfMembership=0.0f;
+        x = 0.0f;
+        degreeOfMembership = 0.0f;
     }
 
     /**
@@ -63,16 +63,16 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      * and <code>aDegreeOfMembership</code> as degree of membership of this x value.
      * @param xValue the x value
      * @param aDegreeOfMembership the degree of membership to the x value
-     * @exception IllegalArgumentException if <code>x</code> is <code>Float.NaN</code>, or not 0.0 <= aDegreeOfMembership <= 1.0,
      */
-    public MembershipFunctionPoint(final float xValue, final float aDegreeOfMembership) throws IllegalArgumentException {
+    public MembershipFunctionPoint(final float xValue, final float aDegreeOfMembership) {
         if (x == x) { // x is not Float.NaN
             // Reduce number of delimiters
+
             this.x = FuzzyManager.round(xValue);
             setDegreeOfMembership(aDegreeOfMembership);
-
         } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_NOT_A_NUMBER"));
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_NOT_A_NUMBER"));
         }
     }
 
@@ -81,7 +81,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      * @return the <code>degreeOfMembership</code> property
      * @see #setDegreeOfMembership
      */
-    public float getDegreeOfMembership() {
+    public final float getDegreeOfMembership() {
         return degreeOfMembership;
     }
 
@@ -89,7 +89,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      * Returns the x value of this point.
      * @return the <code>x</code> property
      */
-    public float getX() {
+    public final float getX() {
         return x;
     }
 
@@ -100,19 +100,24 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      * @return The old degree of membership
      * @see #getDegreeOfMembership
      */
-    public float setDegreeOfMembership(float aDegreeOfMembership) throws IllegalArgumentException {
+    public final float setDegreeOfMembership(final float aDegreeOfMembership) {
         if ((aDegreeOfMembership >= 0.0f) && (aDegreeOfMembership <= 1.0f)) {
-
             float retDoM = this.degreeOfMembership;
             this.degreeOfMembership = FuzzyManager.round(aDegreeOfMembership);
+
             return retDoM;
         } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP", new Object[]{Float.toString(aDegreeOfMembership)}));
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this,
+                    "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
+                    new Object[]{
+                        Float.toString(aDegreeOfMembership)
+                    }));
         }
     }
 
     @Override
-    public Object clone() {
+    public final Object clone() {
         try {
             MembershipFunctionPoint newObj = (MembershipFunctionPoint) super.clone();
 
@@ -124,7 +129,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof MembershipFunctionPoint)) {
             return (x == ((MembershipFunctionPoint) obj).x);
         }
@@ -133,14 +138,15 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int hash = 3;
-        hash = 37 * hash + Float.floatToIntBits(this.x);
+        hash = (37 * hash) + Float.floatToIntBits(this.x);
+
         return hash;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return new String("(" + x + ", " + degreeOfMembership + ")");
     }
 }

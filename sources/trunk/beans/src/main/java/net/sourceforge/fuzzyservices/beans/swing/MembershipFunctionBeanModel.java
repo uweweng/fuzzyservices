@@ -24,8 +24,11 @@
 package net.sourceforge.fuzzyservices.beans.swing;
 
 import java.beans.PropertyVetoException;
-import net.sourceforge.fuzzyservices.beans.MembershipFunctionPointBean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sourceforge.fuzzyservices.swing.AbstractMembershipFunctionModel;
+
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 
 /**
  *
@@ -33,84 +36,56 @@ import net.sourceforge.fuzzyservices.swing.AbstractMembershipFunctionModel;
  * @author Uwe Weng
  */
 public class MembershipFunctionBeanModel extends AbstractMembershipFunctionModel {
-    
-    /** The underlying membership function is described by an array of points.*/
-    private MembershipFunctionPointBean[] membershipFunction = null;
-    
-    /** Creates a new instance of MembershipFunctionBeanModel
-     * @param membershipFunction 
+
+    /** The source of this model.*/
+    private MembershipFunction membershipFunction = null;
+
+    /**
+     * Creates a new instance of MembershipFunctionBeanModel.
+     * @param membershipFunction the source of this model
      */
-    public MembershipFunctionBeanModel(MembershipFunctionPointBean[] membershipFunction) {
+    public MembershipFunctionBeanModel(final MembershipFunction membershipFunction) {
         this.membershipFunction = membershipFunction;
     }
-    
-    @Override
-    public float getDefuzzifiedValue() {
-        return Float.NaN;
-    }
-    
+
     @Override
     public float[] getXValues() {
-        float[] xValues = null;
-        if (membershipFunction != null) {
-            xValues = new float[membershipFunction.length];
-            for (int i = 0; i < xValues.length; i++) {
-                if (membershipFunction[i] != null) {
-                    xValues[i] = membershipFunction[i].getX();
-                }
-            }
-        }
-        return xValues;
+        return (membershipFunction != null) ? membershipFunction.getXValues()
+                : null;
     }
-    
+
     @Override
-    public float getDegreeOfMembership(float x) {
+    public final float getDegreeOfMembership(final float x) {
+        return (membershipFunction != null)
+                ? membershipFunction.getDegreeOfMembership(x) : Float.NaN;
+    }
+
+    @Override
+    public final void addPoint(final float x, final float y) {
         if (membershipFunction != null) {
-            for (int i = 0; i < membershipFunction.length; i++) {
-                if ((membershipFunction[i] != null) && (membershipFunction[i].getX() == x)) {
-                    return membershipFunction[i].getDegreeOfMembership();
-                }
+            try {
+                membershipFunction.setDegreeOfMembership(x, y);
+                fireStateChanged(this);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MembershipFunctionBeanModel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    @Override
+    public final void removePointAt(final float x) {
+        if (membershipFunction != null) {
+            try {
+                membershipFunction.remove(x);
+                fireStateChanged(this);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MembershipFunctionBeanModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public final float getDefuzzifiedValue() {
         return Float.NaN;
     }
-    
-    @Override
-    public void addPoint(float x, float y) throws IllegalArgumentException {
-        if (membershipFunction != null) {
-            for (int i = 0; i < membershipFunction.length; i++) {
-                if ((membershipFunction[i] != null) && (membershipFunction[i].getX() == x)) {
-                    if (membershipFunction[i].getDegreeOfMembership() != y) {
-                        try {
-                            membershipFunction[i].setDegreeOfMembership(y);
-                        } catch (PropertyVetoException ex) {
-                            throw new IllegalArgumentException(ex.getLocalizedMessage());
-                        }
-                        fireStateChanged(this);
-                        return;
-                    }
-                }
-            }
-        }
-        MembershipFunctionPointBean[] newMembershipFunction = new MembershipFunctionPointBean[(membershipFunction != null) ? membershipFunction.length + 1 : 1];
-        for (int i = 0; i < newMembershipFunction.length - 1; i++) {
-            newMembershipFunction[i] = membershipFunction[i];
-        }
-        newMembershipFunction[newMembershipFunction.length - 1] = new MembershipFunctionPointBean(x, y);
-        membershipFunction = newMembershipFunction;
-        fireStateChanged(this);
-    }
-    
-    @Override
-    public void removePointAt(float x) {
-        if (membershipFunction != null) {
-            for (int i = 0; i < membershipFunction.length; i++) {
-                if ((membershipFunction[i] != null) && (membershipFunction[i].getX() == x)) {
-                    membershipFunction[i] = null;
-                    fireStateChanged(this);
-                }
-            }
-        }
-    }
-    
 }

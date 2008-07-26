@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,13 +23,14 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+
 /**
  * DefaultDiscreteFuzzySetTableModel
  *
  * @author Uwe Weng
  */
-public class DefaultDiscreteFuzzySetTableModel extends AbstractDiscreteFuzzySetTableModel {
-
+public class DefaultDiscreteFuzzySetTableModel
+    extends AbstractDiscreteFuzzySetTableModel {
     private DiscreteFuzzySetModel model = new DefaultDiscreteFuzzySetModel();
 
     public DefaultDiscreteFuzzySetTableModel(DiscreteFuzzySetModel model) {
@@ -46,29 +47,36 @@ public class DefaultDiscreteFuzzySetTableModel extends AbstractDiscreteFuzzySetT
         if (model == null) {
             return null;
         }
+
         switch (columnIndex) {
-            case INDEX_OBJECT_COLUMN:
-                return model.getObjectAt(rowIndex);
-            case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
-                return model.getDegreeOfMembershipOf(model.getObjectAt(rowIndex));
-            default:
-                return null;
+        case INDEX_OBJECT_COLUMN:
+            return model.getObjectAt(rowIndex);
+
+        case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
+            return model.getDegreeOfMembershipOf(model.getObjectAt(rowIndex));
+
+        default:
+            return null;
         }
     }
 
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    public final void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if (model == null) {
             return;
         }
+
         switch (columnIndex) {
-            case INDEX_OBJECT_COLUMN:
-                model.setObjectAt(aValue, rowIndex);
-                break;
-            case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
-                model.setDegreeOfMembershipAt(Float.parseFloat(aValue.toString()), rowIndex);
-                break;
+        case INDEX_OBJECT_COLUMN:
+            model.setObjectAt(aValue, rowIndex);
+
+            break;
+
+        case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
+            model.setDegreeOfMembershipAt(Float.parseFloat(aValue.toString()),
+                rowIndex);
+
+            break;
         }
     }
-    
 }

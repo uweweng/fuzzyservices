@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,32 +24,38 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractLinguisticVariableModel
  *
  * @author Uwe Weng
  */
-public abstract class AbstractLinguisticVariableModel implements LinguisticVariableModel {
+public abstract class AbstractLinguisticVariableModel
+    implements LinguisticVariableModel {
     /** Stores the listeners on this model. */
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addLinguisticVariableModelListener(LinguisticVariableModelListener l) {
+    public final void addLinguisticVariableModelListener(
+        LinguisticVariableModelListener l) {
         listenerList.add(LinguisticVariableModelListener.class, l);
     }
-    
+
     @Override
-    public void removeLinguisticVariableModelListener(LinguisticVariableModelListener l) {
+    public final void removeLinguisticVariableModelListener(
+        LinguisticVariableModelListener l) {
         listenerList.remove(LinguisticVariableModelListener.class, l);
     }
+
     public LinguisticVariableModelListener[] getLinguisticVariableModelListeners() {
         return listenerList.getListeners(LinguisticVariableModelListener.class);
     }
-    
+
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) {
-	return listenerList.getListeners(listenerType); 
+        return listenerList.getListeners(listenerType);
     }
 
     /**
@@ -60,16 +66,18 @@ public abstract class AbstractLinguisticVariableModel implements LinguisticVaria
     protected void fireLinguisticTermsChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==LinguisticVariableModelListener.class) {
-                LinguisticVariableModelEvent event = new LinguisticVariableModelEvent(source, LinguisticVariableModelEvent.LINGUISTIC_TERMS_CHANGED);
-                ((LinguisticVariableModelListener)listeners[i+1]).linguisticVariableChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == LinguisticVariableModelListener.class) {
+                LinguisticVariableModelEvent event = new LinguisticVariableModelEvent(source,
+                        LinguisticVariableModelEvent.LINGUISTIC_TERMS_CHANGED);
+                ((LinguisticVariableModelListener) listeners[i + 1]).linguisticVariableChanged(event);
             }
         }
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -80,12 +88,14 @@ public abstract class AbstractLinguisticVariableModel implements LinguisticVaria
     protected void fireNameChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==LinguisticVariableModelListener.class) {
-                LinguisticVariableModelEvent event = new LinguisticVariableModelEvent(source, LinguisticVariableModelEvent.NAME_CHANGED);
-                ((LinguisticVariableModelListener)listeners[i+1]).linguisticVariableChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == LinguisticVariableModelListener.class) {
+                LinguisticVariableModelEvent event = new LinguisticVariableModelEvent(source,
+                        LinguisticVariableModelEvent.NAME_CHANGED);
+                ((LinguisticVariableModelListener) listeners[i + 1]).linguisticVariableChanged(event);
             }
         }
     }

@@ -23,12 +23,14 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
+
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Test of class DrasticSum.
@@ -37,63 +39,60 @@ import static org.junit.Assert.*;
  */
 public class DrasticSumTest {
 
-    public DrasticSumTest() {
-    }
-
     @BeforeClass
-    public static void setUpClass() throws Exception {
+    public static void setUpClass()
+            throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass()
+            throws Exception {
     }
 
     /**
      * Test of combine method, of class DrasticSum.
      */
     @Test
-    public void combine() {
-        System.out.println("combine");
+    public final void combine() {
         FuzzySet fs1 = null;
         FuzzySet fs2 = null;
         DrasticSum instance = new DrasticSum();
         FuzzySet expResult = null;
         FuzzySet result = instance.combine(fs1, fs2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
     /**
      * Test of getDefaultValue method, of class DrasticSum.
      */
     @Test
-    public void getDefaultValue() {
-        System.out.println("getDefaultValue");
+    public final void getDefaultValue() {
         DrasticSum instance = new DrasticSum();
         float expResult = 1.0F;
         float result = instance.getDefaultValue();
-        assertEquals(expResult, result, FuzzyManager.getDelta(result));
+        assertEquals(expResult,
+                result,
+                FuzzyManager.getDelta(expResult));
     }
 
     /**
      * Test of getConditionValue method, of class DrasticSum.
      */
     @Test
-    public void getConditionValue() {
-        System.out.println("getConditionValue");
+    public final void getConditionValue() {
         DrasticSum instance = new DrasticSum();
         float expResult = 0.0F;
         float result = instance.getConditionValue();
-        assertEquals(expResult, result, FuzzyManager.getDelta(result));
+        assertEquals(expResult,
+                result,
+                FuzzyManager.getDelta(expResult));
     }
 
     /**
      * Test of isValidTNorm method, of class DrasticSum.
      */
     @Test
-    public void isValidTNorm() {
-        System.out.println("isValidTNorm");
+    public final void isValidTNorm() {
         DrasticSum instance = new DrasticSum();
         boolean expResult = false;
         boolean result = instance.isValidTNorm();
@@ -104,8 +103,7 @@ public class DrasticSumTest {
      * Test of isValidSNorm method, of class DrasticSum.
      */
     @Test
-    public void isValidSNorm() {
-        System.out.println("isValidSNorm");
+    public final void isValidSNorm() {
         DrasticSum instance = new DrasticSum();
         boolean expResult = true;
         boolean result = instance.isValidSNorm();
@@ -116,7 +114,86 @@ public class DrasticSumTest {
      * Test of compute method, of class DrasticSum.
      */
     @Test
-    public void compute() {
+    public final void compute() {
+        float a = 0.0F;
+        float b = 0.0F;
+        DrasticSum instance = new DrasticSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result, FuzzyManager.getDelta(expResult));
+    }
+
+    /**
+     * Test of toString method, of class DrasticSum.
+     */
+    @Test
+    public final void testToString() {
+        DrasticSum instance = new DrasticSum();
+        String result = instance.toString();
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of getDefaultValue method, of class DrasticSum.
+     */
+    @Test
+    public void testGetDefaultValue() {
+        System.out.println("getDefaultValue");
+        DrasticSum instance = new DrasticSum();
+        float expResult = 0.0F;
+        float result = instance.getDefaultValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getConditionValue method, of class DrasticSum.
+     */
+    @Test
+    public void testGetConditionValue() {
+        System.out.println("getConditionValue");
+        DrasticSum instance = new DrasticSum();
+        float expResult = 0.0F;
+        float result = instance.getConditionValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class DrasticSum.
+     */
+    @Test
+    public void testIsValidTNorm() {
+        System.out.println("isValidTNorm");
+        DrasticSum instance = new DrasticSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class DrasticSum.
+     */
+    @Test
+    public void testIsValidSNorm() {
+        System.out.println("isValidSNorm");
+        DrasticSum instance = new DrasticSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class DrasticSum.
+     */
+    @Test
+    public void testCompute() {
         System.out.println("compute");
         float a = 0.0F;
         float b = 0.0F;
@@ -132,11 +209,127 @@ public class DrasticSumTest {
      * Test of toString method, of class DrasticSum.
      */
     @Test
-    public void testToString() {
+    public void testToString1() {
         System.out.println("toString");
         DrasticSum instance = new DrasticSum();
+        String expResult = "";
         String result = instance.toString();
-        assertNotNull(result);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of getName method, of class DrasticSum.
+     */
+    @Test
+    public void testGetName() {
+        System.out.println("getName");
+        DrasticSum instance = new DrasticSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getDefaultValue method, of class DrasticSum.
+     */
+    @Test
+    public void testGetDefaultValue1() {
+        System.out.println("getDefaultValue");
+        DrasticSum instance = new DrasticSum();
+        float expResult = 0.0F;
+        float result = instance.getDefaultValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getConditionValue method, of class DrasticSum.
+     */
+    @Test
+    public void testGetConditionValue1() {
+        System.out.println("getConditionValue");
+        DrasticSum instance = new DrasticSum();
+        float expResult = 0.0F;
+        float result = instance.getConditionValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class DrasticSum.
+     */
+    @Test
+    public void testIsValidTNorm1() {
+        System.out.println("isValidTNorm");
+        DrasticSum instance = new DrasticSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class DrasticSum.
+     */
+    @Test
+    public void testIsValidSNorm1() {
+        System.out.println("isValidSNorm");
+        DrasticSum instance = new DrasticSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class DrasticSum.
+     */
+    @Test
+    public void testCompute_float_float() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        DrasticSum instance = new DrasticSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class DrasticSum.
+     */
+    @Test
+    public void testToString2() {
+        System.out.println("toString");
+        DrasticSum instance = new DrasticSum();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class DrasticSum.
+     */
+    @Test
+    public void testGetName1() {
+        System.out.println("getName");
+        DrasticSum instance = new DrasticSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }

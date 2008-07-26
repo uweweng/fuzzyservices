@@ -24,35 +24,40 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractDiscreteFuzzySetModel
  *
  * @author Uwe Weng
  */
-public abstract class AbstractDiscreteFuzzySetModel implements DiscreteFuzzySetModel {
-
+public abstract class AbstractDiscreteFuzzySetModel
+    implements DiscreteFuzzySetModel {
     /** Stores the listeners on this model. */
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addDiscreteFuzzySetModelListener(DiscreteFuzzySetModelListener l) {
+    public final void addDiscreteFuzzySetModelListener(
+        DiscreteFuzzySetModelListener l) {
         listenerList.add(DiscreteFuzzySetModelListener.class, l);
     }
-    
+
     @Override
-    public void removeDiscreteFuzzySetModelListener(DiscreteFuzzySetModelListener l) {
+    public final void removeDiscreteFuzzySetModelListener(
+        DiscreteFuzzySetModelListener l) {
         listenerList.remove(DiscreteFuzzySetModelListener.class, l);
     }
+
     public DiscreteFuzzySetModelListener[] getDiscreteFuzzySetModelListeners() {
         return listenerList.getListeners(DiscreteFuzzySetModelListener.class);
     }
-    
+
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) {
-	return listenerList.getListeners(listenerType); 
+        return listenerList.getListeners(listenerType);
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -64,16 +69,18 @@ public abstract class AbstractDiscreteFuzzySetModel implements DiscreteFuzzySetM
     protected void fireObjectAdded(Object source, Object obj) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==DiscreteFuzzySetModelListener.class) {
-                DiscreteFuzzySetModelEvent event = new DiscreteFuzzySetModelEvent(source, DiscreteFuzzySetModelEvent.OBJECT_ADDED, obj);
-                ((DiscreteFuzzySetModelListener)listeners[i+1]).discreteFuzzySetChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == DiscreteFuzzySetModelListener.class) {
+                DiscreteFuzzySetModelEvent event = new DiscreteFuzzySetModelEvent(source,
+                        DiscreteFuzzySetModelEvent.OBJECT_ADDED, obj);
+                ((DiscreteFuzzySetModelListener) listeners[i + 1]).discreteFuzzySetChanged(event);
             }
         }
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -85,12 +92,14 @@ public abstract class AbstractDiscreteFuzzySetModel implements DiscreteFuzzySetM
     protected void fireObjectRemoved(Object source, Object obj) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==DiscreteFuzzySetModelListener.class) {
-                DiscreteFuzzySetModelEvent event = new DiscreteFuzzySetModelEvent(source, DiscreteFuzzySetModelEvent.OBJECT_REMOVED, obj);
-                ((DiscreteFuzzySetModelListener)listeners[i+1]).discreteFuzzySetChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == DiscreteFuzzySetModelListener.class) {
+                DiscreteFuzzySetModelEvent event = new DiscreteFuzzySetModelEvent(source,
+                        DiscreteFuzzySetModelEvent.OBJECT_REMOVED, obj);
+                ((DiscreteFuzzySetModelListener) listeners[i + 1]).discreteFuzzySetChanged(event);
             }
         }
     }
@@ -106,14 +115,16 @@ public abstract class AbstractDiscreteFuzzySetModel implements DiscreteFuzzySetM
     protected void fireDegreeOfMembershipChanged(Object source, Object obj) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==DiscreteFuzzySetModelListener.class) {
-                DiscreteFuzzySetModelEvent event = new DiscreteFuzzySetModelEvent(source, DiscreteFuzzySetModelEvent.DEGREE_OF_MEMBERSHIP_CHANGED, obj);
-                ((DiscreteFuzzySetModelListener)listeners[i+1]).discreteFuzzySetChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == DiscreteFuzzySetModelListener.class) {
+                DiscreteFuzzySetModelEvent event = new DiscreteFuzzySetModelEvent(source,
+                        DiscreteFuzzySetModelEvent.DEGREE_OF_MEMBERSHIP_CHANGED,
+                        obj);
+                ((DiscreteFuzzySetModelListener) listeners[i + 1]).discreteFuzzySetChanged(event);
             }
         }
     }
-    
 }

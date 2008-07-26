@@ -25,6 +25,7 @@ package net.sourceforge.fuzzyservices.core;
 
 import java.io.Serializable;
 import java.util.ListIterator;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * A fuzzy interval is a convex, normalized fuzzy set whose membership function
@@ -87,10 +88,10 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      * @exception NullPointerException if <code>fi</code> is <code>null</code>
      */
     public FuzzyInterval(final FuzzyLRInterval fi) throws NullPointerException{
-        ListIterator elements = fi.points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = fi.points.listIterator();
 
         while (elements.hasNext()) {
-            points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+            points.add((MembershipFunctionPoint) elements.next().clone());
         }
     }
 
@@ -103,10 +104,10 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      */
     public FuzzyInterval(final FuzzySet fs) throws NullPointerException, IllegalArgumentException{
         if (fs.isValidFuzzyInterval()) {
-            ListIterator elements = fs.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fs.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
@@ -114,7 +115,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     }
 
     @Override
-    public synchronized void invert() throws ArithmeticException{
+    public final synchronized void invert() throws ArithmeticException{
         super.invert();
     }
 
@@ -125,10 +126,10 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      */
     public synchronized boolean isNegative() {
         MembershipFunctionPoint entry;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            entry = (MembershipFunctionPoint) elements.next();
+            entry = elements.next();
 
             if (entry.getX() >= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f) {
@@ -147,10 +148,10 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      */
     public synchronized boolean isPositive() {
         MembershipFunctionPoint entry;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            entry = (MembershipFunctionPoint) elements.next();
+            entry = elements.next();
 
             if (entry.getX() <= 0.0f) {
                 if (entry.getDegreeOfMembership() > 0.0f) {
@@ -173,12 +174,12 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     }
 
     @Override
-    public synchronized void negate() {
+    public final synchronized void negate() {
         super.negate();
     }
 
     @Override
-    public synchronized float remove(final float x) throws IllegalArgumentException{
+    public final synchronized float remove(final float x) throws IllegalArgumentException{
         // Fuzzy-Intervall in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Intervall pruefen
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.remove(x);
@@ -193,7 +194,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     }
 
     @Override
-    public synchronized float set(final float x, final float dom) throws IllegalArgumentException{
+    public final synchronized float set(final float x, final float dom) throws IllegalArgumentException{
         // Fuzzy-Intervall in eine Fuzzy-Menge konvertieren, Punkt einfuegen und auf Fuzzy-Intervall pruefen.
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.set(x, dom);

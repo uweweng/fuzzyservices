@@ -23,46 +23,53 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.io.Serializable;
 
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = max(0,(a+b-1))</tt>.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class BoundedDifference extends AbstractComplexOperator
-        implements Serializable {
-
+public class BoundedDifference
+    extends AbstractComplexOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public boolean isValidTNorm() {
+    public final boolean isValidTNorm(  )
+    {
         return true;
     }
 
     @Override
-    public boolean isValidSNorm() {
+    public final boolean isValidSNorm(  )
+    {
         return false;
     }
 
     @Override
-    public float compute(final float a, final float b) {
-        return Math.max(0, ((a + b) - 1.0f));
+    public final float compute( final float a, final float b )
+    {
+        return Math.max( 0, ( ( a + b ) - 1.0f ) );
     }
 
     @Override
-    public String toString() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_BOUNDED_DIFFERENCE");
+    public String toString(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_BOUNDED_DIFFERENCE" );
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_BOUNDED_DIFFERENCE");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_BOUNDED_DIFFERENCE" );
     }
 }

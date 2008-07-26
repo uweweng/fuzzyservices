@@ -23,32 +23,32 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb;
 
+import net.sourceforge.fuzzyservices.beans.FuzzyInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
+import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyNumber;
 
-import net.sourceforge.fuzzyservices.beans.FuzzyIntervalBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRIntervalBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRNumberBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyNumberBean;
-
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
+
 
 /**
  * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and
  * intervals. It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyCalculatorBean implements SessionBean {
-
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
+
     /**
      * Session context for this bean instance.
      */
@@ -60,7 +60,7 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)
      */
     @Override
-    public void setSessionContext(SessionContext aContext) {
+    public final void setSessionContext(SessionContext aContext) {
         context = aContext;
     }
 
@@ -68,24 +68,21 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @see javax.ejb.SessionBean#ejbActivate()
      */
     @Override
-    public void ejbActivate() {
-
+    public final void ejbActivate() {
     }
 
     /**
      * @see javax.ejb.SessionBean#ejbPassivate()
      */
     @Override
-    public void ejbPassivate() {
-
+    public final void ejbPassivate() {
     }
 
     /**
      * @see javax.ejb.SessionBean#ejbRemove()
      */
     @Override
-    public void ejbRemove() {
-
+    public final void ejbRemove() {
     }
 
     // </editor-fold>;
@@ -96,7 +93,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyInterval add(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -105,8 +104,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRInterval add(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+    public FuzzyLRInterval add(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -116,7 +118,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRNumber add(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -126,7 +130,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyNumber add(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -136,7 +142,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyInterval divide(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -146,8 +154,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRInterval divide(FuzzyLRInterval operand1,
-            FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -157,7 +167,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRNumber divide(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -167,7 +179,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyNumber divide(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -177,7 +191,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyInterval multiply(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -187,8 +203,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRInterval multiply(FuzzyLRInterval operand1,
-            FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -198,7 +216,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRNumber multiply(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -208,7 +228,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyNumber multiply(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -218,7 +240,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyInterval subtract(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -228,8 +252,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRInterval subtract(FuzzyLRInterval operand1,
-            FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -239,7 +265,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyLRNumber subtract(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -249,7 +277,9 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand2 The second operand
      */
     public FuzzyNumber subtract(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -258,9 +288,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyIntervalBean add(FuzzyIntervalBean operand1,
-            FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyInterval add(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -269,9 +301,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRIntervalBean add(FuzzyLRIntervalBean operand1,
-            FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyLRInterval add(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -280,9 +314,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRNumberBean add(FuzzyLRNumberBean operand1,
-            FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyLRNumber add(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -291,9 +327,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyNumberBean add(FuzzyNumberBean operand1,
-            FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyNumber add(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -302,9 +340,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyIntervalBean divide(FuzzyIntervalBean operand1,
-            FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyInterval divide(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -313,9 +353,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRIntervalBean divide(FuzzyLRIntervalBean operand1,
-            FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyLRInterval divide(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -324,9 +366,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRNumberBean divide(FuzzyLRNumberBean operand1,
-            FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyLRNumber divide(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -335,9 +379,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyNumberBean divide(FuzzyNumberBean operand1,
-            FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyNumber divide(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -346,9 +392,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyIntervalBean multiply(FuzzyIntervalBean operand1,
-            FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyInterval multiply(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -357,9 +405,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRIntervalBean multiply(FuzzyLRIntervalBean operand1,
-            FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyLRInterval multiply(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -368,9 +418,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRNumberBean multiply(FuzzyLRNumberBean operand1,
-            FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyLRNumber multiply(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -379,9 +431,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyNumberBean multiply(FuzzyNumberBean operand1,
-            FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyNumber multiply(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -390,9 +444,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyIntervalBean subtract(FuzzyIntervalBean operand1,
-            FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyInterval subtract(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -401,9 +457,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRIntervalBean subtract(FuzzyLRIntervalBean operand1,
-            FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyLRInterval subtract(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -412,9 +470,11 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyLRNumberBean subtract(FuzzyLRNumberBean operand1,
-            FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyLRNumber subtract(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -423,8 +483,10 @@ public class FuzzyCalculatorBean implements SessionBean {
      * @param operand1 The first operand
      * @param operand2 The second operand
      */
-    public FuzzyNumberBean subtract(FuzzyNumberBean operand1,
-            FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyNumber subtract(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 }

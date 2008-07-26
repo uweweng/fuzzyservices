@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -25,7 +25,9 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.swing.AbstractListModel;
+
 
 /**
  * DefaultFactListModel
@@ -33,7 +35,6 @@ import javax.swing.AbstractListModel;
  * @author Uwe Weng
  */
 public class DefaultFactListModel extends AbstractListModel {
-
     private ArrayList<FactModel> list = new ArrayList<FactModel>();
 
     public DefaultFactListModel() {

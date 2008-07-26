@@ -23,23 +23,26 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import org.junit.Test;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import org.junit.Test;
+
 
 /**
  * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and
  * intervals. It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyCalculatorClientTest {
-
     @Test
-    public void runRemoteClient() throws Exception {
+    public final void runRemoteClient() throws Exception {
         Context ctx = new InitialContext();
-        FuzzyCalculatorRemote calculator = (FuzzyCalculatorRemote) ctx.lookup("FuzzyCalculator");
+        FuzzyCalculatorRemote calculator = (FuzzyCalculatorRemote) ctx.lookup(
+                "FuzzyCalculator");
+
         //removable.remove("Look at the server's log");
     }
 }

@@ -23,24 +23,25 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
-import javax.ejb.Remote;
-import net.sourceforge.fuzzyservices.beans.RuleBaseBean;
-import net.sourceforge.fuzzyservices.beans.FactBaseBean;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
-import net.sourceforge.fuzzyservices.core.RuleBase;
+import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.beans.RuleBase;
 import net.sourceforge.fuzzyservices.core.FactBase;
 import net.sourceforge.fuzzyservices.core.LinguisticVariable;
+import net.sourceforge.fuzzyservices.core.RuleBase;
+
+import javax.ejb.Remote;
+
 
 /**
  * EJB3 remote interface of a fuzzy controller implementation for approximate reasoning.
  * It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 @Remote
 public interface FuzzyControllerRemote {
-
     /**
      * Inference method for fuzzy JavaBeans.
      * @param ruleBase the rule base
@@ -50,7 +51,9 @@ public interface FuzzyControllerRemote {
      * @throws java.rmi.RemoteException
      * @throws javax.ejb.EJBException
      */
-    FactBaseBean performApproximateReasoning(final RuleBaseBean ruleBase, final FactBaseBean factBase, final LinguisticVariableBean[] linguisticVariables);
+    FactBase performApproximateReasoning(final RuleBase ruleBase,
+        final FactBase factBase,
+        final LinguisticVariable[] linguisticVariables);
 
     /**
      * Inference method for core fuzzy components.
@@ -61,5 +64,6 @@ public interface FuzzyControllerRemote {
      * @throws java.rmi.RemoteException
      * @throws javax.ejb.EJBException
      */
-    FactBase performApproximateReasoning(final RuleBase ruleBase, final FactBase factBase, final LinguisticVariable[] linguisticVariables);
+    FactBase performApproximateReasoning(final RuleBase ruleBase,
+        final FactBase factBase, final LinguisticVariable[] linguisticVariables);
 }

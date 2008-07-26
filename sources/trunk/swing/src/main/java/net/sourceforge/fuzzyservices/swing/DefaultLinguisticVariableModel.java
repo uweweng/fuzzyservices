@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -25,13 +25,14 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.ArrayList;
 
+
 /**
  * DefaultLinguisticVariableModel
  *
  * @author Uwe Weng
  */
-public class DefaultLinguisticVariableModel extends AbstractLinguisticVariableModel {
-
+public class DefaultLinguisticVariableModel
+    extends AbstractLinguisticVariableModel {
     private String name = "";
     private ArrayList<LinguisticTermModel> terms = new ArrayList<LinguisticTermModel>();
 
@@ -41,7 +42,7 @@ public class DefaultLinguisticVariableModel extends AbstractLinguisticVariableMo
     }
 
     @Override
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -51,7 +52,8 @@ public class DefaultLinguisticVariableModel extends AbstractLinguisticVariableMo
     }
 
     @Override
-    public MembershipFunctionModel getMembershipFunctionOfLinguisticTermAt(int index) {
+    public MembershipFunctionModel getMembershipFunctionOfLinguisticTermAt(
+        int index) {
         return terms.get(index).membershipFunction;
     }
 
@@ -61,7 +63,6 @@ public class DefaultLinguisticVariableModel extends AbstractLinguisticVariableMo
     }
 
     private class LinguisticTermModel {
-
         public String name = "";
         public MembershipFunctionModel membershipFunction;
     }

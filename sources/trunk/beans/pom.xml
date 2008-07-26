@@ -15,21 +15,23 @@
   <name>Fuzzy Services JavaBeans</name>
   <url>http://sourceforge.net/projects/fuzzyservices</url>
   <dependencies>
+  
     <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>fuzzyservices-core</artifactId>
       <version>${pom.version}</version>
     </dependency>
+    
     <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>fuzzyservices-swing</artifactId>
       <version>${pom.version}</version>
     </dependency>
     <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>persistence-api</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>fuzzyservices-utils</artifactId>
+      <version>${pom.version}</version>
     </dependency>
+
   </dependencies>
 </project>

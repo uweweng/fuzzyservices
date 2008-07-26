@@ -23,7 +23,8 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.io.Serializable;
 
 /**
@@ -32,55 +33,67 @@ import java.io.Serializable;
  *     c = b, if a=1
  *     c = 0, otherwise</tt></pre>
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class DrasticProduct extends AbstractDrasticOperator
-        implements Serializable {
-
+public class DrasticProduct
+    extends AbstractDrasticOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public float getDefaultValue() {
+    public final float getDefaultValue(  )
+    {
         return 0.0f;
     }
 
     @Override
-    public float getConditionValue() {
+    public final float getConditionValue(  )
+    {
         return 1.0f;
     }
 
     @Override
-    public boolean isValidTNorm() {
+    public final boolean isValidTNorm(  )
+    {
         return true;
     }
 
     @Override
-    public boolean isValidSNorm() {
+    public final boolean isValidSNorm(  )
+    {
         return false;
     }
 
     @Override
-    public float compute(final float a, final float b) {
-        if (a == 1.0f) {
+    public final float compute( final float a, final float b )
+    {
+        if ( a == 1.0f )
+        {
             return b;
         }
-        if (b == 1.0f) {
+
+        if ( b == 1.0f )
+        {
             return a;
         }
+
         return 0.0f;
     }
 
     @Override
-    public String toString() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_PRODUCT");
+    public String toString(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_PRODUCT" );
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_PRODUCT");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_PRODUCT" );
     }
 }

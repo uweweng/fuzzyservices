@@ -23,28 +23,27 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import net.sourceforge.fuzzyservices.beans.FuzzyInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
+import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyNumber;
 
-import net.sourceforge.fuzzyservices.beans.FuzzyIntervalBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRIntervalBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRNumberBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyNumberBean;
-
 import javax.ejb.Stateless;
+
 
 /**
  * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and
  * intervals. It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 @Stateless(mappedName = "FuzzyCalculator")
 public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
-
     /**
      * Adds fuzzy interval <code>operand1</code> to fuzzy interval <code>operand2</code>.
      * @return The result of this algebraic operation
@@ -53,7 +52,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyInterval add(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -63,8 +64,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRInterval add(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+    public FuzzyLRInterval add(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -75,7 +79,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyLRNumber add(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -86,7 +92,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyNumber add(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().add(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .add(operand1,
+            operand2);
     }
 
     /**
@@ -97,7 +105,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyInterval divide(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -107,8 +117,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRInterval divide(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+    public FuzzyLRInterval divide(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -119,7 +132,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyLRNumber divide(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -130,7 +145,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyNumber divide(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().divide(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .divide(operand1,
+            operand2);
     }
 
     /**
@@ -141,7 +158,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyInterval multiply(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -151,8 +170,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRInterval multiply(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+    public FuzzyLRInterval multiply(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -163,7 +185,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyLRNumber multiply(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -174,7 +198,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyNumber multiply(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().multiply(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -185,7 +211,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyInterval subtract(FuzzyInterval operand1, FuzzyInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -195,8 +223,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRInterval subtract(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+    public FuzzyLRInterval subtract(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -207,7 +238,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyLRNumber subtract(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -218,7 +251,9 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      */
     @Override
     public FuzzyNumber subtract(FuzzyNumber operand1, FuzzyNumber operand2) {
-        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance().subtract(operand1, operand2);
+        return net.sourceforge.fuzzyservices.core.FuzzyCalculator.getInstance()
+                                                                 .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -228,8 +263,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyIntervalBean add(FuzzyIntervalBean operand1, FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyInterval add(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -239,8 +277,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRIntervalBean add(FuzzyLRIntervalBean operand1, FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyLRInterval add(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -250,8 +291,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRNumberBean add(FuzzyLRNumberBean operand1, FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyLRNumber add(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -261,8 +305,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyNumberBean add(FuzzyNumberBean operand1, FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().add(operand1, operand2);
+    public FuzzyNumber add(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .add(operand1,
+            operand2);
     }
 
     /**
@@ -272,8 +319,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyIntervalBean divide(FuzzyIntervalBean operand1, FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyInterval divide(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -283,8 +333,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRIntervalBean divide(FuzzyLRIntervalBean operand1, FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyLRInterval divide(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -294,8 +347,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRNumberBean divide(FuzzyLRNumberBean operand1, FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyLRNumber divide(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -305,8 +361,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyNumberBean divide(FuzzyNumberBean operand1, FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().divide(operand1, operand2);
+    public FuzzyNumber divide(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .divide(operand1,
+            operand2);
     }
 
     /**
@@ -316,8 +375,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyIntervalBean multiply(FuzzyIntervalBean operand1, FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyInterval multiply(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -327,8 +389,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRIntervalBean multiply(FuzzyLRIntervalBean operand1, FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyLRInterval multiply(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -338,8 +403,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRNumberBean multiply(FuzzyLRNumberBean operand1, FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyLRNumber multiply(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -349,8 +417,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyNumberBean multiply(FuzzyNumberBean operand1, FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().multiply(operand1, operand2);
+    public FuzzyNumber multiply(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .multiply(operand1,
+            operand2);
     }
 
     /**
@@ -360,8 +431,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyIntervalBean subtract(FuzzyIntervalBean operand1, FuzzyIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyInterval subtract(FuzzyInterval operand1,
+        FuzzyInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -371,8 +445,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRIntervalBean subtract(FuzzyLRIntervalBean operand1, FuzzyLRIntervalBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyLRInterval subtract(FuzzyLRInterval operand1,
+        FuzzyLRInterval operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -382,8 +459,11 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyLRNumberBean subtract(FuzzyLRNumberBean operand1, FuzzyLRNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyLRNumber subtract(FuzzyLRNumber operand1,
+        FuzzyLRNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 
     /**
@@ -393,7 +473,10 @@ public class FuzzyCalculatorBean implements FuzzyCalculatorRemote {
      * @param operand2 The second operand
      */
     @Override
-    public FuzzyNumberBean subtract(FuzzyNumberBean operand1, FuzzyNumberBean operand2) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyCalculatorBean.getInstance().subtract(operand1, operand2);
+    public FuzzyNumber subtract(FuzzyNumber operand1,
+        FuzzyNumber operand2) {
+        return net.sourceforge.fuzzyservices.beans.FuzzyCalculator.getInstance()
+                                                                      .subtract(operand1,
+            operand2);
     }
 }

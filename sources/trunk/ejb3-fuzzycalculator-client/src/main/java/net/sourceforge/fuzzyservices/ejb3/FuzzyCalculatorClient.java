@@ -23,21 +23,21 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import net.sourceforge.fuzzyservices.beans.FuzzyInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
+import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyNumber;
 
-import net.sourceforge.fuzzyservices.beans.FuzzyIntervalBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRIntervalBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRNumberBean;
-import net.sourceforge.fuzzyservices.beans.FuzzyNumberBean;
 
 /**
  * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and
  * intervals. It supports both core objects and JavaBeans.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyCalculatorClient {

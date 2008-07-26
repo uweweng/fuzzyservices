@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,47 +23,57 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+
 /**
  * DefaultConsequentTableModel
  *
  * @author Uwe Weng
  */
 public class DefaultConsequentTableModel extends AbstractConsequentTableModel {
-
     private RuleModel model = new DefaultRuleModel();
-    
+
     public DefaultConsequentTableModel(RuleModel ruleModel) {
         this.model = ruleModel;
     }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (model == null) {
             return null;
         }
+
         switch (columnIndex) {
-            case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
-                return model.getLingVarNameOfAntecedentAt(rowIndex);
-            case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
-                return model.getLingTermNameOfAntecedentAt(rowIndex);
-            default:
-                return null;
+        case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
+            return model.getLingVarNameOfAntecedentAt(rowIndex);
+
+        case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
+            return model.getLingTermNameOfAntecedentAt(rowIndex);
+
+        default:
+            return null;
         }
     }
 
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    public final void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if (model == null) {
             return;
         }
+
         switch (columnIndex) {
-            case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
-                model.setLingVarNameOfAntecedentAt(aValue.toString(), rowIndex);
-                break;
-            case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
-                model.setLingTermNameOfAntecedentAt(aValue.toString(), rowIndex);
-                break;
-            default:
+        case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
+            model.setLingVarNameOfAntecedentAt(aValue.toString(), rowIndex);
+
+            break;
+
+        case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
+            model.setLingTermNameOfAntecedentAt(aValue.toString(), rowIndex);
+
+            break;
+
+        default:
         }
+
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 

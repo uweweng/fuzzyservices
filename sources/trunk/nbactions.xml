@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-jalopy:format</actionName>
+            <displayName>jalopy:format</displayName>
+            <goals>
+                <goal>jalopy:format</goal>
+            </goals>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-checkstyle:checkstyle</actionName>
+            <displayName>checkstyle:checkstyle</displayName>
+            <goals>
+                <goal>checkstyle:checkstyle</goal>
+            </goals>
+        </action>
+    </actions>

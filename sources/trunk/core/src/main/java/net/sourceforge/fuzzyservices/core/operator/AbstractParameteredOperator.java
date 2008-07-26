@@ -24,7 +24,8 @@
 package net.sourceforge.fuzzyservices.core.operator;
 
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.io.Serializable;
 
 /**
@@ -32,12 +33,13 @@ import java.io.Serializable;
  * is the base class for the definiton of parameterized fuzzy operators.
  * The class is abstract because the calculation rules of operators are different.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public abstract class AbstractParameteredOperator extends AbstractOperator
-        implements Serializable {
-
+public abstract class AbstractParameteredOperator
+    extends AbstractOperator
+    implements Serializable
+{
     /**
      * The parameter of the operator
      */
@@ -47,23 +49,25 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * Default constructor. The first parameter is the default parameter.
      * @see #getDefaultParameter
      */
-    public AbstractParameteredOperator() {
-        super();
-        parameter = getDefaultParameter();
+    public AbstractParameteredOperator(  )
+    {
+        super(  );
+        parameter = getDefaultParameter(  );
     }
 
     /**
      * Returns the default parameter.
      * @return The default parameter for an operator which needs a parameter.
      */
-    public abstract float getDefaultParameter();
+    public abstract float getDefaultParameter(  );
 
     /**
      * Returns the parameter of the operator.
      * @return the parameter
      * @see #setParameter
      */
-    public float getParameter() {
+    public final float getParameter(  )
+    {
         return parameter;
     }
 
@@ -74,7 +78,7 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * @return <code>true</code> if argument is a valid parameter,
      * <code>false>/code> otherwise.
      */
-    public abstract boolean isValidParameter(final float param);
+    public abstract boolean isValidParameter( final float param );
 
     /**
      * Checks whether <code>param</code> is a valid parameter for the operator
@@ -85,13 +89,15 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * operator, <code>false</code> otherwise
      * @exception NullPointerException if <code>op</code> is <code>null</code>
      */
-    public static boolean isValidParameter(final AbstractParameteredOperator op,
-            final float param) throws NullPointerException {
-        return op.isValidParameter(param);
+    public static boolean isValidParameter( final AbstractParameteredOperator op, final float param )
+                                    throws NullPointerException
+    {
+        return op.isValidParameter( param );
     }
 
     @Override
-    public boolean requiresParameter() {
+    public final boolean requiresParameter(  )
+    {
         return true;
     }
 
@@ -101,19 +107,25 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * @exception IllegalArgumentException if new parameter is invalid
      * @see #getParameter
      */
-    public synchronized void setParameter(final float param)
-            throws IllegalArgumentException {
-        if (isValidParameter(param) == true) {
+    public final synchronized void setParameter( final float param )
+                                   throws IllegalArgumentException
+    {
+        if ( isValidParameter( param ) == true )
+        {
             this.parameter = param;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_OPERATOR_INVALID_PARAMETER", new Object[]{Float.toString(param)}));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString(
+                                                                                this,
+                                                                                "EXCEPTION_OPERATOR_INVALID_PARAMETER",
+                                                                                new Object[] { Float.toString( param ) } ) );
         }
     }
 
     @Override
-    public String toString() {
-        return toString(false);
+    public String toString(  )
+    {
+        return toString( false );
     }
 
     /**
@@ -122,5 +134,5 @@ public abstract class AbstractParameteredOperator extends AbstractOperator
      * representation
      * @return a string representation of the operator
      */
-    public abstract String toString(final boolean withParameter);
+    public abstract String toString( final boolean withParameter );
 }

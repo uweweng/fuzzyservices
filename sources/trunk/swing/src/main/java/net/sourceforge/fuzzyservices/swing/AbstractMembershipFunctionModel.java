@@ -24,28 +24,33 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
+
 
 /**
  *
  * @author Uwe Weng
  */
-public abstract class AbstractMembershipFunctionModel implements MembershipFunctionModel {
-
+public abstract class AbstractMembershipFunctionModel
+    implements MembershipFunctionModel {
     /**
      * Only one <code>ChangeEvent</code> is needed per model
      * instance since the event's only state is the source property.
      * The source of events generated is always "this".
      */
     protected transient ChangeEvent changeEvent = null;
+
     /** Stores the listeners on this model. */
     protected EventListenerList listenerList = new EventListenerList();
+
     /**
      * Holds value of property enabled.
      */
     private boolean enabled = false;
+
     /**
      * Utility field used by bound properties.
      */
@@ -56,43 +61,45 @@ public abstract class AbstractMembershipFunctionModel implements MembershipFunct
     }
 
     @Override
-    public void addChangeListener(ChangeListener l) {
+    public final void addChangeListener(ChangeListener l) {
         listenerList.add(ChangeListener.class, l);
     }
 
     @Override
-    public void removeChangeListener(ChangeListener l) {
+    public final void removeChangeListener(ChangeListener l) {
         listenerList.remove(ChangeListener.class, l);
     }
 
     @Override
-    public void addPropertyChangeListener(java.beans.PropertyChangeListener l) {
+    public final void addPropertyChangeListener(java.beans.PropertyChangeListener l) {
         propertyChangeSupport.addPropertyChangeListener(l);
     }
 
     @Override
-    public void removePropertyChangeListener(java.beans.PropertyChangeListener l) {
+    public final void removePropertyChangeListener(
+        java.beans.PropertyChangeListener l) {
         propertyChangeSupport.removePropertyChangeListener(l);
     }
 
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return this.enabled;
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
+    public final void setEnabled(boolean enabled) {
         boolean oldEnabled = this.enabled;
         this.enabled = enabled;
-        propertyChangeSupport.firePropertyChange("enabled", new Boolean(oldEnabled), new Boolean(enabled));
+        propertyChangeSupport.firePropertyChange("enabled",
+            new Boolean(oldEnabled), new Boolean(enabled));
     }
-    
+
     public ChangeListener[] getChangeListeners() {
         return listenerList.getListeners(ChangeListener.class);
     }
 
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) {
-	return listenerList.getListeners(listenerType); 
+        return listenerList.getListeners(listenerType);
     }
 
     /**
@@ -106,6 +113,7 @@ public abstract class AbstractMembershipFunctionModel implements MembershipFunct
     protected void fireStateChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
@@ -114,6 +122,7 @@ public abstract class AbstractMembershipFunctionModel implements MembershipFunct
                 if (changeEvent == null) {
                     changeEvent = new ChangeEvent(source);
                 }
+
                 ((ChangeListener) listeners[i + 1]).stateChanged(changeEvent);
             }
         }

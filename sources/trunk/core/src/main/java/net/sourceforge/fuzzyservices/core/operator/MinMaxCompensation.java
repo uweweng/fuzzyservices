@@ -23,22 +23,24 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
+
 import java.io.Serializable;
 
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = min(a,b)^(1-p) * max(a,b)^p, with 0.0<=p<=1.0</tt>.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class MinMaxCompensation extends AbstractComplexParameteredOperator
-        implements Serializable {
-
+public class MinMaxCompensation
+    extends AbstractComplexParameteredOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
@@ -46,8 +48,9 @@ public class MinMaxCompensation extends AbstractComplexParameteredOperator
      * Default constructor. The first parameter is the default parameter.
      * @see #getDefaultParameter
      */
-    public MinMaxCompensation() {
-        super();
+    public MinMaxCompensation(  )
+    {
+        super(  );
     }
 
     /**
@@ -56,74 +59,90 @@ public class MinMaxCompensation extends AbstractComplexParameteredOperator
      * @exception IllegalArgumentException if <code>param</code> is an invalid
      * parameter
      */
-    public MinMaxCompensation(final float param)
-            throws IllegalArgumentException {
-        if (isValidParameter(param)) {
+    public MinMaxCompensation( final float param )
+                       throws IllegalArgumentException
+    {
+        if ( isValidParameter( param ) )
+        {
             this.parameter = param;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_OPERATOR_MIN_MAX_COMPENSATION_INVALID_PARAMETER"));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString( this,
+                                                                                "EXCEPTION_OPERATOR_MIN_MAX_COMPENSATION_INVALID_PARAMETER" ) );
         }
     }
 
     @Override
-    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
+    {
         // Special cases
-        if (parameter == 0.0f) {
-            Min min = new Min();
+        if ( parameter == 0.0f )
+        {
+            Min min = new Min(  );
 
-            return min.combine(fs1, fs2);
+            return min.combine( fs1, fs2 );
         }
 
-        if (parameter == 1.0f) {
-            Max max = new Max();
+        if ( parameter == 1.0f )
+        {
+            Max max = new Max(  );
 
-            return max.combine(fs1, fs2);
+            return max.combine( fs1, fs2 );
         }
 
-        return super.combine(fs1, fs2);
+        return super.combine( fs1, fs2 );
     }
 
     @Override
-    public boolean isValidTNorm() {
-        return ((parameter < (1.0 / 2.0)) ? true : false);
+    public final boolean isValidTNorm(  )
+    {
+        return ( ( parameter < ( 1.0 / 2.0 ) ) ? true : false );
     }
 
     @Override
-    public boolean isValidSNorm() {
-        return ((parameter > (1.0 / 2.0)) ? true : false);
+    public final boolean isValidSNorm(  )
+    {
+        return ( ( parameter > ( 1.0 / 2.0 ) ) ? true : false );
     }
 
     @Override
-    public boolean isValidParameter(final float param) {
-        return (((param >= 0.0f) && (param <= 1.0f)) ? true : false);
+    public final boolean isValidParameter( final float param )
+    {
+        return ( ( ( param >= 0.0f ) && ( param <= 1.0f ) ) ? true : false );
     }
 
     @Override
-    public float compute(final float a, final float b) {
-        return (float) (Math.pow(Math.min(a, b), (1 - parameter)) * Math.pow(Math.max(
-                a, b), parameter));
+    public final float compute( final float a, final float b )
+    {
+        return (float) ( Math.pow( Math.min( a, b ),
+                                   ( 1 - parameter ) ) * Math.pow( Math.max( a, b ),
+                                                                   parameter ) );
     }
 
     @Override
-    public String toString(final boolean withParameter) {
-        String str = FuzzyResourceManager.getString(this,
-                "OPERATOR_MIN_MAX_COMPENSATION");
-        if (withParameter) {
-            str = FuzzyResourceManager.getString(this,
-                    "OPERATOR_MIN_MAX_COMPENSATION_WITH_PARAMETER",
-                    new Object[]{Float.toString(parameter)});
+    public String toString( final boolean withParameter )
+    {
+        String str = FuzzyResourceManager.getString( this, "OPERATOR_MIN_MAX_COMPENSATION" );
+
+        if ( withParameter )
+        {
+            str = FuzzyResourceManager.getString( this,
+                                                  "OPERATOR_MIN_MAX_COMPENSATION_WITH_PARAMETER",
+                                                  new Object[] { Float.toString( parameter ) } );
         }
 
         return str;
     }
 
     @Override
-    public float getDefaultParameter() {
+    public final float getDefaultParameter(  )
+    {
         return 0.0f;
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_MIN_MAX_COMPENSATION");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_MIN_MAX_COMPENSATION" );
     }
 }

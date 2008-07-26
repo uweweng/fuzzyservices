@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,7 +24,9 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.ArrayList;
+
 import javax.swing.AbstractListModel;
+
 
 /**
  * DefaultRuleListModel
@@ -32,9 +34,8 @@ import javax.swing.AbstractListModel;
  * @author Uwe Weng
  */
 public class DefaultRuleListModel extends AbstractListModel {
-
     private ArrayList<RuleModel> list = new ArrayList<RuleModel>();
-            
+
     @Override
     public int getSize() {
         return list.size();
@@ -44,5 +45,4 @@ public class DefaultRuleListModel extends AbstractListModel {
     public Object getElementAt(int index) {
         return list.get(index);
     }
-
 }

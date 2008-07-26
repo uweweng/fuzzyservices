@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -25,13 +25,13 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventObject;
 
+
 /**
  * FactBaseModelEvent
  *
  * @author Uwe Weng
  */
 public class FactBaseModelEvent extends EventObject {
-
     public final static int FACTS_CHANGED = 1;
     public final static int NAME_CHANGED = 2;
     protected int type;

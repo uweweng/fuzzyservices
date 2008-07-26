@@ -23,7 +23,9 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.operator.Max;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,43 +39,52 @@ import java.util.List;
  * @see Rule
  * @see AbstractOperator
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class RuleBase implements Cloneable, Serializable {
-
+public class RuleBase
+    implements Cloneable,
+               Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
+
     /**
      * By default, a MAX-AbstractOperator is used for accumulation.
      */
-    private static AbstractOperator defaultAccumulationOperator = new Max(); // s-Norm
+    private static AbstractOperator defaultAccumulationOperator = new Max(  ); // s-Norm
+
     /**
      * For accumulation an operator which fulfills the s-norm, is required.
      * Accumulation means the aggregation of partial results of inferencing.
      */
     private AbstractOperator accumulationOp = defaultAccumulationOperator; // accumulation-AbstractOperator (s-Norm)
+
     /**
      * All rules are stored in a vector.
      */
-    private List<Rule> rules = new ArrayList<Rule>();
+    private List<Rule> rules = new ArrayList<Rule>(  );
+
     /** A rule base can have a name. */
     protected String name = null;
 
     /** Default constructor which creates an empty rule base. */
-    public RuleBase() {
-    // Default constructor
+    public RuleBase(  )
+    {
+        // Default constructor
     }
 
     /**
      * Constructs a rule base containing the first rule.
      * @param rule a rule
      */
-    public RuleBase(final Rule rule) {
-        if (rule != null) {
-            rules.add(rule);
+    public RuleBase( final Rule rule )
+    {
+        if ( rule != null )
+        {
+            rules.add( rule );
         }
     }
 
@@ -81,19 +92,23 @@ public class RuleBase implements Cloneable, Serializable {
      * Adds a rule to the rule base.
      * @param rule the new rule of the rule base.
      */
-    public synchronized void add(final Rule rule) {
-        if (rule == null) {
+    public final synchronized void add( final Rule rule )
+    {
+        if ( rule == null )
+        {
             return;
         }
 
-        if (!rules.contains(rule)) {
-            rules.add(rule);
+        if ( ! rules.contains( rule ) )
+        {
+            rules.add( rule );
         }
     }
 
     /** Removes all rules from this rule base. */
-    public synchronized void clear() {
-        rules.clear();
+    public final synchronized void clear(  )
+    {
+        rules.clear(  );
     }
 
     /**
@@ -101,9 +116,11 @@ public class RuleBase implements Cloneable, Serializable {
      * @param rule the rule which may be part of the rule base
      * @return <code>true</code> if the rule is member of the rule base, <code>false</code> otherwise
      */
-    public synchronized boolean contains(final Rule rule) {
-        if (rule != null) {
-            return rules.contains(rule);
+    public synchronized boolean contains( final Rule rule )
+    {
+        if ( rule != null )
+        {
+            return rules.contains( rule );
         }
 
         return false;
@@ -114,15 +131,19 @@ public class RuleBase implements Cloneable, Serializable {
      * @param lingVarName the name of the linguistic variable for checking
      * @return <code>true</code> if at least one rule makes a statement about the linguistic variable
      */
-    public synchronized boolean containsLinguisticVariable(
-            final String lingVarName) {
-        if (lingVarName != null) {
-            for (Rule rule : rules) {
-                if (rule.containsLinguisticVariable(lingVarName) == true) {
+    public synchronized boolean containsLinguisticVariable( final String lingVarName )
+    {
+        if ( lingVarName != null )
+        {
+            for ( Rule rule : rules )
+            {
+                if ( rule.containsLinguisticVariable( lingVarName ) == true )
+                {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -130,15 +151,17 @@ public class RuleBase implements Cloneable, Serializable {
      * Returns all rules as iterator.
      * @return an iterator with all rules of this rule base
      */
-    public synchronized Iterator<Rule> iterator() {
-        return rules.iterator();
+    public synchronized Iterator<Rule> iterator(  )
+    {
+        return rules.iterator(  );
     }
 
     /**
      * Returns the accumulation operator
      * @return the operator for accumulation of partial results
      */
-    public AbstractOperator getAccumulationOperator() {
+    public AbstractOperator getAccumulationOperator(  )
+    {
         return accumulationOp;
     }
 
@@ -146,7 +169,8 @@ public class RuleBase implements Cloneable, Serializable {
      * Returns the default accumulation operator
      * @return the operator for accumulation of partial results
      */
-    public static AbstractOperator getDefaultAccumulationOperator() {
+    public static AbstractOperator getDefaultAccumulationOperator(  )
+    {
         return defaultAccumulationOperator;
     }
 
@@ -155,7 +179,8 @@ public class RuleBase implements Cloneable, Serializable {
      * @return the <code>name</code> property
      * @see #setName
      */
-    public synchronized String getName() {
+    public synchronized String getName(  )
+    {
         return name;
     }
 
@@ -165,16 +190,19 @@ public class RuleBase implements Cloneable, Serializable {
      * @return die rule at this position
      * @exception IndexOutOfBoundsException if index <code>i</code> does not exist in rule base
      */
-    protected synchronized Rule getRule(final int i) throws IndexOutOfBoundsException {
-        return rules.get(i);
+    protected synchronized Rule getRule( final int i )
+                                 throws IndexOutOfBoundsException
+    {
+        return rules.get( i );
     }
 
     /**
      * Checks whether rule base contains any rules.
      * @return <code>true</code> if rule base has not got any rules, <code>false</code> otherwise.
      */
-    public synchronized boolean isEmpty() {
-        return rules.isEmpty();
+    public synchronized boolean isEmpty(  )
+    {
+        return rules.isEmpty(  );
     }
 
     /**
@@ -182,9 +210,11 @@ public class RuleBase implements Cloneable, Serializable {
      * @param rule the rule to be deleted
      * @return <code>true</code> if the rule was removed successfully, <code>false</code> otherwise.
      */
-    public synchronized boolean remove(final Rule rule) {
-        if (rule != null) {
-            return rules.remove(rule);
+    public synchronized boolean remove( final Rule rule )
+    {
+        if ( rule != null )
+        {
+            return rules.remove( rule );
         }
 
         return false;
@@ -196,11 +226,16 @@ public class RuleBase implements Cloneable, Serializable {
      * @exception NullPointerException if <code>accOp</code> is <code>null</code>
      * @exception IllegalArgumentException if the operator does not fulfill the s-norm
      */
-    public synchronized void setAccumulationOperator(final AbstractOperator accOp) throws NullPointerException, IllegalArgumentException {
-        if (accOp.isValidSNorm()) {
+    public final synchronized void setAccumulationOperator( final AbstractOperator accOp )
+                                              throws NullPointerException, IllegalArgumentException
+    {
+        if ( accOp.isValidSNorm(  ) )
+        {
             accumulationOp = accOp;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_S_NORM_OPERATOR"));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString( this,
+                                                                                "EXCEPTION_INVALID_S_NORM_OPERATOR" ) );
         }
     }
 
@@ -210,13 +245,16 @@ public class RuleBase implements Cloneable, Serializable {
      * @exception NullPointerException if <code>accOp</code> is <code>null</code>
      * @exception IllegalArgumentException if the operator does not fulfill the s-norm
      */
-    public static synchronized void setDefaultAccumulationOperator(
-            final AbstractOperator accOp) throws NullPointerException, IllegalArgumentException {
-        if (accOp.isValidSNorm()) {
+    public static synchronized void setDefaultAccumulationOperator( final AbstractOperator accOp )
+        throws NullPointerException, IllegalArgumentException
+    {
+        if ( accOp.isValidSNorm(  ) )
+        {
             defaultAccumulationOperator = accOp;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    RuleBase.class, "EXCEPTION_INVALID_S_NORM_OPERATOR"));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString( RuleBase.class,
+                                                                                "EXCEPTION_INVALID_S_NORM_OPERATOR" ) );
         }
     }
 
@@ -225,7 +263,8 @@ public class RuleBase implements Cloneable, Serializable {
      * @param newName The new value for the property.
      * @see #getName
      */
-    public synchronized void setName(String newName) {
+    public final synchronized void setName( String newName )
+    {
         this.name = newName;
     }
 
@@ -235,61 +274,77 @@ public class RuleBase implements Cloneable, Serializable {
      * @param i the index within the rule base
      * @exception ArrayIndexOutOfBoundsException if the index does not exist in rule base
      */
-    protected synchronized void setRule(final Rule rule, final int i) throws ArrayIndexOutOfBoundsException {
-        rules.set(i, rule);
+    protected synchronized void setRule( final Rule rule, final int i )
+                                 throws ArrayIndexOutOfBoundsException
+    {
+        rules.set( i, rule );
     }
 
     /**
      * Returns the number of rules within the rule base.
      * @return the size of the rule base
      */
-    public synchronized int size() {
-        return rules.size();
+    public final synchronized int size(  )
+    {
+        return rules.size(  );
     }
 
     @Override
-    public Object clone() {
-        try {
-            RuleBase newObj = (RuleBase) super.clone();
+    public Object clone(  )
+    {
+        try
+        {
+            RuleBase newObj = (RuleBase) super.clone(  );
             // Duplicate the rules
-            newObj.rules = new ArrayList<Rule>(rules.size());
+            newObj.rules = new ArrayList<Rule>( rules.size(  ) );
 
-            for (Rule rule : rules) {
-                newObj.rules.add((Rule) rule.clone());
+            for ( Rule rule : rules )
+            {
+                newObj.rules.add( (Rule) rule.clone(  ) );
             }
+
             return newObj;
-        } catch (java.lang.CloneNotSupportedException e) {
+        } catch ( java.lang.CloneNotSupportedException e )
+        {
             // it is impossible
-            throw new InternalError(e.toString());
+            throw new InternalError( e.toString(  ) );
         }
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if ((obj != null) && (obj instanceof RuleBase)) {
+    public final boolean equals( Object obj )
+    {
+        if ( ( obj != null ) && ( obj instanceof RuleBase ) )
+        {
             // Compare only the operator and rules, not the name of the rule base
-            if ((!accumulationOp.equals(((RuleBase) obj).accumulationOp)) ||
-                    (this.rules.size() != ((RuleBase) obj).rules.size()) ||
-                    (this.rules.equals(((RuleBase) obj).rules) == false)) {
+            if ( ( ! accumulationOp.equals( ( (RuleBase) obj ).accumulationOp ) ) ||
+                     ( this.rules.size(  ) != ( (RuleBase) obj ).rules.size(  ) ) ||
+                     ( this.rules.equals( ( (RuleBase) obj ).rules ) == false ) )
+            {
                 return false;
             }
+
             return true;
         }
+
         return false;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode(  )
+    {
         int hash = 7;
-        hash = 29 * hash + (this.accumulationOp != null ? this.accumulationOp.hashCode() : 0);
-        hash = 29 * hash + (this.rules != null ? this.rules.hashCode() : 0);
+        hash = ( 29 * hash ) + ( ( this.accumulationOp != null ) ? this.accumulationOp.hashCode(  ) : 0 );
+        hash = ( 29 * hash ) + ( ( this.rules != null ) ? this.rules.hashCode(  ) : 0 );
+
         // hash = 29 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public String toString() {
-        return toString(false);
+    public String toString(  )
+    {
+        return toString( false );
     }
 
     /**
@@ -298,12 +353,16 @@ public class RuleBase implements Cloneable, Serializable {
      * @return a string representation of the rule base
      * @see Rule#toString
      */
-    public String toString(final boolean withRules) {
-        if (withRules) {
-            return rules.toString();
-        } else {
-            return FuzzyResourceManager.getString(this, "RULE_BASE_WITHOUT_RULES",
-                    new Object[]{Integer.toString(rules.size())});
+    public String toString( final boolean withRules )
+    {
+        if ( withRules )
+        {
+            return rules.toString(  );
+        } else
+        {
+            return FuzzyResourceManager.getString( this,
+                                                   "RULE_BASE_WITHOUT_RULES",
+                                                   new Object[] { Integer.toString( rules.size(  ) ) } );
         }
     }
 }

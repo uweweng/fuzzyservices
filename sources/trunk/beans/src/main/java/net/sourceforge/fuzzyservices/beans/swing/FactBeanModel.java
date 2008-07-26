@@ -23,43 +23,49 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.swing;
 
+import net.sourceforge.fuzzyservices.beans.Fact;
+import net.sourceforge.fuzzyservices.swing.AbstractFactModel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import net.sourceforge.fuzzyservices.beans.FactBean;
-import net.sourceforge.fuzzyservices.swing.AbstractFactModel;
+
 
 /**
  * FactBeanModel
  *
  * @author Uwe Weng
  */
-public class FactBeanModel extends AbstractFactModel implements PropertyChangeListener {
+public class FactBeanModel extends AbstractFactModel
+    implements PropertyChangeListener {
+    private Fact fact;
 
-    private FactBean fact;
-    
     public FactBeanModel() {
-        fact = new FactBean();
+        fact = new Fact();
         fact.addPropertyChangeListener(this);
     }
-    
-    public FactBeanModel(FactBean fact) {
+
+    public FactBeanModel(Fact fact) {
         this.fact = fact;
+
         if (this.fact != null) {
             this.fact.addPropertyChangeListener(this);
         }
     }
-    
+
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
-        if (FactBean.VALUE_PROPERTY.equals(propertyName) == true) {
+
+        if (Fact.VALUE_PROPERTY.equals(propertyName) == true) {
             fireValueChanged(this);
+
             return;
         }
-        if (FactBean.LINGUISTIC_VARIABLE_NAME_PROPERTY.equals(propertyName) == true) {
+
+        if (Fact.LINGUISTIC_VARIABLE_NAME_PROPERTY.equals(propertyName) == true) {
             fireLinguisticVariableChanged(this);
+
             return;
         }
     }
-
 }

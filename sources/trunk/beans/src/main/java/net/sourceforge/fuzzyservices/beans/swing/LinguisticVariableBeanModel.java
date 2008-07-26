@@ -23,31 +23,36 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.swing;
 
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.swing.AbstractLinguisticVariableModel;
+import net.sourceforge.fuzzyservices.swing.MembershipFunctionModel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyVetoException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariableBean;
-import net.sourceforge.fuzzyservices.swing.AbstractLinguisticVariableModel;
-import net.sourceforge.fuzzyservices.swing.MembershipFunctionModel;
+
 
 /**
  * LinguisticVariableBeanModel
  *
  * @author Uwe Weng
  */
-public class LinguisticVariableBeanModel extends AbstractLinguisticVariableModel implements PropertyChangeListener {
-
-    private LinguisticVariableBean linguisticVariable;
+public class LinguisticVariableBeanModel extends AbstractLinguisticVariableModel
+    implements PropertyChangeListener {
+    private LinguisticVariable linguisticVariable;
 
     public LinguisticVariableBeanModel() {
-        linguisticVariable = new LinguisticVariableBean();
+        linguisticVariable = new LinguisticVariable();
         linguisticVariable.addPropertyChangeListener(this);
     }
 
-    public LinguisticVariableBeanModel(LinguisticVariableBean linguisticVariable) {
+    public LinguisticVariableBeanModel(
+        LinguisticVariable linguisticVariable) {
         this.linguisticVariable = linguisticVariable;
+
         if (this.linguisticVariable != null) {
             this.linguisticVariable.addPropertyChangeListener(this);
         }
@@ -59,40 +64,51 @@ public class LinguisticVariableBeanModel extends AbstractLinguisticVariableModel
     }
 
     @Override
-    public void setName(String name) {
+    public final void setName(String name) {
         if (linguisticVariable != null) {
             try {
                 linguisticVariable.setName(name);
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(LinguisticVariableBeanModel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LinguisticVariableBeanModel.class.getName())
+                      .log(Level.SEVERE, null, ex);
             }
         }
     }
 
     @Override
     public int size() {
-        return (linguisticVariable != null) ? linguisticVariable.getLinguisticTerms().length : 0;
+        return (linguisticVariable != null)
+        ? linguisticVariable.getLinguisticTerms().length : 0;
     }
 
     @Override
-    public MembershipFunctionModel getMembershipFunctionOfLinguisticTermAt(int index) {
-        return (linguisticVariable != null) ? new MembershipFunctionBeanModel(linguisticVariable.getLinguisticTerms(index).getFuzzySet().getMembershipFunction()) : null;
+    public MembershipFunctionModel getMembershipFunctionOfLinguisticTermAt(
+        int index) {
+        return (linguisticVariable != null)
+        ? new MembershipFunctionBeanModel(linguisticVariable.getLinguisticTerms(
+                index).getFuzzySet().getMembershipFunction()) : null;
     }
 
     @Override
     public String getNameOfLinguisticTermAt(int index) {
-        return (linguisticVariable != null) ? linguisticVariable.getLinguisticTerms(index).getName() : null;
+        return (linguisticVariable != null)
+        ? linguisticVariable.getLinguisticTerms(index).getName() : null;
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
-        if (LinguisticVariableBean.NAME_PROPERTY.equals(propertyName) == true) {
+
+        if (LinguisticVariable.NAME_PROPERTY.equals(propertyName) == true) {
             fireNameChanged(this);
+
             return;
         }
-        if (LinguisticVariableBean.LINGUISTIC_TERMS_PROPERTY.equals(propertyName) == true) {
+
+        if (LinguisticVariable.LINGUISTIC_TERMS_PROPERTY.equals(
+                    propertyName) == true) {
             fireLinguisticTermsChanged(this);
+
             return;
         }
     }

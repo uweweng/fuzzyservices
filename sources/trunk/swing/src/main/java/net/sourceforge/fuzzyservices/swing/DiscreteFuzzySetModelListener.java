@@ -25,11 +25,11 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
 
+
 /**
  *
  * @author Uwe Weng
  */
 public interface DiscreteFuzzySetModelListener extends EventListener {
-
     void discreteFuzzySetChanged(DiscreteFuzzySetModelEvent e);
 }

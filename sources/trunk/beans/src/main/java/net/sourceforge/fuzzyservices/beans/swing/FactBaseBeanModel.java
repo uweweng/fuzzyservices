@@ -23,31 +23,35 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.swing;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import net.sourceforge.fuzzyservices.beans.FactBaseBean;
-import net.sourceforge.fuzzyservices.beans.FactBean;
+import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.Fact;
 import net.sourceforge.fuzzyservices.swing.AbstractFactBaseModel;
 import net.sourceforge.fuzzyservices.swing.FactModel;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 /**
  * FactBaseBeanModel
  *
  * @author Uwe Weng
  */
-public class FactBaseBeanModel extends AbstractFactBaseModel implements PropertyChangeListener {
-
-    private FactBaseBean factBase;
+public class FactBaseBeanModel extends AbstractFactBaseModel
+    implements PropertyChangeListener {
+    private FactBase factBase;
 
     public FactBaseBeanModel() {
-        factBase = new FactBaseBean();
+        factBase = new FactBase();
         factBase.addPropertyChangeListener(this);
     }
 
-    public FactBaseBeanModel(FactBaseBean factBase) {
+    public FactBaseBeanModel(FactBase factBase) {
         this.factBase = factBase;
+
         if (this.factBase != null) {
             this.factBase.addPropertyChangeListener(this);
         }
@@ -59,7 +63,7 @@ public class FactBaseBeanModel extends AbstractFactBaseModel implements Property
     }
 
     @Override
-    public void setName(String name) {
+    public final void setName(String name) {
         if (factBase != null) {
             factBase.setName(name);
         }
@@ -68,27 +72,35 @@ public class FactBaseBeanModel extends AbstractFactBaseModel implements Property
     @Override
     public Collection<FactModel> getFacts() {
         if (factBase != null) {
-            FactBean[] facts = factBase.getFacts();
+            Fact[] facts = factBase.getFacts();
+
             if ((facts != null) && (facts.length > 0)) {
                 Collection<FactModel> col = new ArrayList<FactModel>(facts.length);
+
                 for (int i = 0; i < facts.length; i++) {
                     col.add(new FactBeanModel(facts[i]));
                 }
+
                 return col;
             }
         }
+
         return null;
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
-        if (FactBaseBean.NAME_PROPERTY.equals(propertyName) == true) {
+
+        if (FactBase.NAME_PROPERTY.equals(propertyName) == true) {
             fireNameChanged(this);
+
             return;
         }
-        if (FactBaseBean.FACTS_PROPERTY.equals(propertyName) == true) {
+
+        if (FactBase.FACTS_PROPERTY.equals(propertyName) == true) {
             fireFactsChanged(this);
+
             return;
         }
     }

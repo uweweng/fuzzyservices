@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,7 +24,9 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractOperatorModel
@@ -32,27 +34,27 @@ import javax.swing.event.EventListenerList;
  * @author Uwe Weng
  */
 public abstract class AbstractOperatorModel implements OperatorModel {
-
     /** Stores the listeners on this model. */
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addOperatorModelListener(OperatorModelListener l) {
+    public final void addOperatorModelListener(OperatorModelListener l) {
         listenerList.add(OperatorModelListener.class, l);
     }
-    
+
     @Override
-    public void removeOperatorModelListener(OperatorModelListener l) {
+    public final void removeOperatorModelListener(OperatorModelListener l) {
         listenerList.remove(OperatorModelListener.class, l);
     }
+
     public OperatorModelListener[] getOperatorModelListeners() {
         return listenerList.getListeners(OperatorModelListener.class);
     }
-    
+
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) {
-	return listenerList.getListeners(listenerType); 
+        return listenerList.getListeners(listenerType);
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -63,12 +65,14 @@ public abstract class AbstractOperatorModel implements OperatorModel {
     protected void fireTypeChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==OperatorModelListener.class) {
-                OperatorModelEvent event = new OperatorModelEvent(source, OperatorModelEvent.TYPE_CHANGED);
-                ((OperatorModelListener)listeners[i+1]).operatorChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == OperatorModelListener.class) {
+                OperatorModelEvent event = new OperatorModelEvent(source,
+                        OperatorModelEvent.TYPE_CHANGED);
+                ((OperatorModelListener) listeners[i + 1]).operatorChanged(event);
             }
         }
     }
@@ -83,12 +87,14 @@ public abstract class AbstractOperatorModel implements OperatorModel {
     protected void fireParameterChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==OperatorModelListener.class) {
-                OperatorModelEvent event = new OperatorModelEvent(source, OperatorModelEvent.PARAMETER_CHANGED);
-                ((OperatorModelListener)listeners[i+1]).operatorChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == OperatorModelListener.class) {
+                OperatorModelEvent event = new OperatorModelEvent(source,
+                        OperatorModelEvent.PARAMETER_CHANGED);
+                ((OperatorModelListener) listeners[i + 1]).operatorChanged(event);
             }
         }
     }
@@ -103,12 +109,14 @@ public abstract class AbstractOperatorModel implements OperatorModel {
     protected void fireDefaultOperatorChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==OperatorModelListener.class) {
-                OperatorModelEvent event = new OperatorModelEvent(source, OperatorModelEvent.DEFAULT_CHANGED);
-                ((OperatorModelListener)listeners[i+1]).operatorChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == OperatorModelListener.class) {
+                OperatorModelEvent event = new OperatorModelEvent(source,
+                        OperatorModelEvent.DEFAULT_CHANGED);
+                ((OperatorModelListener) listeners[i + 1]).operatorChanged(event);
             }
         }
     }

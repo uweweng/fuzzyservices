@@ -23,30 +23,43 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.beans.PropertyEditorSupport;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
 
 /**
  * Editor support for type property of a defuzzificator bean.
+ * 
+ * @version 1.0
  * @author Uwe Weng
  */
 public class DefuzzificatorTypeEditor extends PropertyEditorSupport {
-    
+
+    /**
+     * Array with all supported types.
+     */
     private static byte[] supportedTypes = {
-        DefuzzificatorBean.TYPE_CENTER_OF_AREA,
-        DefuzzificatorBean.TYPE_LEFT_OF_MAX,
-        DefuzzificatorBean.TYPE_MEAN_OF_MAX,
-        DefuzzificatorBean.TYPE_RIGHT_OF_MAX
+        Defuzzificator.TYPE_CENTER_OF_AREA,
+        Defuzzificator.TYPE_LEFT_OF_MAX,
+        Defuzzificator.TYPE_MEAN_OF_MAX,
+        Defuzzificator.TYPE_RIGHT_OF_MAX
     };
+    /**
+     * Array with all names of supported types (I18N).
+     */
     private static String[] typeNames = {
-        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class, "DEFUZZIFICATOR_TYPE_CENTER_OF_AREA"),
-        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class, "DEFUZZIFICATOR_TYPE_LEFT_OF_MAX"),
-        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class, "DEFUZZIFICATOR_TYPE_MEAN_OF_MAX"),
-        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class, "DEFUZZIFICATOR_TYPE_RIGHT_OF_MAX")
+        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class,
+        "DEFUZZIFICATOR_TYPE_CENTER_OF_AREA"),
+        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class,
+        "DEFUZZIFICATOR_TYPE_LEFT_OF_MAX"),
+        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class,
+        "DEFUZZIFICATOR_TYPE_MEAN_OF_MAX"),
+        FuzzyResourceManager.getString(DefuzzificatorTypeEditor.class,
+        "DEFUZZIFICATOR_TYPE_RIGHT_OF_MAX")
     };
-    private int selectedType;
-    
-    public void setAsText(String text) throws java.lang.IllegalArgumentException {
+
+    @Override
+    public final void setAsText(final String text) {
         for (int i = 0; i < supportedTypes.length; i++) {
             if (typeNames[i].equals(text)) {
                 setValue(new Byte(supportedTypes[i]));
@@ -55,9 +68,10 @@ public class DefuzzificatorTypeEditor extends PropertyEditorSupport {
         }
         throw new java.lang.IllegalArgumentException(text);
     }
-    
+
+    @Override
     public String getAsText() {
-        byte value = ((Byte)getValue()).byteValue();
+        byte value = ((Byte) getValue()).byteValue();
         for (int i = 0; i < supportedTypes.length; i++) {
             if (supportedTypes[i] == value) {
                 return typeNames[i];
@@ -65,7 +79,8 @@ public class DefuzzificatorTypeEditor extends PropertyEditorSupport {
         }
         return null;
     }
-    
+
+    @Override
     public String[] getTags() {
         return typeNames;
     }

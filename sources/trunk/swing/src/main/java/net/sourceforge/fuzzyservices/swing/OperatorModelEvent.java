@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -25,6 +25,7 @@ package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventObject;
 
+
 /**
  * OperatorModelEvent
  *
@@ -44,5 +45,4 @@ public class OperatorModelEvent extends EventObject {
         super(source);
         this.type = type;
     }
-
 }

@@ -23,28 +23,31 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.swing;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import net.sourceforge.fuzzyservices.beans.RuleBean;
+import net.sourceforge.fuzzyservices.beans.Rule;
 import net.sourceforge.fuzzyservices.swing.AbstractRuleModel;
 import net.sourceforge.fuzzyservices.swing.OperatorModel;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 
 /**
  * RuleBeanModel
  *
  * @author Uwe Weng
  */
-public class RuleBeanModel extends AbstractRuleModel implements PropertyChangeListener {
-
-    private RuleBean rule;
+public class RuleBeanModel extends AbstractRuleModel
+    implements PropertyChangeListener {
+    private Rule rule;
 
     public RuleBeanModel() {
-        rule = new RuleBean();
+        rule = new Rule();
         rule.addPropertyChangeListener(this);
     }
 
-    public RuleBeanModel(RuleBean rule) {
+    public RuleBeanModel(Rule rule) {
         this.rule = rule;
+
         if (this.rule != null) {
             this.rule.addPropertyChangeListener(this);
         }
@@ -52,26 +55,29 @@ public class RuleBeanModel extends AbstractRuleModel implements PropertyChangeLi
 
     @Override
     public OperatorModel getCertaintyOperator() {
-        return (rule != null) ? new OperatorBeanModel(rule.getCertaintyOperator()) : null;
+        return (rule != null)
+        ? new OperatorBeanModel(rule.getCertaintyOperator()) : null;
     }
 
     @Override
     public OperatorModel getInferenceOperator() {
-        return (rule != null) ? new OperatorBeanModel(rule.getInferenceOperator()) : null;
+        return (rule != null)
+        ? new OperatorBeanModel(rule.getInferenceOperator()) : null;
     }
 
     @Override
     public OperatorModel getAggregationOperator() {
-        return (rule != null) ? new OperatorBeanModel(rule.getAggregationOperator()) : null;
+        return (rule != null)
+        ? new OperatorBeanModel(rule.getAggregationOperator()) : null;
     }
 
     @Override
-    public float getCertainty() {
+    public final float getCertainty() {
         return (rule != null) ? rule.getCertainty() : 0.0f;
     }
 
     @Override
-    public void setCertainty(float certainty) {
+    public final void setCertainty(float certainty) {
         if (rule != null) {
             rule.setCertainty(certainty);
         }
@@ -84,16 +90,19 @@ public class RuleBeanModel extends AbstractRuleModel implements PropertyChangeLi
 
     @Override
     public OperatorModel getCompatibilityOperatorOfAntecedentAt(int index) {
-        return (rule != null) ? new OperatorBeanModel(rule.getAntecedents(index).getCompatibilityOperator()) : null;
+        return (rule != null)
+        ? new OperatorBeanModel(rule.getAntecedents(index)
+                                    .getCompatibilityOperator()) : null;
     }
 
     @Override
     public String getLingVarNameOfAntecedentAt(int index) {
-        return (rule != null) ? rule.getAntecedents(index).getLinguisticVariableName() : null;
+        return (rule != null)
+        ? rule.getAntecedents(index).getLinguisticVariableName() : null;
     }
 
     @Override
-    public void setLingVarNameOfAntecedentAt(String name, int index) {
+    public final void setLingVarNameOfAntecedentAt(String name, int index) {
         if (rule != null) {
             rule.getAntecedents(index).setLinguisticVariableName(name);
         }
@@ -101,11 +110,12 @@ public class RuleBeanModel extends AbstractRuleModel implements PropertyChangeLi
 
     @Override
     public String getLingTermNameOfAntecedentAt(int index) {
-        return (rule != null) ? rule.getAntecedents(index).getLinguisticTermName() : null;
+        return (rule != null)
+        ? rule.getAntecedents(index).getLinguisticTermName() : null;
     }
 
     @Override
-    public void setLingTermNameOfAntecedentAt(String name, int index) {
+    public final void setLingTermNameOfAntecedentAt(String name, int index) {
         if (rule != null) {
             rule.getAntecedents(index).setLinguisticTermName(name);
         }
@@ -118,11 +128,12 @@ public class RuleBeanModel extends AbstractRuleModel implements PropertyChangeLi
 
     @Override
     public String getLingVarNameOfConsequentAt(int index) {
-        return (rule != null) ? rule.getConsequents(index).getLinguisticVariableName() : null;
+        return (rule != null)
+        ? rule.getConsequents(index).getLinguisticVariableName() : null;
     }
 
     @Override
-    public void setLingVarNameOfConsequentAt(String name, int index) {
+    public final void setLingVarNameOfConsequentAt(String name, int index) {
         if (rule != null) {
             rule.getConsequents(index).setLinguisticVariableName(name);
         }
@@ -130,41 +141,54 @@ public class RuleBeanModel extends AbstractRuleModel implements PropertyChangeLi
 
     @Override
     public String getLingTermNameOfConsequentAt(int index) {
-        return (rule != null) ? rule.getConsequents(index).getLinguisticTermName() : null;
+        return (rule != null)
+        ? rule.getConsequents(index).getLinguisticTermName() : null;
     }
 
     @Override
-    public void setLingTermNameOfConsequentAt(String name, int index) {
+    public final void setLingTermNameOfConsequentAt(String name, int index) {
         if (rule != null) {
             rule.getConsequents(index).setLinguisticTermName(name);
         }
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
-        if (RuleBean.CERTAINTY_PROPERTY.equals(propertyName) == true) {
+
+        if (Rule.CERTAINTY_PROPERTY.equals(propertyName) == true) {
             fireCertaintyChanged(this);
+
             return;
         }
-        if (RuleBean.AGGREGATION_OPERTAOR_PROPERTY.equals(propertyName) == true) {
+
+        if (Rule.AGGREGATION_OPERTAOR_PROPERTY.equals(propertyName) == true) {
             fireAggregationOperatorChanged(this);
+
             return;
         }
-        if (RuleBean.INFERENCE_OPERATOR_PROPERTY.equals(propertyName) == true) {
+
+        if (Rule.INFERENCE_OPERATOR_PROPERTY.equals(propertyName) == true) {
             fireInferenceOperatorChanged(this);
+
             return;
         }
-        if (RuleBean.CERTAINTY_OPERATOR_PROPERTY.equals(propertyName) == true) {
+
+        if (Rule.CERTAINTY_OPERATOR_PROPERTY.equals(propertyName) == true) {
             fireCertaintyOperatorChanged(this);
+
             return;
         }
-        if (RuleBean.ANTECEDENTS_PROPERTY.equals(propertyName) == true) {
+
+        if (Rule.ANTECEDENTS_PROPERTY.equals(propertyName) == true) {
             fireAntecedentsChanged(this);
+
             return;
         }
-        if (RuleBean.CONSEQUENTS_PROPERTY.equals(propertyName) == true) {
+
+        if (Rule.CONSEQUENTS_PROPERTY.equals(propertyName) == true) {
             fireConsequentsChanged(this);
+
             return;
         }
     }

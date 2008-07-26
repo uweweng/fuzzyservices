@@ -24,11 +24,11 @@
 package net.sourceforge.fuzzyservices.core.defuzzification;
 
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
+
 import java.io.Serializable;
 import java.util.Iterator;
-
 
 /**
  * The class <code>LeftOfMax</code> represents a defuzzification method. In
@@ -36,23 +36,26 @@ import java.util.Iterator;
  * is the crisp value.
  *
  * @author Uwe Weng
- * @since 1.0
+ * @version 1.0
  */
-public class LeftOfMax extends AbstractDefuzzificator implements Serializable {
+public class LeftOfMax
+        extends AbstractDefuzzificator
+        implements Serializable {
+
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public float defuzzify(MembershipFunction membershipFunction) {
+    public final float defuzzify(MembershipFunction membershipFunction) {
         float retfloat = Float.NaN;
 
         if (membershipFunction != null) {
             float x;
             float dom;
             float maxDoM = 0.0f;
-            
+
             for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
                 x = it.next();
                 dom = membershipFunction.getDegreeOfMembership(x);

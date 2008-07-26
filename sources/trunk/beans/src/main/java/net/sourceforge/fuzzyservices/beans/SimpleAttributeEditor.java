@@ -26,18 +26,19 @@ package net.sourceforge.fuzzyservices.beans;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyEditorSupport;
 import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
+
 
 /**
  *
  * @author Uwe Weng
  */
-public class SimpleAttributeEditor extends PropertyEditorSupport implements PropertyChangeListener {
-    
-   
+public class SimpleAttributeEditor extends PropertyEditorSupport
+    implements PropertyChangeListener {
     /**
      * Creates a new instance of SimpleAttributeEditor
 
@@ -45,31 +46,42 @@ public class SimpleAttributeEditor extends PropertyEditorSupport implements Prop
         super();
     }
      */
-    public boolean isPaintable() {
-        return true;  // true;
+    public final boolean isPaintable() {
+        return true; // true;
+    }
+    @Override
+    public String getJavaInitializationString() {
+//        MembershipFunction obj = (MembershipFunction) getValue();
+        StringBuffer str = new StringBuffer();
+        str.append("123");
+        // TODO Aus dem Objekt Source Code zusammensetzen, damit der Zustand im Code des Nutzers persistiert wird
+        return str.toString();
     }
 
-    public void paintValue(Graphics gfx, Rectangle box) {
-        String text = ((SimpleAttribute)getValue()).getText();
+    public final void paintValue(Graphics gfx, Rectangle box) {
+        String text = ((SimpleAttribute) getValue()).getText();
+
         if (text != null) {
-            gfx.drawString(text, box.x+1, box.y+10);
+            gfx.drawString(text, box.x + 1, box.y + 10);
         }
     }
 
     public String getAsText() {
         return null; //((SimpleAttribute)getValue()).getText();
     }
+
     public Component getCustomEditor() {
-        SimpleAttributePanel p = new SimpleAttributePanel((SimpleAttribute)getValue());
+        SimpleAttributePanel p = new SimpleAttributePanel((SimpleAttribute) getValue());
         p.addPropertyChangeListener("SIMPLETEXT", this);
+
         return p;
     }
 
-    public boolean supportsCustomEditor() {
+    public final boolean supportsCustomEditor() {
         return true;
     }
 
-    public void propertyChange(PropertyChangeEvent evt) {
+    public final void propertyChange(PropertyChangeEvent evt) {
         firePropertyChange();
     }
 }

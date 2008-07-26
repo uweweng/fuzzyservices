@@ -23,11 +23,14 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
+
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Test of class EinsteinSum.
@@ -36,39 +39,34 @@ import static org.junit.Assert.*;
  */
 public class EinsteinSumTest {
 
-    public EinsteinSumTest() {
-    }
-
     @BeforeClass
-    public static void setUpClass() throws Exception {
+    public static void setUpClass()
+            throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass()
+            throws Exception {
     }
 
     /**
      * Test of combine method, of class EinsteinSum.
      */
     @Test
-    public void combine() {
-        System.out.println("combine");
+    public final void combine() {
         FuzzySet fs1 = null;
         FuzzySet fs2 = null;
         EinsteinSum instance = new EinsteinSum();
         FuzzySet expResult = null;
         FuzzySet result = instance.combine(fs1, fs2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
     /**
      * Test of isValidTNorm method, of class EinsteinSum.
      */
     @Test
-    public void isValidTNorm() {
-        System.out.println("isValidTNorm");
+    public final void isValidTNorm() {
         EinsteinSum instance = new EinsteinSum();
         boolean expResult = false;
         boolean result = instance.isValidTNorm();
@@ -79,8 +77,7 @@ public class EinsteinSumTest {
      * Test of isValidSNorm method, of class EinsteinSum.
      */
     @Test
-    public void isValidSNorm() {
-        System.out.println("isValidSNorm");
+    public final void isValidSNorm() {
         EinsteinSum instance = new EinsteinSum();
         boolean expResult = true;
         boolean result = instance.isValidSNorm();
@@ -91,7 +88,58 @@ public class EinsteinSumTest {
      * Test of compute method, of class EinsteinSum.
      */
     @Test
-    public void compute() {
+    public final void compute() {
+        float a = 0.0F;
+        float b = 0.0F;
+        EinsteinSum instance = new EinsteinSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result, FuzzyManager.getDelta(expResult));
+    }
+
+    /**
+     * Test of toString method, of class EinsteinSum.
+     */
+    @Test
+    public final void testToString() {
+        EinsteinSum instance = new EinsteinSum();
+        String result = instance.toString();
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of isValidTNorm method, of class EinsteinSum.
+     */
+    @Test
+    public void testIsValidTNorm() {
+        System.out.println("isValidTNorm");
+        EinsteinSum instance = new EinsteinSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class EinsteinSum.
+     */
+    @Test
+    public void testIsValidSNorm() {
+        System.out.println("isValidSNorm");
+        EinsteinSum instance = new EinsteinSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class EinsteinSum.
+     */
+    @Test
+    public void testCompute() {
         System.out.println("compute");
         float a = 0.0F;
         float b = 0.0F;
@@ -107,11 +155,99 @@ public class EinsteinSumTest {
      * Test of toString method, of class EinsteinSum.
      */
     @Test
-    public void testToString() {
+    public void testToString1() {
         System.out.println("toString");
         EinsteinSum instance = new EinsteinSum();
+        String expResult = "";
         String result = instance.toString();
-        assertNotNull(result);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of getName method, of class EinsteinSum.
+     */
+    @Test
+    public void testGetName() {
+        System.out.println("getName");
+        EinsteinSum instance = new EinsteinSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidTNorm method, of class EinsteinSum.
+     */
+    @Test
+    public void testIsValidTNorm1() {
+        System.out.println("isValidTNorm");
+        EinsteinSum instance = new EinsteinSum();
+        boolean expResult = false;
+        boolean result = instance.isValidTNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isValidSNorm method, of class EinsteinSum.
+     */
+    @Test
+    public void testIsValidSNorm1() {
+        System.out.println("isValidSNorm");
+        EinsteinSum instance = new EinsteinSum();
+        boolean expResult = false;
+        boolean result = instance.isValidSNorm();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of compute method, of class EinsteinSum.
+     */
+    @Test
+    public void testCompute_float_float() {
+        System.out.println("compute");
+        float a = 0.0F;
+        float b = 0.0F;
+        EinsteinSum instance = new EinsteinSum();
+        float expResult = 0.0F;
+        float result = instance.compute(a, b);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class EinsteinSum.
+     */
+    @Test
+    public void testToString2() {
+        System.out.println("toString");
+        EinsteinSum instance = new EinsteinSum();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getName method, of class EinsteinSum.
+     */
+    @Test
+    public void testGetName1() {
+        System.out.println("getName");
+        EinsteinSum instance = new EinsteinSum();
+        String expResult = "";
+        String result = instance.getName();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }

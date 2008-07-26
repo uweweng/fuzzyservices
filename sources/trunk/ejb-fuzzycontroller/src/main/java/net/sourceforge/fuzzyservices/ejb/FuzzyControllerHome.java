@@ -23,18 +23,28 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb;
 
-import javax.ejb.EJBHome;
+import java.rmi.RemoteException;
+
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
-import java.rmi.RemoteException;
+import javax.ejb.EJBHome;
+
 
 /**
  * Home interface for an EJB implementation of a fuzzy controller.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public interface FuzzyControllerHome extends EJBHome {
 
-    FuzzyController create() throws CreateException, EJBException, RemoteException;
+    /**
+     * Creates a bean object.
+     * @return EJB instance
+     * @throws javax.ejb.CreateException The instance can not be created.
+     * @throws javax.ejb.EJBException Other fault after creation.
+     * @throws java.rmi.RemoteException Reference to remote bean instance failed.
+     */
+    FuzzyController create()
+        throws CreateException, EJBException, RemoteException;
 }

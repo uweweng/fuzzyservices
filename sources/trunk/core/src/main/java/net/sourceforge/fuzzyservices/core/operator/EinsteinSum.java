@@ -23,46 +23,53 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.io.Serializable;
 
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = (a+b)/(1+a*b)</tt>.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class EinsteinSum extends AbstractComplexOperator
-        implements Serializable {
-
+public class EinsteinSum
+    extends AbstractComplexOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public boolean isValidTNorm() {
+    public final boolean isValidTNorm(  )
+    {
         return false;
     }
 
     @Override
-    public boolean isValidSNorm() {
+    public final boolean isValidSNorm(  )
+    {
         return true;
     }
 
     @Override
-    public float compute(final float a, final float b) {
-        return ((a + b) / (1 + (a * b)));
+    public final float compute( final float a, final float b )
+    {
+        return ( ( a + b ) / ( 1 + ( a * b ) ) );
     }
 
     @Override
-    public String toString() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_SUM");
+    public String toString(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_SUM" );
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_SUM");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_SUM" );
     }
 }

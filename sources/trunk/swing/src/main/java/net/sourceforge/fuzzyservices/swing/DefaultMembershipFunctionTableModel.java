@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -26,17 +26,19 @@ package net.sourceforge.fuzzyservices.swing;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+
 /**
  * DefaultMembershipFunctionTableModel
  *
  * @author Uwe Weng
  */
-public class DefaultMembershipFunctionTableModel extends AbstractMembershipFunctionTableModel implements ChangeListener {
-
+public class DefaultMembershipFunctionTableModel
+    extends AbstractMembershipFunctionTableModel implements ChangeListener {
     private MembershipFunctionModel model = new DefaultMembershipFunctionModel();
 
     public DefaultMembershipFunctionTableModel(MembershipFunctionModel model) {
         this.model = model;
+
         if (model != null) {
             model.addChangeListener(this);
         }
@@ -52,38 +54,45 @@ public class DefaultMembershipFunctionTableModel extends AbstractMembershipFunct
         if (model == null) {
             return null;
         }
+
         switch (columnIndex) {
-            case INDEX_X_COLUMN:
-                return model.getXValues()[rowIndex];
-            case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
-                return model.getDegreeOfMembership(model.getXValues()[rowIndex]);
-            default:
-                return null;
+        case INDEX_X_COLUMN:
+            return model.getXValues()[rowIndex];
+
+        case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
+            return model.getDegreeOfMembership(model.getXValues()[rowIndex]);
+
+        default:
+            return null;
         }
     }
 
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    public final void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if (model == null) {
             return;
         }
+
         float x = model.getXValues()[rowIndex];
         float dom = model.getDegreeOfMembership(x);
+
         switch (columnIndex) {
-            case INDEX_X_COLUMN:
-                model.removePointAt(x);
-                model.addPoint(Float.parseFloat(aValue.toString()), dom);
-                break;
-            case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
-                model.removePointAt(x);
-                model.addPoint(x, Float.parseFloat(aValue.toString()));
-                break;
+        case INDEX_X_COLUMN:
+            model.removePointAt(x);
+            model.addPoint(Float.parseFloat(aValue.toString()), dom);
+
+            break;
+
+        case INDEX_DEGREE_OF_MEMBERSHIP_COLUMN:
+            model.removePointAt(x);
+            model.addPoint(x, Float.parseFloat(aValue.toString()));
+
+            break;
         }
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
+    public final void stateChanged(ChangeEvent e) {
         fireTableDataChanged();
     }
-    
 }

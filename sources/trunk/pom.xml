@@ -81,8 +81,11 @@
 
   <modules>
     <module>build-tools</module>
+    <module>utils</module>
     <module>core</module>
+    <module>core-swing</module>
     <module>beans</module>
+    <module>beans-persistence</module>
     <module>ejb-fuzzycalculator</module>
     <module>ejb-fuzzycontroller</module>
     <module>ejb3-fuzzycalculator</module>
@@ -92,10 +95,9 @@
     <module>ear</module>
     <module>webservice</module>
     <module>swing</module>
-    <module>swing-core</module>
     <module>spring</module>
   </modules>
-  
+
   <reporting>
     <plugins>
 
@@ -117,7 +119,7 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-poject-info-reports-plugin</artifactId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
         <configuration></configuration>
       </plugin>
 
@@ -218,7 +220,7 @@
 
     </plugins>
   </reporting>
-
+  
   <build>
 <!--  
     <extensions>
@@ -259,8 +261,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.1</version>
       </plugin>
     
+      <plugin>
+        <groupId>org.codehaus.mevenide</groupId>
+        <artifactId>netbeans-deploy-plugin</artifactId>
+      </plugin>
+
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration></configuration>
@@ -277,6 +285,11 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jalopy-maven-plugin</artifactId>
+        <configuration>
+<!--          <convention>C:/Dokumente und Einstellungen/Administrator/Eigene Dateien/Programmierung/fuzzyservices/build-tools/src/main/resources/fuzzyservices/jalopy.xml</convention>-->
+          <convention>build-tools/src/main/resources/fuzzyservices/jalopy.xml</convention>
+          <failOnError>true</failOnError>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -310,7 +323,8 @@
     </plugins>
 
   </build>
-  
+
+ 
   <profiles>
     <profile>
        <id>local-properties</id>

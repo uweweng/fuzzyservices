@@ -24,11 +24,11 @@
 package net.sourceforge.fuzzyservices.core.defuzzification;
 
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
+
 import java.io.Serializable;
 import java.util.Iterator;
-
 
 /**
  * The class <code>RightOfMax</code> represents a defuzzification method. In this case, the maximum defined
@@ -39,39 +39,47 @@ import java.util.Iterator;
  *
  *
  * @author Uwe Weng
- * @since 1.0
+ * @version 1.0
  */
-public class RightOfMax extends AbstractDefuzzificator implements Serializable {
+public class RightOfMax
+    extends AbstractDefuzzificator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public float defuzzify(final MembershipFunction membershipFunction) {
+    public final float defuzzify( final MembershipFunction membershipFunction )
+    {
         float retfloat = Float.NaN;
 
-        if (membershipFunction != null) {
+        if ( membershipFunction != null )
+        {
             float x;
             float dom;
             float maxDoM = 0.0f;
-            for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
-                x = it.next().floatValue();
-                dom = membershipFunction.getDegreeOfMembership(x);
 
-                if (dom >= maxDoM) {
+            for ( Iterator<Float> it = membershipFunction.iterator(  ); it.hasNext(  ); )
+            {
+                x = it.next(  ).floatValue(  );
+                dom = membershipFunction.getDegreeOfMembership( x );
+
+                if ( dom >= maxDoM )
+                {
                     maxDoM = dom;
                     retfloat = x;
                 }
-
             }
         }
+
         return retfloat;
     }
 
     @Override
-    public String toString() {
-        return FuzzyResourceManager.getString(this,
-                "DEFUZZIFICATOR_RIGHT_OF_MAX");
+    public String toString(  )
+    {
+        return FuzzyResourceManager.getString( this, "DEFUZZIFICATOR_RIGHT_OF_MAX" );
     }
 }

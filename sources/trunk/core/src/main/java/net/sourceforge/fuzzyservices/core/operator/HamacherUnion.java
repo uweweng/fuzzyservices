@@ -23,22 +23,24 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
+
 import java.io.Serializable;
 
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = (a+b+(p-1)*a*b)/(1.0f+p*a*b), with p >= -1.0</tt>.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class HamacherUnion extends AbstractComplexParameteredOperator
-        implements Serializable {
-
+public class HamacherUnion
+    extends AbstractComplexParameteredOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
@@ -46,8 +48,9 @@ public class HamacherUnion extends AbstractComplexParameteredOperator
      * Default constructor. The first parameter is the default parameter.
      * @see #getDefaultParameter
      */
-    public HamacherUnion() {
-        super();
+    public HamacherUnion(  )
+    {
+        super(  );
     }
 
     /**
@@ -56,69 +59,88 @@ public class HamacherUnion extends AbstractComplexParameteredOperator
      * @exception IllegalArgumentException if <code>param</code> is an invalid
      * parameter
      */
-    public HamacherUnion(final float param) throws IllegalArgumentException {
-        if (isValidParameter(param)) {
+    public HamacherUnion( final float param )
+                  throws IllegalArgumentException
+    {
+        if ( isValidParameter( param ) )
+        {
             this.parameter = param;
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_OPERATOR_HAMACHER_UNION_INVALID_PARAMETER"));
+        } else
+        {
+            throw new IllegalArgumentException( FuzzyResourceManager.getString( this,
+                                                                                "EXCEPTION_OPERATOR_HAMACHER_UNION_INVALID_PARAMETER" ) );
         }
     }
 
     @Override
-    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
+    {
         // Sonderfaelle abdecken.
-        if (parameter == 0.0f) {
-            AlgebraicSum as = new AlgebraicSum();
+        if ( parameter == 0.0f )
+        {
+            AlgebraicSum as = new AlgebraicSum(  );
 
-            return as.combine(fs1, fs2);
+            return as.combine( fs1, fs2 );
         }
 
-        if (parameter == Float.MAX_VALUE) { // nach Tilli, S. 52
+        if ( parameter == Float.MAX_VALUE )
+        { // nach Tilli, S. 52
 
-            DrasticSum ds = new DrasticSum();
+            DrasticSum ds = new DrasticSum(  );
 
-            return ds.combine(fs1, fs2);
+            return ds.combine( fs1, fs2 );
         }
 
-        return super.combine(fs1, fs2);
+        return super.combine( fs1, fs2 );
     }
 
     @Override
-    public boolean isValidTNorm() {
+    public final boolean isValidTNorm(  )
+    {
         return false;
     }
 
     @Override
-    public boolean isValidSNorm() {
+    public final boolean isValidSNorm(  )
+    {
         return true;
     }
 
     @Override
-    public boolean isValidParameter(final float param) {
-        return ((param >= -1.0f) ? true : false);
+    public final boolean isValidParameter( final float param )
+    {
+        return ( ( param >= -1.0f ) ? true : false );
     }
 
     @Override
-    public float compute(final float a, final float b) {
-        return ((a + b + ((parameter - 1.0f) * a * b)) / (1.0f + (parameter * a * b)));
+    public final float compute( final float a, final float b )
+    {
+        return ( ( a + b + ( ( parameter - 1.0f ) * a * b ) ) / ( 1.0f + ( parameter * a * b ) ) );
     }
 
     @Override
-    public String toString(final boolean withParameter) {
-        if (withParameter) {
-            return FuzzyResourceManager.getString(this, "OPERATOR_HAMACHER_UNION_WITH_PARAMETER", new Object[]{Float.toString(parameter)});
-        } else {
-            return FuzzyResourceManager.getString(this, "OPERATOR_HAMACHER_UNION");
+    public String toString( final boolean withParameter )
+    {
+        if ( withParameter )
+        {
+            return FuzzyResourceManager.getString( this,
+                                                   "OPERATOR_HAMACHER_UNION_WITH_PARAMETER",
+                                                   new Object[] { Float.toString( parameter ) } );
+        } else
+        {
+            return FuzzyResourceManager.getString( this, "OPERATOR_HAMACHER_UNION" );
         }
     }
 
     @Override
-    public float getDefaultParameter() {
+    public final float getDefaultParameter(  )
+    {
         return -1.0f;
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_HAMACHER_UNION");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_HAMACHER_UNION" );
     }
 }

@@ -25,6 +25,8 @@ package net.sourceforge.fuzzyservices.core;
 
 import java.io.Serializable;
 import java.util.ListIterator;
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * In general, a fuzzy set is the basement for fuzzy logic. It is also called "Fuzzy set theory".
@@ -135,10 +137,10 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      */
     public FuzzySet(final FuzzyInterval fi) {
         if (fi != null) {
-            ListIterator elements = fi.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fi.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
         }
     }
@@ -149,10 +151,10 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      */
     public FuzzySet(final FuzzyLRInterval fi) {
         if (fi != null) {
-            ListIterator elements = fi.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fi.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
         }
     }
@@ -163,10 +165,10 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      */
     public FuzzySet(final FuzzyLRNumber fn) {
         if (fn != null) {
-            ListIterator elements = fn.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fn.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
         }
     }
@@ -177,16 +179,16 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      */
     public FuzzySet(final FuzzyNumber fn) {
         if (fn != null) {
-            ListIterator elements = fn.points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = fn.points.listIterator();
 
             while (elements.hasNext()) {
-                points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                points.add((MembershipFunctionPoint) elements.next().clone());
             }
         }
     }
 
     @Override
-    public synchronized void clear() {
+    public final synchronized void clear() {
         super.clear();
     }
 
@@ -215,7 +217,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
     }
 
     /** Concentrates the fuzzy set. */
-    public synchronized void concentrate() {
+    public final synchronized void concentrate() {
         if (!points.isEmpty()) {
             // Iterating x axis in granularity steps.
             float granularity = getGranularity(this);
@@ -230,10 +232,10 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
 
             // Iterating all existing points.
             MembershipFunctionPoint entry;
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
             while (elements.hasNext()) {
-                entry = (MembershipFunctionPoint) elements.next();
+                entry = elements.next();
                 tmp_this.set(entry.getX(),
                         (float) Math.pow(entry.getDegreeOfMembership(), 2.0));
             }
@@ -251,7 +253,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
     }
 
     /** Dilates the fuzzy set. */
-    public synchronized void dilate() {
+    public final synchronized void dilate() {
         if (!points.isEmpty()) {
             // Iterating x axis in granularity steps.
             float granularity = getGranularity(this);
@@ -268,10 +270,10 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
 
             // Iterating all existing points.
             MembershipFunctionPoint entry;
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
             while (elements.hasNext()) {
-                entry = (MembershipFunctionPoint) elements.next();
+                entry = elements.next();
                 tmp_this.set(entry.getX(),
                         (float) Math.pow(entry.getDegreeOfMembership(),
                         (float) (1.0 / 2.0)));
@@ -280,7 +282,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
             elements = tmp_this.points.listIterator();
 
             while (elements.hasNext()) {
-                entry = (MembershipFunctionPoint) elements.next();
+                entry = elements.next();
                 set(entry.getX(), entry.getDegreeOfMembership());
             }
 
@@ -295,7 +297,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * @return the so-called granularity
      * @see #combine
      */
-    public synchronized float getGranularity(final FuzzySet fs) {
+    public final synchronized float getGranularity(final FuzzySet fs) {
         float thisspread = this.getMaxDefinedX() - this.getMinDefinedX();
         float otherspread = fs.getMaxDefinedX() - fs.getMinDefinedX();
         float commonspread = ((thisspread > otherspread) ? thisspread
@@ -303,15 +305,15 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
 
         // Checking, whether the default granularity is ok.
         // On calculation the number of steps take priority over default granularity.
-        if ((commonspread / FuzzyManager.maxNumStep) > FuzzyManager.stepwidth) {
-            return FuzzyManager.round(commonspread / FuzzyManager.maxNumStep);
+        if ((commonspread / FuzzyManager.getMaxNumStep()) > FuzzyManager.getStepwidth()) {
+            return FuzzyManager.round(commonspread / FuzzyManager.getMaxNumStep());
         } else {
-            return FuzzyManager.stepwidth;
+            return FuzzyManager.getStepwidth();
         }
     }
 
     @Override
-    public synchronized float getHeight() {
+    public final synchronized float getHeight() {
         return super.getHeight();
     }
 
@@ -321,7 +323,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
      * @return the number of steps
      * @see #combine
      */
-    public synchronized int getNumSteps(final FuzzySet fs) {
+    public final synchronized int getNumSteps(final FuzzySet fs) {
         float thisspread = this.getMaxDefinedX() - this.getMinDefinedX();
         float otherspread = fs.getMaxDefinedX() - fs.getMinDefinedX();
         float commonspread = ((thisspread > otherspread) ? thisspread
@@ -361,28 +363,28 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
     }
 
     @Override
-    public synchronized void normalize() {
+    public final synchronized void normalize() {
         super.normalize();
     }
 
     /** Creates the complementary membership function (<tt>f(x) = 1-f(x)</tt>). */
-    public synchronized void reciproce() {
+    public final synchronized void reciproce() {
         MembershipFunctionPoint entry;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            entry = (MembershipFunctionPoint) elements.next();
+            entry = elements.next();
             entry.setDegreeOfMembership(1.0f - entry.getDegreeOfMembership());
         }
     }
 
     @Override
-    public synchronized float remove(final float x) {
+    public final synchronized float remove(final float x) {
         return removeWithoutChecking(x);
     }
 
     @Override
-    public synchronized float set(final float x, final float dom) throws IllegalArgumentException {
+    public final synchronized float set(final float x, final float dom) throws IllegalArgumentException {
         return super.setWithoutChecking(x, dom);
     }
 

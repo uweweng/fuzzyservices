@@ -17,7 +17,7 @@
   <dependencies>
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>fuzzyservices-core</artifactId>
+      <artifactId>fuzzyservices-utils</artifactId>
       <version>${pom.version}</version>
     </dependency>
     <dependency>

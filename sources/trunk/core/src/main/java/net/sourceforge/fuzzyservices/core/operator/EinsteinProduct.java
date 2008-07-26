@@ -23,46 +23,53 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.operator;
 
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import java.io.Serializable;
 
 /**
  * This class represents a fuzzy operator with the calculation rule
  * <tt>c = (a*b)/(2-(a+b-a*b))</tt>.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public class EinsteinProduct extends AbstractMultiplyingOperator
-        implements Serializable {
-
+public class EinsteinProduct
+    extends AbstractMultiplyingOperator
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public boolean isValidTNorm() {
+    public final boolean isValidTNorm(  )
+    {
         return true;
     }
 
     @Override
-    public boolean isValidSNorm() {
+    public final boolean isValidSNorm(  )
+    {
         return false;
     }
 
     @Override
-    public float compute(final float a, final float b) {
-        return ((a * b) / (2 - ((a + b) - (a * b))));
+    public final float compute( final float a, final float b )
+    {
+        return ( ( a * b ) / ( 2 - ( ( a + b ) - ( a * b ) ) ) );
     }
 
     @Override
-    public String toString() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_PRODUCT");
+    public String toString(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_PRODUCT" );
     }
 
     @Override
-    public String getName() {
-        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_PRODUCT");
+    public String getName(  )
+    {
+        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_PRODUCT" );
     }
 }

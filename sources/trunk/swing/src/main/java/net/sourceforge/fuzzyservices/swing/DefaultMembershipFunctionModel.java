@@ -26,53 +26,57 @@ package net.sourceforge.fuzzyservices.swing;
 import java.util.HashMap;
 import java.util.Set;
 
+
 /**
  *
  * @author Uwe Weng
  */
-public class DefaultMembershipFunctionModel extends AbstractMembershipFunctionModel {
-    
+public class DefaultMembershipFunctionModel
+    extends AbstractMembershipFunctionModel {
     /**
      * Holds value of property enabled.
      */
     private HashMap points = new HashMap();
-    
+
     /** Creates a new instance of DefaultMembershipFunctionModel */
     public DefaultMembershipFunctionModel() {
         super();
         setEnabled(true);
     }
-    
-    public float getDefuzzifiedValue() {
+
+    public final float getDefuzzifiedValue() {
         return Float.NaN;
     }
-    
+
     public float[] getXValues() {
         Set s = points.keySet();
         Object[] o = s.toArray();
         int size = s.size();
         float[] f = new float[size];
+
         for (int i = 0; i < size; i++) {
-            f[i] = ((Float)o[i]).floatValue();
+            f[i] = ((Float) o[i]).floatValue();
         }
+
         return f;
-        
     }
-    
-    public float getDegreeOfMembership(float x) {
-        Float f = (Float)points.get(new Float(x));
+
+    public final float getDegreeOfMembership(float x) {
+        Float f = (Float) points.get(new Float(x));
+
         if (f != null) {
             return f.floatValue();
         }
+
         return Float.NaN;
     }
-    
-    public void addPoint(float x, float y) throws IllegalArgumentException {
+
+    public final void addPoint(float x, float y) throws IllegalArgumentException {
         points.put(new Float(x), new Float(y));
         fireStateChanged(this);
     }
-    
-    public void removePointAt(float x) {
+
+    public final void removePointAt(float x) {
         points.remove(new Float(x));
         fireStateChanged(this);
     }

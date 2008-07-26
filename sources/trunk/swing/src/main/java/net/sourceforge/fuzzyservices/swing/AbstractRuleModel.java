@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,7 +24,9 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractRuleModel
@@ -32,17 +34,16 @@ import javax.swing.event.EventListenerList;
  * @author Uwe Weng
  */
 public abstract class AbstractRuleModel implements RuleModel {
-
     /** Stores the listeners on this model. */
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addRuleModelListener(RuleModelListener l) {
+    public final void addRuleModelListener(RuleModelListener l) {
         listenerList.add(RuleModelListener.class, l);
     }
 
     @Override
-    public void removeRuleModelListener(RuleModelListener l) {
+    public final void removeRuleModelListener(RuleModelListener l) {
         listenerList.remove(RuleModelListener.class, l);
     }
 
@@ -64,11 +65,13 @@ public abstract class AbstractRuleModel implements RuleModel {
     protected void fireCertaintyChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == RuleModelListener.class) {
-                RuleModelEvent event = new RuleModelEvent(source, RuleModelEvent.CERTAINTY_CHANGED);
+                RuleModelEvent event = new RuleModelEvent(source,
+                        RuleModelEvent.CERTAINTY_CHANGED);
                 ((RuleModelListener) listeners[i + 1]).ruleChanged(event);
             }
         }
@@ -84,11 +87,13 @@ public abstract class AbstractRuleModel implements RuleModel {
     protected void fireAntecedentsChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == RuleModelListener.class) {
-                RuleModelEvent event = new RuleModelEvent(source, RuleModelEvent.ANTECEDENTS_CHANGED);
+                RuleModelEvent event = new RuleModelEvent(source,
+                        RuleModelEvent.ANTECEDENTS_CHANGED);
                 ((RuleModelListener) listeners[i + 1]).ruleChanged(event);
             }
         }
@@ -104,11 +109,13 @@ public abstract class AbstractRuleModel implements RuleModel {
     protected void fireConsequentsChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == RuleModelListener.class) {
-                RuleModelEvent event = new RuleModelEvent(source, RuleModelEvent.CONSEQUENTS_CHANGED);
+                RuleModelEvent event = new RuleModelEvent(source,
+                        RuleModelEvent.CONSEQUENTS_CHANGED);
                 ((RuleModelListener) listeners[i + 1]).ruleChanged(event);
             }
         }
@@ -124,11 +131,13 @@ public abstract class AbstractRuleModel implements RuleModel {
     protected void fireCertaintyOperatorChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == RuleModelListener.class) {
-                RuleModelEvent event = new RuleModelEvent(source, RuleModelEvent.CERTAINTY_OPERATOR_CHANGED);
+                RuleModelEvent event = new RuleModelEvent(source,
+                        RuleModelEvent.CERTAINTY_OPERATOR_CHANGED);
                 ((RuleModelListener) listeners[i + 1]).ruleChanged(event);
             }
         }
@@ -144,11 +153,13 @@ public abstract class AbstractRuleModel implements RuleModel {
     protected void fireInferenceOperatorChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == RuleModelListener.class) {
-                RuleModelEvent event = new RuleModelEvent(source, RuleModelEvent.INFERENCE_OPERATOR_CHANGED);
+                RuleModelEvent event = new RuleModelEvent(source,
+                        RuleModelEvent.INFERENCE_OPERATOR_CHANGED);
                 ((RuleModelListener) listeners[i + 1]).ruleChanged(event);
             }
         }
@@ -164,11 +175,13 @@ public abstract class AbstractRuleModel implements RuleModel {
     protected void fireAggregationOperatorChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == RuleModelListener.class) {
-                RuleModelEvent event = new RuleModelEvent(source, RuleModelEvent.AGGREGATION_OPERATOR_CHANGED);
+                RuleModelEvent event = new RuleModelEvent(source,
+                        RuleModelEvent.AGGREGATION_OPERATOR_CHANGED);
                 ((RuleModelListener) listeners[i + 1]).ruleChanged(event);
             }
         }

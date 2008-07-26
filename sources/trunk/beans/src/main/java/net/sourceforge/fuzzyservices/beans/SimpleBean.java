@@ -23,16 +23,12 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans;
 
+
 /**
  *
  * @author Uwe Weng
  */
 public class SimpleBean {
-    
-    /** Creates a new instance of SimpleBean */
-    public SimpleBean() {
-    }
-
     /**
      * Holds value of property attr.
      */
@@ -41,18 +37,37 @@ public class SimpleBean {
     /**
      * Utility field used by bound properties.
      */
-    private java.beans.PropertyChangeSupport propertyChangeSupport =  new java.beans.PropertyChangeSupport(this);
+    private java.beans.PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(this);
 
     /**
      * Utility field used by constrained properties.
      */
-    private java.beans.VetoableChangeSupport vetoableChangeSupport =  new java.beans.VetoableChangeSupport(this);
+    private java.beans.VetoableChangeSupport vetoableChangeSupport = new java.beans.VetoableChangeSupport(this);
+
+    /**
+     * Holds value of property simpleAttribute.
+     */
+    private SimpleAttribute simpleAttribute = new SimpleAttribute();
+
+    /**
+     * Holds value of property text.
+     */
+    private String text;
+
+    /**
+     * Holds value of property simpleAttrs.
+     */
+    private SimpleAttribute[] simpleAttrs;
+
+    /** Creates a new instance of SimpleBean */
+    public SimpleBean() {
+    }
 
     /**
      * Adds a PropertyChangeListener to the listener list.
      * @param l The listener to add.
      */
-    public void addPropertyChangeListener(java.beans.PropertyChangeListener l) {
+    public final void addPropertyChangeListener(java.beans.PropertyChangeListener l) {
         propertyChangeSupport.addPropertyChangeListener(l);
     }
 
@@ -60,7 +75,8 @@ public class SimpleBean {
      * Removes a PropertyChangeListener from the listener list.
      * @param l The listener to remove.
      */
-    public void removePropertyChangeListener(java.beans.PropertyChangeListener l) {
+    public final void removePropertyChangeListener(
+        java.beans.PropertyChangeListener l) {
         propertyChangeSupport.removePropertyChangeListener(l);
     }
 
@@ -68,16 +84,17 @@ public class SimpleBean {
      * Adds a VetoableChangeListener to the listener list.
      * @param l The listener to add.
      */
-    public void addVetoableChangeListener(java.beans.VetoableChangeListener l) {
-        vetoableChangeSupport.addVetoableChangeListener (l);
+    public final void addVetoableChangeListener(java.beans.VetoableChangeListener l) {
+        vetoableChangeSupport.addVetoableChangeListener(l);
     }
 
     /**
      * Removes a VetoableChangeListener from the listener list.
      * @param l The listener to remove.
      */
-    public void removeVetoableChangeListener(java.beans.VetoableChangeListener l) {
-        vetoableChangeSupport.removeVetoableChangeListener (l);
+    public final void removeVetoableChangeListener(
+        java.beans.VetoableChangeListener l) {
+        vetoableChangeSupport.removeVetoableChangeListener(l);
     }
 
     /**
@@ -101,39 +118,37 @@ public class SimpleBean {
      * Indexed setter for property attr.
      * @param index Index of the property.
      * @param attr New value of the property at <CODE>index</CODE>.
-     * 
+     *
      * @throws PropertyVetoException if some vetoable listeners reject the new value
      */
-    public void setAttr(int index, java.lang.String attr) throws java.beans.PropertyVetoException {
+    public final void setAttr(int index, java.lang.String attr)
+        throws java.beans.PropertyVetoException {
         String oldAttr = this.attr[index];
         this.attr[index] = attr;
+
         try {
-            vetoableChangeSupport.fireVetoableChange ("attr", null, null );
-        }
-        catch(java.beans.PropertyVetoException vetoException ) {
+            vetoableChangeSupport.fireVetoableChange("attr", null, null);
+        } catch (java.beans.PropertyVetoException vetoException) {
             this.attr[index] = oldAttr;
             throw vetoException;
         }
-        propertyChangeSupport.firePropertyChange ("attr", null, null );
+
+        propertyChangeSupport.firePropertyChange("attr", null, null);
     }
 
     /**
      * Setter for property attr.
      * @param attr New value of property attr.
-     * 
+     *
      * @throws PropertyVetoException if some vetoable listeners reject the new value
      */
-    public void setAttr(java.lang.String[] attr) throws java.beans.PropertyVetoException {
+    public final void setAttr(java.lang.String[] attr)
+        throws java.beans.PropertyVetoException {
         String[] oldAttr = this.attr;
         vetoableChangeSupport.fireVetoableChange("attr", oldAttr, attr);
         this.attr = attr;
-        propertyChangeSupport.firePropertyChange ("attr", oldAttr, attr);
+        propertyChangeSupport.firePropertyChange("attr", oldAttr, attr);
     }
-
-    /**
-     * Holds value of property simpleAttribute.
-     */
-    private SimpleAttribute simpleAttribute = new SimpleAttribute();
 
     /**
      * Getter for property simpleAttribute.
@@ -147,14 +162,10 @@ public class SimpleBean {
      * Setter for property simpleAttribute.
      * @param simpleAttribute New value of property simpleAttribute.
      */
-    public void setSimpleAttribute(net.sourceforge.fuzzyservices.beans.SimpleAttribute simpleAttribute) {
+    public final void setSimpleAttribute(
+        net.sourceforge.fuzzyservices.beans.SimpleAttribute simpleAttribute) {
         this.simpleAttribute = simpleAttribute;
     }
-
-    /**
-     * Holds value of property text.
-     */
-    private String text;
 
     /**
      * Getter for property text.
@@ -168,16 +179,11 @@ public class SimpleBean {
      * Setter for property text.
      * @param text New value of property text.
      */
-    public void setText(String text) {
+    public final void setText(String text) {
         String oldText = this.text;
         this.text = text;
-        propertyChangeSupport.firePropertyChange ("text", oldText, text);
+        propertyChangeSupport.firePropertyChange("text", oldText, text);
     }
-
-    /**
-     * Holds value of property simpleAttrs.
-     */
-    private SimpleAttribute[] simpleAttrs;
 
     /**
      * Indexed getter for property simpleAttrs.
@@ -200,34 +206,37 @@ public class SimpleBean {
      * Indexed setter for property simpleAttrs.
      * @param index Index of the property.
      * @param simpleAttrs New value of the property at <CODE>index</CODE>.
-     * 
+     *
      * @throws PropertyVetoException if some vetoable listeners reject the new value
      */
-    public void setSimpleAttrs(int index, SimpleAttribute simpleAttrs) throws java.beans.PropertyVetoException {
+    public final void setSimpleAttrs(int index, SimpleAttribute simpleAttrs)
+        throws java.beans.PropertyVetoException {
         SimpleAttribute oldSimpleAttrs = this.simpleAttrs[index];
         this.simpleAttrs[index] = simpleAttrs;
+
         try {
-            vetoableChangeSupport.fireVetoableChange ("simpleAttrs", null, null );
-        }
-        catch(java.beans.PropertyVetoException vetoException ) {
+            vetoableChangeSupport.fireVetoableChange("simpleAttrs", null, null);
+        } catch (java.beans.PropertyVetoException vetoException) {
             this.simpleAttrs[index] = oldSimpleAttrs;
             throw vetoException;
         }
-        propertyChangeSupport.firePropertyChange ("simpleAttrs", null, null );
+
+        propertyChangeSupport.firePropertyChange("simpleAttrs", null, null);
     }
 
     /**
      * Setter for property simpleAttrs.
      * @param simpleAttrs New value of property simpleAttrs.
-     * 
+     *
      * @throws PropertyVetoException if some vetoable listeners reject the new value
      */
-    public void setSimpleAttrs(SimpleAttribute[] simpleAttrs) throws java.beans.PropertyVetoException {
+    public final void setSimpleAttrs(SimpleAttribute[] simpleAttrs)
+        throws java.beans.PropertyVetoException {
         SimpleAttribute[] oldSimpleAttrs = this.simpleAttrs;
-        vetoableChangeSupport.fireVetoableChange("simpleAttrs", oldSimpleAttrs, simpleAttrs);
+        vetoableChangeSupport.fireVetoableChange("simpleAttrs", oldSimpleAttrs,
+            simpleAttrs);
         this.simpleAttrs = simpleAttrs;
-        propertyChangeSupport.firePropertyChange ("simpleAttrs", oldSimpleAttrs, simpleAttrs);
+        propertyChangeSupport.firePropertyChange("simpleAttrs", oldSimpleAttrs,
+            simpleAttrs);
     }
-
-    
 }

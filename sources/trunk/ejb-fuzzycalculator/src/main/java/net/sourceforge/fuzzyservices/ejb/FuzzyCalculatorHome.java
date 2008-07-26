@@ -29,13 +29,21 @@ import javax.ejb.CreateException;
 import javax.ejb.EJBException;
 import javax.ejb.EJBHome;
 
+
 /**
  * Home interface for an EJB implementation of a fuzzy calculator.
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
 public interface FuzzyCalculatorHome extends EJBHome {
+    /**
+     * Creates a bean object.
+     * @return EJB instance
+     * @throws javax.ejb.CreateException The instance can not be created.
+     * @throws javax.ejb.EJBException Other fault after creation.
+     * @throws java.rmi.RemoteException Reference to remote bean instance failed.
+     */
     FuzzyCalculator create()
         throws CreateException, EJBException, RemoteException;
 }

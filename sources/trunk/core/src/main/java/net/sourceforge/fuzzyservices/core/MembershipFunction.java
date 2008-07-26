@@ -29,6 +29,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
+import net.sourceforge.fuzzyservices.utils.FuzzyManager;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * The membership function f(x) is defined by a set of points. Every point marks a relationship
@@ -55,7 +57,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     /**
      * Set of points specifying the mathematical membership function.
      */
-    protected List<MembershipFunctionPoint> points = new ArrayList<MembershipFunctionPoint>(FuzzyManager.maxNumStep);
+    protected List<MembershipFunctionPoint> points = new ArrayList<MembershipFunctionPoint>(FuzzyManager.getMaxNumStep());
 
     /**
      * Defines at <code>x</code> a new degree of membership.
@@ -236,7 +238,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
         if ((points.size() > 2) &&
                 ((points.get(0)).getDegreeOfMembership() == 0.0f) &&
                 ((points.get(points.size() - 1)).getDegreeOfMembership() == 0.0f)) {
-            int vzw = 0; // Anzahl der stattgefundenen Vorzeichenwechsel
+            int vzw = 0; // number of change of sign
             MembershipFunctionPoint entryLeft;
             MembershipFunctionPoint entryRight;
             ListIterator elements = points.listIterator();
@@ -383,7 +385,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      * @return an array of Float objects which are the x values of the
      *         membership function
      */
-    public synchronized float[] getXValues() {
+    public final synchronized float[] getXValues() {
         float[] xValues = null;
         int size = points.size();
         if (size > 0) {
@@ -410,7 +412,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      *
      * @return <code>true</code> if a point exists <code>false</code>, otherwise
      */
-    public boolean isDefined() {
+    public final boolean isDefined() {
         return (!points.isEmpty());
     }
 
@@ -421,7 +423,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      *            the x value
      * @return the degree of membership function to <code>x</code>
      */
-    public synchronized float getDegreeOfMembership(final float x) {
+    public final synchronized float getDegreeOfMembership(final float x) {
         if (points.isEmpty()) {
             return 0.0f;
         }
@@ -494,7 +496,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      *            the right x value
      * @return the calculated slope
      */
-    public float getSlope(final float xLeft, final float xRight) {
+    public final float getSlope(final float xLeft, final float xRight) {
         // y = a + b * x -> b = (y - a) / x, mit x = x2 - x1
         return ((getDegreeOfMembership(xRight) - getDegreeOfMembership(xLeft)) / (xRight -
                 xLeft));
@@ -503,7 +505,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     /**
      * Reduces the number of points without changing the appearance of the membership function.
      */
-    public synchronized void reduce() {
+    public final synchronized void reduce() {
         // Eliminating nulls on the left side
         while (points.size() > 1) {
             if (((points.get(0)).getDegreeOfMembership() == 0.0f) &&
@@ -550,7 +552,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      *
      * @return the minimal defined x value. Float.NaN if set is empty.
      */
-    public synchronized float getMinDefinedX() {
+    public final synchronized float getMinDefinedX() {
         if (!points.isEmpty()) {
             return (points.get(0)).getX();
         }
@@ -563,7 +565,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      *
      * @return the maximal defined x value. Float.NaN if set is empty.
      */
-    public synchronized float getMaxDefinedX() {
+    public final synchronized float getMaxDefinedX() {
         if (!points.isEmpty()) {
             return (points.get(points.size() - 1)).getX();
         }
@@ -629,7 +631,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if ((obj != null) && (obj instanceof MembershipFunction)) {
             // return points.equals(((FuzzySet)obj).points); // reicht nicht
             // aus, da MembershipFunctionPoint.equals() nur auf Gleichheit der
@@ -668,18 +670,18 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int hash = 7;
         hash = 71 * hash + (this.points != null ? this.points.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public Object clone() {
+    public final Object clone() {
         try {
             MembershipFunction newObj = (MembershipFunction) super.clone();
-            // Eintraege physisch duplizieren.
-            newObj.points = new Vector<MembershipFunctionPoint>(points.size());
+            // Duplicate entries physically.
+            newObj.points = new ArrayList<MembershipFunctionPoint>(points.size());
 
             ListIterator elements = points.listIterator();
 
@@ -695,7 +697,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return points.toString();
     }
 }

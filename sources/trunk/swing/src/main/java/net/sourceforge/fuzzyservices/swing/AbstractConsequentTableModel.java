@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -23,8 +23,10 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+
 import javax.swing.table.AbstractTableModel;
-import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
+
 
 /**
  * AbstractConsequentTableModel
@@ -32,7 +34,6 @@ import net.sourceforge.fuzzyservices.core.FuzzyResourceManager;
  * @author Uwe Weng
  */
 public abstract class AbstractConsequentTableModel extends AbstractTableModel {
-
     final public static int INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN = 0;
     final public static int INDEX_LINGUISTIC_TERM_NAME_COLUMN = 1;
 
@@ -44,12 +45,16 @@ public abstract class AbstractConsequentTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
-            case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
-                return FuzzyResourceManager.getString(this, "CONSEQUENT_TABLE_MODEL_COLUMN_LINGUISTIC_VARIABLE_NAME");
-            case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
-                return FuzzyResourceManager.getString(this, "CONSEQUENT_TABLE_MODEL_COLUMN_LINGUISTIC_TERM_NAME");
-            default:
-                return null;
+        case INDEX_LINGUISTIC_VARIABLE_NAME_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "CONSEQUENT_TABLE_MODEL_COLUMN_LINGUISTIC_VARIABLE_NAME");
+
+        case INDEX_LINGUISTIC_TERM_NAME_COLUMN:
+            return FuzzyResourceManager.getString(this,
+                "CONSEQUENT_TABLE_MODEL_COLUMN_LINGUISTIC_TERM_NAME");
+
+        default:
+            return null;
         }
     }
 }

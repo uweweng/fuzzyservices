@@ -23,20 +23,87 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.beans.VetoableChangeListener;
+import java.beans.VetoableChangeSupport;
+
+
 /**
  *
  * @author Uwe Weng
  */
 public class SimpleAttribute {
-    
-    /** Creates a new instance of SimpleAttribute */
-    public SimpleAttribute() {
-    }
 
     /**
      * Holds value of property text.
      */
+    private SimpleDay day;
+    public static final String PROP_DAY = "day";
+
+    /**
+     * Get the value of day
+     *
+     * @return the value of day
+     */
+    public SimpleDay getDay() {
+        return this.day;
+    }
+
+    /**
+     * Set the value of day
+     *
+     * @param newday new value of day
+     */
+    public void setDay(SimpleDay newday) {
+        SimpleDay oldday = day;
+        this.day = newday;
+        propertyChangeSupport.firePropertyChange(PROP_DAY, oldday, newday);
+    }
+
     private String text;
+    private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    /**
+     * Add PropertyChangeListener.
+     *
+     * @param listener
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Remove PropertyChangeListener.
+     *
+     * @param listener
+     */
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+    private VetoableChangeSupport vetoableChangeSupport = new VetoableChangeSupport(this);
+
+    /**
+     * Add VetoableChangeListener.
+     *
+     * @param listener
+     */
+    public void addVetoableChangeListener(VetoableChangeListener listener) {
+        vetoableChangeSupport.addVetoableChangeListener(listener);
+    }
+
+    /**
+     * Remove VetoableChangeListener.
+     *
+     * @param listener
+     */
+    public void removeVetoableChangeListener(VetoableChangeListener listener) {
+        vetoableChangeSupport.removeVetoableChangeListener(listener);
+    }
+
+    /** Creates a new instance of SimpleAttribute */
+    public SimpleAttribute() {
+    }
 
     /**
      * Getter for property text.
@@ -50,8 +117,7 @@ public class SimpleAttribute {
      * Setter for property text.
      * @param text New value of property text.
      */
-    public void setText(String text) {
+    public final void setText(String text) {
         this.text = text;
     }
-    
 }

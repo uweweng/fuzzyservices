@@ -22,36 +22,38 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.swing;
 
+import java.beans.PropertyChangeListener;
 import javax.swing.event.ChangeListener;
+
 
 /**
  *
  * @author Uwe Weng
  */
 public interface MembershipFunctionModel {
-    
     /**
      * Adds an <CODE>ChangeListener</CODE> to the model.
      * @param l the listener to add
      */
-    public void addChangeListener(ChangeListener l);
+    public void addChangeListener(final ChangeListener l);
+
     /**
      * Removes an <CODE>ChangeListener</CODE> from the model.
      * @param l the listener to remove
      */
-    public void removeChangeListener(ChangeListener l);
-    
+    public void removeChangeListener(final ChangeListener l);
+
     /**
      * Adds a PropertyChangeListener to the listener list.
      * @param l The listener to add.
      */
-    public void addPropertyChangeListener(java.beans.PropertyChangeListener l);
+    public void addPropertyChangeListener(final PropertyChangeListener l);
 
     /**
      * Removes a PropertyChangeListener from the listener list.
      * @param l The listener to remove.
      */
-    public void removePropertyChangeListener(java.beans.PropertyChangeListener l);
+    public void removePropertyChangeListener(final PropertyChangeListener l);
 
     /**
      * Getter for property enabled.
@@ -63,20 +65,19 @@ public interface MembershipFunctionModel {
      * Setter for property enabled.
      * @param enabled New value of property enabled.
      */
-    public void setEnabled(boolean enabled);
-    
-    
+    public void setEnabled(final boolean enabled);
+
     /**
      * Returns a crisp value determined by a defuzzifcator, possibly.
      * @return crisp float value as the result of a defuzzification
      */
     public float getDefuzzifiedValue();
-    
+
     public float[] getXValues();
-    
-    public float getDegreeOfMembership(float x);
-    
-    public void addPoint(float x, float y) throws IllegalArgumentException;
-    public void removePointAt(float x);
-    
+
+    public float getDegreeOfMembership(final float x);
+
+    public void addPoint(final float x, final float y);
+
+    public void removePointAt(final float x);
 }

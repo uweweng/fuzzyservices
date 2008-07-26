@@ -6,32 +6,39 @@ package net.sourceforge.fuzzyservices.core;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import org.junit.runner.RunWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
  * @author Administrator
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-test.xml"})
+@ContextConfiguration(locations = {
+"/applicationContext.xml", "/applicationContext-test.xml"
+})
 public class FuzzyControllerTest {
 
+    /**
+     * Test object.
+     */
     private FuzzyController fuzzyController;
 
     @Autowired
-    public void setFuzzyController(FuzzyController fuzzyController) {
+    public final void setFuzzyController(FuzzyController fuzzyController) {
         this.fuzzyController = fuzzyController;
     }
 
     /**
-     * Test
+     * Test foo method.
      */
     @Test
-    public void testFoo() {
+    public final void testFoo() {
         Assert.assertNotNull(fuzzyController);
     }
 }

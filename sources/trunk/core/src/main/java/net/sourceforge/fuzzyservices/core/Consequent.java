@@ -32,13 +32,15 @@ import java.io.Serializable;
  * @see LinguisticVariable
  * @see Rule
  *
- * @since 1.0
+ * @version 1.0
  * @author Uwe Weng
  */
-public final class Consequent extends AbstractRulePart implements Serializable {
-
+public final class Consequent
+    extends AbstractRulePart
+    implements Serializable
+{
     /**
-     * Default serial version UID
+     * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
@@ -47,7 +49,8 @@ public final class Consequent extends AbstractRulePart implements Serializable {
      * @param lvName linguistic variable name for describing a conclusion of an if-then-clause
      * @param lingTermName the name of a linguistic term which is part of the linguistic variable representing the conclusion.
      */
-    public Consequent(final String lvName, final String lingTermName) {
-        super(lvName, lingTermName);
+    public Consequent( final String lvName, final String lingTermName )
+    {
+        super( lvName, lingTermName );
     }
 }

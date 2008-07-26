@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,7 +24,9 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractFactBaseModel
@@ -36,22 +38,23 @@ public abstract class AbstractFactBaseModel implements FactBaseModel {
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addFactBaseModelListener(FactBaseModelListener l) {
+    public final void addFactBaseModelListener(FactBaseModelListener l) {
         listenerList.add(FactBaseModelListener.class, l);
     }
-    
+
     @Override
-    public void removeFactBaseModelListener(FactBaseModelListener l) {
+    public final void removeFactBaseModelListener(FactBaseModelListener l) {
         listenerList.remove(FactBaseModelListener.class, l);
     }
+
     public FactBaseModelListener[] getFactBaseModelListeners() {
         return listenerList.getListeners(FactBaseModelListener.class);
     }
 
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) {
-	return listenerList.getListeners(listenerType); 
+        return listenerList.getListeners(listenerType);
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -60,16 +63,18 @@ public abstract class AbstractFactBaseModel implements FactBaseModel {
     protected void fireFactsChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==FactBaseModelListener.class) {
-                FactBaseModelEvent event = new FactBaseModelEvent(source, FactBaseModelEvent.FACTS_CHANGED);
-                ((FactBaseModelListener)listeners[i+1]).factBaseChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == FactBaseModelListener.class) {
+                FactBaseModelEvent event = new FactBaseModelEvent(source,
+                        FactBaseModelEvent.FACTS_CHANGED);
+                ((FactBaseModelListener) listeners[i + 1]).factBaseChanged(event);
             }
         }
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -80,14 +85,15 @@ public abstract class AbstractFactBaseModel implements FactBaseModel {
     protected void fireNameChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==FactBaseModelListener.class) {
-                FactBaseModelEvent event = new FactBaseModelEvent(source, FactBaseModelEvent.NAME_CHANGED);
-                ((FactBaseModelListener)listeners[i+1]).factBaseChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == FactBaseModelListener.class) {
+                FactBaseModelEvent event = new FactBaseModelEvent(source,
+                        FactBaseModelEvent.NAME_CHANGED);
+                ((FactBaseModelListener) listeners[i + 1]).factBaseChanged(event);
             }
         }
     }
-
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- *  Copyright (C) 2008  Uwe Weng
+ *  Copyright (C) 2007  Uwe Weng
  *
  *  This file is part of Fuzzy Services, a library for processing fuzzy
  *  information.
@@ -24,7 +24,9 @@
 package net.sourceforge.fuzzyservices.swing;
 
 import java.util.EventListener;
+
 import javax.swing.event.EventListenerList;
+
 
 /**
  * AbstractRuleBaseModel
@@ -36,23 +38,23 @@ public abstract class AbstractRuleBaseModel implements RuleBaseModel {
     protected EventListenerList listenerList = new EventListenerList();
 
     @Override
-    public void addRuleBaseModelListener(RuleBaseModelListener l) {
+    public final void addRuleBaseModelListener(RuleBaseModelListener l) {
         listenerList.add(RuleBaseModelListener.class, l);
     }
-    
+
     @Override
-    public void removeRuleBaseModelListener(RuleBaseModelListener l) {
+    public final void removeRuleBaseModelListener(RuleBaseModelListener l) {
         listenerList.remove(RuleBaseModelListener.class, l);
     }
 
     public RuleBaseModelListener[] getRuleBaseModelListeners() {
         return listenerList.getListeners(RuleBaseModelListener.class);
     }
-    
+
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) {
-	return listenerList.getListeners(listenerType); 
+        return listenerList.getListeners(listenerType);
     }
-    
+
     /**
      * Notifies all listeners that have registered interest for
      * notification on this event type.
@@ -61,12 +63,14 @@ public abstract class AbstractRuleBaseModel implements RuleBaseModel {
     protected void fireRulesChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==RuleBaseModelListener.class) {
-                RuleBaseModelEvent event = new RuleBaseModelEvent(source, RuleBaseModelEvent.RULES_CHANGED);
-                ((RuleBaseModelListener)listeners[i+1]).ruleBaseChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == RuleBaseModelListener.class) {
+                RuleBaseModelEvent event = new RuleBaseModelEvent(source,
+                        RuleBaseModelEvent.RULES_CHANGED);
+                ((RuleBaseModelListener) listeners[i + 1]).ruleBaseChanged(event);
             }
         }
     }
@@ -81,12 +85,14 @@ public abstract class AbstractRuleBaseModel implements RuleBaseModel {
     protected void fireNameChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==RuleBaseModelListener.class) {
-                RuleBaseModelEvent event = new RuleBaseModelEvent(source, RuleBaseModelEvent.NAME_CHANGED);
-                ((RuleBaseModelListener)listeners[i+1]).ruleBaseChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == RuleBaseModelListener.class) {
+                RuleBaseModelEvent event = new RuleBaseModelEvent(source,
+                        RuleBaseModelEvent.NAME_CHANGED);
+                ((RuleBaseModelListener) listeners[i + 1]).ruleBaseChanged(event);
             }
         }
     }
@@ -101,14 +107,15 @@ public abstract class AbstractRuleBaseModel implements RuleBaseModel {
     protected void fireAccumulationOperatorChanged(Object source) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
+
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length-2; i>=0; i-=2) {
-            if (listeners[i]==RuleBaseModelListener.class) {
-                RuleBaseModelEvent event = new RuleBaseModelEvent(source, RuleBaseModelEvent.NAME_CHANGED);
-                ((RuleBaseModelListener)listeners[i+1]).ruleBaseChanged(event);
+        for (int i = listeners.length - 2; i >= 0; i -= 2) {
+            if (listeners[i] == RuleBaseModelListener.class) {
+                RuleBaseModelEvent event = new RuleBaseModelEvent(source,
+                        RuleBaseModelEvent.NAME_CHANGED);
+                ((RuleBaseModelListener) listeners[i + 1]).ruleBaseChanged(event);
             }
         }
     }
-    
 }
