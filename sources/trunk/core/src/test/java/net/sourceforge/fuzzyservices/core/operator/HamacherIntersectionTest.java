@@ -41,7 +41,8 @@ public class HamacherIntersectionTest {
      * Test of combine method, of class HamacherIntersection.
      */
     @Test
-    public final void combine() {
+    public final void testCombine() {
+        System.out.println("combine");
         FuzzySet fs1 = null;
         FuzzySet fs2 = null;
         HamacherIntersection instance = new HamacherIntersection();
@@ -54,7 +55,8 @@ public class HamacherIntersectionTest {
      * Test of isValidTNorm method, of class HamacherIntersection.
      */
     @Test
-    public final void isValidTNorm() {
+    public final void testIsValidTNorm() {
+        System.out.println("isValidTNorm");
         HamacherIntersection instance = new HamacherIntersection();
         boolean expResult = true;
         boolean result = instance.isValidTNorm();
@@ -65,7 +67,8 @@ public class HamacherIntersectionTest {
      * Test of isValidSNorm method, of class HamacherIntersection.
      */
     @Test
-    public final void isValidSNorm() {
+    public final void testIsValidSNorm() {
+        System.out.println("isValidSNorm");
         HamacherIntersection instance = new HamacherIntersection();
         boolean expResult = false;
         boolean result = instance.isValidSNorm();
@@ -76,7 +79,8 @@ public class HamacherIntersectionTest {
      * Test of isValidParameter method, of class HamacherIntersection.
      */
     @Test
-    public final void isValidParameter() {
+    public final void testIsValidParameter() {
+        System.out.println("isValidParameter");
         HamacherIntersection instance = new HamacherIntersection();
         assertEquals(true,
                 instance.isValidParameter(0.0f));
@@ -92,7 +96,8 @@ public class HamacherIntersectionTest {
      * Test of compute method, of class HamacherIntersection.
      */
     @Test
-    public final void compute() {
+    public final void testCompute() {
+        System.out.println("compute");
         float a = 0.0F;
         float b = 0.0F;
         HamacherIntersection instance = new HamacherIntersection();
@@ -106,6 +111,7 @@ public class HamacherIntersectionTest {
      */
     @Test
     public final void testToString() {
+        System.out.println("toString");
         boolean withParameter = false;
         HamacherIntersection instance = new HamacherIntersection();
         String result = instance.toString(withParameter);
@@ -116,575 +122,21 @@ public class HamacherIntersectionTest {
      * Test of getDefaultParameter method, of class HamacherIntersection.
      */
     @Test
-    public final void getDefaultParameter() {
+    public final void testGetDefaultParameter() {
+        System.out.println("getDefaultParameter");
         HamacherIntersection instance = new HamacherIntersection();
         float result = instance.getDefaultParameter();
         assertTrue(result >= 0.0f);
     }
 
     /**
-     * Test of combine method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCombine() {
-        System.out.println("combine");
-        FuzzySet fs1 = null;
-        FuzzySet fs2 = null;
-        HamacherIntersection instance = new HamacherIntersection();
-        FuzzySet expResult = null;
-        FuzzySet result = instance.combine(fs1, fs2);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidTNorm() {
-        System.out.println("isValidTNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidSNorm() {
-        System.out.println("isValidSNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidParameter() {
-        System.out.println("isValidParameter");
-        float param = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidParameter(param);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCompute() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class HamacherIntersection.
-     */
-    @Test
-    public void testToString_boolean() {
-        System.out.println("toString");
-        boolean withParameter = false;
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.toString(withParameter);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefaultParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetDefaultParameter() {
-        System.out.println("getDefaultParameter");
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.getDefaultParameter();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getName method, of class HamacherIntersection.
      */
     @Test
-    public void testGetName() {
+    public final void testGetName() {
         System.out.println("getName");
         HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
         String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of combine method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCombine_FuzzySet_FuzzySet() {
-        System.out.println("combine");
-        FuzzySet fs1 = null;
-        FuzzySet fs2 = null;
-        HamacherIntersection instance = new HamacherIntersection();
-        FuzzySet expResult = null;
-        FuzzySet result = instance.combine(fs1, fs2);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidTNorm1() {
-        System.out.println("isValidTNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidSNorm1() {
-        System.out.println("isValidSNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidParameter_float() {
-        System.out.println("isValidParameter");
-        float param = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidParameter(param);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCompute_float_float() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class HamacherIntersection.
-     */
-    @Test
-    public void testToString_boolean_1args() {
-        System.out.println("toString");
-        boolean withParameter = false;
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.toString(withParameter);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefaultParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetDefaultParameter1() {
-        System.out.println("getDefaultParameter");
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.getDefaultParameter();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetName1() {
-        System.out.println("getName");
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of combine method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCombine_FuzzySet_FuzzySet_2args() {
-        System.out.println("combine");
-        FuzzySet fs1 = null;
-        FuzzySet fs2 = null;
-        HamacherIntersection instance = new HamacherIntersection();
-        FuzzySet expResult = null;
-        FuzzySet result = instance.combine(fs1, fs2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidTNorm2() {
-        System.out.println("isValidTNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidSNorm2() {
-        System.out.println("isValidSNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidParameter_float_1args() {
-        System.out.println("isValidParameter");
-        float param = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidParameter(param);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCompute_float_float_2args() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class HamacherIntersection.
-     */
-    @Test
-    public void testToString_1args_1() {
-        System.out.println("toString");
-        boolean withParameter = false;
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.toString(withParameter);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefaultParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetDefaultParameter2() {
-        System.out.println("getDefaultParameter");
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.getDefaultParameter();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetName2() {
-        System.out.println("getName");
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of combine method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCombine_2args_1() {
-        System.out.println("combine");
-        FuzzySet fs1 = null;
-        FuzzySet fs2 = null;
-        HamacherIntersection instance = new HamacherIntersection();
-        FuzzySet expResult = null;
-        FuzzySet result = instance.combine(fs1, fs2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidTNorm3() {
-        System.out.println("isValidTNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidSNorm3() {
-        System.out.println("isValidSNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidParameter_1args_1() {
-        System.out.println("isValidParameter");
-        float param = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidParameter(param);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCompute_2args_1() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class HamacherIntersection.
-     */
-    @Test
-    public void testToString_1args_2() {
-        System.out.println("toString");
-        boolean withParameter = false;
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.toString(withParameter);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefaultParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetDefaultParameter3() {
-        System.out.println("getDefaultParameter");
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.getDefaultParameter();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetName3() {
-        System.out.println("getName");
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of combine method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCombine_2args_2() {
-        System.out.println("combine");
-        FuzzySet fs1 = null;
-        FuzzySet fs2 = null;
-        HamacherIntersection instance = new HamacherIntersection();
-        FuzzySet expResult = null;
-        FuzzySet result = instance.combine(fs1, fs2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidTNorm4() {
-        System.out.println("isValidTNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidSNorm4() {
-        System.out.println("isValidSNorm");
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testIsValidParameter_1args_2() {
-        System.out.println("isValidParameter");
-        float param = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        boolean expResult = false;
-        boolean result = instance.isValidParameter(param);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class HamacherIntersection.
-     */
-    @Test
-    public void testCompute_2args_2() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class HamacherIntersection.
-     */
-    @Test
-    public void testToString_1args_3() {
-        System.out.println("toString");
-        boolean withParameter = false;
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.toString(withParameter);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDefaultParameter method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetDefaultParameter4() {
-        System.out.println("getDefaultParameter");
-        HamacherIntersection instance = new HamacherIntersection();
-        float expResult = 0.0F;
-        float result = instance.getDefaultParameter();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class HamacherIntersection.
-     */
-    @Test
-    public void testGetName4() {
-        System.out.println("getName");
-        HamacherIntersection instance = new HamacherIntersection();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 }

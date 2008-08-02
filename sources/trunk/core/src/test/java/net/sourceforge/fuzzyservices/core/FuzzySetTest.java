@@ -37,7 +37,7 @@ public class FuzzySetTest {
      * Test of clear method, of class FuzzySet.
      */
     @Test
-    public void testClear() {
+    public final void testClear() {
         System.out.println("clear");
         FuzzySet instance = new FuzzySet();
         instance.clear();
@@ -48,7 +48,7 @@ public class FuzzySetTest {
      * Test of combine method, of class FuzzySet.
      */
     @Test
-    public void testCombine_3args() {
+    public final void testCombine_3args() {
         System.out.println("combine");
         FuzzySet fs1 = null;
         FuzzySet fs2 = null;
@@ -63,7 +63,7 @@ public class FuzzySetTest {
      * Test of combine method, of class FuzzySet.
      */
     @Test
-    public void testCombine_FuzzySet_AbstractOperator() {
+    public final void testCombine_FuzzySet_AbstractOperator() {
         System.out.println("combine");
         FuzzySet fs = null;
         AbstractOperator op = null;
@@ -78,7 +78,7 @@ public class FuzzySetTest {
      * Test of concentrate method, of class FuzzySet.
      */
     @Test
-    public void testConcentrate() {
+    public final void testConcentrate() {
         System.out.println("concentrate");
         FuzzySet instance = new FuzzySet();
         instance.concentrate();
@@ -89,7 +89,7 @@ public class FuzzySetTest {
      * Test of dilate method, of class FuzzySet.
      */
     @Test
-    public void testDilate() {
+    public final void testDilate() {
         System.out.println("dilate");
         FuzzySet instance = new FuzzySet();
         instance.dilate();
@@ -100,7 +100,7 @@ public class FuzzySetTest {
      * Test of getGranularity method, of class FuzzySet.
      */
     @Test
-    public void testGetGranularity() {
+    public final void testGetGranularity() {
         System.out.println("getGranularity");
         FuzzySet fs = null;
         FuzzySet instance = new FuzzySet();
@@ -114,7 +114,7 @@ public class FuzzySetTest {
      * Test of getHeight method, of class FuzzySet.
      */
     @Test
-    public void testGetHeight() {
+    public final void testGetHeight() {
         System.out.println("getHeight");
         FuzzySet instance = new FuzzySet();
         float expResult = 0.0F;
@@ -127,7 +127,7 @@ public class FuzzySetTest {
      * Test of getNumSteps method, of class FuzzySet.
      */
     @Test
-    public void testGetNumSteps() {
+    public final void testGetNumSteps() {
         System.out.println("getNumSteps");
         FuzzySet fs = null;
         FuzzySet instance = new FuzzySet();
@@ -141,7 +141,7 @@ public class FuzzySetTest {
      * Test of isConvex method, of class FuzzySet.
      */
     @Test
-    public void testIsConvex() {
+    public final void testIsConvex() {
         System.out.println("isConvex");
         FuzzySet instance = new FuzzySet();
         boolean expResult = false;
@@ -154,7 +154,7 @@ public class FuzzySetTest {
      * Test of isNormalized method, of class FuzzySet.
      */
     @Test
-    public void testIsNormalized() {
+    public final void testIsNormalized() {
         System.out.println("isNormalized");
         FuzzySet instance = new FuzzySet();
         boolean expResult = false;
@@ -167,7 +167,7 @@ public class FuzzySetTest {
      * Test of isValidFuzzyInterval method, of class FuzzySet.
      */
     @Test
-    public void testIsValidFuzzyInterval() {
+    public final void testIsValidFuzzyInterval() {
         System.out.println("isValidFuzzyInterval");
         FuzzySet instance = new FuzzySet();
         boolean expResult = false;
@@ -180,7 +180,7 @@ public class FuzzySetTest {
      * Test of isValidFuzzyLRInterval method, of class FuzzySet.
      */
     @Test
-    public void testIsValidFuzzyLRInterval() {
+    public final void testIsValidFuzzyLRInterval() {
         System.out.println("isValidFuzzyLRInterval");
         FuzzySet instance = new FuzzySet();
         boolean expResult = false;
@@ -193,7 +193,7 @@ public class FuzzySetTest {
      * Test of isValidFuzzyLRNumber method, of class FuzzySet.
      */
     @Test
-    public void testIsValidFuzzyLRNumber() {
+    public final void testIsValidFuzzyLRNumber() {
         System.out.println("isValidFuzzyLRNumber");
         FuzzySet instance = new FuzzySet();
         boolean expResult = false;
@@ -206,7 +206,7 @@ public class FuzzySetTest {
      * Test of isValidFuzzyNumber method, of class FuzzySet.
      */
     @Test
-    public void testIsValidFuzzyNumber() {
+    public final void testIsValidFuzzyNumber() {
         System.out.println("isValidFuzzyNumber");
         FuzzySet instance = new FuzzySet();
         boolean expResult = false;
@@ -219,7 +219,7 @@ public class FuzzySetTest {
      * Test of normalize method, of class FuzzySet.
      */
     @Test
-    public void testNormalize() {
+    public final void testNormalize() {
         System.out.println("normalize");
         FuzzySet instance = new FuzzySet();
         instance.normalize();
@@ -230,7 +230,7 @@ public class FuzzySetTest {
      * Test of reciproce method, of class FuzzySet.
      */
     @Test
-    public void testReciproce() {
+    public final void testReciproce() {
         System.out.println("reciproce");
         FuzzySet instance = new FuzzySet();
         instance.reciproce();
@@ -241,7 +241,7 @@ public class FuzzySetTest {
      * Test of remove method, of class FuzzySet.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         float x = 0.0F;
         FuzzySet instance = new FuzzySet();
@@ -255,7 +255,7 @@ public class FuzzySetTest {
      * Test of set method, of class FuzzySet.
      */
     @Test
-    public void testSet() {
+    public final void testSet() {
         System.out.println("set");
         float x = 0.0F;
         float dom = 0.0F;
@@ -270,7 +270,7 @@ public class FuzzySetTest {
      * Test of toString method, of class FuzzySet.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
         FuzzySet instance = new FuzzySet();

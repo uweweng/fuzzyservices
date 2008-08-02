@@ -37,7 +37,7 @@ public class FuzzyLRNumberTest {
      * Test of getAlpha method, of class FuzzyLRNumber.
      */
     @Test
-    public void testGetAlpha() {
+    public final void testGetAlpha() {
         System.out.println("getAlpha");
         FuzzyLRNumber instance = new FuzzyLRNumber();
         float expResult = 0.0F;
@@ -50,7 +50,7 @@ public class FuzzyLRNumberTest {
      * Test of getBeta method, of class FuzzyLRNumber.
      */
     @Test
-    public void testGetBeta() {
+    public final void testGetBeta() {
         System.out.println("getBeta");
         FuzzyLRNumber instance = new FuzzyLRNumber();
         float expResult = 0.0F;
@@ -63,7 +63,7 @@ public class FuzzyLRNumberTest {
      * Test of invert method, of class FuzzyLRNumber.
      */
     @Test
-    public void testInvert() {
+    public final void testInvert() {
         System.out.println("invert");
         FuzzyLRNumber instance = new FuzzyLRNumber();
         instance.invert();
@@ -74,7 +74,7 @@ public class FuzzyLRNumberTest {
      * Test of isNegative method, of class FuzzyLRNumber.
      */
     @Test
-    public void testIsNegative() {
+    public final void testIsNegative() {
         System.out.println("isNegative");
         FuzzyLRNumber instance = new FuzzyLRNumber();
         boolean expResult = false;
@@ -87,7 +87,7 @@ public class FuzzyLRNumberTest {
      * Test of isPositive method, of class FuzzyLRNumber.
      */
     @Test
-    public void testIsPositive() {
+    public final void testIsPositive() {
         System.out.println("isPositive");
         FuzzyLRNumber instance = new FuzzyLRNumber();
         boolean expResult = false;
@@ -100,7 +100,7 @@ public class FuzzyLRNumberTest {
      * Test of negate method, of class FuzzyLRNumber.
      */
     @Test
-    public void testNegate() {
+    public final void testNegate() {
         System.out.println("negate");
         FuzzyLRNumber instance = new FuzzyLRNumber();
         instance.negate();
@@ -111,7 +111,7 @@ public class FuzzyLRNumberTest {
      * Test of remove method, of class FuzzyLRNumber.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         float x = 0.0F;
         FuzzyLRNumber instance = new FuzzyLRNumber();
@@ -125,7 +125,7 @@ public class FuzzyLRNumberTest {
      * Test of set method, of class FuzzyLRNumber.
      */
     @Test
-    public void testSet() {
+    public final void testSet() {
         System.out.println("set");
         float x = 0.0F;
         float dom = 0.0F;
@@ -140,7 +140,7 @@ public class FuzzyLRNumberTest {
      * Test of toString method, of class FuzzyLRNumber.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
         FuzzyLRNumber instance = new FuzzyLRNumber();

@@ -38,7 +38,7 @@ public class LinguisticVariableTest {
      * Test of clear method, of class LinguisticVariable.
      */
     @Test
-    public void testClear() {
+    public final void testClear() {
         System.out.println("clear");
         LinguisticVariable instance = new LinguisticVariable();
         instance.clear();
@@ -49,7 +49,7 @@ public class LinguisticVariableTest {
      * Test of contains method, of class LinguisticVariable.
      */
     @Test
-    public void testContains() {
+    public final void testContains() {
         System.out.println("contains");
         String aName = "";
         LinguisticVariable instance = new LinguisticVariable();
@@ -63,7 +63,7 @@ public class LinguisticVariableTest {
      * Test of getFuzzySet method, of class LinguisticVariable.
      */
     @Test
-    public void testGetFuzzySet() {
+    public final void testGetFuzzySet() {
         System.out.println("getFuzzySet");
         String name = "";
         LinguisticVariable instance = new LinguisticVariable();
@@ -77,7 +77,7 @@ public class LinguisticVariableTest {
      * Test of getMaxDefinedX method, of class LinguisticVariable.
      */
     @Test
-    public void testGetMaxDefinedX() {
+    public final void testGetMaxDefinedX() {
         System.out.println("getMaxDefinedX");
         LinguisticVariable instance = new LinguisticVariable();
         float expResult = 0.0F;
@@ -90,7 +90,7 @@ public class LinguisticVariableTest {
      * Test of getMinDefinedX method, of class LinguisticVariable.
      */
     @Test
-    public void testGetMinDefinedX() {
+    public final void testGetMinDefinedX() {
         System.out.println("getMinDefinedX");
         LinguisticVariable instance = new LinguisticVariable();
         float expResult = 0.0F;
@@ -103,7 +103,7 @@ public class LinguisticVariableTest {
      * Test of getName method, of class LinguisticVariable.
      */
     @Test
-    public void testGetName() {
+    public final void testGetName() {
         System.out.println("getName");
         LinguisticVariable instance = new LinguisticVariable();
         String expResult = "";
@@ -116,7 +116,7 @@ public class LinguisticVariableTest {
      * Test of setName method, of class LinguisticVariable.
      */
     @Test
-    public void testSetName() {
+    public final void testSetName() {
         System.out.println("setName");
         String newName = "";
         LinguisticVariable instance = new LinguisticVariable();
@@ -128,7 +128,7 @@ public class LinguisticVariableTest {
      * Test of getNames method, of class LinguisticVariable.
      */
     @Test
-    public void testGetNames() {
+    public final void testGetNames() {
         System.out.println("getNames");
         LinguisticVariable instance = new LinguisticVariable();
         Iterator<String> expResult = null;
@@ -141,7 +141,7 @@ public class LinguisticVariableTest {
      * Test of isDefined method, of class LinguisticVariable.
      */
     @Test
-    public void testIsDefined() {
+    public final void testIsDefined() {
         System.out.println("isDefined");
         LinguisticVariable instance = new LinguisticVariable();
         boolean expResult = false;
@@ -154,7 +154,7 @@ public class LinguisticVariableTest {
      * Test of isEmpty method, of class LinguisticVariable.
      */
     @Test
-    public void testIsEmpty() {
+    public final void testIsEmpty() {
         System.out.println("isEmpty");
         LinguisticVariable instance = new LinguisticVariable();
         boolean expResult = false;
@@ -167,7 +167,7 @@ public class LinguisticVariableTest {
      * Test of remove method, of class LinguisticVariable.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         String name = "";
         LinguisticVariable instance = new LinguisticVariable();
@@ -181,7 +181,7 @@ public class LinguisticVariableTest {
      * Test of set method, of class LinguisticVariable.
      */
     @Test
-    public void testSet() {
+    public final void testSet() {
         System.out.println("set");
         String name = "";
         FuzzySet fs = null;
@@ -196,7 +196,7 @@ public class LinguisticVariableTest {
      * Test of size method, of class LinguisticVariable.
      */
     @Test
-    public void testSize() {
+    public final void testSize() {
         System.out.println("size");
         LinguisticVariable instance = new LinguisticVariable();
         int expResult = 0;
@@ -209,7 +209,7 @@ public class LinguisticVariableTest {
      * Test of clone method, of class LinguisticVariable.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         LinguisticVariable instance = new LinguisticVariable();
         Object expResult = null;
@@ -222,7 +222,7 @@ public class LinguisticVariableTest {
      * Test of equals method, of class LinguisticVariable.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         LinguisticVariable instance = new LinguisticVariable();
@@ -236,7 +236,7 @@ public class LinguisticVariableTest {
      * Test of hashCode method, of class LinguisticVariable.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         LinguisticVariable instance = new LinguisticVariable();
         int expResult = 0;
@@ -249,7 +249,7 @@ public class LinguisticVariableTest {
      * Test of toString method, of class LinguisticVariable.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         LinguisticVariable instance = new LinguisticVariable();
         String expResult = "";

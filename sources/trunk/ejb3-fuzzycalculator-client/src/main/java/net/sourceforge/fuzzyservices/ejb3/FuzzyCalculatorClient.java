@@ -23,15 +23,6 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
-import net.sourceforge.fuzzyservices.beans.FuzzyInterval;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRInterval;
-import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
-import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
-import net.sourceforge.fuzzyservices.core.FuzzyInterval;
-import net.sourceforge.fuzzyservices.core.FuzzyLRInterval;
-import net.sourceforge.fuzzyservices.core.FuzzyLRNumber;
-import net.sourceforge.fuzzyservices.core.FuzzyNumber;
-
 
 /**
  * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and

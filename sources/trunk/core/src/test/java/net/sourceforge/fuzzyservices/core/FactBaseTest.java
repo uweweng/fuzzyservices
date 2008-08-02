@@ -38,7 +38,7 @@ public class FactBaseTest {
      * Test of add method, of class FactBase.
      */
     @Test
-    public void testAdd() {
+    public final void testAdd() {
         System.out.println("add");
         Fact fact = null;
         FactBase instance = new FactBase();
@@ -50,7 +50,7 @@ public class FactBaseTest {
      * Test of clear method, of class FactBase.
      */
     @Test
-    public void testClear() {
+    public final void testClear() {
         System.out.println("clear");
         FactBase instance = new FactBase();
         instance.clear();
@@ -61,7 +61,7 @@ public class FactBaseTest {
      * Test of contains method, of class FactBase.
      */
     @Test
-    public void testContains_LinguisticVariable() {
+    public final void testContains_LinguisticVariable() {
         System.out.println("contains");
         LinguisticVariable lv = null;
         FactBase instance = new FactBase();
@@ -75,7 +75,7 @@ public class FactBaseTest {
      * Test of contains method, of class FactBase.
      */
     @Test
-    public void testContains_String() {
+    public final void testContains_String() {
         System.out.println("contains");
         String lingVarName = "";
         FactBase instance = new FactBase();
@@ -89,7 +89,7 @@ public class FactBaseTest {
      * Test of iterator method, of class FactBase.
      */
     @Test
-    public void testIterator() {
+    public final void testIterator() {
         System.out.println("iterator");
         FactBase instance = new FactBase();
         Iterator<Fact> expResult = null;
@@ -102,7 +102,7 @@ public class FactBaseTest {
      * Test of get method, of class FactBase.
      */
     @Test
-    public void testGet_LinguisticVariable() {
+    public final void testGet_LinguisticVariable() {
         System.out.println("get");
         LinguisticVariable lv = null;
         FactBase instance = new FactBase();
@@ -116,7 +116,7 @@ public class FactBaseTest {
      * Test of get method, of class FactBase.
      */
     @Test
-    public void testGet_String() {
+    public final void testGet_String() {
         System.out.println("get");
         String lingVarName = "";
         FactBase instance = new FactBase();
@@ -130,7 +130,7 @@ public class FactBaseTest {
      * Test of getName method, of class FactBase.
      */
     @Test
-    public void testGetName() {
+    public final void testGetName() {
         System.out.println("getName");
         FactBase instance = new FactBase();
         String expResult = "";
@@ -143,7 +143,7 @@ public class FactBaseTest {
      * Test of isEmpty method, of class FactBase.
      */
     @Test
-    public void testIsEmpty() {
+    public final void testIsEmpty() {
         System.out.println("isEmpty");
         FactBase instance = new FactBase();
         boolean expResult = false;
@@ -156,7 +156,7 @@ public class FactBaseTest {
      * Test of put method, of class FactBase.
      */
     @Test
-    public void testPut() {
+    public final void testPut() {
         System.out.println("put");
         Fact fact = null;
         FactBase instance = new FactBase();
@@ -170,7 +170,7 @@ public class FactBaseTest {
      * Test of remove method, of class FactBase.
      */
     @Test
-    public void testRemove_Fact() {
+    public final void testRemove_Fact() {
         System.out.println("remove");
         Fact fact = null;
         FactBase instance = new FactBase();
@@ -184,7 +184,7 @@ public class FactBaseTest {
      * Test of remove method, of class FactBase.
      */
     @Test
-    public void testRemove_LinguisticVariable() {
+    public final void testRemove_LinguisticVariable() {
         System.out.println("remove");
         LinguisticVariable lv = null;
         FactBase instance = new FactBase();
@@ -198,7 +198,7 @@ public class FactBaseTest {
      * Test of remove method, of class FactBase.
      */
     @Test
-    public void testRemove_String() {
+    public final void testRemove_String() {
         System.out.println("remove");
         String lingVarName = "";
         FactBase instance = new FactBase();
@@ -212,7 +212,7 @@ public class FactBaseTest {
      * Test of setName method, of class FactBase.
      */
     @Test
-    public void testSetName() {
+    public final void testSetName() {
         System.out.println("setName");
         String name = "";
         FactBase instance = new FactBase();
@@ -224,7 +224,7 @@ public class FactBaseTest {
      * Test of size method, of class FactBase.
      */
     @Test
-    public void testSize() {
+    public final void testSize() {
         System.out.println("size");
         FactBase instance = new FactBase();
         int expResult = 0;
@@ -237,7 +237,7 @@ public class FactBaseTest {
      * Test of clone method, of class FactBase.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         FactBase instance = new FactBase();
         Object expResult = null;
@@ -250,7 +250,7 @@ public class FactBaseTest {
      * Test of equals method, of class FactBase.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         FactBase instance = new FactBase();
@@ -264,7 +264,7 @@ public class FactBaseTest {
      * Test of hashCode method, of class FactBase.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         FactBase instance = new FactBase();
         int expResult = 0;
@@ -277,7 +277,7 @@ public class FactBaseTest {
      * Test of toString method, of class FactBase.
      */
     @Test
-    public void testToString_0args() {
+    public final void testToString_0args() {
         System.out.println("toString");
         FactBase instance = new FactBase();
         String expResult = "";
@@ -290,7 +290,7 @@ public class FactBaseTest {
      * Test of toString method, of class FactBase.
      */
     @Test
-    public void testToString_boolean() {
+    public final void testToString_boolean() {
         System.out.println("toString");
         boolean withFacts = false;
         FactBase instance = new FactBase();

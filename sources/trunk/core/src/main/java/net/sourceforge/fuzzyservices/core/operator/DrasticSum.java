@@ -39,50 +39,43 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class DrasticSum
-    extends AbstractDrasticOperator
-    implements Serializable
-{
+        extends AbstractDrasticOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final float getDefaultValue(  )
-    {
+    public final float getDefaultValue() {
         return 1.0f;
     }
 
     @Override
-    public final float getConditionValue(  )
-    {
+    public final float getConditionValue() {
         return 0.0f;
     }
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
+    public final boolean isValidTNorm() {
         return false;
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return true;
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
+    public final float compute(final float a, final float b) {
         float calc = 1.0f;
 
-        if ( a == 0.0f )
-        {
+        if (a == 0.0f) {
             calc = b;
         }
 
-        if ( b == 0.0f )
-        {
+        if (b == 0.0f) {
             calc = a;
         }
 
@@ -90,14 +83,12 @@ public class DrasticSum
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_SUM" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_SUM");
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_SUM" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_SUM");
     }
 }

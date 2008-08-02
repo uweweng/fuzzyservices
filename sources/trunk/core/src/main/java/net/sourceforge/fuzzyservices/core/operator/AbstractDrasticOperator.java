@@ -41,28 +41,26 @@ import java.util.List;
  * @author Uwe Weng
  */
 public abstract class AbstractDrasticOperator
-    extends AbstractOperator
-    implements Serializable
-{
+        extends AbstractOperator
+        implements Serializable {
+
     /**
      * Returns the value if no condition is fullfiled
      *
      * @return a value depending on the calculation rule
      */
-    public abstract float getDefaultValue(  );
+    public abstract float getDefaultValue();
 
     /**
      * Returns the value which has to be fulfilled
      * @return a value depending on the calculation rule
      */
-    public abstract float getConditionValue(  );
+    public abstract float getConditionValue();
 
     @Override
-    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
-    {
-        if ( ( fs1 != null ) && ( fs2 != null ) )
-        {
-            FuzzySet fs = new FuzzySet(  );
+    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+        if ((fs1 != null) && (fs2 != null)) {
+            FuzzySet fs = new FuzzySet();
 
             // Prinzip: Uebernehme den Teil der Zugehoerigkeitsfunktion,
             // der innerhalb des Intervalls liegt, in dem mindestens eine der
@@ -71,8 +69,8 @@ public abstract class AbstractDrasticOperator
             // eingegrenzt,
             // wenn der berechnete Zugehoerigkeitsgrad bei +-STEPWIDTH es
             // zulaesst.
-            float defaultValue = this.getDefaultValue(  );
-            float conditionValue = this.getConditionValue(  );
+            float defaultValue = this.getDefaultValue();
+            float conditionValue = this.getConditionValue();
 
             /*
              * Bei diesen Operatoren ist es sinnvoll, erst alle Punkte (in fs1
@@ -85,67 +83,58 @@ public abstract class AbstractDrasticOperator
              * Es wird ausreichend Speicherplatz reserviert. Erst wird die
              * Fuzzy-Menge mit der groesseren Anzahl von Eintraegen kopiert.
              */
-            List<Float> x_values = new ArrayList<Float>( ( fs1.size(  ) + fs2.size(  ) ) - 2 );
+            List<Float> x_values = new ArrayList<Float>((fs1.size() + fs2.size()) - 2);
 
-            int i = ( ( fs1.size(  ) >= fs2.size(  ) ) ? 1 : 2 );
-            Iterator<Float> it = ( ( i == 1 ) ? fs1.iterator(  ) : fs2.iterator(  ) );
+            int i = ((fs1.size() >= fs2.size()) ? 1 : 2);
+            Iterator<Float> it = ((i == 1) ? fs1.iterator() : fs2.iterator());
 
             // x-Werte in einen Vektor kopieren
-            while ( it.hasNext(  ) )
-            {
-                x_values.add( it.next(  ) );
+            while (it.hasNext()) {
+                x_values.add(it.next());
             }
 
             // Die Fuzzy-Menge mit der kleineren Anzahl wird nun einsortiert.
             // Dazu wird die binaere Suche zur Hilfe (vgl. FuzzySet.set())
             // genommen.
-            it = ( ( i == 1 ) ? fs2.iterator(  ) : fs1.iterator(  ) );
+            it = ((i == 1) ? fs2.iterator() : fs1.iterator());
 
             float x;
 
-            while ( it.hasNext(  ) )
-            {
-                x = it.next(  );
-insertBlock:
+            while (it.hasNext()) {
+                x = it.next();
+                insertBlock:
                 {
-                    if ( x > x_values.get( x_values.size(  ) - 1 ) )
-                    {
-                        x_values.add( x );
+                    if (x > x_values.get(x_values.size() - 1)) {
+                        x_values.add(x);
 
                         break insertBlock;
                     }
 
-                    if ( x < x_values.get( 0 ) )
-                    {
-                        x_values.add( 0, x );
+                    if (x < x_values.get(0)) {
+                        x_values.add(0, x);
 
                         break insertBlock;
                     }
 
                     // Binaere Suche
                     int minPos = 0;
-                    int maxPos = x_values.size(  ) - 1;
+                    int maxPos = x_values.size() - 1;
 
-                    while ( maxPos != minPos )
-                    {
-                        i = ( maxPos + minPos ) / 2;
+                    while (maxPos != minPos) {
+                        i = (maxPos + minPos) / 2;
 
-                        if ( x == x_values.get( i ) )
-                        {
+                        if (x == x_values.get(i)) {
                             break insertBlock;
-                        } else if ( x < x_values.get( i ) )
-                        {
+                        } else if (x < x_values.get(i)) {
                             maxPos = i;
-                        } else
-                        {
+                        } else {
                             minPos = i + 1;
                         }
                     }
 
-                    if ( x != x_values.get( maxPos ) )
-                    {
+                    if (x != x_values.get(maxPos)) {
                         // x-Wert ist noch nicht als Eintrag vorhanden
-                        x_values.add( maxPos, x );
+                        x_values.add(maxPos, x);
                     }
                 } // insertBlock
             }
@@ -156,43 +145,39 @@ insertBlock:
             float tmp_dom1;
             float tmp_dom2;
 
-            for ( it = x_values.iterator(  ); it.hasNext(  ); )
-            {
-                x = it.next(  );
-                dom1 = fs1.getDegreeOfMembership( x );
-                dom2 = fs2.getDegreeOfMembership( x );
-                dom = compute( dom1, dom2 );
+            for (it = x_values.iterator(); it.hasNext();) {
+                x = it.next();
+                dom1 = fs1.getDegreeOfMembership(x);
+                dom2 = fs2.getDegreeOfMembership(x);
+                dom = compute(dom1, dom2);
 
-                if ( ( dom != defaultValue ) ||
-                         ( ( dom == defaultValue ) && ( ( dom1 == conditionValue ) || ( dom2 == conditionValue ) ) ) )
-                {
+                if ((dom != defaultValue) ||
+                        ((dom == defaultValue) && ((dom1 == conditionValue) || (dom2 == conditionValue)))) {
                     // Es ist definitiv NICHT der SONST-Fall.
                     // Als erstes pruefen, ob beim naechst kleineren x-Wert der
                     // SONST-Fall eintreten wuerde.
-                    tmp_dom1 = fs1.getDegreeOfMembership( x - FuzzyManager.getStepwidth(  ) );
-                    tmp_dom2 = fs2.getDegreeOfMembership( x - FuzzyManager.getStepwidth(  ) );
+                    tmp_dom1 = fs1.getDegreeOfMembership(x - FuzzyManager.getStepwidth());
+                    tmp_dom2 = fs2.getDegreeOfMembership(x - FuzzyManager.getStepwidth());
 
-                    if ( ( tmp_dom1 != conditionValue ) && ( tmp_dom2 != conditionValue ) )
-                    {
+                    if ((tmp_dom1 != conditionValue) && (tmp_dom2 != conditionValue)) {
                         // Es ist definitiv der SONST-Fall.
-                        fs.set( x - FuzzyManager.getStepwidth(  ), defaultValue );
+                        fs.set(x - FuzzyManager.getStepwidth(), defaultValue);
                     }
 
-                    fs.set( x, dom );
+                    fs.set(x, dom);
                     // Zum Schluss pruefen, ob beim naechst groesseren x-Wert
                     // der SONST-Fall eintreten wuerde.
-                    tmp_dom1 = fs1.getDegreeOfMembership( x + FuzzyManager.getStepwidth(  ) );
-                    tmp_dom2 = fs2.getDegreeOfMembership( x + FuzzyManager.getStepwidth(  ) );
+                    tmp_dom1 = fs1.getDegreeOfMembership(x + FuzzyManager.getStepwidth());
+                    tmp_dom2 = fs2.getDegreeOfMembership(x + FuzzyManager.getStepwidth());
 
-                    if ( ( tmp_dom1 != conditionValue ) && ( tmp_dom2 != conditionValue ) )
-                    {
+                    if ((tmp_dom1 != conditionValue) && (tmp_dom2 != conditionValue)) {
                         // Es ist definitiv der SONST-Fall.
-                        fs.set( x + FuzzyManager.getStepwidth(  ), defaultValue );
+                        fs.set(x + FuzzyManager.getStepwidth(), defaultValue);
                     }
                 }
             }
 
-            fs.reduce(  );
+            fs.reduce();
 
             return fs;
         }

@@ -25,6 +25,7 @@ package net.sourceforge.fuzzyservices.core.defuzzification;
 
 import java.util.Collection;
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
+import net.sourceforge.fuzzyservices.core.MembershipFunction;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,79 +37,85 @@ import static org.junit.Assert.*;
 public class DefuzzificatorManagerTest {
 
     /**
-     * Test of getDefuzzificators method, of class DefuzzificatorManager.
+     * Defuzzificator for tests.
+     *
+     * @version        1.0
      */
-    @Test
-    public void testGetDefuzzificators() {
-        System.out.println("getDefuzzificators");
-        Collection<AbstractDefuzzificator> expResult = null;
-        Collection<AbstractDefuzzificator> result = DefuzzificatorManager.getDefuzzificators();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
+    public class TestDefuzzificator extends AbstractDefuzzificator {
 
-    /**
-     * Test of getDefuzzificator method, of class DefuzzificatorManager.
-     */
-    @Test
-    public void testGetDefuzzificator() {
-        System.out.println("getDefuzzificator");
-        String name = "";
-        AbstractDefuzzificator expResult = null;
-        AbstractDefuzzificator result = DefuzzificatorManager.getDefuzzificator(name);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
 
-    /**
-     * Test of registerDefuzzificator method, of class DefuzzificatorManager.
-     */
-    @Test
-    public void testRegisterDefuzzificator() {
-        System.out.println("registerDefuzzificator");
-        AbstractDefuzzificator defuzzy = null;
-        AbstractDefuzzificator expResult = null;
-        AbstractDefuzzificator result = DefuzzificatorManager.registerDefuzzificator(defuzzy);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        @Override
+        public float defuzzify(final MembershipFunction membershipFunction) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public String getName() {
+            return "TestDefuzzificator";
+        }
     }
 
     /**
      * Test of getDefuzzificators method, of class DefuzzificatorManager.
      */
     @Test
-    public void testGetDefuzzificators1() {
+    public final void testGetDefuzzificators() {
         System.out.println("getDefuzzificators");
+        // Any defuzzificators already exist
         Collection<AbstractDefuzzificator> expResult = null;
         Collection<AbstractDefuzzificator> result = DefuzzificatorManager.getDefuzzificators();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        int size = result.size();
+        AbstractDefuzzificator defuzzificator = new TestDefuzzificator();
+        DefuzzificatorManager.registerDefuzzificator(defuzzificator);
+        result = DefuzzificatorManager.getDefuzzificators();
+        assertNotNull(result);
+        int newSize = result.size();
+        assertEquals(size + 1, newSize);
     }
 
     /**
      * Test of getDefuzzificator method, of class DefuzzificatorManager.
      */
     @Test
-    public void testGetDefuzzificator_String() {
+    public final void testGetDefuzzificator() {
         System.out.println("getDefuzzificator");
-        String name = "";
-        AbstractDefuzzificator expResult = null;
+        AbstractDefuzzificator expResult = new TestDefuzzificator();
+        String name = expResult.getName();
+        DefuzzificatorManager.registerDefuzzificator(expResult);
         AbstractDefuzzificator result = DefuzzificatorManager.getDefuzzificator(name);
+        assertNotNull(result);
+        assertEquals(result, expResult);
+
+        // What happens when parameter is null?
+        expResult = null;
+        name = null;
+        result = DefuzzificatorManager.getDefuzzificator(name);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // What happens when defuzzificator is unknown?
+        expResult = null;
+        name = "";
+        result = DefuzzificatorManager.getDefuzzificator(name);
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of registerDefuzzificator method, of class DefuzzificatorManager.
      */
     @Test
-    public void testRegisterDefuzzificator_AbstractDefuzzificator() {
+    public final void testRegisterDefuzzificator() {
         System.out.println("registerDefuzzificator");
-        AbstractDefuzzificator defuzzy = null;
-        AbstractDefuzzificator expResult = null;
-        AbstractDefuzzificator result = DefuzzificatorManager.registerDefuzzificator(defuzzy);
+        AbstractDefuzzificator expResult = new TestDefuzzificator();
+        DefuzzificatorManager.registerDefuzzificator(expResult);
+        AbstractDefuzzificator result = DefuzzificatorManager.getDefuzzificator(expResult.getName());
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
 
+        // What happens when parameter is null?
+        DefuzzificatorManager.registerDefuzzificator(null);
+    }
 }

@@ -35,48 +35,42 @@ import java.util.Map;
  * @version 1.0
  * @author Uwe Weng
  */
-public class DefuzzificatorManager
-{
+public final class DefuzzificatorManager {
+
     /**
      * Contains all known defuzzificators of the fuzzy system with its name as
      * key.
      */
     private static Map<String, AbstractDefuzzificator> defuzzyOperators =
-        new HashMap<String, AbstractDefuzzificator>(  );
+            new HashMap<String, AbstractDefuzzificator>();
+    
 
-    static
-    {
-        initDefuzzificators(  );
+    static {
+        initDefuzzificators();
     }
 
     /**
      * The defuzzificator manager is a static class.
      */
-    private DefuzzificatorManager(  )
-    {
+    private DefuzzificatorManager() {
         // Not allowed
     }
 
     /**
-     * Initializes the list of defuzzicators while loading the fuzzy manager.
+     * Initializes the list of defuzzicators while loading the defuzzificator manager.
      */
-    private static void initDefuzzificators(  )
-    {
-        CenterOfArea center = new CenterOfArea(  );
-        defuzzyOperators.put( center.toString(  ),
-                              center );
+    private static void initDefuzzificators() {
+        CenterOfArea center = new CenterOfArea();
+        defuzzyOperators.put(center.getName(), center);
 
-        LeftOfMax left = new LeftOfMax(  );
-        defuzzyOperators.put( left.toString(  ),
-                              left );
+        LeftOfMax left = new LeftOfMax();
+        defuzzyOperators.put(left.getName(), left);
 
-        MeanOfMax mean = new MeanOfMax(  );
-        defuzzyOperators.put( mean.toString(  ),
-                              mean );
+        MeanOfMax mean = new MeanOfMax();
+        defuzzyOperators.put(mean.getName(), mean);
 
-        RightOfMax right = new RightOfMax(  );
-        defuzzyOperators.put( right.toString(  ),
-                              right );
+        RightOfMax right = new RightOfMax();
+        defuzzyOperators.put(right.getName(), right);
     }
 
     /**
@@ -85,13 +79,11 @@ public class DefuzzificatorManager
      * @return a collection with defuzzificators
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static Collection<AbstractDefuzzificator> getDefuzzificators(  )
-    {
-        int size = defuzzyOperators.size(  );
+    public static Collection<AbstractDefuzzificator> getDefuzzificators() {
+        int size = defuzzyOperators.size();
 
-        if ( size > 0 )
-        {
-            return defuzzyOperators.values(  );
+        if (size > 0) {
+            return defuzzyOperators.values();
         }
 
         return null;
@@ -100,27 +92,24 @@ public class DefuzzificatorManager
     /**
      * Returns the defuzzificator with the passed name.
      *
-     * @param name the name as identifierAbstractDefuzzificatornstance of type
-     * <code>Defuzzificator</code> or <AbstractDefuzzificatore> if not found
+     * @param name the name as identifier of type
+     * <code>AbstractDefuzzificator</code> or <code>null</code> if not found
      * @return the selected defuzzificator
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static AbstractDefuzzificator getDefuzzificator( String name )
-    {
-        return defuzzyOperators.get( name );
+    public static AbstractDefuzzificator getDefuzzificator(final String name) {
+        return defuzzyOperators.get(name);
     }
 
     /**
      * Registers a new defuzzificator on fuzzy system.
      *
-     * @param defuzzy the new defuzzificaAbstractDefuzzificatorering
-     * @return an instance of type <code>Defuzzificator</code> if such object
-     * with tAbstractDefuzzificatorlready exists or <code>null</code>
+     * @param defuzzy the new defuzzificator
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static AbstractDefuzzificator registerDefuzzificator( AbstractDefuzzificator defuzzy )
-    {
-        return defuzzyOperators.put( defuzzy.toString(  ),
-                                     defuzzy );
+    public static void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
+        if (defuzzy != null) {
+            defuzzyOperators.put(defuzzy.getName(), defuzzy);
+        }
     }
 }

@@ -37,7 +37,7 @@ public class AntecedentTest {
      * Test of getCompatibilityOperator method, of class Antecedent.
      */
     @Test
-    public void testGetCompatibilityOperator() {
+    public final void testGetCompatibilityOperator() {
         System.out.println("getCompatibilityOperator");
         Antecedent instance = null;
         AbstractOperator expResult = null;
@@ -50,7 +50,7 @@ public class AntecedentTest {
      * Test of getDefaultCompatibilityOperator method, of class Antecedent.
      */
     @Test
-    public void testGetDefaultCompatibilityOperator() {
+    public final void testGetDefaultCompatibilityOperator() {
         System.out.println("getDefaultCompatibilityOperator");
         AbstractOperator expResult = null;
         AbstractOperator result = Antecedent.getDefaultCompatibilityOperator();
@@ -62,7 +62,7 @@ public class AntecedentTest {
      * Test of setCompatibilityOperator method, of class Antecedent.
      */
     @Test
-    public void testSetCompatibilityOperator() {
+    public final void testSetCompatibilityOperator() {
         System.out.println("setCompatibilityOperator");
         AbstractOperator compOp = null;
         Antecedent instance = null;
@@ -74,7 +74,7 @@ public class AntecedentTest {
      * Test of setDefaultCompatibilityOperator method, of class Antecedent.
      */
     @Test
-    public void testSetDefaultCompatibilityOperator() {
+    public final void testSetDefaultCompatibilityOperator() {
         System.out.println("setDefaultCompatibilityOperator");
         AbstractOperator compOp = null;
         Antecedent.setDefaultCompatibilityOperator(compOp);

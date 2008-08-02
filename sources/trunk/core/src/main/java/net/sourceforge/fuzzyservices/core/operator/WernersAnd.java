@@ -36,9 +36,9 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class WernersAnd
-    extends AbstractComplexParameteredOperator
-    implements Serializable
-{
+        extends AbstractComplexParameteredOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
@@ -48,9 +48,8 @@ public class WernersAnd
      * Default constructor. The first parameter is the default parameter.
      * @see #getDefaultParameter
      */
-    public WernersAnd(  )
-    {
-        super(  );
+    public WernersAnd() {
+        super();
     }
 
     /**
@@ -59,81 +58,68 @@ public class WernersAnd
      * @exception IllegalArgumentException if <code>param</code> is an invalid
      * parameter
      */
-    public WernersAnd( final float param )
-               throws IllegalArgumentException
-    {
-        if ( isValidParameter( param ) )
-        {
+    public WernersAnd(final float param)
+            throws IllegalArgumentException {
+        if (isValidParameter(param)) {
             this.parameter = param;
-        } else
-        {
-            throw new IllegalArgumentException( FuzzyResourceManager.getString( this,
-                                                                                "EXCEPTION_OPERATOR_WERNERS_AND_INVALID_PARAMETER" ) );
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this,
+                    "EXCEPTION_OPERATOR_WERNERS_AND_INVALID_PARAMETER"));
         }
     }
 
     @Override
-    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
-    {
+    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         // Special cases
-        if ( parameter == 1.0f )
-        {
-            Min min = new Min(  );
+        if (parameter == 1.0f) {
+            Min min = new Min();
 
-            return min.combine( fs1, fs2 );
+            return min.combine(fs1, fs2);
         }
 
-        return super.combine( fs1, fs2 );
+        return super.combine(fs1, fs2);
     }
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
-        return ( ( parameter == 1.0f ) ? true : false );
+    public final boolean isValidTNorm() {
+        return ((parameter == 1.0f) ? true : false);
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return false;
     }
 
     @Override
-    public final boolean isValidParameter( final float param )
-    {
-        return ( ( ( param >= 0.0f ) && ( param <= 1.0f ) ) ? true : false );
+    public final boolean isValidParameter(final float param) {
+        return (((param >= 0.0f) && (param <= 1.0f)) ? true : false);
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
-        return ( ( parameter * Math.min( a, b ) ) + ( ( 1.0f / 2.0f ) * ( 1.0f - parameter ) * ( a + b ) ) );
+    public final float compute(final float a, final float b) {
+        return ((parameter * Math.min(a, b)) + ((1.0f / 2.0f) * (1.0f - parameter) * (a + b)));
     }
 
     @Override
-    public String toString( final boolean withParameter )
-    {
-        String str = FuzzyResourceManager.getString( this, "OPERATOR_WERNERS_AND" );
+    public String toString(final boolean withParameter) {
+        String str = FuzzyResourceManager.getString(this, "OPERATOR_WERNERS_AND");
 
-        if ( withParameter )
-        {
-            str = FuzzyResourceManager.getString( this,
-                                                  "OPERATOR_WERNERS_AND_WITH_PARAMETER",
-                                                  new Object[] { Float.toString( parameter ) } );
+        if (withParameter) {
+            str = FuzzyResourceManager.getString(this,
+                    "OPERATOR_WERNERS_AND_WITH_PARAMETER",
+                    new Object[]{Float.toString(parameter)});
         }
 
         return str;
     }
 
     @Override
-    public final float getDefaultParameter(  )
-    {
+    public final float getDefaultParameter() {
         return 0.0f;
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_WERNERS_AND" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_WERNERS_AND");
     }
 }

@@ -23,7 +23,6 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
-
 /**
  * There are different methods to defuzzify a membership function in order to get a crisp value.<p>
  * The <strong>abstract</strong> class <code>AbstractDefuzzificator</code> is the base class for implementing different
@@ -32,12 +31,18 @@ package net.sourceforge.fuzzyservices.core;
  * @version 1.0
  * @author Uwe Weng
  */
-public abstract class AbstractDefuzzificator
-{
+public abstract class AbstractDefuzzificator {
+
+    /**
+     * Returns the name property.
+     * @return name of defuzzificator
+     */
+    public abstract String getName();
+
     /**
      * Defuzzifies the membership function object.
      * @return The crisp value as result of the defuzzification
      * @param membershipFunction The membership function to be defuzzified
      */
-    public abstract float defuzzify( final MembershipFunction membershipFunction );
+    public abstract float defuzzify(final MembershipFunction membershipFunction);
 }

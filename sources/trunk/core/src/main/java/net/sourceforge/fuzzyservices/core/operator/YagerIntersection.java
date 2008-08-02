@@ -36,9 +36,9 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class YagerIntersection
-    extends AbstractComplexParameteredOperator
-    implements Serializable
-{
+        extends AbstractComplexParameteredOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
@@ -48,9 +48,8 @@ public class YagerIntersection
      * Default constructor. The first parameter is the default parameter.
      * @see #getDefaultParameter
      */
-    public YagerIntersection(  )
-    {
-        super(  );
+    public YagerIntersection() {
+        super();
     }
 
     /**
@@ -59,92 +58,78 @@ public class YagerIntersection
      * @exception IllegalArgumentException if <code>param</code> is an invalid
      * parameter
      */
-    public YagerIntersection( final float param )
-                      throws IllegalArgumentException
-    {
-        if ( isValidParameter( param ) )
-        {
+    public YagerIntersection(final float param)
+            throws IllegalArgumentException {
+        if (isValidParameter(param)) {
             this.parameter = param;
-        } else
-        {
-            throw new IllegalArgumentException( FuzzyResourceManager.getString( this,
-                                                                                "EXCEPTION_OPERATOR_YAGER_INTERSECTION_INVALID_PARAMETER" ) );
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this,
+                    "EXCEPTION_OPERATOR_YAGER_INTERSECTION_INVALID_PARAMETER"));
         }
     }
 
     @Override
-    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
-    {
+    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         // Special cases
-        if ( parameter == 1.0f )
-        {
-            BoundedDifference bd = new BoundedDifference(  );
+        if (parameter == 1.0f) {
+            BoundedDifference bd = new BoundedDifference();
 
-            return bd.combine( fs1, fs2 );
+            return bd.combine(fs1, fs2);
         }
 
-        if ( parameter == Float.MAX_VALUE )
-        { // nach Tilli, S. 52
+        if (parameter == Float.MAX_VALUE) { // nach Tilli, S. 52
 
-            Min min = new Min(  );
+            Min min = new Min();
 
-            return min.combine( fs1, fs2 );
+            return min.combine(fs1, fs2);
         }
 
-        return super.combine( fs1, fs2 );
+        return super.combine(fs1, fs2);
     }
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
+    public final boolean isValidTNorm() {
         return true;
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return false;
     }
 
     @Override
-    public final boolean isValidParameter( final float param )
-    {
-        return ( ( param >= 1.0f ) ? true : false );
+    public final boolean isValidParameter(final float param) {
+        return ((param >= 1.0f) ? true : false);
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
-        return ( 1.0f -
-               Math.min( 1.0f,
-                         (float) Math.pow( ( (float) ( Math.pow( ( 1.0f - a ), parameter ) ) +
-                                           (float) ( Math.pow( ( 1.0f - b ), parameter ) ) ), ( 1.0f / parameter ) ) ) );
+    public final float compute(final float a, final float b) {
+        return (1.0f -
+                Math.min(1.0f,
+                (float) Math.pow(((float) (Math.pow((1.0f - a), parameter)) +
+                (float) (Math.pow((1.0f - b), parameter))), (1.0f / parameter))));
     }
 
     @Override
-    public String toString( final boolean withParameter )
-    {
-        String str = FuzzyResourceManager.getString( this, "OPERATOR_YAGER_INTERSECTION" );
+    public String toString(final boolean withParameter) {
+        String str = FuzzyResourceManager.getString(this, "OPERATOR_YAGER_INTERSECTION");
 
-        if ( withParameter )
-        {
-            str = FuzzyResourceManager.getString( this,
-                                                  "OPERATOR_YAGER_INTERSECTION_WITH_PARAMETER",
-                                                  new Object[] { Float.toString( parameter ) } );
+        if (withParameter) {
+            str = FuzzyResourceManager.getString(this,
+                    "OPERATOR_YAGER_INTERSECTION_WITH_PARAMETER",
+                    new Object[]{Float.toString(parameter)});
         }
 
         return str;
     }
 
     @Override
-    public final float getDefaultParameter(  )
-    {
+    public final float getDefaultParameter() {
         return 1.0f;
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_YAGER_INTERSECTION" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_YAGER_INTERSECTION");
     }
 }

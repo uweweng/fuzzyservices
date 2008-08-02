@@ -37,7 +37,7 @@ public class FuzzyLRIntervalTest {
      * Test of getAlpha method, of class FuzzyLRInterval.
      */
     @Test
-    public void testGetAlpha() {
+    public final void testGetAlpha() {
         System.out.println("getAlpha");
         FuzzyLRInterval instance = new FuzzyLRInterval();
         float expResult = 0.0F;
@@ -50,7 +50,7 @@ public class FuzzyLRIntervalTest {
      * Test of getBeta method, of class FuzzyLRInterval.
      */
     @Test
-    public void testGetBeta() {
+    public final void testGetBeta() {
         System.out.println("getBeta");
         FuzzyLRInterval instance = new FuzzyLRInterval();
         float expResult = 0.0F;
@@ -63,7 +63,7 @@ public class FuzzyLRIntervalTest {
      * Test of invert method, of class FuzzyLRInterval.
      */
     @Test
-    public void testInvert() {
+    public final void testInvert() {
         System.out.println("invert");
         FuzzyLRInterval instance = new FuzzyLRInterval();
         instance.invert();
@@ -74,7 +74,7 @@ public class FuzzyLRIntervalTest {
      * Test of isNegative method, of class FuzzyLRInterval.
      */
     @Test
-    public void testIsNegative() {
+    public final void testIsNegative() {
         System.out.println("isNegative");
         FuzzyLRInterval instance = new FuzzyLRInterval();
         boolean expResult = false;
@@ -87,7 +87,7 @@ public class FuzzyLRIntervalTest {
      * Test of isPositive method, of class FuzzyLRInterval.
      */
     @Test
-    public void testIsPositive() {
+    public final void testIsPositive() {
         System.out.println("isPositive");
         FuzzyLRInterval instance = new FuzzyLRInterval();
         boolean expResult = false;
@@ -100,7 +100,7 @@ public class FuzzyLRIntervalTest {
      * Test of negate method, of class FuzzyLRInterval.
      */
     @Test
-    public void testNegate() {
+    public final void testNegate() {
         System.out.println("negate");
         FuzzyLRInterval instance = new FuzzyLRInterval();
         instance.negate();
@@ -111,7 +111,7 @@ public class FuzzyLRIntervalTest {
      * Test of remove method, of class FuzzyLRInterval.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         float x = 0.0F;
         FuzzyLRInterval instance = new FuzzyLRInterval();
@@ -125,7 +125,7 @@ public class FuzzyLRIntervalTest {
      * Test of set method, of class FuzzyLRInterval.
      */
     @Test
-    public void testSet() {
+    public final void testSet() {
         System.out.println("set");
         float x = 0.0F;
         float dom = 0.0F;
@@ -140,7 +140,7 @@ public class FuzzyLRIntervalTest {
      * Test of toString method, of class FuzzyLRInterval.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
         FuzzyLRInterval instance = new FuzzyLRInterval();

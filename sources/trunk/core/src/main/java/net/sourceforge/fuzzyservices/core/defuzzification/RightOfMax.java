@@ -41,33 +41,27 @@ import java.util.Iterator;
  * @author Uwe Weng
  * @version 1.0
  */
-public class RightOfMax
-    extends AbstractDefuzzificator
-    implements Serializable
-{
+public class RightOfMax extends AbstractDefuzzificator implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final float defuzzify( final MembershipFunction membershipFunction )
-    {
+    public final float defuzzify(final MembershipFunction membershipFunction) {
         float retfloat = Float.NaN;
 
-        if ( membershipFunction != null )
-        {
+        if (membershipFunction != null) {
             float x;
             float dom;
             float maxDoM = 0.0f;
 
-            for ( Iterator<Float> it = membershipFunction.iterator(  ); it.hasNext(  ); )
-            {
-                x = it.next(  ).floatValue(  );
-                dom = membershipFunction.getDegreeOfMembership( x );
+            for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
+                x = it.next().floatValue();
+                dom = membershipFunction.getDegreeOfMembership(x);
 
-                if ( dom >= maxDoM )
-                {
+                if (dom >= maxDoM) {
                     maxDoM = dom;
                     retfloat = x;
                 }
@@ -78,8 +72,12 @@ public class RightOfMax
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "DEFUZZIFICATOR_RIGHT_OF_MAX" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_RIGHT_OF_MAX");
+    }
+
+    @Override
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_RIGHT_OF_MAX");
     }
 }

@@ -38,9 +38,7 @@ import java.util.Iterator;
  * @author Uwe Weng
  * @version 1.0
  */
-public class LeftOfMax
-        extends AbstractDefuzzificator
-        implements Serializable {
+public class LeftOfMax extends AbstractDefuzzificator implements Serializable {
 
     /**
      * Default serial version UID.
@@ -48,7 +46,7 @@ public class LeftOfMax
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final float defuzzify(MembershipFunction membershipFunction) {
+    public final float defuzzify(final MembershipFunction membershipFunction) {
         float retfloat = Float.NaN;
 
         if (membershipFunction != null) {
@@ -76,6 +74,11 @@ public class LeftOfMax
 
     @Override
     public String toString() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_LEFT_OF_MAX");
+    }
+
+    @Override
+    public String getName() {
         return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_LEFT_OF_MAX");
     }
 }

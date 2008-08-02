@@ -36,9 +36,9 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class HamacherIntersection
-    extends AbstractMultiplyingParameteredOperator
-    implements Serializable
-{
+        extends AbstractMultiplyingParameteredOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
@@ -48,9 +48,8 @@ public class HamacherIntersection
      * Default constructor. The first parameter is the default parameter.
      * @see #getDefaultParameter
      */
-    public HamacherIntersection(  )
-    {
-        super(  );
+    public HamacherIntersection() {
+        super();
     }
 
     /**
@@ -59,95 +58,79 @@ public class HamacherIntersection
      * @exception IllegalArgumentException if <code>param</code> is an invalid
      * parameter
      */
-    public HamacherIntersection( final float param )
-                         throws IllegalArgumentException
-    {
-        if ( isValidParameter( param ) )
-        {
+    public HamacherIntersection(final float param)
+            throws IllegalArgumentException {
+        if (isValidParameter(param)) {
             this.parameter = param;
-        } else
-        {
-            throw new IllegalArgumentException( FuzzyResourceManager.getString( this,
-                                                                                "EXCEPTION_OPERATOR_HAMACHER_INTERSECTION_INVALID_PARAMETER" ) );
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this,
+                    "EXCEPTION_OPERATOR_HAMACHER_INTERSECTION_INVALID_PARAMETER"));
         }
     }
 
     @Override
-    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
-    {
+    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
         // Special cases
-        if ( parameter == 0.0f )
-        {
-            HamacherProduct hp = new HamacherProduct(  );
+        if (parameter == 0.0f) {
+            HamacherProduct hp = new HamacherProduct();
 
-            return hp.combine( fs1, fs2 );
+            return hp.combine(fs1, fs2);
         }
 
-        if ( parameter == 1.0f )
-        {
-            AlgebraicProduct ap = new AlgebraicProduct(  );
+        if (parameter == 1.0f) {
+            AlgebraicProduct ap = new AlgebraicProduct();
 
-            return ap.combine( fs1, fs2 );
+            return ap.combine(fs1, fs2);
         }
 
-        if ( parameter == Float.MAX_VALUE )
-        { // nach Tilli, S. 52
+        if (parameter == Float.MAX_VALUE) { // nach Tilli, S. 52
 
-            DrasticProduct dp = new DrasticProduct(  );
+            DrasticProduct dp = new DrasticProduct();
 
-            return dp.combine( fs1, fs2 );
+            return dp.combine(fs1, fs2);
         }
 
-        return super.combine( fs1, fs2 );
+        return super.combine(fs1, fs2);
     }
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
+    public final boolean isValidTNorm() {
         return true;
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return false;
     }
 
     @Override
-    public final boolean isValidParameter( final float param )
-    {
-        return ( ( param >= 0.0f ) ? true : false );
+    public final boolean isValidParameter(final float param) {
+        return ((param >= 0.0f) ? true : false);
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
-        return ( ( a * b ) / ( parameter + ( ( 1 - parameter ) * ( ( a + b ) - ( a * b ) ) ) ) );
+    public final float compute(final float a, final float b) {
+        return ((a * b) / (parameter + ((1 - parameter) * ((a + b) - (a * b)))));
     }
 
     @Override
-    public String toString( final boolean withParameter )
-    {
-        if ( withParameter )
-        {
-            return FuzzyResourceManager.getString( this,
-                                                   "OPERATOR_HAMACHER_INTERSECTION_WITH_PARAMETER",
-                                                   new Object[] { Float.toString( parameter ) } );
-        } else
-        {
-            return FuzzyResourceManager.getString( this, "OPERATOR_HAMACHER_INTERSECTION" );
+    public String toString(final boolean withParameter) {
+        if (withParameter) {
+            return FuzzyResourceManager.getString(this,
+                    "OPERATOR_HAMACHER_INTERSECTION_WITH_PARAMETER",
+                    new Object[]{Float.toString(parameter)});
+        } else {
+            return FuzzyResourceManager.getString(this, "OPERATOR_HAMACHER_INTERSECTION");
         }
     }
 
     @Override
-    public final float getDefaultParameter(  )
-    {
+    public final float getDefaultParameter() {
         return 0.0f;
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_HAMACHER_INTERSECTION" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_HAMACHER_INTERSECTION");
     }
 }

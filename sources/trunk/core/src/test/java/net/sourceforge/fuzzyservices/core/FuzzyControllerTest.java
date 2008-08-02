@@ -37,7 +37,7 @@ public class FuzzyControllerTest {
      * Test of getInstance method, of class FuzzyController.
      */
     @Test
-    public void testGetInstance() {
+    public final void testGetInstance() {
         System.out.println("getInstance");
         FuzzyController expResult = null;
         FuzzyController result = FuzzyController.getInstance();
@@ -49,7 +49,7 @@ public class FuzzyControllerTest {
      * Test of performApproximateReasoning method, of class FuzzyController.
      */
     @Test
-    public void testPerformApproximateReasoning() {
+    public final void testPerformApproximateReasoning() {
         System.out.println("performApproximateReasoning");
         RuleBase aRuleBase = null;
         FactBase aFactBase = null;

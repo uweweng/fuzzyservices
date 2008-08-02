@@ -39,97 +39,85 @@ import java.util.Iterator;
  * @author Uwe Weng
  */
 public abstract class AbstractLinearOperator
-    extends AbstractOperator
-    implements Serializable
-{
+        extends AbstractOperator
+        implements Serializable {
+
     @Override
-    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
-    {
-        if ( ( fs1 != null ) && ( fs2 != null ) )
-        {
-            FuzzySet fs = new FuzzySet(  );
-            int size1 = fs1.size(  );
-            int size2 = fs2.size(  );
+    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+        if ((fs1 != null) && (fs2 != null)) {
+            FuzzySet fs = new FuzzySet();
+            int size1 = fs1.size();
+            int size2 = fs2.size();
             float x;
 
             // Because of better performance we iterate the fuzzy set with most
             // points at first.
-            if ( size1 >= size2 )
-            {
-                for ( Iterator<Float> it = fs1.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+            if (size1 >= size2) {
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
 
-                for ( Iterator<Float> it = fs2.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
             }
 
-            if ( size1 < size2 )
-            { // it is the else-clause of if-clause above
+            if (size1 < size2) { // it is the else-clause of if-clause above
 
-                for ( Iterator<Float> it = fs2.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
 
-                for ( Iterator<Float> it = fs1.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
             }
 
             // Singleton requires a special treatment.
-            if ( size1 == 1 )
-            {
-                Iterator<Float> it = fs1.iterator(  );
-                x = it.next(  );
-                fs.set( x - FuzzyManager.getStepwidth(  ),
-                        compute( 0.0f,
-                                 fs2.getDegreeOfMembership( x - FuzzyManager.getStepwidth(  ) ) ) );
-                fs.set( x + FuzzyManager.getStepwidth(  ),
-                        compute( 0.0f,
-                                 fs2.getDegreeOfMembership( x + FuzzyManager.getStepwidth(  ) ) ) );
+            if (size1 == 1) {
+                Iterator<Float> it = fs1.iterator();
+                x = it.next();
+                fs.set(x - FuzzyManager.getStepwidth(),
+                        compute(0.0f,
+                        fs2.getDegreeOfMembership(x - FuzzyManager.getStepwidth())));
+                fs.set(x + FuzzyManager.getStepwidth(),
+                        compute(0.0f,
+                        fs2.getDegreeOfMembership(x + FuzzyManager.getStepwidth())));
             }
 
-            if ( size2 == 1 )
-            {
-                Iterator<Float> it = fs2.iterator(  );
-                x = it.next(  );
-                fs.set( x - FuzzyManager.getStepwidth(  ),
-                        compute( fs1.getDegreeOfMembership( x - FuzzyManager.getStepwidth(  ) ),
-                                 0.0f ) );
-                fs.set( x + FuzzyManager.getStepwidth(  ),
-                        compute( fs1.getDegreeOfMembership( x + FuzzyManager.getStepwidth(  ) ),
-                                 0.0f ) );
+            if (size2 == 1) {
+                Iterator<Float> it = fs2.iterator();
+                x = it.next();
+                fs.set(x - FuzzyManager.getStepwidth(),
+                        compute(fs1.getDegreeOfMembership(x - FuzzyManager.getStepwidth()),
+                        0.0f));
+                fs.set(x + FuzzyManager.getStepwidth(),
+                        compute(fs1.getDegreeOfMembership(x + FuzzyManager.getStepwidth()),
+                        0.0f));
             }
 
             // Or: Jetzt fehlen nur noch die Schnittpunkte.
-            if ( ( size1 > 1 ) && ( size2 > 1 ) )
-            {
-                float minX1 = fs1.getMinDefinedX(  );
-                float maxX1 = fs1.getMaxDefinedX(  );
-                float minX2 = fs2.getMinDefinedX(  );
-                float maxX2 = fs2.getMaxDefinedX(  );
+            if ((size1 > 1) && (size2 > 1)) {
+                float minX1 = fs1.getMinDefinedX();
+                float maxX1 = fs1.getMaxDefinedX();
+                float minX2 = fs2.getMinDefinedX();
+                float maxX2 = fs2.getMaxDefinedX();
                 boolean notCutting =
-                    ( ( ( minX1 <= minX2 ) && ( maxX1 <= minX2 ) ) || ( ( minX1 >= minX2 ) && ( minX1 >= maxX2 ) ) );
+                        (((minX1 <= minX2) && (maxX1 <= minX2)) || ((minX1 >= minX2) && (minX1 >= maxX2)));
 
-                if ( ! notCutting )
-                {
+                if (!notCutting) {
                     /**
                      * Folglich liegen Ueberschneidungen vor. Es wird
                      * ausgenutzt, dass die neue Fuzzy-Menge bereits die
@@ -138,7 +126,7 @@ public abstract class AbstractLinearOperator
                      * Vorzeichenwechsel bei der Zugehoerigkeitsdifferenz
                      * zwischen zwei Punkten vorliegt.
                      */
-                    Iterator<Float> it = fs.iterator(  );
+                    Iterator<Float> it = fs.iterator();
 
                     float xLeft;
                     float xRight;
@@ -148,19 +136,17 @@ public abstract class AbstractLinearOperator
                     float domRight2;
                     float slope1;
                     float slope2;
-                    xLeft = it.next(  );
-                    domLeft1 = fs1.getDegreeOfMembership( xLeft );
-                    domLeft2 = fs2.getDegreeOfMembership( xLeft );
+                    xLeft = it.next();
+                    domLeft1 = fs1.getDegreeOfMembership(xLeft);
+                    domLeft2 = fs2.getDegreeOfMembership(xLeft);
 
-                    while ( it.hasNext(  ) )
-                    {
-                        xRight = it.next(  );
-                        domRight1 = fs1.getDegreeOfMembership( xRight );
-                        domRight2 = fs2.getDegreeOfMembership( xRight );
+                    while (it.hasNext()) {
+                        xRight = it.next();
+                        domRight1 = fs1.getDegreeOfMembership(xRight);
+                        domRight2 = fs2.getDegreeOfMembership(xRight);
 
-                        if ( ( ( domLeft1 > domRight1 ) && ( domLeft2 < domRight2 ) ) ||
-                                 ( ( domLeft1 < domRight1 ) && ( domLeft2 > domRight2 ) ) )
-                        {
+                        if (((domLeft1 > domRight1) && (domLeft2 < domRight2)) ||
+                                ((domLeft1 < domRight1) && (domLeft2 > domRight2))) {
                             /**
                              * Es liegt ein Vorzeichenwechsel vor.
                              * Der genaue x-Wert, bei dem sich die
@@ -174,13 +160,13 @@ public abstract class AbstractLinearOperator
                              * slope2 = fs2.getSlope(xLeft, xRight);
                              * identisch mit ...
                              */
-                            slope1 = ( ( domRight1 - domLeft1 ) / ( xRight - xLeft ) );
-                            slope2 = ( ( domRight2 - domLeft2 ) / ( xRight - xLeft ) );
+                            slope1 = ((domRight1 - domLeft1) / (xRight - xLeft));
+                            slope2 = ((domRight2 - domLeft2) / (xRight - xLeft));
                             // Fuer y = y' gilt: x = (a - a') / (b' - b)
-                            x = xLeft + ( ( domLeft2 - domLeft1 ) / ( slope1 - slope2 ) );
-                            fs.set( x,
-                                    compute( fs1.getDegreeOfMembership( x ),
-                                             fs2.getDegreeOfMembership( x ) ) );
+                            x = xLeft + ((domLeft2 - domLeft1) / (slope1 - slope2));
+                            fs.set(x,
+                                    compute(fs1.getDegreeOfMembership(x),
+                                    fs2.getDegreeOfMembership(x)));
                         }
 
                         xLeft = xRight;
@@ -190,7 +176,7 @@ public abstract class AbstractLinearOperator
                 }
             }
 
-            fs.reduce(  );
+            fs.reduce();
 
             return fs;
         }

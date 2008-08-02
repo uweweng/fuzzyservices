@@ -23,63 +23,105 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.utils;
 
-import junit.framework.*;
-
 import java.util.Locale;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * Test for class <code>FuzzyResourceManager</code>
+ * Test of class FuzzyResourceManagerTest.
  *
  * @author Uwe Weng
  */
-public class FuzzyResourceManagerTest
-        extends TestCase {
-
-    public FuzzyResourceManagerTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp()
-            throws Exception {
-    }
-
-    protected void tearDown()
-            throws Exception {
-    }
+public class FuzzyResourceManagerTest {
 
     /**
-     * Test of getString method, of class net.sourceforge.fuzzyservices.utils.FuzzyResourceManager.
+     * Test of getString method, of class FuzzyResourceManager.
      */
-    public final void testGetString() {
+    @Test
+    public final void testGetStringObjectString() {
+        System.out.println("getString");
+        Object caller = this;
         String name = "TEST";
-
         String expResult = "Test.de";
         FuzzyResourceManager.setLocale(Locale.GERMAN);
-
-        String result = FuzzyResourceManager.getString(FuzzyResourceManager.class, name);
+        String result = FuzzyResourceManager.getString(caller, name);
         assertEquals(expResult, result);
-
     }
 
     /**
-     * Test of getLocale method, of class net.sourceforge.fuzzyservices.utils.FuzzyResourceManager.
+     * Test of getString method, of class FuzzyResourceManager.
      */
-    public final void testGetLocale() {
-        Locale expResult = Locale.getDefault();
-        FuzzyResourceManager.setLocale(expResult);
+    @Test
+    public final void testGetStringClassString() {
+        System.out.println("getString");
+        Class caller = FuzzyResourceManager.class;
+        // Get string in german language
+        String name = "TEST";
+        String expResult = "Test.de";
+        FuzzyResourceManager.setLocale(Locale.GERMAN);
+        String result = FuzzyResourceManager.getString(caller, name);
+        assertEquals(expResult, result);
 
+        // Get string in default language. It is german, too.
+        FuzzyResourceManager.setLocale(null);
+        result = FuzzyResourceManager.getString(caller, name);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getString method, of class FuzzyResourceManager.
+     */
+    @Test
+    public final void testGetString3args1() {
+        System.out.println("getString");
+        Object caller = this;
+        String name = "TESTPARAMS";
+        Object[] params = new Object[]{"Test"};
+        String expResult = "Test.de";
+        String result = FuzzyResourceManager.getString(caller, name, params);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getString method, of class FuzzyResourceManager.
+     */
+    @Test
+    public final void testGetString3args2() {
+        System.out.println("getString");
+        Class caller = FuzzyResourceManager.class;
+        String name = "TESTPARAMS";
+        Object[] params = new Object[]{"Test"};
+        String expResult = "Test.de";
+        String result = FuzzyResourceManager.getString(caller, name, params);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getLocale method, of class FuzzyResourceManager.
+     */
+    @Test
+    public final void testGetLocale() {
+        System.out.println("getLocale");
+        Locale expResult = Locale.GERMAN;
+        FuzzyResourceManager.setLocale(Locale.GERMAN);
         Locale result = FuzzyResourceManager.getLocale();
         assertEquals(expResult, result);
+
+        // No locale means default locale.
+        FuzzyResourceManager.setLocale(null);
+        expResult = Locale.getDefault();
+        result = FuzzyResourceManager.getLocale();
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of setLocale method, of class net.sourceforge.fuzzyservices.utils.FuzzyResourceManager.
+     * Test of setLocale method, of class FuzzyResourceManager.
      */
+    @Test
     public final void testSetLocale() {
+        System.out.println("setLocale");
         Locale newLocale = Locale.GERMAN;
-
         FuzzyResourceManager.setLocale(newLocale);
-        assertEquals(FuzzyResourceManager.getLocale(),
-                newLocale);
+        assertEquals(FuzzyResourceManager.getLocale(), newLocale);
     }
 }

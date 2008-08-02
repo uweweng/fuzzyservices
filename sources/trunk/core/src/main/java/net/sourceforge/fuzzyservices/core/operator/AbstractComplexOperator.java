@@ -39,106 +39,89 @@ import java.util.Iterator;
  * @author Uwe Weng
  */
 public abstract class AbstractComplexOperator
-    extends AbstractOperator
-    implements Serializable
-{
+        extends AbstractOperator
+        implements Serializable {
+
     @Override
-    public FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 )
-    {
-        if ( ( fs1 != null ) && ( fs2 != null ) )
-        {
-            FuzzySet fs = new FuzzySet(  );
+    public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+        if ((fs1 != null) && (fs2 != null)) {
+            FuzzySet fs = new FuzzySet();
             float granularity;
             int numSteps;
             float x;
 
-            if ( ( fs1.isDefined(  ) ) && ( fs2.isDefined(  ) ) )
-            {
-                granularity = fs1.getGranularity( fs2 );
-                numSteps = fs1.getNumSteps( fs2 );
-                x = ( 
-                        ( fs1.getMinDefinedX(  ) < fs2.getMinDefinedX(  ) ) ? fs1.getMinDefinedX(  )
-                                                                            : fs2.getMinDefinedX(  )
-                                         );
-            } else
-            {
+            if ((fs1.isDefined()) && (fs2.isDefined())) {
+                granularity = fs1.getGranularity(fs2);
+                numSteps = fs1.getNumSteps(fs2);
+                x = ((fs1.getMinDefinedX() < fs2.getMinDefinedX()) ? fs1.getMinDefinedX()
+                        : fs2.getMinDefinedX());
+            } else {
                 // Exception: At least one fuzzy set has got an undefined
                 // membership function
-                if ( ( ! fs1.isDefined(  ) ) && ( ! fs2.isDefined(  ) ) )
-                {
+                if ((!fs1.isDefined()) && (!fs2.isDefined())) {
                     return fs;
                 }
 
-                if ( fs1.isDefined(  ) )
-                {
-                    granularity = fs2.getGranularity( fs2 );
-                    numSteps = fs2.getNumSteps( fs2 );
-                    x = fs2.getMinDefinedX(  );
-                } else
-                {
-                    granularity = fs1.getGranularity( fs1 );
-                    numSteps = fs1.getNumSteps( fs1 );
-                    x = fs1.getMinDefinedX(  );
+                if (fs1.isDefined()) {
+                    granularity = fs2.getGranularity(fs2);
+                    numSteps = fs2.getNumSteps(fs2);
+                    x = fs2.getMinDefinedX();
+                } else {
+                    granularity = fs1.getGranularity(fs1);
+                    numSteps = fs1.getNumSteps(fs1);
+                    x = fs1.getMinDefinedX();
                 }
             }
 
-            if ( granularity > 0.0f )
-            {
-                for ( int i = 0; i < numSteps; i++ )
-                {
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+            if (granularity > 0.0f) {
+                for (int i = 0; i < numSteps; i++) {
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                     x += granularity;
                 }
             }
 
             // Finally, we iterate all membership function points
-            int size1 = fs1.size(  );
-            int size2 = fs2.size(  );
+            int size1 = fs1.size();
+            int size2 = fs2.size();
 
             // Due to performance we iterate the fuzzy set with the most points
             // at first.
-            if ( size1 >= size2 )
-            {
-                for ( Iterator<Float> it = fs1.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+            if (size1 >= size2) {
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
 
-                for ( Iterator<Float> it = fs2.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
             }
 
-            if ( size1 < size2 )
-            { // the else-clause of the prior if-clause
+            if (size1 < size2) { // the else-clause of the prior if-clause
 
-                for ( Iterator<Float> it = fs2.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+                for (Iterator<Float> it = fs2.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
 
-                for ( Iterator<Float> it = fs1.iterator(  ); it.hasNext(  ); )
-                {
-                    x = it.next(  );
-                    fs.set( x,
-                            compute( fs1.getDegreeOfMembership( x ),
-                                     fs2.getDegreeOfMembership( x ) ) );
+                for (Iterator<Float> it = fs1.iterator(); it.hasNext();) {
+                    x = it.next();
+                    fs.set(x,
+                            compute(fs1.getDegreeOfMembership(x),
+                            fs2.getDegreeOfMembership(x)));
                 }
             }
 
-            fs.reduce(  );
+            fs.reduce();
 
             return fs;
         }

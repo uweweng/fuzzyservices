@@ -37,36 +37,32 @@ import java.io.Serializable;
  * @author Uwe Weng
  * @version 1.0
  */
-public class MeanOfMax
-    extends AbstractDefuzzificator
-    implements Serializable
-{
+public class MeanOfMax extends AbstractDefuzzificator implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final float defuzzify( MembershipFunction membershipFunction )
-    {
+    public final float defuzzify(final MembershipFunction membershipFunction) {
         float value = Float.NaN;
 
-        if ( membershipFunction != null )
-        {
-            value = (
-                        (
-                            ( new LeftOfMax(  ) ).defuzzify( membershipFunction ) +
-                            ( new RightOfMax(  ) ).defuzzify( membershipFunction )
-                         ) / 2.0f
-                     );
+        if (membershipFunction != null) {
+            value = (((new LeftOfMax()).defuzzify(membershipFunction) +
+                    (new RightOfMax()).defuzzify(membershipFunction)) / 2.0f);
         }
 
         return value;
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "DEFUZZIFICATOR_MEAN_OF_MAX" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_MEAN_OF_MAX");
+    }
+
+    @Override
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_MEAN_OF_MAX");
     }
 }

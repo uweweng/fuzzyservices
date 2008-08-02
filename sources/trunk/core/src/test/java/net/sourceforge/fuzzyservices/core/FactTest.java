@@ -37,7 +37,7 @@ public class FactTest {
      * Test of evaluate method, of class Fact.
      */
     @Test
-    public void testEvaluate() {
+    public final void testEvaluate() {
         System.out.println("evaluate");
         Fact instance = new Fact();
         DiscreteFuzzySet expResult = null;
@@ -50,7 +50,7 @@ public class FactTest {
      * Test of get method, of class Fact.
      */
     @Test
-    public void testGet() {
+    public final void testGet() {
         System.out.println("get");
         Fact instance = new Fact();
         FuzzySet expResult = null;
@@ -63,7 +63,7 @@ public class FactTest {
      * Test of getLinguisticVariable method, of class Fact.
      */
     @Test
-    public void testGetLinguisticVariable() {
+    public final void testGetLinguisticVariable() {
         System.out.println("getLinguisticVariable");
         Fact instance = new Fact();
         LinguisticVariable expResult = null;
@@ -76,7 +76,7 @@ public class FactTest {
      * Test of getLinguisticVariableName method, of class Fact.
      */
     @Test
-    public void testGetLinguisticVariableName() {
+    public final void testGetLinguisticVariableName() {
         System.out.println("getLinguisticVariableName");
         Fact instance = new Fact();
         String expResult = "";
@@ -89,7 +89,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_byte() {
+    public final void testSet_byte() {
         System.out.println("set");
         byte newValue = 0;
         Fact instance = new Fact();
@@ -101,7 +101,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_double() {
+    public final void testSet_double() {
         System.out.println("set");
         double newValue = 0.0;
         Fact instance = new Fact();
@@ -113,7 +113,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_float() {
+    public final void testSet_float() {
         System.out.println("set");
         float newValue = 0.0F;
         Fact instance = new Fact();
@@ -125,7 +125,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_int() {
+    public final void testSet_int() {
         System.out.println("set");
         int newValue = 0;
         Fact instance = new Fact();
@@ -137,7 +137,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_short() {
+    public final void testSet_short() {
         System.out.println("set");
         short newValue = 0;
         Fact instance = new Fact();
@@ -149,7 +149,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_MembershipFunction() {
+    public final void testSet_MembershipFunction() {
         System.out.println("set");
         MembershipFunction newValue = null;
         Fact instance = new Fact();
@@ -161,7 +161,7 @@ public class FactTest {
      * Test of set method, of class Fact.
      */
     @Test
-    public void testSet_String() {
+    public final void testSet_String() {
         System.out.println("set");
         String newValue = "";
         Fact instance = new Fact();
@@ -173,7 +173,7 @@ public class FactTest {
      * Test of equals method, of class Fact.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         Fact instance = new Fact();
@@ -187,7 +187,7 @@ public class FactTest {
      * Test of hashCode method, of class Fact.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         Fact instance = new Fact();
         int expResult = 0;
@@ -200,7 +200,7 @@ public class FactTest {
      * Test of clone method, of class Fact.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         Fact instance = new Fact();
         Object expResult = null;
@@ -213,7 +213,7 @@ public class FactTest {
      * Test of toString method, of class Fact.
      */
     @Test
-    public void testToString_0args() {
+    public final void testToString_0args() {
         System.out.println("toString");
         Fact instance = new Fact();
         String expResult = "";
@@ -226,7 +226,7 @@ public class FactTest {
      * Test of toString method, of class Fact.
      */
     @Test
-    public void testToString_boolean() {
+    public final void testToString_boolean() {
         System.out.println("toString");
         boolean withLingVar = false;
         Fact instance = new Fact();

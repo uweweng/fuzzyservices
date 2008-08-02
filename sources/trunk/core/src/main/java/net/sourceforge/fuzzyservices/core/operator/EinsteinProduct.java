@@ -35,41 +35,36 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class EinsteinProduct
-    extends AbstractMultiplyingOperator
-    implements Serializable
-{
+        extends AbstractMultiplyingOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
+    public final boolean isValidTNorm() {
         return true;
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return false;
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
-        return ( ( a * b ) / ( 2 - ( ( a + b ) - ( a * b ) ) ) );
+    public final float compute(final float a, final float b) {
+        return ((a * b) / (2 - ((a + b) - (a * b))));
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_PRODUCT" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_PRODUCT");
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_PRODUCT" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_PRODUCT");
     }
 }

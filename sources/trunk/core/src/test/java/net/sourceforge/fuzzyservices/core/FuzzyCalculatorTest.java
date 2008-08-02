@@ -37,7 +37,7 @@ public class FuzzyCalculatorTest {
      * Test of getInstance method, of class FuzzyCalculator.
      */
     @Test
-    public void testGetInstance() {
+    public final void testGetInstance() {
         System.out.println("getInstance");
         FuzzyCalculator expResult = null;
         FuzzyCalculator result = FuzzyCalculator.getInstance();
@@ -49,7 +49,7 @@ public class FuzzyCalculatorTest {
      * Test of add method, of class FuzzyCalculator.
      */
     @Test
-    public void testAdd_FuzzyInterval_FuzzyInterval() {
+    public final void testAdd_FuzzyInterval_FuzzyInterval() {
         System.out.println("add");
         FuzzyInterval operand1 = null;
         FuzzyInterval operand2 = null;
@@ -64,7 +64,7 @@ public class FuzzyCalculatorTest {
      * Test of add method, of class FuzzyCalculator.
      */
     @Test
-    public void testAdd_FuzzyLRInterval_FuzzyLRInterval() {
+    public final void testAdd_FuzzyLRInterval_FuzzyLRInterval() {
         System.out.println("add");
         FuzzyLRInterval operand1 = null;
         FuzzyLRInterval operand2 = null;
@@ -79,7 +79,7 @@ public class FuzzyCalculatorTest {
      * Test of add method, of class FuzzyCalculator.
      */
     @Test
-    public void testAdd_FuzzyLRNumber_FuzzyLRNumber() {
+    public final void testAdd_FuzzyLRNumber_FuzzyLRNumber() {
         System.out.println("add");
         FuzzyLRNumber operand1 = null;
         FuzzyLRNumber operand2 = null;
@@ -94,7 +94,7 @@ public class FuzzyCalculatorTest {
      * Test of add method, of class FuzzyCalculator.
      */
     @Test
-    public void testAdd_FuzzyNumber_FuzzyNumber() {
+    public final void testAdd_FuzzyNumber_FuzzyNumber() {
         System.out.println("add");
         FuzzyNumber operand1 = null;
         FuzzyNumber operand2 = null;
@@ -109,7 +109,7 @@ public class FuzzyCalculatorTest {
      * Test of divide method, of class FuzzyCalculator.
      */
     @Test
-    public void testDivide_FuzzyInterval_FuzzyInterval() {
+    public final void testDivide_FuzzyInterval_FuzzyInterval() {
         System.out.println("divide");
         FuzzyInterval operand1 = null;
         FuzzyInterval operand2 = null;
@@ -124,7 +124,7 @@ public class FuzzyCalculatorTest {
      * Test of divide method, of class FuzzyCalculator.
      */
     @Test
-    public void testDivide_FuzzyLRInterval_FuzzyLRInterval() {
+    public final void testDivide_FuzzyLRInterval_FuzzyLRInterval() {
         System.out.println("divide");
         FuzzyLRInterval operand1 = null;
         FuzzyLRInterval operand2 = null;
@@ -139,7 +139,7 @@ public class FuzzyCalculatorTest {
      * Test of divide method, of class FuzzyCalculator.
      */
     @Test
-    public void testDivide_FuzzyLRNumber_FuzzyLRNumber() {
+    public final void testDivide_FuzzyLRNumber_FuzzyLRNumber() {
         System.out.println("divide");
         FuzzyLRNumber operand1 = null;
         FuzzyLRNumber operand2 = null;
@@ -154,7 +154,7 @@ public class FuzzyCalculatorTest {
      * Test of divide method, of class FuzzyCalculator.
      */
     @Test
-    public void testDivide_FuzzyNumber_FuzzyNumber() {
+    public final void testDivide_FuzzyNumber_FuzzyNumber() {
         System.out.println("divide");
         FuzzyNumber operand1 = null;
         FuzzyNumber operand2 = null;
@@ -169,7 +169,7 @@ public class FuzzyCalculatorTest {
      * Test of multiply method, of class FuzzyCalculator.
      */
     @Test
-    public void testMultiply_FuzzyInterval_FuzzyInterval() {
+    public final void testMultiply_FuzzyInterval_FuzzyInterval() {
         System.out.println("multiply");
         FuzzyInterval operand1 = null;
         FuzzyInterval operand2 = null;
@@ -184,7 +184,7 @@ public class FuzzyCalculatorTest {
      * Test of multiply method, of class FuzzyCalculator.
      */
     @Test
-    public void testMultiply_FuzzyLRInterval_FuzzyLRInterval() {
+    public final void testMultiply_FuzzyLRInterval_FuzzyLRInterval() {
         System.out.println("multiply");
         FuzzyLRInterval operand1 = null;
         FuzzyLRInterval operand2 = null;
@@ -199,7 +199,7 @@ public class FuzzyCalculatorTest {
      * Test of multiply method, of class FuzzyCalculator.
      */
     @Test
-    public void testMultiply_FuzzyLRNumber_FuzzyLRNumber() {
+    public final void testMultiply_FuzzyLRNumber_FuzzyLRNumber() {
         System.out.println("multiply");
         FuzzyLRNumber operand1 = null;
         FuzzyLRNumber operand2 = null;
@@ -214,7 +214,7 @@ public class FuzzyCalculatorTest {
      * Test of multiply method, of class FuzzyCalculator.
      */
     @Test
-    public void testMultiply_FuzzyNumber_FuzzyNumber() {
+    public final void testMultiply_FuzzyNumber_FuzzyNumber() {
         System.out.println("multiply");
         FuzzyNumber operand1 = null;
         FuzzyNumber operand2 = null;
@@ -229,7 +229,7 @@ public class FuzzyCalculatorTest {
      * Test of subtract method, of class FuzzyCalculator.
      */
     @Test
-    public void testSubtract_FuzzyInterval_FuzzyInterval() {
+    public final void testSubtract_FuzzyInterval_FuzzyInterval() {
         System.out.println("subtract");
         FuzzyInterval operand1 = null;
         FuzzyInterval operand2 = null;
@@ -244,7 +244,7 @@ public class FuzzyCalculatorTest {
      * Test of subtract method, of class FuzzyCalculator.
      */
     @Test
-    public void testSubtract_FuzzyLRInterval_FuzzyLRInterval() {
+    public final void testSubtract_FuzzyLRInterval_FuzzyLRInterval() {
         System.out.println("subtract");
         FuzzyLRInterval operand1 = null;
         FuzzyLRInterval operand2 = null;
@@ -259,7 +259,7 @@ public class FuzzyCalculatorTest {
      * Test of subtract method, of class FuzzyCalculator.
      */
     @Test
-    public void testSubtract_FuzzyLRNumber_FuzzyLRNumber() {
+    public final void testSubtract_FuzzyLRNumber_FuzzyLRNumber() {
         System.out.println("subtract");
         FuzzyLRNumber operand1 = null;
         FuzzyLRNumber operand2 = null;
@@ -274,7 +274,7 @@ public class FuzzyCalculatorTest {
      * Test of subtract method, of class FuzzyCalculator.
      */
     @Test
-    public void testSubtract_FuzzyNumber_FuzzyNumber() {
+    public final void testSubtract_FuzzyNumber_FuzzyNumber() {
         System.out.println("subtract");
         FuzzyNumber operand1 = null;
         FuzzyNumber operand2 = null;

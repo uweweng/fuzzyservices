@@ -39,7 +39,7 @@ public class DiscreteFuzzySetTest {
      * Test of add method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testAdd() {
+    public final void testAdd() {
         System.out.println("add");
         Object obj = null;
         float dom = 0.0F;
@@ -52,7 +52,7 @@ public class DiscreteFuzzySetTest {
      * Test of clear method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testClear() {
+    public final void testClear() {
         System.out.println("clear");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.clear();
@@ -63,7 +63,7 @@ public class DiscreteFuzzySetTest {
      * Test of clone method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         Object expResult = null;
@@ -76,7 +76,7 @@ public class DiscreteFuzzySetTest {
      * Test of combine method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testCombine() {
+    public final void testCombine() {
         System.out.println("combine");
         DiscreteFuzzySet<Object> dfs = null;
         AbstractOperator op = null;
@@ -91,7 +91,7 @@ public class DiscreteFuzzySetTest {
      * Test of concentrate method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testConcentrate() {
+    public final void testConcentrate() {
         System.out.println("concentrate");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.concentrate();
@@ -102,7 +102,7 @@ public class DiscreteFuzzySetTest {
      * Test of contains method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testContains() {
+    public final void testContains() {
         System.out.println("contains");
         Object obj = null;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -116,7 +116,7 @@ public class DiscreteFuzzySetTest {
      * Test of dilate method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testDilate() {
+    public final void testDilate() {
         System.out.println("dilate");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.dilate();
@@ -127,7 +127,7 @@ public class DiscreteFuzzySetTest {
      * Test of iterator method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testIterator() {
+    public final void testIterator() {
         System.out.println("iterator");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         Iterator<Object> expResult = null;
@@ -140,7 +140,7 @@ public class DiscreteFuzzySetTest {
      * Test of getAlphaCut method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testGetAlphaCut() {
+    public final void testGetAlphaCut() {
         System.out.println("getAlphaCut");
         float alpha = 0.0F;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -154,7 +154,7 @@ public class DiscreteFuzzySetTest {
      * Test of getStrictAlphaCut method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testGetStrictAlphaCut() {
+    public final void testGetStrictAlphaCut() {
         System.out.println("getStrictAlphaCut");
         float alpha = 0.0F;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -168,7 +168,7 @@ public class DiscreteFuzzySetTest {
      * Test of getDegreeOfMembership method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testGetDegreeOfMembership() {
+    public final void testGetDegreeOfMembership() {
         System.out.println("getDegreeOfMembership");
         Object obj = null;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -182,7 +182,7 @@ public class DiscreteFuzzySetTest {
      * Test of getMaximumDegreeOfMembership method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testGetMaximumDegreeOfMembership() {
+    public final void testGetMaximumDegreeOfMembership() {
         System.out.println("getMaximumDegreeOfMembership");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         float expResult = 0.0F;
@@ -195,7 +195,7 @@ public class DiscreteFuzzySetTest {
      * Test of isEmpty method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testIsEmpty() {
+    public final void testIsEmpty() {
         System.out.println("isEmpty");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         boolean expResult = false;
@@ -208,7 +208,7 @@ public class DiscreteFuzzySetTest {
      * Test of put method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testPut() {
+    public final void testPut() {
         System.out.println("put");
         Object obj = null;
         float dom = 0.0F;
@@ -223,7 +223,7 @@ public class DiscreteFuzzySetTest {
      * Test of reciproce method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testReciproce() {
+    public final void testReciproce() {
         System.out.println("reciproce");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         instance.reciproce();
@@ -234,7 +234,7 @@ public class DiscreteFuzzySetTest {
      * Test of remove method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         Object obj = null;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -248,7 +248,7 @@ public class DiscreteFuzzySetTest {
      * Test of size method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testSize() {
+    public final void testSize() {
         System.out.println("size");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         int expResult = 0;
@@ -261,7 +261,7 @@ public class DiscreteFuzzySetTest {
      * Test of toString method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testToString_0args() {
+    public final void testToString_0args() {
         System.out.println("toString");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         String expResult = "";
@@ -274,7 +274,7 @@ public class DiscreteFuzzySetTest {
      * Test of toString method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testToString_boolean() {
+    public final void testToString_boolean() {
         System.out.println("toString");
         boolean withObjects = false;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -288,7 +288,7 @@ public class DiscreteFuzzySetTest {
      * Test of equals method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
@@ -302,7 +302,7 @@ public class DiscreteFuzzySetTest {
      * Test of hashCode method, of class DiscreteFuzzySet.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         DiscreteFuzzySet instance = new DiscreteFuzzySet();
         int expResult = 0;
@@ -310,5 +310,4 @@ public class DiscreteFuzzySetTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
-
 }

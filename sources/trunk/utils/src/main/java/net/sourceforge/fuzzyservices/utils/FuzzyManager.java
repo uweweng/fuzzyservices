@@ -23,38 +23,43 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.utils;
 
-
 /**
- * The <code>FuzzyManager</code> is the place for all options which control the fuzzy system.
- * For instance, it defines the step width for scanning a fuzzy set at complex operations, or
- * the maximal number of steps, or accuracy for computations.
+ * The <code>FuzzyManager</code> is the place for all options which control the 
+ * fuzzy system.
+ * For instance, it defines the step width for scanning a fuzzy set at complex 
+ * operations, or the maximal number of steps, or accuracy for computations.
  *
  * @version 1.0
  * @author Uwe Weng
  */
-public class FuzzyManager
-{
+public final class FuzzyManager {
+
+    /**
+     * Default maximum number of steps is 200.
+     */
+    public static final int DEFAULT_MAX_NUM_STEP = 200;
     /**
      * Defines the increment for scanning fuzzy sets. It has to be a value greater than zero.
      * The default value is 0.01.
      */
-    protected static float stepwidth = (float) ( 1.0 / 100.0 ); // 0.01f;
-
+    private static float stepwidth = (float) (1.0 / 100.0); // 0.01f;
     /**
      * Defines the maximal number of steps fot iterating. If necessary the increment will be adjusted.
      * It must be a value greater than zero. The value 200 is preset.
      */
-    protected static int maxNumStep = 200;
-
+    private static int maxNumStep = DEFAULT_MAX_NUM_STEP;
     /**
-     * Defines the number of internal decimal places. This value is computed by the <code>stepwidth</code>.
+     * Defines the number of internal decimal places. This value is computed by the <code>increment</code>.
      * For better performance this value is redundant.
      */
-    protected static int scale = computeScale( stepwidth ); // calculated
+    protected static int scale = computeScale(stepwidth); // calculated
+    /**
+     * Defines the decimal places.
+     */
+    private static final float POWER_OF_ONE = 10.0F;
 
     /** The fuzzy manager is a static class. */
-    private FuzzyManager(  )
-    {
+    private FuzzyManager() {
         // Not allowed
     }
 
@@ -62,25 +67,26 @@ public class FuzzyManager
      * Returns the increment for traversing fuzzy sets.
      *
      * @return the increment
-     * @see #stepwidth
+     * @see #increment
      */
-    public static float getStepwidth(  )
-    {
+    public static float getStepwidth() {
         return stepwidth;
     }
 
     /**
-     * Sets the increment if value is greater than 0.0.
+     * Sets the increment. The value has to be greater than 0.0.
      *
      * @param width the new value
-     * @see #stepwidth
+     * @see #increment
      */
-    public static void setStepwidth( float width )
-    {
-        if ( width > 0.0f )
-        {
+    public static void setStepwidth(final float width) {
+        if (width > 0.0f) {
             stepwidth = width;
-            scale = computeScale( stepwidth );
+            scale = computeScale(stepwidth);
+        } else {
+            throw new IllegalArgumentException(
+                    FuzzyResourceManager.getString(FuzzyManager.class,
+                    "EXCEPTION_INVALID_STEP_WIDTH"));
         }
     }
 
@@ -90,8 +96,7 @@ public class FuzzyManager
      * @return the maximum number of steps
      * @see #maxNumStep
      */
-    public static int getMaxNumStep(  )
-    {
+    public static int getMaxNumStep() {
         return maxNumStep;
     }
 
@@ -102,11 +107,13 @@ public class FuzzyManager
      * @param max the new value
      * @see #maxNumStep
      */
-    public static void setMaxNumStep( int max )
-    {
-        if ( max > 0 )
-        {
+    public static void setMaxNumStep(final int max) {
+        if (max > 0) {
             maxNumStep = max;
+        } else {
+            throw new IllegalArgumentException(
+                    FuzzyResourceManager.getString(FuzzyManager.class,
+                    "EXCEPTION_INVALID_MAX_NUM_STEP"));
         }
     }
 
@@ -118,11 +125,10 @@ public class FuzzyManager
      * @return the new value reduced to <code>scale</code> decimal places
      * @see #scale
      */
-    public static float round( float x )
-    {
-        double dimension = Math.pow( 10.0, scale );
+    public static float round(final float x) {
+        double dimension = Math.pow(POWER_OF_ONE, scale);
 
-        return ( (float) ( Math.round( x * dimension ) / dimension ) );
+        return ((float) (Math.round(x * dimension) / dimension));
     }
 
     /**
@@ -133,30 +139,25 @@ public class FuzzyManager
      * @return the calculated delta
      * @see #round
      */
-    public static float getDelta( float x )
-    {
-        return x - round( x );
+    public static float getDelta(final float x) {
+        return x - round(x);
     }
 
     /**
-     * Compute the number of decimal places of <code>stepwidth</code>
+     * Compute the number of decimal places of <code>increment</code>.
      *
-     * @param stepwidth
-     *            die increment
+     * @param increment the increment
      * @return the number of decimal places
-     * @see #stepwidth
+     * @see #increment
      */
-    private static int computeScale( float stepwidth )
-    {
+    private static int computeScale(final float increment) {
         int i = 0;
-        float scaledstepwidth = stepwidth * (float) Math.pow( 10.0f, i );
+        float scaledstepwidth = increment * (float) Math.pow(POWER_OF_ONE, i);
 
-        while ( Math.round( scaledstepwidth ) != scaledstepwidth )
-        {
+        while (Math.round(scaledstepwidth) != scaledstepwidth) {
             i++;
-            scaledstepwidth = stepwidth * (float) Math.pow( 10.0f, i );
+            scaledstepwidth = increment * (float) Math.pow(POWER_OF_ONE, i);
         }
-
         return i;
     }
 }

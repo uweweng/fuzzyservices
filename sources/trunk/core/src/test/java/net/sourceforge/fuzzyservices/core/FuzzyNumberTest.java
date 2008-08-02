@@ -37,7 +37,7 @@ public class FuzzyNumberTest {
      * Test of invert method, of class FuzzyNumber.
      */
     @Test
-    public void testInvert() {
+    public final void testInvert() {
         System.out.println("invert");
         FuzzyNumber instance = new FuzzyNumber();
         instance.invert();
@@ -48,7 +48,7 @@ public class FuzzyNumberTest {
      * Test of isNegative method, of class FuzzyNumber.
      */
     @Test
-    public void testIsNegative() {
+    public final void testIsNegative() {
         System.out.println("isNegative");
         FuzzyNumber instance = new FuzzyNumber();
         boolean expResult = false;
@@ -61,7 +61,7 @@ public class FuzzyNumberTest {
      * Test of isPositive method, of class FuzzyNumber.
      */
     @Test
-    public void testIsPositive() {
+    public final void testIsPositive() {
         System.out.println("isPositive");
         FuzzyNumber instance = new FuzzyNumber();
         boolean expResult = false;
@@ -74,7 +74,7 @@ public class FuzzyNumberTest {
      * Test of isValidFuzzyLRNumber method, of class FuzzyNumber.
      */
     @Test
-    public void testIsValidFuzzyLRNumber() {
+    public final void testIsValidFuzzyLRNumber() {
         System.out.println("isValidFuzzyLRNumber");
         FuzzyNumber instance = new FuzzyNumber();
         boolean expResult = false;
@@ -87,7 +87,7 @@ public class FuzzyNumberTest {
      * Test of negate method, of class FuzzyNumber.
      */
     @Test
-    public void testNegate() {
+    public final void testNegate() {
         System.out.println("negate");
         FuzzyNumber instance = new FuzzyNumber();
         instance.negate();
@@ -98,7 +98,7 @@ public class FuzzyNumberTest {
      * Test of remove method, of class FuzzyNumber.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         float x = 0.0F;
         FuzzyNumber instance = new FuzzyNumber();
@@ -112,7 +112,7 @@ public class FuzzyNumberTest {
      * Test of set method, of class FuzzyNumber.
      */
     @Test
-    public void testSet() {
+    public final void testSet() {
         System.out.println("set");
         float x = 0.0F;
         float dom = 0.0F;
@@ -127,7 +127,7 @@ public class FuzzyNumberTest {
      * Test of toString method, of class FuzzyNumber.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
         FuzzyNumber instance = new FuzzyNumber();

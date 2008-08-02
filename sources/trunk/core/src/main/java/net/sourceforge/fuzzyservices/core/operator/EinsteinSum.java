@@ -35,41 +35,36 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class EinsteinSum
-    extends AbstractComplexOperator
-    implements Serializable
-{
+        extends AbstractComplexOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
+    public final boolean isValidTNorm() {
         return false;
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return true;
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
-        return ( ( a + b ) / ( 1 + ( a * b ) ) );
+    public final float compute(final float a, final float b) {
+        return ((a + b) / (1 + (a * b)));
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_SUM" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_SUM");
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_EINSTEIN_SUM" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_EINSTEIN_SUM");
     }
 }

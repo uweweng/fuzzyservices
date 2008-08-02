@@ -37,7 +37,7 @@ public class FuzzyIntervalTest {
      * Test of invert method, of class FuzzyInterval.
      */
     @Test
-    public void testInvert() {
+    public final void testInvert() {
         System.out.println("invert");
         FuzzyInterval instance = new FuzzyInterval();
         instance.invert();
@@ -48,7 +48,7 @@ public class FuzzyIntervalTest {
      * Test of isNegative method, of class FuzzyInterval.
      */
     @Test
-    public void testIsNegative() {
+    public final void testIsNegative() {
         System.out.println("isNegative");
         FuzzyInterval instance = new FuzzyInterval();
         boolean expResult = false;
@@ -61,7 +61,7 @@ public class FuzzyIntervalTest {
      * Test of isPositive method, of class FuzzyInterval.
      */
     @Test
-    public void testIsPositive() {
+    public final void testIsPositive() {
         System.out.println("isPositive");
         FuzzyInterval instance = new FuzzyInterval();
         boolean expResult = false;
@@ -74,7 +74,7 @@ public class FuzzyIntervalTest {
      * Test of isValidFuzzyLRInterval method, of class FuzzyInterval.
      */
     @Test
-    public void testIsValidFuzzyLRInterval() {
+    public final void testIsValidFuzzyLRInterval() {
         System.out.println("isValidFuzzyLRInterval");
         FuzzyInterval instance = new FuzzyInterval();
         boolean expResult = false;
@@ -87,7 +87,7 @@ public class FuzzyIntervalTest {
      * Test of negate method, of class FuzzyInterval.
      */
     @Test
-    public void testNegate() {
+    public final void testNegate() {
         System.out.println("negate");
         FuzzyInterval instance = new FuzzyInterval();
         instance.negate();
@@ -98,7 +98,7 @@ public class FuzzyIntervalTest {
      * Test of remove method, of class FuzzyInterval.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         float x = 0.0F;
         FuzzyInterval instance = new FuzzyInterval();
@@ -112,7 +112,7 @@ public class FuzzyIntervalTest {
      * Test of set method, of class FuzzyInterval.
      */
     @Test
-    public void testSet() {
+    public final void testSet() {
         System.out.println("set");
         float x = 0.0F;
         float dom = 0.0F;
@@ -127,7 +127,7 @@ public class FuzzyIntervalTest {
      * Test of toString method, of class FuzzyInterval.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
         FuzzyInterval instance = new FuzzyInterval();

@@ -38,7 +38,7 @@ public class RuleBaseTest {
      * Test of add method, of class RuleBase.
      */
     @Test
-    public void testAdd() {
+    public final void testAdd() {
         System.out.println("add");
         Rule rule = null;
         RuleBase instance = new RuleBase();
@@ -50,7 +50,7 @@ public class RuleBaseTest {
      * Test of clear method, of class RuleBase.
      */
     @Test
-    public void testClear() {
+    public final void testClear() {
         System.out.println("clear");
         RuleBase instance = new RuleBase();
         instance.clear();
@@ -61,7 +61,7 @@ public class RuleBaseTest {
      * Test of contains method, of class RuleBase.
      */
     @Test
-    public void testContains() {
+    public final void testContains() {
         System.out.println("contains");
         Rule rule = null;
         RuleBase instance = new RuleBase();
@@ -75,7 +75,7 @@ public class RuleBaseTest {
      * Test of containsLinguisticVariable method, of class RuleBase.
      */
     @Test
-    public void testContainsLinguisticVariable() {
+    public final void testContainsLinguisticVariable() {
         System.out.println("containsLinguisticVariable");
         String lingVarName = "";
         RuleBase instance = new RuleBase();
@@ -89,7 +89,7 @@ public class RuleBaseTest {
      * Test of iterator method, of class RuleBase.
      */
     @Test
-    public void testIterator() {
+    public final void testIterator() {
         System.out.println("iterator");
         RuleBase instance = new RuleBase();
         Iterator<Rule> expResult = null;
@@ -102,7 +102,7 @@ public class RuleBaseTest {
      * Test of getAccumulationOperator method, of class RuleBase.
      */
     @Test
-    public void testGetAccumulationOperator() {
+    public final void testGetAccumulationOperator() {
         System.out.println("getAccumulationOperator");
         RuleBase instance = new RuleBase();
         AbstractOperator expResult = null;
@@ -115,7 +115,7 @@ public class RuleBaseTest {
      * Test of getDefaultAccumulationOperator method, of class RuleBase.
      */
     @Test
-    public void testGetDefaultAccumulationOperator() {
+    public final void testGetDefaultAccumulationOperator() {
         System.out.println("getDefaultAccumulationOperator");
         AbstractOperator expResult = null;
         AbstractOperator result = RuleBase.getDefaultAccumulationOperator();
@@ -127,7 +127,7 @@ public class RuleBaseTest {
      * Test of getName method, of class RuleBase.
      */
     @Test
-    public void testGetName() {
+    public final void testGetName() {
         System.out.println("getName");
         RuleBase instance = new RuleBase();
         String expResult = "";
@@ -140,7 +140,7 @@ public class RuleBaseTest {
      * Test of isEmpty method, of class RuleBase.
      */
     @Test
-    public void testIsEmpty() {
+    public final void testIsEmpty() {
         System.out.println("isEmpty");
         RuleBase instance = new RuleBase();
         boolean expResult = false;
@@ -153,7 +153,7 @@ public class RuleBaseTest {
      * Test of remove method, of class RuleBase.
      */
     @Test
-    public void testRemove() {
+    public final void testRemove() {
         System.out.println("remove");
         Rule rule = null;
         RuleBase instance = new RuleBase();
@@ -167,7 +167,7 @@ public class RuleBaseTest {
      * Test of setAccumulationOperator method, of class RuleBase.
      */
     @Test
-    public void testSetAccumulationOperator() {
+    public final void testSetAccumulationOperator() {
         System.out.println("setAccumulationOperator");
         AbstractOperator accOp = null;
         RuleBase instance = new RuleBase();
@@ -179,7 +179,7 @@ public class RuleBaseTest {
      * Test of setDefaultAccumulationOperator method, of class RuleBase.
      */
     @Test
-    public void testSetDefaultAccumulationOperator() {
+    public final void testSetDefaultAccumulationOperator() {
         System.out.println("setDefaultAccumulationOperator");
         AbstractOperator accOp = null;
         RuleBase.setDefaultAccumulationOperator(accOp);
@@ -190,7 +190,7 @@ public class RuleBaseTest {
      * Test of setName method, of class RuleBase.
      */
     @Test
-    public void testSetName() {
+    public final void testSetName() {
         System.out.println("setName");
         String newName = "";
         RuleBase instance = new RuleBase();
@@ -202,7 +202,7 @@ public class RuleBaseTest {
      * Test of size method, of class RuleBase.
      */
     @Test
-    public void testSize() {
+    public final void testSize() {
         System.out.println("size");
         RuleBase instance = new RuleBase();
         int expResult = 0;
@@ -215,7 +215,7 @@ public class RuleBaseTest {
      * Test of clone method, of class RuleBase.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         RuleBase instance = new RuleBase();
         Object expResult = null;
@@ -228,7 +228,7 @@ public class RuleBaseTest {
      * Test of equals method, of class RuleBase.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         RuleBase instance = new RuleBase();
@@ -242,7 +242,7 @@ public class RuleBaseTest {
      * Test of hashCode method, of class RuleBase.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         RuleBase instance = new RuleBase();
         int expResult = 0;
@@ -255,7 +255,7 @@ public class RuleBaseTest {
      * Test of toString method, of class RuleBase.
      */
     @Test
-    public void testToString_0args() {
+    public final void testToString_0args() {
         System.out.println("toString");
         RuleBase instance = new RuleBase();
         String expResult = "";
@@ -268,7 +268,7 @@ public class RuleBaseTest {
      * Test of toString method, of class RuleBase.
      */
     @Test
-    public void testToString_boolean() {
+    public final void testToString_boolean() {
         System.out.println("toString");
         boolean withRules = false;
         RuleBase instance = new RuleBase();

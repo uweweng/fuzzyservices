@@ -38,7 +38,7 @@ public class RuleTest {
      * Test of addAntecedent method, of class Rule.
      */
     @Test
-    public void testAddAntecedent_Antecedent() {
+    public final void testAddAntecedent_Antecedent() {
         System.out.println("addAntecedent");
         Antecedent ante = null;
         Rule instance = new Rule();
@@ -50,7 +50,7 @@ public class RuleTest {
      * Test of addAntecedent method, of class Rule.
      */
     @Test
-    public void testAddAntecedent_String_String() {
+    public final void testAddAntecedent_String_String() {
         System.out.println("addAntecedent");
         String lvName = "";
         String lingTermName = "";
@@ -63,7 +63,7 @@ public class RuleTest {
      * Test of addAntecedent method, of class Rule.
      */
     @Test
-    public void testAddAntecedent_3args() {
+    public final void testAddAntecedent_3args() {
         System.out.println("addAntecedent");
         String lvName = "";
         String lingTermName = "";
@@ -77,7 +77,7 @@ public class RuleTest {
      * Test of addConsequent method, of class Rule.
      */
     @Test
-    public void testAddConsequent_Consequent() {
+    public final void testAddConsequent_Consequent() {
         System.out.println("addConsequent");
         Consequent cons = null;
         Rule instance = new Rule();
@@ -89,7 +89,7 @@ public class RuleTest {
      * Test of addConsequent method, of class Rule.
      */
     @Test
-    public void testAddConsequent_String_String() {
+    public final void testAddConsequent_String_String() {
         System.out.println("addConsequent");
         String lvName = "";
         String lingTermName = "";
@@ -102,7 +102,7 @@ public class RuleTest {
      * Test of clear method, of class Rule.
      */
     @Test
-    public void testClear() {
+    public final void testClear() {
         System.out.println("clear");
         Rule instance = new Rule();
         instance.clear();
@@ -113,7 +113,7 @@ public class RuleTest {
      * Test of containsAntecedent method, of class Rule.
      */
     @Test
-    public void testContainsAntecedent_String_String() {
+    public final void testContainsAntecedent_String_String() {
         System.out.println("containsAntecedent");
         String lvName = "";
         String lingTermName = "";
@@ -128,7 +128,7 @@ public class RuleTest {
      * Test of containsAntecedent method, of class Rule.
      */
     @Test
-    public void testContainsAntecedent_3args() {
+    public final void testContainsAntecedent_3args() {
         System.out.println("containsAntecedent");
         String lvName = "";
         String lingTermName = "";
@@ -144,7 +144,7 @@ public class RuleTest {
      * Test of containsConsequent method, of class Rule.
      */
     @Test
-    public void testContainsConsequent() {
+    public final void testContainsConsequent() {
         System.out.println("containsConsequent");
         String lvName = "";
         String lingTermName = "";
@@ -159,7 +159,7 @@ public class RuleTest {
      * Test of containsLinguisticVariable method, of class Rule.
      */
     @Test
-    public void testContainsLinguisticVariable() {
+    public final void testContainsLinguisticVariable() {
         System.out.println("containsLinguisticVariable");
         String lingVarName = "";
         Rule instance = new Rule();
@@ -173,7 +173,7 @@ public class RuleTest {
      * Test of getAggregationOperator method, of class Rule.
      */
     @Test
-    public void testGetAggregationOperator() {
+    public final void testGetAggregationOperator() {
         System.out.println("getAggregationOperator");
         Rule instance = new Rule();
         AbstractOperator expResult = null;
@@ -186,7 +186,7 @@ public class RuleTest {
      * Test of getAntecedentAt method, of class Rule.
      */
     @Test
-    public void testGetAntecedentAt() {
+    public final void testGetAntecedentAt() {
         System.out.println("getAntecedentAt");
         int i = 0;
         Rule instance = new Rule();
@@ -200,7 +200,7 @@ public class RuleTest {
      * Test of getAntecedents method, of class Rule.
      */
     @Test
-    public void testGetAntecedents() {
+    public final void testGetAntecedents() {
         System.out.println("getAntecedents");
         Rule instance = new Rule();
         Iterator<Antecedent> expResult = null;
@@ -213,7 +213,7 @@ public class RuleTest {
      * Test of getCertainty method, of class Rule.
      */
     @Test
-    public void testGetCertainty() {
+    public final void testGetCertainty() {
         System.out.println("getCertainty");
         Rule instance = new Rule();
         float expResult = 0.0F;
@@ -226,7 +226,7 @@ public class RuleTest {
      * Test of getCertaintyOperator method, of class Rule.
      */
     @Test
-    public void testGetCertaintyOperator() {
+    public final void testGetCertaintyOperator() {
         System.out.println("getCertaintyOperator");
         Rule instance = new Rule();
         AbstractOperator expResult = null;
@@ -239,7 +239,7 @@ public class RuleTest {
      * Test of getConsequentAt method, of class Rule.
      */
     @Test
-    public void testGetConsequentAt() {
+    public final void testGetConsequentAt() {
         System.out.println("getConsequentAt");
         int i = 0;
         Rule instance = new Rule();
@@ -253,7 +253,7 @@ public class RuleTest {
      * Test of getConsequents method, of class Rule.
      */
     @Test
-    public void testGetConsequents() {
+    public final void testGetConsequents() {
         System.out.println("getConsequents");
         Rule instance = new Rule();
         Iterator<Consequent> expResult = null;
@@ -266,7 +266,7 @@ public class RuleTest {
      * Test of getDefaultAggregationOperator method, of class Rule.
      */
     @Test
-    public void testGetDefaultAggregationOperator() {
+    public final void testGetDefaultAggregationOperator() {
         System.out.println("getDefaultAggregationOperator");
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultAggregationOperator();
@@ -278,7 +278,7 @@ public class RuleTest {
      * Test of getDefaultCertaintyOperator method, of class Rule.
      */
     @Test
-    public void testGetDefaultCertaintyOperator() {
+    public final void testGetDefaultCertaintyOperator() {
         System.out.println("getDefaultCertaintyOperator");
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultCertaintyOperator();
@@ -290,7 +290,7 @@ public class RuleTest {
      * Test of getDefaultInferenceOperator method, of class Rule.
      */
     @Test
-    public void testGetDefaultInferenceOperator() {
+    public final void testGetDefaultInferenceOperator() {
         System.out.println("getDefaultInferenceOperator");
         AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultInferenceOperator();
@@ -302,7 +302,7 @@ public class RuleTest {
      * Test of getInferenceOperator method, of class Rule.
      */
     @Test
-    public void testGetInferenceOperator() {
+    public final void testGetInferenceOperator() {
         System.out.println("getInferenceOperator");
         Rule instance = new Rule();
         AbstractOperator expResult = null;
@@ -315,7 +315,7 @@ public class RuleTest {
      * Test of getSizeOfAntecedents method, of class Rule.
      */
     @Test
-    public void testGetSizeOfAntecedents() {
+    public final void testGetSizeOfAntecedents() {
         System.out.println("getSizeOfAntecedents");
         Rule instance = new Rule();
         int expResult = 0;
@@ -328,7 +328,7 @@ public class RuleTest {
      * Test of getSizeOfConsequents method, of class Rule.
      */
     @Test
-    public void testGetSizeOfConsequents() {
+    public final void testGetSizeOfConsequents() {
         System.out.println("getSizeOfConsequents");
         Rule instance = new Rule();
         int expResult = 0;
@@ -341,7 +341,7 @@ public class RuleTest {
      * Test of if_ method, of class Rule.
      */
     @Test
-    public void testIf__String_String() {
+    public final void testIf__String_String() {
         System.out.println("if_");
         String lvName = "";
         String lingTermName = "";
@@ -354,7 +354,7 @@ public class RuleTest {
      * Test of if_ method, of class Rule.
      */
     @Test
-    public void testIf__3args() {
+    public final void testIf__3args() {
         System.out.println("if_");
         String lvName = "";
         String lingTermName = "";
@@ -368,7 +368,7 @@ public class RuleTest {
      * Test of removeAntecedent method, of class Rule.
      */
     @Test
-    public void testRemoveAntecedent_String_String() {
+    public final void testRemoveAntecedent_String_String() {
         System.out.println("removeAntecedent");
         String lvName = "";
         String lingTermName = "";
@@ -383,7 +383,7 @@ public class RuleTest {
      * Test of removeAntecedent method, of class Rule.
      */
     @Test
-    public void testRemoveAntecedent_3args() {
+    public final void testRemoveAntecedent_3args() {
         System.out.println("removeAntecedent");
         String lvName = "";
         String lingTermName = "";
@@ -399,7 +399,7 @@ public class RuleTest {
      * Test of removeConsequent method, of class Rule.
      */
     @Test
-    public void testRemoveConsequent() {
+    public final void testRemoveConsequent() {
         System.out.println("removeConsequent");
         String lvName = "";
         String lingTermName = "";
@@ -414,7 +414,7 @@ public class RuleTest {
      * Test of setAggregationOperator method, of class Rule.
      */
     @Test
-    public void testSetAggregationOperator() {
+    public final void testSetAggregationOperator() {
         System.out.println("setAggregationOperator");
         AbstractOperator aggOp = null;
         Rule instance = new Rule();
@@ -428,7 +428,7 @@ public class RuleTest {
      * Test of setCertainty method, of class Rule.
      */
     @Test
-    public void testSetCertainty() {
+    public final void testSetCertainty() {
         System.out.println("setCertainty");
         float cert = 0.0F;
         Rule instance = new Rule();
@@ -442,7 +442,7 @@ public class RuleTest {
      * Test of setCertaintyOperator method, of class Rule.
      */
     @Test
-    public void testSetCertaintyOperator() {
+    public final void testSetCertaintyOperator() {
         System.out.println("setCertaintyOperator");
         AbstractOperator certOp = null;
         Rule instance = new Rule();
@@ -456,7 +456,7 @@ public class RuleTest {
      * Test of setDefaultAggregationOperator method, of class Rule.
      */
     @Test
-    public void testSetDefaultAggregationOperator() {
+    public final void testSetDefaultAggregationOperator() {
         System.out.println("setDefaultAggregationOperator");
         AbstractOperator aggOp = null;
         AbstractOperator expResult = null;
@@ -469,7 +469,7 @@ public class RuleTest {
      * Test of getDefaultCertainty method, of class Rule.
      */
     @Test
-    public void testGetDefaultCertainty() {
+    public final void testGetDefaultCertainty() {
         System.out.println("getDefaultCertainty");
         float expResult = 0.0F;
         float result = Rule.getDefaultCertainty();
@@ -481,7 +481,7 @@ public class RuleTest {
      * Test of setDefaultCertainty method, of class Rule.
      */
     @Test
-    public void testSetDefaultCertainty() {
+    public final void testSetDefaultCertainty() {
         System.out.println("setDefaultCertainty");
         float cert = 0.0F;
         float expResult = 0.0F;
@@ -494,7 +494,7 @@ public class RuleTest {
      * Test of setDefaultCertaintyOperator method, of class Rule.
      */
     @Test
-    public void testSetDefaultCertaintyOperator() {
+    public final void testSetDefaultCertaintyOperator() {
         System.out.println("setDefaultCertaintyOperator");
         AbstractOperator certOp = null;
         AbstractOperator expResult = null;
@@ -507,7 +507,7 @@ public class RuleTest {
      * Test of setDefaultInferenceOperator method, of class Rule.
      */
     @Test
-    public void testSetDefaultInferenceOperator() {
+    public final void testSetDefaultInferenceOperator() {
         System.out.println("setDefaultInferenceOperator");
         AbstractOperator infOp = null;
         AbstractOperator expResult = null;
@@ -520,7 +520,7 @@ public class RuleTest {
      * Test of setInferenceOperator method, of class Rule.
      */
     @Test
-    public void testSetInferenceOperator() {
+    public final void testSetInferenceOperator() {
         System.out.println("setInferenceOperator");
         AbstractOperator infOp = null;
         Rule instance = new Rule();
@@ -534,7 +534,7 @@ public class RuleTest {
      * Test of then_ method, of class Rule.
      */
     @Test
-    public void testThen_() {
+    public final void testThen_() {
         System.out.println("then_");
         String lvName = "";
         String lingTermName = "";
@@ -547,7 +547,7 @@ public class RuleTest {
      * Test of clone method, of class Rule.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         Rule instance = new Rule();
         Object expResult = null;
@@ -560,7 +560,7 @@ public class RuleTest {
      * Test of equals method, of class Rule.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         Rule instance = new Rule();
@@ -574,7 +574,7 @@ public class RuleTest {
      * Test of hashCode method, of class Rule.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         Rule instance = new Rule();
         int expResult = 0;
@@ -587,7 +587,7 @@ public class RuleTest {
      * Test of toString method, of class Rule.
      */
     @Test
-    public void testToString_0args() {
+    public final void testToString_0args() {
         System.out.println("toString");
         Rule instance = new Rule();
         String expResult = "";
@@ -600,7 +600,7 @@ public class RuleTest {
      * Test of toString method, of class Rule.
      */
     @Test
-    public void testToString_boolean() {
+    public final void testToString_boolean() {
         System.out.println("toString");
         boolean oneLine = false;
         Rule instance = new Rule();

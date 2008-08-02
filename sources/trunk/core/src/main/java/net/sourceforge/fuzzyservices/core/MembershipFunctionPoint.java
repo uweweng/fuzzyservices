@@ -54,7 +54,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      * This constructor is primarly for persistence purpose.
      */
     public MembershipFunctionPoint() {
-        x = 0.0f;
+        x = Float.NaN;
         degreeOfMembership = 0.0f;
     }
 
@@ -95,8 +95,8 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
 
     /**
      * Sets the degree of membership of this point.
-     * @param aDegreeOfMembership The new value for the property.
-     * @exception IllegalArgumentException if not 0.0 <= aDegreeOfMembership <= 1.0
+     * @param aDegreeOfMembership The new value for the property between
+     * 0.0 <= aDegreeOfMembership <= 1.0
      * @return The old degree of membership
      * @see #getDegreeOfMembership
      */
@@ -120,20 +120,20 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     public final Object clone() {
         try {
             MembershipFunctionPoint newObj = (MembershipFunctionPoint) super.clone();
-
+            newObj.x = this.x;
+            newObj.degreeOfMembership = this.degreeOfMembership;
             return newObj;
         } catch (java.lang.CloneNotSupportedException e) {
-            // kann nicht auftreten
+            // never happens
             throw new InternalError(e.toString());
         }
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if ((obj != null) && (obj instanceof MembershipFunctionPoint)) {
             return (x == ((MembershipFunctionPoint) obj).x);
         }
-
         return false;
     }
 

@@ -39,27 +39,21 @@ import java.util.Iterator;
  * @author Uwe Weng
  * @version 1.0
  */
-public class CenterOfArea
-    extends AbstractDefuzzificator
-    implements Serializable
-{
+public class CenterOfArea extends AbstractDefuzzificator implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final float defuzzify( MembershipFunction membershipFunction )
-    {
-        if ( membershipFunction != null )
-        {
-            for ( Iterator<Float> it = membershipFunction.iterator(  ); it.hasNext(  ); )
-            {
-                float x1 = it.next(  ).floatValue(  );
-                float y1 = membershipFunction.getDegreeOfMembership( x1 );
+    public final float defuzzify(final MembershipFunction membershipFunction) {
+        if (membershipFunction != null) {
+            for (Iterator<Float> it = membershipFunction.iterator(); it.hasNext();) {
+                float x1 = it.next().floatValue();
+                float y1 = membershipFunction.getDegreeOfMembership(x1);
 
-                if ( it.hasNext(  ) == true )
-                {
+                if (it.hasNext()) {
                     float x2;
                     float y2;
                     float diff;
@@ -69,31 +63,28 @@ public class CenterOfArea
                     float zaehler = 0.0f;
                     float nenner = 0.0f;
 
-                    while ( it.hasNext(  ) == true )
-                    {
-                        x2 = it.next(  ).floatValue(  );
-                        y2 = membershipFunction.getDegreeOfMembership( x2 );
+                    while (it.hasNext()) {
+                        x2 = it.next().floatValue();
+                        y2 = membershipFunction.getDegreeOfMembership(x2);
 
-                        slope = ( y2 - y1 ) / ( x2 - x1 );
-                        diff = y1 - ( slope * x1 );
+                        slope = (y2 - y1) / (x2 - x1);
+                        diff = y1 - (slope * x1);
                         // Hilfsrechnungen
-                        quaddiff = ( new Float( ( Math.pow( x2, 2.0 ) - Math.pow( x1, 2.0 ) ) ) ).floatValue(  );
-                        tridiff = ( new Float( ( Math.pow( x2, 3.0 ) - Math.pow( x1, 3.0 ) ) ) ).floatValue(  );
+                        quaddiff = (new Float((Math.pow(x2, 2.0) - Math.pow(x1, 2.0)))).floatValue();
+                        tridiff = (new Float((Math.pow(x2, 3.0) - Math.pow(x1, 3.0)))).floatValue();
                         // Calculate moment
                         // zaehler += 0.33f * slope * tridiff + 0.5f * diff
                         // * quaddiff;
-                        zaehler += (
-                                       ( (float) ( 1.0 / 3.0 ) * slope * tridiff ) +
-                                       ( (float) ( 1.0 / 2.0 ) * diff * quaddiff )
-                                    );
+                        zaehler += (((float) (1.0 / 3.0) * slope * tridiff) +
+                                ((float) (1.0 / 2.0) * diff * quaddiff));
                         // Calculate trapez.
                         // nenner += 0.5f * slope * quaddiff + diff * (x2 - x1);
-                        nenner += ( ( (float) ( 1.0 / 2.0 ) * slope * quaddiff ) + ( diff * ( x2 - x1 ) ) );
+                        nenner += (((float) (1.0 / 2.0) * slope * quaddiff) + (diff * (x2 - x1)));
                         x1 = x2;
                         y1 = y2;
                     }
 
-                    return FuzzyManager.round( zaehler / nenner );
+                    return FuzzyManager.round(zaehler / nenner);
                 }
 
                 return x1;
@@ -104,8 +95,12 @@ public class CenterOfArea
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "DEFUZZIFICATOR_CENTER_OF_AREA" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_CENTER_OF_AREA");
+    }
+
+    @Override
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "DEFUZZIFICATOR_CENTER_OF_AREA");
     }
 }

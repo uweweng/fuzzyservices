@@ -48,35 +48,35 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public abstract class AbstractOperator
-    implements Serializable
-{
+        implements Serializable {
+
     /**
      * Combines two fuzzy sets to a new fuzzy set.
      * @param fs1 The first operand
      * @param fs2 The second operand
      * @return the result of this operation. It is a new fuzzy set.
      */
-    public abstract FuzzySet combine( final FuzzySet fs1, final FuzzySet fs2 );
+    public abstract FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2);
 
     /**
      * Indicates whether an operator fullfils the t-norm.
      * @return <code>true</code> if the operator fullfils the t-norm,
      * <code>false</code> otherwise.
      */
-    public abstract boolean isValidTNorm(  );
+    public abstract boolean isValidTNorm();
 
     /**
      * Indicates whether an operator fullfils the s-norm.
      * @return <code>true</code> if the operator fullfils the s-norm,
      * <code>false</code> otherwise.
      */
-    public abstract boolean isValidSNorm(  );
+    public abstract boolean isValidSNorm();
 
     /**
      * Returns the name property.
      * @return name of operator
      */
-    public abstract String getName(  );
+    public abstract String getName();
 
     /**
      * Indicates whether an operator needs a parameter for calculations.
@@ -84,8 +84,7 @@ public abstract class AbstractOperator
      * <code>false</code> otherwise
      * @see net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator
      */
-    public boolean requiresParameter(  )
-    {
+    public boolean requiresParameter() {
         return false;
     }
 
@@ -95,9 +94,8 @@ public abstract class AbstractOperator
      * @return <code>true</code>, if the operator <code>op</code> needs a
      * parameter, <code>false</code> otherwise
      */
-    public static boolean requiresParameter( final AbstractOperator op )
-    {
-        return op.requiresParameter(  );
+    public static boolean requiresParameter(final AbstractOperator op) {
+        return op.requiresParameter();
     }
 
     /**
@@ -107,5 +105,5 @@ public abstract class AbstractOperator
      * @param b a degree of membership
      * @return the calculated value
      */
-    public abstract float compute( final float a, final float b );
+    public abstract float compute(final float a, final float b);
 }

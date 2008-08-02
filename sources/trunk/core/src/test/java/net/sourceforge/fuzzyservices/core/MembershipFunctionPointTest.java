@@ -37,60 +37,107 @@ public class MembershipFunctionPointTest {
      * Test of getDegreeOfMembership method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testGetDegreeOfMembership() {
+    public final void testGetDegreeOfMembership() {
         System.out.println("getDegreeOfMembership");
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
         float expResult = 0.0F;
         float result = instance.getDegreeOfMembership();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Test via constructor
+        expResult = 1.0F;
+        instance = new MembershipFunctionPoint(0.0F, expResult);
+        result = instance.getDegreeOfMembership();
+        assertEquals(expResult, result, 0.0F);
     }
 
     /**
      * Test of getX method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testGetX() {
+    public final void testGetX() {
         System.out.println("getX");
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
-        float expResult = 0.0F;
+        float expResult = Float.NaN; // initial value
         float result = instance.getX();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Test via constructor
+        expResult = 1.0F;
+        instance = new MembershipFunctionPoint(expResult, 0.0F);
+        result = instance.getX();
+        assertEquals(expResult, result, 0.0F);
     }
 
     /**
      * Test of setDegreeOfMembership method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testSetDegreeOfMembership() {
+    public final void testSetDegreeOfMembership() {
         System.out.println("setDegreeOfMembership");
         float aDegreeOfMembership = 0.0F;
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
         float expResult = 0.0F;
         float result = instance.setDegreeOfMembership(aDegreeOfMembership);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Test via constructor
+        expResult = 1.0F;
+        instance = new MembershipFunctionPoint(0.0F, expResult);
+        result = instance.setDegreeOfMembership(0.0F);
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of setDegreeOfMembership method, of class MembershipFunctionPoint.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDegreeOfMembership1() {
+        System.out.println("setDegreeOfMembership");
+        float aDegreeOfMembership = Float.NaN;
+        MembershipFunctionPoint instance = new MembershipFunctionPoint();
+        instance.setDegreeOfMembership(aDegreeOfMembership);
+    }
+
+    /**
+     * Test of setDegreeOfMembership method, of class MembershipFunctionPoint.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDegreeOfMembership2() {
+        System.out.println("setDegreeOfMembership");
+        float aDegreeOfMembership = -1.0F - Float.NEGATIVE_INFINITY;
+        MembershipFunctionPoint instance = new MembershipFunctionPoint();
+        instance.setDegreeOfMembership(aDegreeOfMembership);
+    }
+
+    /**
+     * Test of setDegreeOfMembership method, of class MembershipFunctionPoint.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDegreeOfMembership3() {
+        System.out.println("setDegreeOfMembership");
+        float aDegreeOfMembership = 1.0F + Float.POSITIVE_INFINITY;
+        MembershipFunctionPoint instance = new MembershipFunctionPoint();
+        instance.setDegreeOfMembership(aDegreeOfMembership);
     }
 
     /**
      * Test of clone method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testClone() {
+    public final void testClone() {
         System.out.println("clone");
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
-        Object expResult = null;
+        Object expResult = new MembershipFunctionPoint();
         Object result = instance.clone();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of equals method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testEquals() {
+    public final void testEquals() {
         System.out.println("equals");
         Object obj = null;
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
@@ -104,7 +151,7 @@ public class MembershipFunctionPointTest {
      * Test of hashCode method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testHashCode() {
+    public final void testHashCode() {
         System.out.println("hashCode");
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
         int expResult = 0;
@@ -117,13 +164,10 @@ public class MembershipFunctionPointTest {
      * Test of toString method, of class MembershipFunctionPoint.
      */
     @Test
-    public void testToString() {
+    public final void testToString() {
         System.out.println("toString");
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
-        String expResult = "";
         String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
-
 }

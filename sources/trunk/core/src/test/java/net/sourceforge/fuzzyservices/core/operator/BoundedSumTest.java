@@ -41,7 +41,8 @@ public class BoundedSumTest {
      * Test of combine method, of class BoundedSum.
      */
     @Test
-    public final void combine() {
+    public final void testCombine() {
+        System.out.println("combine");
         FuzzySet fs1 = null;
         FuzzySet fs2 = null;
         BoundedSum instance = new BoundedSum();
@@ -54,7 +55,8 @@ public class BoundedSumTest {
      * Test of isValidTNorm method, of class BoundedSum.
      */
     @Test
-    public final void isValidTNorm() {
+    public final void testIsValidTNorm() {
+        System.out.println("isValidTNorm");
         BoundedSum instance = new BoundedSum();
         boolean expResult = false;
         boolean result = instance.isValidTNorm();
@@ -65,7 +67,8 @@ public class BoundedSumTest {
      * Test of isValidSNorm method, of class BoundedSum.
      */
     @Test
-    public final void isValidSNorm() {
+    public final void testIsValidSNorm() {
+        System.out.println("isValidSNorm");
         BoundedSum instance = new BoundedSum();
         boolean expResult = true;
         boolean result = instance.isValidSNorm();
@@ -76,7 +79,8 @@ public class BoundedSumTest {
      * Test of compute method, of class BoundedSum.
      */
     @Test
-    public final void compute() {
+    public final void testCompute() {
+        System.out.println("compute");
         float a = 0.0F;
         float b = 0.0F;
         BoundedSum instance = new BoundedSum();
@@ -90,353 +94,20 @@ public class BoundedSumTest {
      */
     @Test
     public final void testToString() {
+        System.out.println("toString");
         BoundedSum instance = new BoundedSum();
         String result = instance.toString();
         assertNotNull(result);
     }
 
     /**
-     * Test of isValidTNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidTNorm() {
-        System.out.println("isValidTNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidSNorm() {
-        System.out.println("isValidSNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class BoundedSum.
-     */
-    @Test
-    public void testCompute() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        BoundedSum instance = new BoundedSum();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class BoundedSum.
-     */
-    @Test
-    public void testToString1() {
-        System.out.println("toString");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getName method, of class BoundedSum.
      */
     @Test
-    public void testGetName() {
+    public final void testGetName() {
         System.out.println("getName");
         BoundedSum instance = new BoundedSum();
-        String expResult = "";
         String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidTNorm1() {
-        System.out.println("isValidTNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidSNorm1() {
-        System.out.println("isValidSNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class BoundedSum.
-     */
-    @Test
-    public void testCompute_float_float() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        BoundedSum instance = new BoundedSum();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class BoundedSum.
-     */
-    @Test
-    public void testToString2() {
-        System.out.println("toString");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class BoundedSum.
-     */
-    @Test
-    public void testGetName1() {
-        System.out.println("getName");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidTNorm2() {
-        System.out.println("isValidTNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidSNorm2() {
-        System.out.println("isValidSNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class BoundedSum.
-     */
-    @Test
-    public void testCompute_float_float_2args() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        BoundedSum instance = new BoundedSum();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class BoundedSum.
-     */
-    @Test
-    public void testToString3() {
-        System.out.println("toString");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class BoundedSum.
-     */
-    @Test
-    public void testGetName2() {
-        System.out.println("getName");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidTNorm3() {
-        System.out.println("isValidTNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidSNorm3() {
-        System.out.println("isValidSNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class BoundedSum.
-     */
-    @Test
-    public void testCompute_2args_1() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        BoundedSum instance = new BoundedSum();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class BoundedSum.
-     */
-    @Test
-    public void testToString4() {
-        System.out.println("toString");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class BoundedSum.
-     */
-    @Test
-    public void testGetName3() {
-        System.out.println("getName");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidTNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidTNorm4() {
-        System.out.println("isValidTNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidTNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isValidSNorm method, of class BoundedSum.
-     */
-    @Test
-    public void testIsValidSNorm4() {
-        System.out.println("isValidSNorm");
-        BoundedSum instance = new BoundedSum();
-        boolean expResult = false;
-        boolean result = instance.isValidSNorm();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compute method, of class BoundedSum.
-     */
-    @Test
-    public void testCompute_2args_2() {
-        System.out.println("compute");
-        float a = 0.0F;
-        float b = 0.0F;
-        BoundedSum instance = new BoundedSum();
-        float expResult = 0.0F;
-        float result = instance.compute(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class BoundedSum.
-     */
-    @Test
-    public void testToString5() {
-        System.out.println("toString");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getName method, of class BoundedSum.
-     */
-    @Test
-    public void testGetName4() {
-        System.out.println("getName");
-        BoundedSum instance = new BoundedSum();
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 }

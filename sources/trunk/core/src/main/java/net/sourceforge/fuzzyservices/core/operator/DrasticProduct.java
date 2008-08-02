@@ -37,48 +37,41 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class DrasticProduct
-    extends AbstractDrasticOperator
-    implements Serializable
-{
+        extends AbstractDrasticOperator
+        implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    public final float getDefaultValue(  )
-    {
+    public final float getDefaultValue() {
         return 0.0f;
     }
 
     @Override
-    public final float getConditionValue(  )
-    {
+    public final float getConditionValue() {
         return 1.0f;
     }
 
     @Override
-    public final boolean isValidTNorm(  )
-    {
+    public final boolean isValidTNorm() {
         return true;
     }
 
     @Override
-    public final boolean isValidSNorm(  )
-    {
+    public final boolean isValidSNorm() {
         return false;
     }
 
     @Override
-    public final float compute( final float a, final float b )
-    {
-        if ( a == 1.0f )
-        {
+    public final float compute(final float a, final float b) {
+        if (a == 1.0f) {
             return b;
         }
 
-        if ( b == 1.0f )
-        {
+        if (b == 1.0f) {
             return a;
         }
 
@@ -86,14 +79,12 @@ public class DrasticProduct
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_PRODUCT" );
+    public String toString() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_PRODUCT");
     }
 
     @Override
-    public String getName(  )
-    {
-        return FuzzyResourceManager.getString( this, "OPERATOR_DRASTIC_PRODUCT" );
+    public String getName() {
+        return FuzzyResourceManager.getString(this, "OPERATOR_DRASTIC_PRODUCT");
     }
 }
