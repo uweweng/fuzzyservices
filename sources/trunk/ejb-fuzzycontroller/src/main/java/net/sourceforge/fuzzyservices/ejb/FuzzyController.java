@@ -23,17 +23,9 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb;
 
-import net.sourceforge.fuzzyservices.beans.FactBase;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
-import net.sourceforge.fuzzyservices.beans.RuleBase;
-import net.sourceforge.fuzzyservices.core.FactBase;
-import net.sourceforge.fuzzyservices.core.LinguisticVariable;
-import net.sourceforge.fuzzyservices.core.RuleBase;
-
 import java.rmi.RemoteException;
 
 import javax.ejb.EJBObject;
-
 
 /**
  * EJB remote interface of a fuzzy controller implementation for approximate reasoning.
@@ -43,28 +35,29 @@ import javax.ejb.EJBObject;
  * @author Uwe Weng
  */
 public interface FuzzyController extends EJBObject {
+
     /**
      * Inference method for fuzzy JavaBeans.
+     * @return a new fact base with the result of this operation
+     * @throws RemoteException when any technical issue happened
      * @param ruleBase the rule base
      * @param factBase the fact base
      * @param linguisticVariables the linguistic variables
-     * @return a new fact base with the result of this operation
-     * @throws java.rmi.RemoteException
      */
-    FactBase performApproximateReasoning(final RuleBase ruleBase,
-        final FactBase factBase,
-        final LinguisticVariable[] linguisticVariables)
-        throws RemoteException;
+    net.sourceforge.fuzzyservices.beans.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.beans.RuleBase ruleBase,
+            final net.sourceforge.fuzzyservices.beans.FactBase factBase,
+            final net.sourceforge.fuzzyservices.beans.LinguisticVariable[] linguisticVariables)
+            throws RemoteException;
 
     /**
      * Inference method for core fuzzy components.
+     * @return a new fact base with the result of this operation
+     * @throws RemoteException when any technical issue happened
      * @param ruleBase the rule base
      * @param factBase the fact base
      * @param linguisticVariables the linguistic variables
-     * @return a new fact base with the result of this operation
-     * @throws java.rmi.RemoteException
      */
-    FactBase performApproximateReasoning(final RuleBase ruleBase,
-        final FactBase factBase, final LinguisticVariable[] linguisticVariables)
-        throws RemoteException;
+    net.sourceforge.fuzzyservices.core.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.core.RuleBase ruleBase,
+            final net.sourceforge.fuzzyservices.core.FactBase factBase, final net.sourceforge.fuzzyservices.core.LinguisticVariable[] linguisticVariables)
+            throws RemoteException;
 }
