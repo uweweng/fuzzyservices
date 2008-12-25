@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class FuzzyLRNumberTest.
+ * Test of class FuzzyLRNumber.
  *
  * @author Uwe Weng
  */
@@ -39,11 +39,20 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testGetAlpha() {
         System.out.println("getAlpha");
-        FuzzyLRNumber instance = new FuzzyLRNumber();
-        float expResult = 0.0F;
+        FuzzyLRNumber instance = new FuzzyLRNumber(2.0f, 1.0f);
+        float expResult = 1.0F;
         float result = instance.getAlpha();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0f);
+
+        instance = new FuzzyLRNumber(-2.0f, 1.0f);
+        expResult = 1.0F;
+        result = instance.getAlpha();
+        assertEquals(expResult, result, 0.0f);
+
+        instance = new FuzzyLRNumber(0.0f, 2.0f);
+        expResult = 2.0F;
+        result = instance.getAlpha();
+        assertEquals(expResult, result, 0.0f);
     }
 
     /**
@@ -52,11 +61,20 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testGetBeta() {
         System.out.println("getBeta");
-        FuzzyLRNumber instance = new FuzzyLRNumber();
-        float expResult = 0.0F;
+        FuzzyLRNumber instance = new FuzzyLRNumber(2.0f, 1.0f);
+        float expResult = 1.0F;
         float result = instance.getBeta();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0f);
+
+        instance = new FuzzyLRNumber(-2.0f, 1.0f);
+        expResult = 1.0F;
+        result = instance.getBeta();
+        assertEquals(expResult, result, 0.0f);
+
+        instance = new FuzzyLRNumber(0.0f, 2.0f);
+        expResult = 2.0F;
+        result = instance.getBeta();
+        assertEquals(expResult, result, 0.0f);
     }
 
     /**
@@ -65,9 +83,11 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testInvert() {
         System.out.println("invert");
-        FuzzyLRNumber instance = new FuzzyLRNumber();
+        FuzzyLRNumber instance = new FuzzyLRNumber(2.0f, 1.0f);
+        FuzzyLRNumber expResult = new FuzzyLRNumber(0.5f, 1.0f);
         instance.invert();
-        fail("The test case is a prototype.");
+        assertEquals(expResult, instance);
+        // TODO testInvert um weitere Beispiele ergaenzen
     }
 
     /**
@@ -76,11 +96,20 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testIsNegative() {
         System.out.println("isNegative");
-        FuzzyLRNumber instance = new FuzzyLRNumber();
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f);
         boolean expResult = false;
         boolean result = instance.isNegative();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzyLRNumber(-1.0f, 1.0f);
+        expResult = true;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyLRNumber(0.0f, 1.0f);
+        expResult = false;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -89,11 +118,20 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testIsPositive() {
         System.out.println("isPositive");
-        FuzzyLRNumber instance = new FuzzyLRNumber();
-        boolean expResult = false;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f);
+        boolean expResult = true;
         boolean result = instance.isPositive();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzyLRNumber(-1.0f, 1.0f);
+        expResult = false;
+        result = instance.isPositive();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyLRNumber(0.0f, 1.0f);
+        expResult = false;
+        result = instance.isPositive();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -102,9 +140,40 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testNegate() {
         System.out.println("negate");
-        FuzzyLRNumber instance = new FuzzyLRNumber();
+        FuzzyLRNumber instance = new FuzzyLRNumber(2.0f, 1.0f);
+        FuzzyLRNumber expResult = new FuzzyLRNumber(-2.0f, 1.0f);
         instance.negate();
-        fail("The test case is a prototype.");
+        assertEquals(expResult, instance);
+
+        // vice versa
+        instance = new FuzzyLRNumber(-2.0f, 1.0f);
+        expResult = new FuzzyLRNumber(2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // negating at zero
+        instance = new FuzzyLRNumber(0.0f, 1.0f);
+        expResult = new FuzzyLRNumber(0.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // asymmetric
+        instance = new FuzzyLRNumber(-4.0f, 1.0f, 2.0f);
+        expResult = new FuzzyLRNumber(4.0f, 2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // asymmetric
+        instance = new FuzzyLRNumber(3.0f, 1.0f, 2.0f);
+        expResult = new FuzzyLRNumber(-3.0f, 2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // negating over zero
+        instance = new FuzzyLRNumber(1.0f, 3.0f, 4.0f);
+        expResult = new FuzzyLRNumber(-1.0f, 4.0f, 3.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
     }
 
     /**
@@ -113,12 +182,29 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testRemove() {
         System.out.println("remove");
-        float x = 0.0F;
-        FuzzyLRNumber instance = new FuzzyLRNumber();
-        float expResult = 0.0F;
+        float x = 0.5F;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        float expResult = 0.5F;
         float result = instance.remove(x);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Remove undefined point
+        instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        x = 5.0f;
+        expResult = 0.0F;
+        result = instance.remove(x);
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of remove method, of class FuzzyLRNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testRemove1() {
+        System.out.println("remove");
+        float x = 1.0F;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        instance.remove(x);
     }
 
     /**
@@ -127,13 +213,60 @@ public class FuzzyLRNumberTest {
     @Test
     public final void testSet() {
         System.out.println("set");
-        float x = 0.0F;
-        float dom = 0.0F;
-        FuzzyLRNumber instance = new FuzzyLRNumber();
-        float expResult = 0.0F;
+        float x = 1.0F;
+        float dom = 1.0F;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        float expResult = 1.0F;
         float result = instance.set(x, dom);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of set method, of class FuzzyLRNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet1() {
+        System.out.println("set");
+        float x = 1.0F;
+        float dom = Float.NaN;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyLRNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet2() {
+        System.out.println("set");
+        float x = 1.0F;
+        float dom = 1.0F + Float.POSITIVE_INFINITY;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyLRNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet3() {
+        System.out.println("set");
+        float x = 1.0F;
+        float dom = 0.0F - Float.NEGATIVE_INFINITY;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyLRNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet4() {
+        System.out.println("set");
+        float x = 1.0f;
+        float dom = 1.0f - Float.POSITIVE_INFINITY;
+        FuzzyLRNumber instance = new FuzzyLRNumber(1.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
     }
 
     /**
@@ -143,11 +276,12 @@ public class FuzzyLRNumberTest {
     public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
-        FuzzyLRNumber instance = new FuzzyLRNumber();
-        String expResult = "";
+        FuzzyLRNumber instance = new FuzzyLRNumber(0.0f, 1.0f);
         String result = instance.toString(withPoints);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        withPoints = true;
+        result = instance.toString(withPoints);
+        assertNotNull(result);
     }
 
 }

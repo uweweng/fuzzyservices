@@ -35,10 +35,8 @@ import java.io.Serializable;
  * @version 1.0
  * @author Uwe Weng
  */
-public final class Consequent
-    extends AbstractRulePart
-    implements Serializable
-{
+public final class Consequent extends RulePart implements Cloneable, Serializable {
+
     /**
      * Default serial version UID.
      */
@@ -46,11 +44,17 @@ public final class Consequent
 
     /**
      * Constructs a conclusion.
+     */
+    public Consequent() {
+        super();
+    }
+
+    /**
+     * Constructs a conclusion.
      * @param lvName linguistic variable name for describing a conclusion of an if-then-clause
      * @param lingTermName the name of a linguistic term which is part of the linguistic variable representing the conclusion.
      */
-    public Consequent( final String lvName, final String lingTermName )
-    {
-        super( lvName, lingTermName );
+    public Consequent(final String lvName, final String lingTermName) {
+        super(lvName, lingTermName);
     }
 }

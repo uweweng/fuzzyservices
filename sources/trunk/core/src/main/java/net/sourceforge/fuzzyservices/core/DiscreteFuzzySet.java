@@ -68,17 +68,7 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      *            the degree of membership of <code>obj</code> in <tt>[0,1]</tt>
      */
     public DiscreteFuzzySet(final E obj, final float dom) {
-        if (obj != null) {
-            if ((dom >= 0.0f) && (dom <= 1.0f)) {
-                objects.put(obj,
-                        new Float(FuzzyManager.round(dom)));
-            } else {
-                throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                        this,
-                        "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
-                        new Object[]{Float.toString(dom)}));
-            }
-        }
+        add(obj, dom);
     }
 
     /**
@@ -93,13 +83,11 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
         if (obj != null) {
             if ((dom >= 0.0f) && (dom <= 1.0f)) {
                 if (dom > 0.0f) {
-                    objects.put(obj,
-                            new Float(FuzzyManager.round(dom)));
+                    objects.put(obj, new Float(FuzzyManager.round(dom)));
                 }
             } else {
                 throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                        this,
-                        "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
+                        this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
                         new Object[]{Float.toString(dom)}));
             }
         }
@@ -156,14 +144,12 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
         return null;
     }
 
-    /** Concentrates the discrete fuzzy set. That means, degree of memberships  are squared.*/
+    /** Concentrates the discrete fuzzy set. That means, degree of memberships are squared.*/
     public synchronized void concentrate() {
         for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
             E obj = it.next();
-            objects.put(obj,
-                    new Float(FuzzyManager.round((float) Math.pow(
-                    objects.get(obj).floatValue(),
-                    2.0))));
+            objects.put(obj, new Float(FuzzyManager.round((float) Math.pow(
+                    objects.get(obj).floatValue(), 2.0))));
         }
     }
 
@@ -222,8 +208,7 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
             return col;
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this,
-                    "EXCEPTION_INVALID_ALPHA",
+                    this, "EXCEPTION_INVALID_ALPHA",
                     new Object[]{Float.toString(alpha)}));
         }
     }
@@ -252,8 +237,7 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
             return col;
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this,
-                    "EXCEPTION_INVALID_ALPHA",
+                    this, "EXCEPTION_INVALID_ALPHA",
                     new Object[]{Float.toString(alpha)}));
         }
     }
@@ -266,12 +250,17 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @return the degree ob membership of the object
      */
     public synchronized float getDegreeOfMembership(final E obj) {
+        Float degreeOfMembership = 0.0F;
         if (obj != null) {
-            Float dom = objects.get(obj);
-            return (dom == null) ? 0.0f : dom.floatValue();
+            degreeOfMembership = objects.get(obj);
+            if (degreeOfMembership == null) {
+                return 0.0F;
+            } else {
+                return degreeOfMembership;
+            }
         }
 
-        return 0.0f;
+        return degreeOfMembership;
     }
 
     /**
@@ -280,18 +269,18 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @return the highest value
      */
     public synchronized float getMaximumDegreeOfMembership() {
-        float maxDoM = 0.0f;
+        Float maxDegreeOfMembership = 0.0f;
 
         for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
             E obj = it.next();
-            float dom = objects.get(obj).floatValue();
+            Float degreeOfMembership = objects.get(obj).floatValue();
 
-            if (dom > maxDoM) {
-                maxDoM = dom;
+            if (degreeOfMembership > maxDegreeOfMembership) {
+                maxDegreeOfMembership = degreeOfMembership;
             }
         }
 
-        return maxDoM;
+        return maxDegreeOfMembership;
     }
 
     /**
@@ -329,8 +318,7 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
                 }
             } else {
                 throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                        this,
-                        "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
+                        this, "EXCEPTION_INVALID_DEGREE_OF_MEMBERSHIP",
                         new Object[]{Float.toString(dom)}));
             }
         }
@@ -362,17 +350,14 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      * @return the degree of membership before deleting
      */
     public synchronized float remove(final E obj) {
+        Float degreeOfMembership = 0.0f;
         if (obj != null) {
-            Float retfloat = objects.remove(obj);
-
-            if (retfloat != null) {
-                return retfloat.floatValue();
-            } else {
-                return 0.0f;
+            Float result = objects.remove(obj);
+            if (result != null) {
+                degreeOfMembership = result;
             }
-        } else {
-            return Float.NaN;
         }
+        return degreeOfMembership;
     }
 
     /**

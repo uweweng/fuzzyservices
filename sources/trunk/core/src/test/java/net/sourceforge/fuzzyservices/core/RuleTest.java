@@ -24,15 +24,231 @@
 package net.sourceforge.fuzzyservices.core;
 
 import java.util.Iterator;
+import net.sourceforge.fuzzyservices.core.AntecedentTest.ValidCompatibilityTestOperator;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class RuleTest.
+ * Test of class Rule.
  *
  * @author Uwe Weng
  */
 public class RuleTest {
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class ValidAggregationTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "ValidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "ValidTestOperator";
+        }
+    }
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class ValidCertaintyTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            return true;
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "ValidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "ValidTestOperator";
+        }
+    }
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class InvalidCertaintyTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            return false;
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "InvalidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "InvalidTestOperator";
+        }
+    }
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class ValidInferenceTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            return true;
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "ValidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "ValidTestOperator";
+        }
+    }
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class InvalidInferenceTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            return false;
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "InvalidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "InvalidTestOperator";
+        }
+    }
 
     /**
      * Test of addAntecedent method, of class Rule.
@@ -43,7 +259,13 @@ public class RuleTest {
         Antecedent ante = null;
         Rule instance = new Rule();
         instance.addAntecedent(ante);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+
+        ante = new Antecedent("Foo", "term1");
+        instance = new Rule();
+        instance.addAntecedent(ante);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0), ante);
     }
 
     /**
@@ -52,11 +274,29 @@ public class RuleTest {
     @Test
     public final void testAddAntecedent_String_String() {
         System.out.println("addAntecedent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         instance.addAntecedent(lvName, lingTermName);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.addAntecedent(lvName, lingTermName);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+
+        // Adding identical definitions twice. The result is the same.
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.addAntecedent(lvName, lingTermName);
+        instance.addAntecedent(lvName, lingTermName);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
     }
 
     /**
@@ -65,12 +305,43 @@ public class RuleTest {
     @Test
     public final void testAddAntecedent_3args() {
         System.out.println("addAntecedent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         AbstractOperator compOp = null;
         Rule instance = new Rule();
         instance.addAntecedent(lvName, lingTermName, compOp);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+        assertEquals(instance.getAntecedentAt(0).getCompatibilityOperator(), compOp);
+
+        // Adding identical definitions twice. The result is the same.
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+        assertEquals(instance.getAntecedentAt(0).getCompatibilityOperator(), compOp);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        instance.addAntecedent(lvName, lingTermName, null);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+        assertEquals(instance.getAntecedentAt(0).getCompatibilityOperator(), compOp);
     }
 
     /**
@@ -82,7 +353,13 @@ public class RuleTest {
         Consequent cons = null;
         Rule instance = new Rule();
         instance.addConsequent(cons);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfConsequents(), 1);
+
+        cons = new Consequent("Foo", "term1");
+        instance = new Rule();
+        instance.addConsequent(cons);
+        assertEquals(instance.getSizeOfConsequents(), 1);
+        assertEquals(instance.getConsequentAt(0), cons);
     }
 
     /**
@@ -91,11 +368,29 @@ public class RuleTest {
     @Test
     public final void testAddConsequent_String_String() {
         System.out.println("addConsequent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         instance.addConsequent(lvName, lingTermName);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfConsequents(), 1);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.addConsequent(lvName, lingTermName);
+        assertEquals(instance.getSizeOfConsequents(), 1);
+        assertEquals(instance.getConsequentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getConsequentAt(0).getLinguisticTermName(), lingTermName);
+
+        // Adding identical definitions twice. The result is the same.
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.addConsequent(lvName, lingTermName);
+        instance.addConsequent(lvName, lingTermName);
+        assertEquals(instance.getSizeOfConsequents(), 1);
+        assertEquals(instance.getConsequentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getConsequentAt(0).getLinguisticTermName(), lingTermName);
     }
 
     /**
@@ -105,8 +400,20 @@ public class RuleTest {
     public final void testClear() {
         System.out.println("clear");
         Rule instance = new Rule();
+        assertEquals(instance.getSizeOfAntecedents(), 0);
+        assertEquals(instance.getSizeOfConsequents(), 0);
         instance.clear();
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfAntecedents(), 0);
+        assertEquals(instance.getSizeOfConsequents(), 0);
+
+        instance = new Rule();
+        instance.addAntecedent("foo", "term1");
+        instance.addConsequent("foo", "term1");
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getSizeOfConsequents(), 1);
+        instance.clear();
+        assertEquals(instance.getSizeOfAntecedents(), 0);
+        assertEquals(instance.getSizeOfConsequents(), 0);
     }
 
     /**
@@ -115,13 +422,46 @@ public class RuleTest {
     @Test
     public final void testContainsAntecedent_String_String() {
         System.out.println("containsAntecedent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.containsAntecedent(lvName, lingTermName);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lvName = null;
+        lingTermName = null;
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName);
+        result = instance.containsAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = true;
+        instance.addAntecedent(lvName, lingTermName);
+        result = instance.containsAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        // Case sensitive
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName.toUpperCase());
+        result = instance.containsAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName);
+        instance.removeAntecedent(lvName, lingTermName);
+        result = instance.containsAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -130,14 +470,79 @@ public class RuleTest {
     @Test
     public final void testContainsAntecedent_3args() {
         System.out.println("containsAntecedent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         AbstractOperator compOp = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.containsAntecedent(lvName, lingTermName, compOp);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lvName = null;
+        lingTermName = null;
+        compOp = null;
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = null;
+        lingTermName = null;
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = null;
+        instance = new Rule();
+        expResult = false; // because of defaut compatobility operator
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = true;
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = null;
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        // Case sensitive
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName.toUpperCase(), compOp);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        instance.removeAntecedent(lvName, lingTermName);
+        result = instance.containsAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
     }
 
     /**
@@ -146,13 +551,46 @@ public class RuleTest {
     @Test
     public final void testContainsConsequent() {
         System.out.println("containsConsequent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.containsConsequent(lvName, lingTermName);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lvName = null;
+        lingTermName = null;
+        instance = new Rule();
+        expResult = false;
+        instance.addConsequent(lvName, lingTermName);
+        result = instance.containsConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = true;
+        instance.addConsequent(lvName, lingTermName);
+        result = instance.containsConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        // Case sensitive
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = false;
+        instance.addConsequent(lvName, lingTermName.toUpperCase());
+        result = instance.containsConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = false;
+        instance.addConsequent(lvName, lingTermName);
+        instance.removeConsequent(lvName, lingTermName);
+        result = instance.containsConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -161,12 +599,60 @@ public class RuleTest {
     @Test
     public final void testContainsLinguisticVariable() {
         System.out.println("containsLinguisticVariable");
-        String lingVarName = "";
+        String lingVarName = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.containsLinguisticVariable(lingVarName);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lingVarName = null;
+        instance = new Rule();
+        expResult = false;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
+
+        lingVarName = null;
+        instance = new Rule();
+        instance.addAntecedent(lingVarName, null);
+        expResult = true;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
+
+        lingVarName = null;
+        instance = new Rule();
+        instance.addConsequent(lingVarName, null);
+        expResult = true;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
+
+        lingVarName = "Foo";
+        instance = new Rule();
+        instance.addAntecedent(lingVarName, null);
+        expResult = true;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
+
+        lingVarName = "Foo";
+        instance = new Rule();
+        instance.addConsequent(lingVarName, null);
+        expResult = true;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
+
+        // Case sensitive
+        lingVarName = "Foo";
+        instance = new Rule();
+        instance.addAntecedent(lingVarName.toUpperCase(), null);
+        expResult = false;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
+
+        lingVarName = "Foo";
+        instance = new Rule();
+        instance.addConsequent(lingVarName.toUpperCase(), null);
+        expResult = false;
+        result = instance.containsLinguisticVariable(lingVarName);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -176,10 +662,15 @@ public class RuleTest {
     public final void testGetAggregationOperator() {
         System.out.println("getAggregationOperator");
         Rule instance = new Rule();
-        AbstractOperator expResult = null;
+        AbstractOperator expResult = new ValidAggregationTestOperator();
+        instance.setAggregationOperator(expResult);
         AbstractOperator result = instance.getAggregationOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertSame(expResult, result);
+
+        // Initialised by default operator
+        instance = new Rule();
+        result = instance.getAggregationOperator();
+        assertSame(result, Rule.getDefaultAggregationOperator());
     }
 
     /**
@@ -190,10 +681,21 @@ public class RuleTest {
         System.out.println("getAntecedentAt");
         int i = 0;
         Rule instance = new Rule();
-        Antecedent expResult = null;
+        Antecedent expResult = new Antecedent(null, null);
+        instance.addAntecedent(expResult);
         Antecedent result = instance.getAntecedentAt(i);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertSame(expResult, result);
+    }
+
+    /**
+     * Test of getAntecedentAt method, of class Rule.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public final void testGetAntecedentAt1() {
+        System.out.println("getAntecedentAt");
+        int i = 0;
+        Rule instance = new Rule();
+        instance.getAntecedentAt(i);
     }
 
     /**
@@ -203,10 +705,8 @@ public class RuleTest {
     public final void testGetAntecedents() {
         System.out.println("getAntecedents");
         Rule instance = new Rule();
-        Iterator<Antecedent> expResult = null;
         Iterator<Antecedent> result = instance.getAntecedents();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -216,10 +716,15 @@ public class RuleTest {
     public final void testGetCertainty() {
         System.out.println("getCertainty");
         Rule instance = new Rule();
-        float expResult = 0.0F;
+        float expResult = 0.5F;
+        instance.setCertainty(expResult);
         float result = instance.getCertainty();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0f);
+
+        // Initialised by default certainty
+        instance = new Rule();
+        result = instance.getCertainty();
+        assertEquals(result, Rule.getDefaultCertainty(), 0.0f);
     }
 
     /**
@@ -229,10 +734,15 @@ public class RuleTest {
     public final void testGetCertaintyOperator() {
         System.out.println("getCertaintyOperator");
         Rule instance = new Rule();
-        AbstractOperator expResult = null;
+        AbstractOperator expResult = new ValidCertaintyTestOperator();
+        instance.setCertaintyOperator(expResult);
         AbstractOperator result = instance.getCertaintyOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertSame(expResult, result);
+
+        // Initialised by default operator
+        instance = new Rule();
+        result = instance.getCertaintyOperator();
+        assertSame(result, Rule.getDefaultCertaintyOperator());
     }
 
     /**
@@ -243,10 +753,21 @@ public class RuleTest {
         System.out.println("getConsequentAt");
         int i = 0;
         Rule instance = new Rule();
-        Consequent expResult = null;
+        Consequent expResult = new Consequent(null, null);
+        instance.addConsequent(expResult);
         Consequent result = instance.getConsequentAt(i);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertSame(expResult, result);
+    }
+
+    /**
+     * Test of getConsequentAt method, of class Rule.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public final void testGetConsequentAt1() {
+        System.out.println("getConsequentAt");
+        int i = 0;
+        Rule instance = new Rule();
+        instance.getConsequentAt(i);
     }
 
     /**
@@ -256,10 +777,8 @@ public class RuleTest {
     public final void testGetConsequents() {
         System.out.println("getConsequents");
         Rule instance = new Rule();
-        Iterator<Consequent> expResult = null;
         Iterator<Consequent> result = instance.getConsequents();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -268,10 +787,8 @@ public class RuleTest {
     @Test
     public final void testGetDefaultAggregationOperator() {
         System.out.println("getDefaultAggregationOperator");
-        AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultAggregationOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -280,10 +797,10 @@ public class RuleTest {
     @Test
     public final void testGetDefaultCertaintyOperator() {
         System.out.println("getDefaultCertaintyOperator");
-        AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultCertaintyOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        // Operator has to fulfill the t-norm
+        assertTrue(result.isValidTNorm());
     }
 
     /**
@@ -292,10 +809,10 @@ public class RuleTest {
     @Test
     public final void testGetDefaultInferenceOperator() {
         System.out.println("getDefaultInferenceOperator");
-        AbstractOperator expResult = null;
         AbstractOperator result = Rule.getDefaultInferenceOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        // Operator has to fulfill the t-norm
+        assertTrue(result.isValidTNorm());
     }
 
     /**
@@ -305,10 +822,15 @@ public class RuleTest {
     public final void testGetInferenceOperator() {
         System.out.println("getInferenceOperator");
         Rule instance = new Rule();
-        AbstractOperator expResult = null;
+        AbstractOperator expResult = new ValidInferenceTestOperator();
+        instance.setInferenceOperator(expResult);
         AbstractOperator result = instance.getInferenceOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertSame(expResult, result);
+
+        // Initialised by default operator
+        instance = new Rule();
+        result = instance.getInferenceOperator();
+        assertSame(result, Rule.getDefaultInferenceOperator());
     }
 
     /**
@@ -317,11 +839,19 @@ public class RuleTest {
     @Test
     public final void testGetSizeOfAntecedents() {
         System.out.println("getSizeOfAntecedents");
+        Antecedent antecedent = null;
         Rule instance = new Rule();
         int expResult = 0;
         int result = instance.getSizeOfAntecedents();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Adding increases size.
+        antecedent = new Antecedent();
+        instance = new Rule();
+        instance.addAntecedent(antecedent);
+        expResult = 1;
+        result = instance.getSizeOfAntecedents();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -330,11 +860,19 @@ public class RuleTest {
     @Test
     public final void testGetSizeOfConsequents() {
         System.out.println("getSizeOfConsequents");
+        Consequent consequent = null;
         Rule instance = new Rule();
         int expResult = 0;
         int result = instance.getSizeOfConsequents();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Adding increases size.
+        consequent = new Consequent();
+        instance = new Rule();
+        instance.addConsequent(consequent);
+        expResult = 1;
+        result = instance.getSizeOfConsequents();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -343,11 +881,29 @@ public class RuleTest {
     @Test
     public final void testIf__String_String() {
         System.out.println("if_");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         instance.if_(lvName, lingTermName);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.if_(lvName, lingTermName);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+
+        // Adding identical definitions twice. The result is the same.
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.if_(lvName, lingTermName);
+        instance.if_(lvName, lingTermName);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
     }
 
     /**
@@ -356,12 +912,77 @@ public class RuleTest {
     @Test
     public final void testIf__3args() {
         System.out.println("if_");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         AbstractOperator compOp = null;
         Rule instance = new Rule();
         instance.if_(lvName, lingTermName, compOp);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        instance.if_(lvName, lingTermName, compOp);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+        assertEquals(instance.getAntecedentAt(0).getCompatibilityOperator(), compOp);
+
+        // Adding identical definitions twice. The result is the same.
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.if_(lvName, lingTermName, compOp);
+        instance.if_(lvName, lingTermName, compOp);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+        assertEquals(instance.getAntecedentAt(0).getCompatibilityOperator(), compOp);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.if_(lvName, lingTermName, compOp);
+        instance.if_(lvName, lingTermName, null);
+        assertEquals(instance.getSizeOfAntecedents(), 1);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getAntecedentAt(0).getLinguisticTermName(), lingTermName);
+        assertEquals(instance.getAntecedentAt(0).getCompatibilityOperator(), compOp);
+    }
+
+    /**
+     * Test of removeAntecedent method, of class Rule.
+     */
+    @Test
+    public final void testRemoveAntecedent_Antecedent() {
+        System.out.println("removeAntecedent");
+        Antecedent ante = null;
+        Rule instance = new Rule();
+        boolean expResult = false;
+        boolean result = instance.removeAntecedent(ante);
+        assertEquals(expResult, result);
+
+        ante = new Antecedent();
+        instance = new Rule();
+        expResult = false;
+        result = instance.removeAntecedent(ante);
+        assertEquals(expResult, result);
+
+        ante = new Antecedent();
+        instance = new Rule();
+        expResult = true;
+        instance.addAntecedent(ante);
+        result = instance.removeAntecedent(ante);
+        assertEquals(expResult, result);
+
+        ante = new Antecedent();
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(ante);
+        instance.removeAntecedent(ante);
+        result = instance.removeAntecedent(ante);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -370,13 +991,36 @@ public class RuleTest {
     @Test
     public final void testRemoveAntecedent_String_String() {
         System.out.println("removeAntecedent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.removeAntecedent(lvName, lingTermName);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lvName = "";
+        lingTermName = "";
+        instance = new Rule();
+        expResult = false;
+        result = instance.removeAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = true;
+        instance.addAntecedent(lvName, lingTermName);
+        result = instance.removeAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName);
+        instance.removeAntecedent(lvName, lingTermName);
+        result = instance.removeAntecedent(lvName, lingTermName);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -385,14 +1029,40 @@ public class RuleTest {
     @Test
     public final void testRemoveAntecedent_3args() {
         System.out.println("removeAntecedent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         AbstractOperator compOp = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.removeAntecedent(lvName, lingTermName, compOp);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lvName = "";
+        lingTermName = "";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = false;
+        result = instance.removeAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = "foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = true;
+        instance.addAntecedent(lvName, lingTermName);
+        result = instance.removeAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
+
+        lvName = "foo";
+        lingTermName = "term1";
+        compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        expResult = false;
+        instance.addAntecedent(lvName, lingTermName, compOp);
+        instance.removeAntecedent(lvName, lingTermName, compOp);
+        result = instance.removeAntecedent(lvName, lingTermName, compOp);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -401,13 +1071,70 @@ public class RuleTest {
     @Test
     public final void testRemoveConsequent() {
         System.out.println("removeConsequent");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         boolean expResult = false;
         boolean result = instance.removeConsequent(lvName, lingTermName);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        lvName = "";
+        lingTermName = "";
+        instance = new Rule();
+        expResult = false;
+        result = instance.removeConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = true;
+        instance.addConsequent(lvName, lingTermName);
+        result = instance.removeConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
+
+        lvName = "foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        expResult = false;
+        instance.addConsequent(lvName, lingTermName);
+        instance.removeConsequent(lvName, lingTermName);
+        result = instance.removeConsequent(lvName, lingTermName);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of removeConsequent method, of class Rule.
+     */
+    @Test
+    public final void testRemoveConsequent_Consequent() {
+        System.out.println("removeConsequent");
+        Consequent cons = null;
+        Rule instance = new Rule();
+        boolean expResult = false;
+        boolean result = instance.removeConsequent(cons);
+        assertEquals(expResult, result);
+
+        cons = new Consequent();
+        instance = new Rule();
+        expResult = false;
+        result = instance.removeConsequent(cons);
+        assertEquals(expResult, result);
+
+        cons = new Consequent();
+        instance = new Rule();
+        expResult = true;
+        instance.addConsequent(cons);
+        result = instance.removeConsequent(cons);
+        assertEquals(expResult, result);
+
+        cons = new Consequent();
+        instance = new Rule();
+        expResult = false;
+        instance.addConsequent(cons);
+        instance.removeConsequent(cons);
+        result = instance.removeConsequent(cons);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -416,12 +1143,10 @@ public class RuleTest {
     @Test
     public final void testSetAggregationOperator() {
         System.out.println("setAggregationOperator");
-        AbstractOperator aggOp = null;
+        AbstractOperator aggOp = new ValidAggregationTestOperator();
         Rule instance = new Rule();
-        AbstractOperator expResult = null;
-        AbstractOperator result = instance.setAggregationOperator(aggOp);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        instance.setAggregationOperator(aggOp);
+        assertSame(instance.getAggregationOperator(), aggOp);
     }
 
     /**
@@ -430,12 +1155,32 @@ public class RuleTest {
     @Test
     public final void testSetCertainty() {
         System.out.println("setCertainty");
-        float cert = 0.0F;
+        float cert = 0.5F;
         Rule instance = new Rule();
-        float expResult = 0.0F;
-        float result = instance.setCertainty(cert);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        instance.setCertainty(cert);
+        assertEquals(instance.getCertainty(), cert, 0.0f);
+    }
+
+    /**
+     * Test of setCertainty method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetCertainty1() {
+        System.out.println("setCertainty");
+        float cert = 0.0F - Float.POSITIVE_INFINITY;
+        Rule instance = new Rule();
+        instance.setCertainty(cert);
+    }
+
+    /**
+     * Test of setCertainty method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetCertainty2() {
+        System.out.println("setCertainty");
+        float cert = 1.0F + Float.POSITIVE_INFINITY;
+        Rule instance = new Rule();
+        instance.setCertainty(cert);
     }
 
     /**
@@ -444,12 +1189,32 @@ public class RuleTest {
     @Test
     public final void testSetCertaintyOperator() {
         System.out.println("setCertaintyOperator");
+        AbstractOperator certOp = new ValidCertaintyTestOperator();
+        Rule instance = new Rule();
+        instance.setCertaintyOperator(certOp);
+        assertSame(instance.getCertaintyOperator(), certOp);
+    }
+
+    /**
+     * Test of setCertaintyOperator method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetCertaintyOperator1() {
+        System.out.println("setCertaintyOperator");
+        AbstractOperator certOp = new InvalidCertaintyTestOperator();
+        Rule instance = new Rule();
+        instance.setCertaintyOperator(certOp);
+    }
+
+    /**
+     * Test of setCertaintyOperator method, of class Rule.
+     */
+    @Test(expected = NullPointerException.class)
+    public final void testSetCertaintyOperator2() {
+        System.out.println("setCertaintyOperator");
         AbstractOperator certOp = null;
         Rule instance = new Rule();
-        AbstractOperator expResult = null;
-        AbstractOperator result = instance.setCertaintyOperator(certOp);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        instance.setCertaintyOperator(certOp);
     }
 
     /**
@@ -458,11 +1223,19 @@ public class RuleTest {
     @Test
     public final void testSetDefaultAggregationOperator() {
         System.out.println("setDefaultAggregationOperator");
+        AbstractOperator aggOp = new ValidAggregationTestOperator();
+        Rule.setDefaultAggregationOperator(aggOp);
+        assertSame(Rule.getDefaultAggregationOperator(), aggOp);
+    }
+
+    /**
+     * Test of setDefaultAggregationOperator method, of class Rule.
+     */
+    @Test(expected = NullPointerException.class)
+    public final void testSetDefaultAggregationOperator1() {
+        System.out.println("setDefaultAggregationOperator");
         AbstractOperator aggOp = null;
-        AbstractOperator expResult = null;
-        AbstractOperator result = Rule.setDefaultAggregationOperator(aggOp);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        Rule.setDefaultAggregationOperator(aggOp);
     }
 
     /**
@@ -471,10 +1244,9 @@ public class RuleTest {
     @Test
     public final void testGetDefaultCertainty() {
         System.out.println("getDefaultCertainty");
-        float expResult = 0.0F;
+        float expResult = 1.0F;
         float result = Rule.getDefaultCertainty();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0f);
     }
 
     /**
@@ -483,11 +1255,31 @@ public class RuleTest {
     @Test
     public final void testSetDefaultCertainty() {
         System.out.println("setDefaultCertainty");
-        float cert = 0.0F;
-        float expResult = 0.0F;
-        float result = Rule.setDefaultCertainty(cert);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        float cert = 0.5F;
+        Rule.setDefaultCertainty(cert);
+        assertEquals(Rule.getDefaultCertainty(), cert, 0.0f);
+        // Reset
+        Rule.setDefaultCertainty(1.0f);
+    }
+
+    /**
+     * Test of setDefaultCertainty method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDefaultCertainty1() {
+        System.out.println("setDefaultCertainty");
+        float cert = 0.0F - Float.POSITIVE_INFINITY;
+        Rule.setDefaultCertainty(cert);
+    }
+
+    /**
+     * Test of setDefaultCertainty method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDefaultCertainty2() {
+        System.out.println("setDefaultCertainty");
+        float cert = 1.0F + Float.POSITIVE_INFINITY;
+        Rule.setDefaultCertainty(cert);
     }
 
     /**
@@ -496,11 +1288,29 @@ public class RuleTest {
     @Test
     public final void testSetDefaultCertaintyOperator() {
         System.out.println("setDefaultCertaintyOperator");
+        AbstractOperator certOp = new ValidCertaintyTestOperator();
+        Rule.setDefaultCertaintyOperator(certOp);
+        assertSame(Rule.getDefaultCertaintyOperator(), certOp);
+    }
+
+    /**
+     * Test of setDefaultCertaintyOperator method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDefaultCertaintyOperator1() {
+        System.out.println("setDefaultCertaintyOperator");
+        AbstractOperator certOp = new InvalidCertaintyTestOperator();
+        Rule.setDefaultCertaintyOperator(certOp);
+    }
+
+    /**
+     * Test of setDefaultCertaintyOperator method, of class Rule.
+     */
+    @Test(expected = NullPointerException.class)
+    public final void testSetDefaultCertaintyOperator2() {
+        System.out.println("setDefaultCertaintyOperator");
         AbstractOperator certOp = null;
-        AbstractOperator expResult = null;
-        AbstractOperator result = Rule.setDefaultCertaintyOperator(certOp);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        Rule.setDefaultCertaintyOperator(certOp);
     }
 
     /**
@@ -509,11 +1319,29 @@ public class RuleTest {
     @Test
     public final void testSetDefaultInferenceOperator() {
         System.out.println("setDefaultInferenceOperator");
+        AbstractOperator infOp = new ValidInferenceTestOperator();
+        Rule.setDefaultInferenceOperator(infOp);
+        assertSame(Rule.getDefaultInferenceOperator(), infOp);
+    }
+
+    /**
+     * Test of setDefaultInferenceOperator method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDefaultInferenceOperator1() {
+        System.out.println("setDefaultInferenceOperator");
+        AbstractOperator infOp = new InvalidInferenceTestOperator();
+        Rule.setDefaultInferenceOperator(infOp);
+    }
+
+    /**
+     * Test of setDefaultInferenceOperator method, of class Rule.
+     */
+    @Test(expected = NullPointerException.class)
+    public final void testSetDefaultInferenceOperator2() {
+        System.out.println("setDefaultInferenceOperator");
         AbstractOperator infOp = null;
-        AbstractOperator expResult = null;
-        AbstractOperator result = Rule.setDefaultInferenceOperator(infOp);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        Rule.setDefaultInferenceOperator(infOp);
     }
 
     /**
@@ -522,12 +1350,32 @@ public class RuleTest {
     @Test
     public final void testSetInferenceOperator() {
         System.out.println("setInferenceOperator");
+        AbstractOperator infOp = new ValidInferenceTestOperator();
+        Rule instance = new Rule();
+        instance.setInferenceOperator(infOp);
+        assertSame(instance.getInferenceOperator(), infOp);
+    }
+
+    /**
+     * Test of setInferenceOperator method, of class Rule.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetInferenceOperator1() {
+        System.out.println("setInferenceOperator");
+        AbstractOperator infOp = new InvalidInferenceTestOperator();
+        Rule instance = new Rule();
+        instance.setInferenceOperator(infOp);
+    }
+
+    /**
+     * Test of setInferenceOperator method, of class Rule.
+     */
+    @Test(expected = NullPointerException.class)
+    public final void testSetInferenceOperator2() {
+        System.out.println("setInferenceOperator");
         AbstractOperator infOp = null;
         Rule instance = new Rule();
-        AbstractOperator expResult = null;
-        AbstractOperator result = instance.setInferenceOperator(infOp);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        instance.setInferenceOperator(infOp);
     }
 
     /**
@@ -536,11 +1384,29 @@ public class RuleTest {
     @Test
     public final void testThen_() {
         System.out.println("then_");
-        String lvName = "";
-        String lingTermName = "";
+        String lvName = null;
+        String lingTermName = null;
         Rule instance = new Rule();
         instance.then_(lvName, lingTermName);
-        fail("The test case is a prototype.");
+        assertEquals(instance.getSizeOfConsequents(), 1);
+
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.then_(lvName, lingTermName);
+        assertEquals(instance.getSizeOfConsequents(), 1);
+        assertEquals(instance.getConsequentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getConsequentAt(0).getLinguisticTermName(), lingTermName);
+
+        // Adding identical definitions twice. The result is the same.
+        lvName = "Foo";
+        lingTermName = "term1";
+        instance = new Rule();
+        instance.then_(lvName, lingTermName);
+        instance.then_(lvName, lingTermName);
+        assertEquals(instance.getSizeOfConsequents(), 1);
+        assertEquals(instance.getConsequentAt(0).getLinguisticVariableName(), lvName);
+        assertEquals(instance.getConsequentAt(0).getLinguisticTermName(), lingTermName);
     }
 
     /**
@@ -550,10 +1416,63 @@ public class RuleTest {
     public final void testClone() {
         System.out.println("clone");
         Rule instance = new Rule();
-        Object expResult = null;
+        Object expResult = new Rule();
         Object result = instance.clone();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        AbstractOperator aggOp = new ValidAggregationTestOperator();
+        instance = new Rule();
+        instance.setAggregationOperator(aggOp);
+        expResult = new Rule();
+        ((Rule) expResult).setAggregationOperator(aggOp);
+        result = instance.clone();
+        assertEquals(expResult, result);
+
+        AbstractOperator certOp = new ValidCertaintyTestOperator();
+        instance = new Rule();
+        instance.setCertaintyOperator(certOp);
+        expResult = new Rule();
+        ((Rule) expResult).setCertaintyOperator(certOp);
+        result = instance.clone();
+        assertEquals(expResult, result);
+
+        AbstractOperator infOp = new ValidInferenceTestOperator();
+        instance = new Rule();
+        instance.setInferenceOperator(infOp);
+        expResult = new Rule();
+        ((Rule) expResult).setInferenceOperator(infOp);
+        result = instance.clone();
+        assertEquals(expResult, result);
+
+        float certainty = 0.5f;
+        instance = new Rule();
+        instance.setCertainty(certainty);
+        expResult = new Rule();
+        ((Rule) expResult).setCertainty(certainty);
+        result = instance.clone();
+        assertEquals(expResult, result);
+
+        instance = new Rule();
+        instance.addAntecedent("Foo", "term1");
+        expResult = new Rule();
+        ((Rule) expResult).addAntecedent("Foo", "term1");
+        result = instance.clone();
+        assertEquals(expResult, result);
+
+        AbstractOperator compOp = new ValidCompatibilityTestOperator();
+        instance = new Rule();
+        instance.addAntecedent("Foo", "term1", compOp);
+        expResult = new Rule();
+        ((Rule) expResult).addAntecedent("Foo", "term1", compOp);
+        result = instance.clone();
+        assertEquals(expResult, result);
+
+        instance = new Rule();
+        instance.addConsequent("Foo", "term1");
+        expResult = new Rule();
+        ((Rule) expResult).addConsequent("Foo", "term1");
+        result = instance.clone();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -567,7 +1486,100 @@ public class RuleTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        obj = new Rule();
+        instance = new Rule();
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).setCertainty(0.5f);
+        Rule.setDefaultCertainty(1.0f);
+        instance = new Rule();
+        expResult = false;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).setCertainty(0.5f);
+        instance = new Rule();
+        instance.setCertainty(0.5f);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).addAntecedent("Foo", "term1");
+        instance = new Rule();
+        expResult = false;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).addAntecedent("Foo", "term1");
+        instance = new Rule();
+        instance.addAntecedent("Foo", "term1");
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).addAntecedent("Foo", "term1", new ValidCompatibilityTestOperator());
+        instance = new Rule();
+        expResult = false;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).addAntecedent("Foo", "term1", new ValidCompatibilityTestOperator());
+        instance = new Rule();
+        instance.addAntecedent("Foo", "term1", new ValidCompatibilityTestOperator());
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).addConsequent("Foo", "term1");
+        instance = new Rule();
+        expResult = false;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        obj = new Rule();
+        ((Rule) obj).addConsequent("Foo", "term1");
+        instance = new Rule();
+        instance.addConsequent("Foo", "term1");
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        AbstractOperator aggOp = new ValidAggregationTestOperator();
+        obj = new Rule();
+        ((Rule) obj).setAggregationOperator(aggOp);
+        instance = new Rule();
+        instance.setAggregationOperator(aggOp);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        AbstractOperator certOp = new ValidCertaintyTestOperator();
+        obj = new Rule();
+        ((Rule) obj).setCertaintyOperator(certOp);
+        instance = new Rule();
+        instance.setCertaintyOperator(certOp);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        AbstractOperator infOp = new ValidInferenceTestOperator();
+        obj = new Rule();
+        ((Rule) obj).setInferenceOperator(infOp);
+        instance = new Rule();
+        instance.setInferenceOperator(infOp);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -577,23 +1589,129 @@ public class RuleTest {
     public final void testHashCode() {
         System.out.println("hashCode");
         Rule instance = new Rule();
-        int expResult = 0;
+        int expResult = new Rule().hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        Rule.setDefaultCertainty(1.0f);
+        instance = new Rule();
+        Rule obj = new Rule();
+        obj.setCertainty(0.6f);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.setCertainty(0.6f);
+        obj = new Rule();
+        obj.setCertainty(0.6f);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
+
+        instance = new Rule();
+        obj = new Rule();
+        obj.addAntecedent("Foo", "term1");
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.addAntecedent("Foo", "term1");
+        obj = new Rule();
+        obj.addAntecedent("Foo", "term1");
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
+
+        instance = new Rule();
+        obj = new Rule();
+        obj.addAntecedent("Foo", "term1", new ValidCompatibilityTestOperator());
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.addAntecedent("Foo", "term1", new ValidCompatibilityTestOperator());
+        obj = new Rule();
+        obj.addAntecedent("Foo", "term1", new ValidCompatibilityTestOperator());
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
+
+        instance = new Rule();
+        obj = new Rule();
+        obj.addConsequent("Foo", "term1");
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.addConsequent("Foo", "term1");
+        obj = new Rule();
+        obj.addConsequent("Foo", "term1");
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
+
+        AbstractOperator certOp = new ValidCertaintyTestOperator();
+        instance = new Rule();
+        obj = new Rule();
+        obj.setCertaintyOperator(certOp);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.setCertaintyOperator(certOp);
+        obj = new Rule();
+        obj.setCertaintyOperator(certOp);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
+
+        AbstractOperator aggOp = new ValidAggregationTestOperator();
+        instance = new Rule();
+        obj = new Rule();
+        obj.setAggregationOperator(aggOp);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.setAggregationOperator(aggOp);
+        obj = new Rule();
+        obj.setAggregationOperator(aggOp);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
+
+        AbstractOperator infOp = new ValidInferenceTestOperator();
+        instance = new Rule();
+        obj = new Rule();
+        obj.setInferenceOperator(infOp);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
+
+        instance = new Rule();
+        instance.setInferenceOperator(infOp);
+        obj = new Rule();
+        obj.setInferenceOperator(infOp);
+        expResult = obj.hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult == result);
     }
 
     /**
      * Test of toString method, of class Rule.
      */
     @Test
-    public final void testToString_0args() {
+    public final void testToString() {
         System.out.println("toString");
         Rule instance = new Rule();
-        String expResult = "";
         String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -604,10 +1722,12 @@ public class RuleTest {
         System.out.println("toString");
         boolean oneLine = false;
         Rule instance = new Rule();
-        String expResult = "";
         String result = instance.toString(oneLine);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
+        assertNotNull(result);
 
+        oneLine = true;
+        instance = new Rule();
+        result = instance.toString(oneLine);
+        assertNotNull(result);
+    }
 }

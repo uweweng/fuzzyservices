@@ -53,7 +53,7 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
      * Default constructor is private
      * because an undefined membership function can not be a valid fuzzy number.
      */
-    public FuzzyNumber() {
+    private FuzzyNumber() {
         super();
     }
 
@@ -187,7 +187,7 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
 
     @Override
     public final synchronized float remove(final float x) throws IllegalArgumentException {
-        // Fuzzy-Zahl in eine Fuzzy-Menge konvertieren, Punkt loeschen und auf Fuzzy-Zahl pruefen
+        // Converting fuzzy number to fuzzy set, deleting point, and checking for fuzzy number
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.remove(x);
 
@@ -202,7 +202,7 @@ public class FuzzyNumber extends MembershipFunction implements Cloneable, Serial
 
     @Override
     public final synchronized float set(final float x, final float dom) throws IllegalArgumentException {
-        // Fuzzy-Zahl in eine Fuzzy-Menge konvertieren, Punkt einfuegen und auf Fuzzy-Zahl pruefen.
+        // Converting fuzzy number to fuzzy set, deleting point, and checking for fuzzy number
         FuzzySet fs = new FuzzySet(this);
         float retfloat = fs.set(x, dom);
 

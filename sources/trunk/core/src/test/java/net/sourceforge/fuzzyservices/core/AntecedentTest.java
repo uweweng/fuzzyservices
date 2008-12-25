@@ -27,11 +27,97 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class AntecedentTest.
+ * Test of class Antecedent.
  *
  * @author Uwe Weng
  */
-public class AntecedentTest {
+public class AntecedentTest extends RulePartTest {
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class ValidCompatibilityTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            return true;
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "ValidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "ValidTestOperator";
+        }
+    }
+
+    /**
+     * Operator for tests.
+     *
+     * @version        1.0
+     */
+    public static class InvalidCompatibilityTestOperator extends AbstractOperator {
+
+        /**
+         * Default serial version UID.
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final boolean isValidTNorm() {
+            return false;
+        }
+
+        @Override
+        public final boolean isValidSNorm() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final float compute(final float a, final float b) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public final String toString() {
+            return "InvalidTestOperator";
+        }
+
+        @Override
+        public String getName() {
+            return "InvalidTestOperator";
+        }
+    }
 
     /**
      * Test of getCompatibilityOperator method, of class Antecedent.
@@ -39,11 +125,11 @@ public class AntecedentTest {
     @Test
     public final void testGetCompatibilityOperator() {
         System.out.println("getCompatibilityOperator");
-        Antecedent instance = null;
-        AbstractOperator expResult = null;
+        Antecedent instance = new Antecedent();
+        AbstractOperator expResult = new ValidCompatibilityTestOperator();
+        instance.setCompatibilityOperator(expResult);
         AbstractOperator result = instance.getCompatibilityOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertSame(expResult, result);
     }
 
     /**
@@ -52,10 +138,10 @@ public class AntecedentTest {
     @Test
     public final void testGetDefaultCompatibilityOperator() {
         System.out.println("getDefaultCompatibilityOperator");
-        AbstractOperator expResult = null;
         AbstractOperator result = Antecedent.getDefaultCompatibilityOperator();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        // Operator has to fulfill the t-norm
+        assertTrue(result.isValidTNorm());
     }
 
     /**
@@ -64,10 +150,32 @@ public class AntecedentTest {
     @Test
     public final void testSetCompatibilityOperator() {
         System.out.println("setCompatibilityOperator");
-        AbstractOperator compOp = null;
-        Antecedent instance = null;
+        AbstractOperator compOp = new ValidCompatibilityTestOperator();
+        Antecedent instance = new Antecedent();
         instance.setCompatibilityOperator(compOp);
-        fail("The test case is a prototype.");
+        assertSame(instance.getCompatibilityOperator(), compOp);
+    }
+
+    /**
+     * Test of setCompatibilityOperator method, of class Antecedent.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetCompatibilityOperator1() {
+        System.out.println("setCompatibilityOperator");
+        AbstractOperator compOp = new InvalidCompatibilityTestOperator();
+        Antecedent instance = new Antecedent();
+        instance.setCompatibilityOperator(compOp);
+    }
+
+    /**
+     * Test of setCompatibilityOperator method, of class Antecedent.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetCompatibilityOperator2() {
+        System.out.println("setCompatibilityOperator");
+        AbstractOperator compOp = null;
+        Antecedent instance = new Antecedent();
+        instance.setCompatibilityOperator(compOp);
     }
 
     /**
@@ -76,9 +184,28 @@ public class AntecedentTest {
     @Test
     public final void testSetDefaultCompatibilityOperator() {
         System.out.println("setDefaultCompatibilityOperator");
-        AbstractOperator compOp = null;
+        AbstractOperator compOp = new ValidCompatibilityTestOperator();
         Antecedent.setDefaultCompatibilityOperator(compOp);
-        fail("The test case is a prototype.");
+        assertSame(Antecedent.getDefaultCompatibilityOperator(), compOp);
     }
 
+    /**
+     * Test of setDefaultCompatibilityOperator method, of class Antecedent.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDefaultCompatibilityOperator1() {
+        System.out.println("setDefaultCompatibilityOperator");
+        AbstractOperator compOp = new InvalidCompatibilityTestOperator();
+        Antecedent.setDefaultCompatibilityOperator(compOp);
+    }
+
+    /**
+     * Test of setDefaultCompatibilityOperator method, of class Antecedent.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSetDefaultCompatibilityOperator2() {
+        System.out.println("setDefaultCompatibilityOperator");
+        AbstractOperator compOp = null;
+        Antecedent.setDefaultCompatibilityOperator(compOp);
+    }
 }

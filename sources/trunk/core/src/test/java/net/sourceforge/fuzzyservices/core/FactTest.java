@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class FactTest.
+ * Test of class Fact.
  *
  * @author Uwe Weng
  */
@@ -43,7 +43,7 @@ public class FactTest {
         DiscreteFuzzySet expResult = null;
         DiscreteFuzzySet result = instance.evaluate();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    // @todo Fail("The test case is a prototype.");
     }
 
     /**
@@ -53,10 +53,28 @@ public class FactTest {
     public final void testGet() {
         System.out.println("get");
         Fact instance = new Fact();
-        FuzzySet expResult = null;
+        FuzzySet expResult = new FuzzySet();
         FuzzySet result = instance.get();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new Fact();
+        expResult = new FuzzySet(0.0f);
+        result = instance.get();
+        assertFalse(expResult.equals(result));
+
+        instance = new Fact();
+        expResult = new FuzzySet(0.0f);
+        instance.set(expResult);
+        result = instance.get();
+        assertEquals(result, expResult);
+
+        // Changing after setting
+        instance = new Fact();
+        expResult = new FuzzySet();
+        instance.set(expResult);
+        expResult.set(0.0f, 1.0f);
+        result = instance.get();
+        assertFalse(expResult.equals(result));
     }
 
     /**
@@ -68,8 +86,13 @@ public class FactTest {
         Fact instance = new Fact();
         LinguisticVariable expResult = null;
         LinguisticVariable result = instance.getLinguisticVariable();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+
+        LinguisticVariable lv = new LinguisticVariable("Foo");
+        instance = new Fact(lv, 0);
+        expResult = lv;
+        result = instance.getLinguisticVariable();
+        assertSame(result, expResult);
     }
 
     /**
@@ -79,10 +102,15 @@ public class FactTest {
     public final void testGetLinguisticVariableName() {
         System.out.println("getLinguisticVariableName");
         Fact instance = new Fact();
-        String expResult = "";
+        String expResult = null;
         String result = instance.getLinguisticVariableName();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+
+        LinguisticVariable lv = new LinguisticVariable("Foo");
+        instance = new Fact(lv, 0);
+        expResult = lv.getName();
+        result = instance.getLinguisticVariableName();
+        assertEquals(result, expResult);
     }
 
     /**
@@ -94,19 +122,20 @@ public class FactTest {
         byte newValue = 0;
         Fact instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
-    }
+        FuzzySet expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
 
-    /**
-     * Test of set method, of class Fact.
-     */
-    @Test
-    public final void testSet_double() {
-        System.out.println("set");
-        double newValue = 0.0;
-        Fact instance = new Fact();
+        newValue = Byte.MIN_VALUE;
+        instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Byte.MAX_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
     }
 
     /**
@@ -115,10 +144,23 @@ public class FactTest {
     @Test
     public final void testSet_float() {
         System.out.println("set");
-        float newValue = 0.0F;
+        float newValue = 0.0f;
         Fact instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
+        FuzzySet expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Float.MIN_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Float.MAX_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
     }
 
     /**
@@ -130,7 +172,20 @@ public class FactTest {
         int newValue = 0;
         Fact instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
+        FuzzySet expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Integer.MIN_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Integer.MAX_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
     }
 
     /**
@@ -142,7 +197,20 @@ public class FactTest {
         short newValue = 0;
         Fact instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
+        FuzzySet expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Short.MIN_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
+
+        newValue = Short.MAX_VALUE;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(newValue);
+        assertEquals(expResult, instance.get());
     }
 
     /**
@@ -151,10 +219,49 @@ public class FactTest {
     @Test
     public final void testSet_MembershipFunction() {
         System.out.println("set");
-        MembershipFunction newValue = null;
+        MembershipFunction newValue = new FuzzySet();
         Fact instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
+        FuzzySet expResult = new FuzzySet();
+        assertEquals(expResult, instance.get());
+
+        // New value is null
+        newValue = null;
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet();
+        assertEquals(expResult, instance.get());
+
+        // New value is empty fuzzy set
+        newValue = new FuzzySet();
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet();
+        assertEquals(expResult, instance.get());
+
+        // New value is membership function without peak
+        newValue = new FuzzySet();
+        newValue.set(0.0f, 0.7f);
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet();
+        expResult.set(0.0f, 0.7f);
+        assertEquals(expResult, instance.get());
+
+        // New value is membership function with peak
+        newValue = new FuzzySet(0.0f);
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(0.0f);
+        assertEquals(expResult, instance.get());
+
+        // New value is membership function
+        newValue = new FuzzySet(0.0f, 1.0f);
+        instance = new Fact();
+        instance.set(newValue);
+        expResult = new FuzzySet(0.0f, 1.0f);
+        expResult.set(0.0f, 1.0f);
+        assertEquals(expResult, instance.get());
     }
 
     /**
@@ -163,10 +270,54 @@ public class FactTest {
     @Test
     public final void testSet_String() {
         System.out.println("set");
+        String newValue = "term1";
+        FuzzySet term = new FuzzySet(1.0f);
+        LinguisticVariable lv = new LinguisticVariable("foo");
+        lv.set(newValue, term);
+        Fact instance = new Fact(lv, 0);
+        instance.set(newValue);
+        assertNotSame(instance.get(), term);
+        assertEquals(instance.get(), term);
+
+        instance.set(1.0f);
+        assertEquals(instance.get(), term);
+
+        instance.set(0.0f);
+        assertTrue(term.equals(instance.get()) == false);
+    }
+
+    /**
+     * Test of set method, of class Fact.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet_String1() {
+        System.out.println("set");
+        String newValue = null;
+        Fact instance = new Fact();
+        instance.set(newValue);
+    }
+
+    /**
+     * Test of set method, of class Fact.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet_String2() {
+        System.out.println("set");
         String newValue = "";
         Fact instance = new Fact();
         instance.set(newValue);
-        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of set method, of class Fact.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet_String3() {
+        System.out.println("set");
+        String newValue = "term1";
+        LinguisticVariable lv = new LinguisticVariable("Foo");
+        Fact instance = new Fact(lv, newValue);
+        instance.set(newValue);
     }
 
     /**
@@ -174,13 +325,46 @@ public class FactTest {
      */
     @Test
     public final void testEquals() {
-        System.out.println("equals");
         Object obj = null;
         Fact instance = new Fact();
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        obj = new Fact();
+        instance = new Fact();
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        LinguisticVariable lv = new LinguisticVariable("foo");
+        obj = new Fact();
+        instance = new Fact(lv, 0);
+        expResult = false;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("foo");
+        obj = new Fact(lv, 0);
+        instance = new Fact(lv, 0);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("foo");
+        obj = new Fact(lv, new FuzzySet(0.0f));
+        instance = new Fact(lv, new FuzzySet(0.0f));
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("foo");
+        lv.set("term1", new FuzzySet(0.0f));
+        obj = new Fact(lv, new FuzzySet(0.0f));
+        instance = new Fact(lv, "term1");
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -190,10 +374,15 @@ public class FactTest {
     public final void testHashCode() {
         System.out.println("hashCode");
         Fact instance = new Fact();
-        int expResult = 0;
+        int expResult = new Fact().hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        LinguisticVariable lv = new LinguisticVariable();
+        instance = new Fact(lv, 0);
+        expResult = new Fact().hashCode();
+        result = instance.hashCode();
+        assertTrue(expResult != result);
     }
 
     /**
@@ -203,23 +392,39 @@ public class FactTest {
     public final void testClone() {
         System.out.println("clone");
         Fact instance = new Fact();
-        Object expResult = null;
+        Object expResult = new Fact();
         Object result = instance.clone();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        LinguisticVariable lv = new LinguisticVariable("Foo");
+        instance = new Fact(lv, 0);
+        expResult = new Fact();
+        result = instance.clone();
+        assertFalse(result.equals(expResult));
+
+        lv = new LinguisticVariable("Foo");
+        instance = new Fact(lv, new FuzzySet());
+        expResult = new Fact();
+        result = instance.clone();
+        assertFalse(result.equals(expResult));
+
+        lv = new LinguisticVariable("Foo");
+        lv.set("term1", new FuzzySet());
+        instance = new Fact(lv, "term1");
+        expResult = new Fact();
+        result = instance.clone();
+        assertFalse(result.equals(expResult));
     }
 
     /**
      * Test of toString method, of class Fact.
      */
     @Test
-    public final void testToString_0args() {
+    public final void testToString() {
         System.out.println("toString");
         Fact instance = new Fact();
-        String expResult = "";
         String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
@@ -230,10 +435,12 @@ public class FactTest {
         System.out.println("toString");
         boolean withLingVar = false;
         Fact instance = new Fact();
-        String expResult = "";
         String result = instance.toString(withLingVar);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
+        assertNotNull(result);
 
+        withLingVar = true;
+        instance = new Fact();
+        result = instance.toString(withLingVar);
+        assertNotNull(result);
+    }
 }

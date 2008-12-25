@@ -23,6 +23,7 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import java.io.Serializable;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,40 +42,55 @@ import java.util.Map;
  * @version 1.0
  * @author Uwe Weng
  */
-public class FactBase
-    implements java.lang.Cloneable,
-               java.io.Serializable
-{
+public class FactBase implements Cloneable, Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
     /**
      * The facts are organized by a hashtable. The key is the name of the
      * corresponding linguistic variable. The value is the fact itself.
      */
-    protected Map<String, Fact> facts = new HashMap<String, Fact>(  );
-
+    protected Map<String, Fact> facts = new HashMap<String, Fact>();
     /** The fact base can have a name. */
     protected String name = "";
 
     /** Default constructor which creates a new empty fact base. */
-    public FactBase(  )
-    {
+    public FactBase() {
         // do nothing
     }
 
     /**
      * Constructs a fact base with the first fact.
      *
-     * @param fact
-     *            the first fact
+     * @param fact the first fact
      */
-    public FactBase( final Fact fact )
-    {
-        this(  );
-        put( fact );
+    public FactBase(final Fact fact) {
+        this();
+        put(fact);
+    }
+
+    /**
+     * Constructs a fact base with a name and the first fact.
+     *
+     * @param newName the name of the new fact base
+     * @param fact the first fact
+     */
+    public FactBase(final String newName, final Fact fact) {
+        this();
+        setName(newName);
+        put(fact);
+    }
+
+    /**
+     * Constructs a fact base with a name.
+     *
+     * @param newName the name of the new fact base
+     */
+    public FactBase(final String newName) {
+        this();
+        setName(newName);
     }
 
     /**
@@ -83,17 +99,14 @@ public class FactBase
      * @param fact
      *            the new fact of the fact base.
      */
-    public final synchronized void add( final Fact fact )
-    {
-        put( fact );
+    public final synchronized void add(final Fact fact) {
+        put(fact);
     }
 
     /** Removes all facts from this fact base. */
-    public final void clear(  )
-    {
-        synchronized ( this )
-        {
-            facts.clear(  );
+    public final void clear() {
+        synchronized (this) {
+            facts.clear();
         }
     }
 
@@ -106,9 +119,8 @@ public class FactBase
      * @return <code>true</code> if a fact exists, <code>false</code>
      *         otherwise.
      */
-    public synchronized boolean contains( final LinguisticVariable lv )
-    {
-        return ( lv != null ) ? facts.containsKey( lv.getName(  ) ) : false;
+    public synchronized boolean contains(final LinguisticVariable lv) {
+        return (lv != null) ? facts.containsKey(lv.getName()) : false;
     }
 
     /**
@@ -120,9 +132,8 @@ public class FactBase
      * @return <code>true</code> if a fact exists, <code>false</code>
      *         otherwise.
      */
-    public synchronized boolean contains( final String lingVarName )
-    {
-        return ( lingVarName != null ) ? facts.containsKey( lingVarName ) : false;
+    public synchronized boolean contains(final String lingVarName) {
+        return (lingVarName != null) ? facts.containsKey(lingVarName) : false;
     }
 
     /**
@@ -130,9 +141,8 @@ public class FactBase
      *
      * @return an iterator with all facts of this fact base
      */
-    public synchronized Iterator<Fact> iterator(  )
-    {
-        return facts.values(  ).iterator(  );
+    public synchronized Iterator<Fact> iterator() {
+        return facts.values().iterator();
     }
 
     /**
@@ -143,14 +153,11 @@ public class FactBase
      * @return the fact to the linguistic variable, <code>null</code>
      *         otherwise
      */
-    public synchronized Fact get( final LinguisticVariable lv )
-    {
-        if ( lv != null )
-        {
-            Object retfact = facts.get( lv.getName(  ) );
+    public synchronized Fact get(final LinguisticVariable lv) {
+        if (lv != null) {
+            Object retfact = facts.get(lv.getName());
 
-            if ( retfact != null )
-            {
+            if (retfact != null) {
                 return (Fact) retfact;
             }
         }
@@ -166,14 +173,11 @@ public class FactBase
      * @return the fact to the linguistic variable, <code>null</code>
      *         otherwise
      */
-    public synchronized Fact get( final String lingVarName )
-    {
-        if ( lingVarName != null )
-        {
-            Object retfact = facts.get( lingVarName );
+    public synchronized Fact get(final String lingVarName) {
+        if (lingVarName != null) {
+            Object retfact = facts.get(lingVarName);
 
-            if ( retfact != null )
-            {
+            if (retfact != null) {
                 return (Fact) retfact;
             }
         }
@@ -187,8 +191,7 @@ public class FactBase
      * @return the <code>name</code> property
      * @see #setName
      */
-    public synchronized String getName(  )
-    {
+    public synchronized String getName() {
         return name;
     }
 
@@ -198,9 +201,8 @@ public class FactBase
      * @return <code>true</code> if fact base has not got any facts,
      *         <code>false</code> otherwise.
      */
-    public final boolean isEmpty(  )
-    {
-        return facts.isEmpty(  );
+    public final boolean isEmpty() {
+        return facts.isEmpty();
     }
 
     /**
@@ -211,21 +213,17 @@ public class FactBase
      * @return the old fact, if it exists to the same linguistic variable,
      *         <code>null</code> otherwise
      */
-    public synchronized Fact put( final Fact fact )
-    {
-        if ( fact == null )
-        {
+    public synchronized Fact put(final Fact fact) {
+        if (fact == null) {
             return null;
         }
 
-        Object retfact = facts.put( fact.getLinguisticVariable(  ).getName(  ),
-                                    fact );
+        Object retfact = facts.put(fact.getLinguisticVariable().getName(),
+                fact);
 
-        if ( retfact != null )
-        {
+        if (retfact != null) {
             return (Fact) retfact;
-        } else
-        {
+        } else {
             return null;
         }
     }
@@ -233,16 +231,13 @@ public class FactBase
     /**
      * Removes the <code>fact</code> from the fact base.
      *
-     * @param fact
-     *            the fact to be deleted
+     * @param fact the fact to be deleted
      * @return <code>true</code> if the fact was removed successfully,
      *         <code>false</code> otherwise.
      */
-    public synchronized boolean remove( final Fact fact )
-    {
-        if ( fact != null )
-        {
-            return ( ( facts.remove( fact.getLinguisticVariable(  ).getName(  ) ) != null ) ? true : false );
+    public synchronized boolean remove(final Fact fact) {
+        if (fact != null) {
+            return ((facts.remove(fact.getLinguisticVariable().getName()) != null) ? true : false);
         }
 
         return false;
@@ -257,14 +252,11 @@ public class FactBase
      * @return the fact identified by the linguistic variable, <code>null</code>
      *         otherwise.
      */
-    public synchronized Fact remove( final LinguisticVariable lv )
-    {
-        if ( lv != null )
-        {
-            Object retfact = facts.remove( lv.getName(  ) );
+    public synchronized Fact remove(final LinguisticVariable lv) {
+        if (lv != null) {
+            Object retfact = facts.remove(lv.getName());
 
-            if ( retfact != null )
-            {
+            if (retfact != null) {
                 return (Fact) retfact;
             }
         }
@@ -281,14 +273,11 @@ public class FactBase
      * @return the fact identified by the name of a linguistic variable,
      *         <code>null</code> otherwise.
      */
-    public synchronized Fact remove( final String lingVarName )
-    {
-        if ( lingVarName != null )
-        {
-            Object retfact = facts.remove( lingVarName );
+    public synchronized Fact remove(final String lingVarName) {
+        if (lingVarName != null) {
+            Object retfact = facts.remove(lingVarName);
 
-            if ( retfact != null )
-            {
+            if (retfact != null) {
                 return (Fact) retfact;
             }
         }
@@ -303,8 +292,7 @@ public class FactBase
      *            The new value for the property.
      * @see #getName
      */
-    public final synchronized void setName( String name )
-    {
+    public final synchronized void setName(String name) {
         this.name = name;
     }
 
@@ -313,59 +301,58 @@ public class FactBase
      *
      * @return the size of the fact base
      */
-    public int size(  )
-    {
-        return facts.size(  );
+    public int size() {
+        return facts.size();
     }
 
     @Override
-    public Object clone(  )
-    {
-        try
-        {
-            FactBase newObj = (FactBase) super.clone(  );
+    public Object clone() {
+        try {
+            FactBase newObj = (FactBase) super.clone();
             // Eintraege physisch duplizieren.
-            newObj.facts = new HashMap<String, Fact>(  );
+            newObj.facts = new HashMap<String, Fact>();
 
-            for ( Iterator<Fact> it = facts.values(  ).iterator(  ); it.hasNext(  ); )
-            {
-                Fact fact = it.next(  );
-                newObj.facts.put( fact.getLinguisticVariableName(  ),
-                                  (Fact) fact.clone(  ) );
+            for (Iterator<Fact> it = facts.values().iterator(); it.hasNext();) {
+                Fact fact = it.next();
+                newObj.facts.put(fact.getLinguisticVariableName(),
+                        (Fact) fact.clone());
             }
 
             return newObj;
-        } catch ( java.lang.CloneNotSupportedException e )
-        {
+        } catch (java.lang.CloneNotSupportedException e) {
             // it is impossible
-            throw new InternalError( e.toString(  ) );
+            throw new InternalError(e.toString());
         }
     }
 
     @Override
-    public final boolean equals( Object obj )
-    {
-        if ( ( obj != null ) && ( obj instanceof FactBase ) )
-        {
+    public final boolean equals(Object obj) {
+        if ((obj != null) && (obj instanceof FactBase)) {
+
+            // Comparing name
+            if (this.name != null) {
+                if (!name.equals(((FactBase) obj).name)) {
+                    return false;
+                }
+            }
+            if ((this.name == null) && (((FactBase) obj).name != null)) {
+                return false;
+            }
+
             // Comparing number of facts
-            // The names are not compared because it is optional
-            if ( this.facts.size(  ) != ( (FactBase) obj ).facts.size(  ) )
-            {
+            if (this.facts.size() != ((FactBase) obj).facts.size()) {
                 return false;
             }
 
             // Comparing facts
-            for ( Iterator<String> it = ( (FactBase) obj ).facts.keySet(  ).iterator(  ); it.hasNext(  ); )
-            {
-                String key = it.next(  );
+            for (Iterator<String> it = ((FactBase) obj).facts.keySet().iterator(); it.hasNext();) {
+                String key = it.next();
 
-                if ( ! this.facts.containsKey( key ) )
-                {
+                if (!this.facts.containsKey(key)) {
                     return false;
                 }
 
-                if ( ! this.facts.get( key ).equals( ( (FactBase) obj ).facts.get( key ) ) )
-                {
+                if (!this.facts.get(key).equals(((FactBase) obj).facts.get(key))) {
                     return false;
                 }
             }
@@ -377,19 +364,17 @@ public class FactBase
     }
 
     @Override
-    public int hashCode(  )
-    {
+    public int hashCode() {
         int hash = 7;
-        hash = ( 97 * hash ) + ( ( this.facts != null ) ? this.facts.hashCode(  ) : 0 );
-        hash = ( 97 * hash ) + ( ( this.name != null ) ? this.name.hashCode(  ) : 0 );
+        hash = (97 * hash) + ((this.facts != null) ? this.facts.hashCode() : 0);
+        hash = (97 * hash) + ((this.name != null) ? this.name.hashCode() : 0);
 
         return hash;
     }
 
     @Override
-    public String toString(  )
-    {
-        return toString( false );
+    public String toString() {
+        return toString(false);
     }
 
     /**
@@ -401,34 +386,13 @@ public class FactBase
      * @return a string representation of the fact base
      * @see Fact#toString
      */
-    public String toString( final boolean withFacts )
-    {
-        if ( withFacts )
-        {
-            String text = null;
-
-            for ( Iterator<Fact> it = facts.values(  ).iterator(  ); it.hasNext(  ); )
-            {
-                Fact fact = it.next(  );
-
-                if ( text != null )
-                {
-                    text = text + ", ";
-                }
-
-                text = text + fact.toString(  );
-            }
-
-            if ( text != null )
-            {
-                text = "{" + text + "}";
-            }
-
-            return text;
+    public String toString(final boolean withFacts) {
+        if (withFacts) {
+            return facts.toString();
+        } else {
+            return FuzzyResourceManager.getString(this,
+                    "FACT_BASE_WITHOUT_FACTS",
+                    new Object[]{Integer.toString(facts.size())});
         }
-
-        return FuzzyResourceManager.getString( this,
-                                               "FACT_BASE_WITHOUT_FACTS",
-                                               new Object[] { Integer.toString( facts.size(  ) ) } );
     }
 }

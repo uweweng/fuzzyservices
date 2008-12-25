@@ -498,7 +498,11 @@ public class MembershipFunction implements Cloneable, Serializable {
      * <code>false</code>, otherwise
      */
     public final synchronized boolean isConvex() {
-        if ((points.size() > 2) && ((points.get(0)).getDegreeOfMembership() == 0.0f) && ((points.get(points.size() - 1)).getDegreeOfMembership() == 0.0f)) {
+        if (points.size() == 0) {
+            return false;
+        }
+        
+        if (points.size() > 2) {
             int vzw = 0; // number of change of sign
 
             MembershipFunctionPoint entryLeft;
@@ -529,7 +533,7 @@ public class MembershipFunction implements Cloneable, Serializable {
             return ((vzw == 1) ? true : false);
         }
 
-        return false;
+        return true;
     }
 
     /**

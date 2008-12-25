@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class FuzzyIntervalTest.
+ * Test of class FuzzyInterval.
  *
  * @author Uwe Weng
  */
@@ -39,9 +39,11 @@ public class FuzzyIntervalTest {
     @Test
     public final void testInvert() {
         System.out.println("invert");
-        FuzzyInterval instance = new FuzzyInterval();
+        FuzzyInterval instance = new FuzzyInterval(2.0f, 1.0f, 1.0f, 1.0f);
+        FuzzyInterval expResult = new FuzzyInterval(0.5f, 1.0f, 1.0f, 1.0f);
         instance.invert();
-        fail("The test case is a prototype.");
+        assertEquals(expResult, instance);
+        // TODO testInvert um weitere Beispiele ergaenzen
     }
 
     /**
@@ -50,11 +52,25 @@ public class FuzzyIntervalTest {
     @Test
     public final void testIsNegative() {
         System.out.println("isNegative");
-        FuzzyInterval instance = new FuzzyInterval();
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
         boolean expResult = false;
         boolean result = instance.isNegative();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzyInterval(-1.0f, 1.0f, 1.0f, 1.0f);
+        expResult = false;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyInterval(0.0f, 1.0f, 1.0f, 1.0f);
+        expResult = false;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyInterval(-2.0f, -1.0f, 1.0f, 1.0f);
+        expResult = true;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -63,11 +79,20 @@ public class FuzzyIntervalTest {
     @Test
     public final void testIsPositive() {
         System.out.println("isPositive");
-        FuzzyInterval instance = new FuzzyInterval();
-        boolean expResult = false;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        boolean expResult = true;
         boolean result = instance.isPositive();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzyInterval(-1.0f, 1.0f, 1.0f, 1.0f);
+        expResult = false;
+        result = instance.isPositive();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyInterval(0.0f, 1.0f, 1.0f, 1.0f);
+        expResult = false;
+        result = instance.isPositive();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -76,11 +101,21 @@ public class FuzzyIntervalTest {
     @Test
     public final void testIsValidFuzzyLRInterval() {
         System.out.println("isValidFuzzyLRInterval");
-        FuzzyInterval instance = new FuzzyInterval();
-        boolean expResult = false;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        boolean expResult = true;
         boolean result = instance.isValidFuzzyLRInterval();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Classic fuzzy interval of type LR
+        instance = new FuzzyInterval(-3.0f, -2.0f, 1.0f, 1.0f);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyInterval(0.0f, 1.0f, 1.0f, 1.0f);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -89,9 +124,34 @@ public class FuzzyIntervalTest {
     @Test
     public final void testNegate() {
         System.out.println("negate");
-        FuzzyInterval instance = new FuzzyInterval();
+        FuzzyInterval instance = new FuzzyInterval(2.0f, 3.0f, 1.0f, 1.0f);
+        FuzzyInterval expResult = new FuzzyInterval(-3.0f, -2.0f, 1.0f, 1.0f);
         instance.negate();
-        fail("The test case is a prototype.");
+        assertEquals(expResult, instance);
+
+        // vice versa
+        instance = new FuzzyInterval(-3.0f, -2.0f, 1.0f, 1.0f);
+        expResult = new FuzzyInterval(2.0f, 3.0f, 1.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // asymmetric
+        instance = new FuzzyInterval(-4.0f, -3.0f, 1.0f, 2.0f);
+        expResult = new FuzzyInterval(3.0f, 4.0f, 2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // asymmetric
+        instance = new FuzzyInterval(3.0f, 4.0f, 1.0f, 2.0f);
+        expResult = new FuzzyInterval(-4.0f, -3.0f, 2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // negating over zero
+        instance = new FuzzyInterval(-1.0f, 1.0f, 3.0f, 4.0f);
+        expResult = new FuzzyInterval(-1.0f, 1.0f, 4.0f, 3.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
     }
 
     /**
@@ -100,12 +160,29 @@ public class FuzzyIntervalTest {
     @Test
     public final void testRemove() {
         System.out.println("remove");
-        float x = 0.0F;
-        FuzzyInterval instance = new FuzzyInterval();
-        float expResult = 0.0F;
+        float x = 0.5F;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        float expResult = 0.5F;
         float result = instance.remove(x);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Remove undefined point
+        instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        x = 5.0f;
+        expResult = 0.0F;
+        result = instance.remove(x);
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of remove method, of class FuzzyInterval.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testRemove1() {
+        System.out.println("remove");
+        float x = 1.0F;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        instance.remove(x);
     }
 
     /**
@@ -114,13 +191,60 @@ public class FuzzyIntervalTest {
     @Test
     public final void testSet() {
         System.out.println("set");
-        float x = 0.0F;
-        float dom = 0.0F;
-        FuzzyInterval instance = new FuzzyInterval();
-        float expResult = 0.0F;
+        float x = 1.5F;
+        float dom = 1.0F;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        float expResult = 1.0F;
         float result = instance.set(x, dom);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of set method, of class FuzzyInterval.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet1() {
+        System.out.println("set");
+        float x = 1.5F;
+        float dom = Float.NaN;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyInterval.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet2() {
+        System.out.println("set");
+        float x = 1.5F;
+        float dom = 1.0F + Float.POSITIVE_INFINITY;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyInterval.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet3() {
+        System.out.println("set");
+        float x = 1.5F;
+        float dom = 0.0F - Float.NEGATIVE_INFINITY;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyInterval.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet4() {
+        System.out.println("set");
+        float x = 1.5F;
+        float dom = 1.0f - Float.POSITIVE_INFINITY;
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        instance.set(x, dom);
     }
 
     /**
@@ -130,11 +254,11 @@ public class FuzzyIntervalTest {
     public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
-        FuzzyInterval instance = new FuzzyInterval();
-        String expResult = "";
+        FuzzyInterval instance = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
         String result = instance.toString(withPoints);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        withPoints = true;
+        result = instance.toString(withPoints);
+        assertNotNull(result);
     }
-
 }

@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class MembershipFunctionPointTest.
+ * Test of class MembershipFunctionPoint.
  *
  * @author Uwe Weng
  */
@@ -127,10 +127,16 @@ public class MembershipFunctionPointTest {
     @Test
     public final void testClone() {
         System.out.println("clone");
-        MembershipFunctionPoint instance = new MembershipFunctionPoint();
-        Object expResult = new MembershipFunctionPoint();
+        MembershipFunctionPoint instance = new MembershipFunctionPoint(1.0f, 1.0f);
+        Object expResult = new MembershipFunctionPoint(1.0f, 1.0f);
         Object result = instance.clone();
         assertEquals(expResult, result);
+
+        // Degree of Membership at not defined x value
+        instance = new MembershipFunctionPoint();
+        expResult = new MembershipFunctionPoint();
+        result = instance.clone();
+        assertTrue(!expResult.equals(result));
     }
 
     /**
@@ -144,7 +150,27 @@ public class MembershipFunctionPointTest {
         boolean expResult = false;
         boolean result = instance.equals(obj);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Degree of Membership at not defined x value
+        obj = new MembershipFunctionPoint();
+        instance = new MembershipFunctionPoint();
+        expResult = false;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        // Membership point with identical x value and degree of membership
+        obj = new MembershipFunctionPoint(1.0f, 0.0f);
+        instance = new MembershipFunctionPoint(1.0f, 0.0f);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
+
+        // Membership point with identical x value but different degree of membership
+        obj = new MembershipFunctionPoint(1.0f, 0.0f);
+        instance = new MembershipFunctionPoint(1.0f, 1.0f);
+        expResult = true;
+        result = instance.equals(obj);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -154,10 +180,19 @@ public class MembershipFunctionPointTest {
     public final void testHashCode() {
         System.out.println("hashCode");
         MembershipFunctionPoint instance = new MembershipFunctionPoint();
-        int expResult = 0;
+        int expResult = new MembershipFunctionPoint().hashCode();
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new MembershipFunctionPoint(1.0f, 1.0f);
+        expResult = new MembershipFunctionPoint(1.0f, 1.0f).hashCode();
+        result = instance.hashCode();
+        assertEquals(expResult, result);
+
+        instance = new MembershipFunctionPoint(1.0f, 1.0f);
+        expResult = new MembershipFunctionPoint(1.0f, 0.9f).hashCode();
+        result = instance.hashCode();
+        assertEquals(expResult, result);
     }
 
     /**

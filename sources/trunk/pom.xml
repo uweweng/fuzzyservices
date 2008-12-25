@@ -96,6 +96,7 @@
     <module>webservice</module>
     <module>swing</module>
     <module>spring</module>
+<!--    <module>osgi</module> -->
   </modules>
 
   <reporting>
@@ -369,6 +370,14 @@
       <name>Glassfish at net.java</name> 
       <url>http://download.java.net/maven/glassfish/</url> 
     </repository>
+    
+    <repository>
+      <id>ibilio</id> 
+      <name>IBILIO</name> 
+      <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url> 
+    </repository>
+    
+    
   </repositories>
  
 </project>

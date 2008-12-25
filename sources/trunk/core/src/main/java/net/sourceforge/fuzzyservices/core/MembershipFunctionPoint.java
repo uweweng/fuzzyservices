@@ -141,7 +141,6 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     public final int hashCode() {
         int hash = 3;
         hash = (37 * hash) + Float.floatToIntBits(this.x);
-
         return hash;
     }
 

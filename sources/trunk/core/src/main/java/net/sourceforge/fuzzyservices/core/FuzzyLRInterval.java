@@ -55,7 +55,7 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
      * Default constructor is private
      * because an undefined membership function can not be a valid fuzzy interval of type LR.
      */
-    public FuzzyLRInterval() {
+    private FuzzyLRInterval() {
         super();
     }
 
@@ -73,12 +73,10 @@ public class FuzzyLRInterval extends MembershipFunction implements Cloneable, Se
             final float alpha, final float beta) throws IllegalArgumentException{
         if (((plateau1 - alpha) < plateau1) && (plateau1 < plateau2) &&
                 (plateau2 < (plateau2 + beta))) {
-            points.add(new MembershipFunctionPoint((plateau1 - alpha),
-                    0.0f));
+            points.add(new MembershipFunctionPoint((plateau1 - alpha), 0.0f));
             points.add(new MembershipFunctionPoint(plateau1, 1.0f));
             points.add(new MembershipFunctionPoint(plateau2, 1.0f));
-            points.add(new MembershipFunctionPoint((plateau2 + beta),
-                    0.0f));
+            points.add(new MembershipFunctionPoint((plateau2 + beta), 0.0f));
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_LR_INTERVAL"));
         }

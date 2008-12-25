@@ -56,7 +56,7 @@ public class FuzzyLRNumber extends MembershipFunction implements Cloneable, Seri
      * Default constructor is private
      * because an undefined membership function can not be a valid fuzzy number of type LR.
      */
-    public FuzzyLRNumber() {
+    private FuzzyLRNumber() {
         super();
     }
 

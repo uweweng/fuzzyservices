@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class FuzzyNumberTest.
+ * Test of class FuzzyNumber.
  *
  * @author Uwe Weng
  */
@@ -39,9 +39,11 @@ public class FuzzyNumberTest {
     @Test
     public final void testInvert() {
         System.out.println("invert");
-        FuzzyNumber instance = new FuzzyNumber();
+        FuzzyNumber instance = new FuzzyNumber(2.0f, 1.0f);
+        FuzzyNumber expResult = new FuzzyNumber(0.5f, 0.17f, 0.5f);
         instance.invert();
-        fail("The test case is a prototype.");
+        assertEquals(expResult, instance);
+        // TODO testInvert um weitere Beispiele ergaenzen
     }
 
     /**
@@ -50,11 +52,20 @@ public class FuzzyNumberTest {
     @Test
     public final void testIsNegative() {
         System.out.println("isNegative");
-        FuzzyNumber instance = new FuzzyNumber();
+        FuzzyNumber instance = new FuzzyNumber(1.0f, 1.0f);
         boolean expResult = false;
         boolean result = instance.isNegative();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzyNumber(-1.0f, 1.0f);
+        expResult = true;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyNumber(0.0f, 1.0f);
+        expResult = false;
+        result = instance.isNegative();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -63,11 +74,20 @@ public class FuzzyNumberTest {
     @Test
     public final void testIsPositive() {
         System.out.println("isPositive");
-        FuzzyNumber instance = new FuzzyNumber();
-        boolean expResult = false;
+        FuzzyNumber instance = new FuzzyNumber(1.0f, 1.0f);
+        boolean expResult = true;
         boolean result = instance.isPositive();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzyNumber(-1.0f, 1.0f);
+        expResult = false;
+        result = instance.isPositive();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyNumber(0.0f, 1.0f);
+        expResult = false;
+        result = instance.isPositive();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -76,11 +96,21 @@ public class FuzzyNumberTest {
     @Test
     public final void testIsValidFuzzyLRNumber() {
         System.out.println("isValidFuzzyLRNumber");
-        FuzzyNumber instance = new FuzzyNumber();
-        boolean expResult = false;
+        FuzzyNumber instance = new FuzzyNumber(1.0f, 1.0f);
+        boolean expResult = true;
         boolean result = instance.isValidFuzzyLRNumber();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Classic fuzzy number of type LR
+        instance = new FuzzyNumber(-1.0f, 1.0f);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        instance = new FuzzyNumber(0.0f, 1.0f);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -89,9 +119,40 @@ public class FuzzyNumberTest {
     @Test
     public final void testNegate() {
         System.out.println("negate");
-        FuzzyNumber instance = new FuzzyNumber();
+        FuzzyNumber instance = new FuzzyNumber(2.0f, 1.0f);
+        FuzzyNumber expResult = new FuzzyNumber(-2.0f, 1.0f);
         instance.negate();
-        fail("The test case is a prototype.");
+        assertEquals(expResult, instance);
+
+        // vice versa
+        instance = new FuzzyNumber(-2.0f, 1.0f);
+        expResult = new FuzzyNumber(2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // negating at zero
+        instance = new FuzzyNumber(0.0f, 1.0f);
+        expResult = new FuzzyNumber(0.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // asymmetric
+        instance = new FuzzyNumber(-4.0f, 1.0f, 2.0f);
+        expResult = new FuzzyNumber(4.0f, 2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // asymmetric
+        instance = new FuzzyNumber(3.0f, 1.0f, 2.0f);
+        expResult = new FuzzyNumber(-3.0f, 2.0f, 1.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
+
+        // negating over zero
+        instance = new FuzzyNumber(1.0f, 3.0f, 4.0f);
+        expResult = new FuzzyNumber(-1.0f, 4.0f, 3.0f);
+        instance.negate();
+        assertEquals(expResult, instance);
     }
 
     /**
@@ -100,12 +161,29 @@ public class FuzzyNumberTest {
     @Test
     public final void testRemove() {
         System.out.println("remove");
-        float x = 0.0F;
-        FuzzyNumber instance = new FuzzyNumber();
-        float expResult = 0.0F;
+        float x = 0.5F;
+        FuzzyNumber instance = new FuzzyNumber(1.0f, 1.0f);
+        float expResult = 0.5F;
         float result = instance.remove(x);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Remove undefined point
+        instance = new FuzzyNumber(1.0f, 1.0f);
+        x = 0.0f;
+        expResult = 0.0F;
+        result = instance.remove(x);
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of remove method, of class FuzzyNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testRemove1() {
+        System.out.println("remove");
+        float x = 1.0F;
+        FuzzyNumber instance = new FuzzyNumber(1.0f, 0.0f);
+        instance.remove(x);
     }
 
     /**
@@ -115,13 +193,61 @@ public class FuzzyNumberTest {
     public final void testSet() {
         System.out.println("set");
         float x = 0.0F;
-        float dom = 0.0F;
-        FuzzyNumber instance = new FuzzyNumber();
-        float expResult = 0.0F;
+        float dom = 1.0F;
+        FuzzyNumber instance = new FuzzyNumber(x, 1.0f);
+        float expResult = 1.0F;
         float result = instance.set(x, dom);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
     }
+
+    /**
+     * Test of set method, of class FuzzyNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet1() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = Float.NaN;
+        FuzzyNumber instance = new FuzzyNumber(x, 0.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet2() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = 1.0F + Float.POSITIVE_INFINITY;
+        FuzzyNumber instance = new FuzzyNumber(x, 0.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet3() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = 0.0F - Float.NEGATIVE_INFINITY;
+        FuzzyNumber instance = new FuzzyNumber(x, 0.0f);
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzyNumber.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet4() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = 1.0f - Float.POSITIVE_INFINITY;
+        FuzzyNumber instance = new FuzzyNumber(x, 0.0f);
+        instance.set(x, dom);
+    }
+
 
     /**
      * Test of toString method, of class FuzzyNumber.
@@ -130,11 +256,12 @@ public class FuzzyNumberTest {
     public final void testToString() {
         System.out.println("toString");
         boolean withPoints = false;
-        FuzzyNumber instance = new FuzzyNumber();
-        String expResult = "";
+        FuzzyNumber instance = new FuzzyNumber(1.0f, 1.0f);
         String result = instance.toString(withPoints);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        withPoints = true;
+        result = instance.toString(withPoints);
+        assertNotNull(result);
     }
 
 }

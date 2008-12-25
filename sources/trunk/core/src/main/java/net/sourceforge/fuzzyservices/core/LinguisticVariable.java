@@ -23,6 +23,7 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import java.io.Serializable;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,29 +45,24 @@ import java.util.Map;
  * @version 1.0
  * @author Uwe Weng
  */
-public class LinguisticVariable
-    implements java.lang.Cloneable,
-               java.io.Serializable
-{
+public class LinguisticVariable implements Cloneable, Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
     /** The name of the linguistic variable */
     protected String name = "";
-
     /**
      * The linguistic terms are stored in a hashtable with name as key and fuzzy
      * set as value.
      */
-    protected Map<String, FuzzySet> terms = new HashMap<String, FuzzySet>(  );
+    protected Map<String, FuzzySet> terms = new HashMap<String, FuzzySet>();
 
     /**
      * Default constructor. Name is unknown.
      */
-    public LinguisticVariable(  )
-    {
+    public LinguisticVariable() {
     }
 
     /**
@@ -74,55 +70,29 @@ public class LinguisticVariable
      *
      * @param newName
      *            the name of the linguistic variable
-     * @exception NullPointerException
-     *                if name is <code>null</code>
-     * @exception IllegalArgumentException
-     *                if name is an empty string
+     * @see #setName
      */
-    public LinguisticVariable( final String newName )
-                       throws NullPointerException, IllegalArgumentException
-    {
-        if ( newName.length(  ) > 0 )
-        {
-            this.name = newName;
-        } else
-        {
-            throw new IllegalArgumentException( FuzzyResourceManager.getString(
-                                                                                this,
-                                                                                "EXCEPTION_LINGUISTIC_VARIABLE_INVALID_NAME",
-                                                                                new String[] { newName } ) );
-        }
+    public LinguisticVariable(final String newName) {
+        setName(newName);
     }
 
     /** Removes all linguistic terms from this linguistic variable. */
-    public final void clear(  )
-    {
-        synchronized ( this )
-        {
-            terms.clear(  );
+    public final void clear() {
+        synchronized (this) {
+            terms.clear();
         }
     }
-
-    /*
-     * public final boolean equals(Object obj) { if ( (obj != null) && ( obj
-     * instanceof LinguisticVariable ) && (this.name ==
-     * ((LinguisticVariable)obj).name) && (
-     * terms.equals(((LinguisticVariable)obj).terms) )) return true; else return
-     * false; }
-     */
 
     /**
      * Checks whether the linguistic variable contains a term with this
      * <code>name</code>.
      *
-     * @param aName
-     *            the name of a linguistic term which belongs to this variable
+     * @param name the name of a linguistic term which belongs to this variable
      * @return <code>true</code> if a term exists, <code>false</code>
      *         otherwise.
      */
-    public synchronized boolean contains( String aName )
-    {
-        return ( aName != null ) ? terms.containsKey( aName ) : false;
+    public synchronized boolean contains(String name) {
+        return (name != null) ? terms.containsKey(name) : false;
     }
 
     /**
@@ -134,14 +104,11 @@ public class LinguisticVariable
      * @param name the name of the linguistic variable which fuzzy set will be returned
      * @see LinguisticVariable
      */
-    public synchronized FuzzySet getFuzzySet( String name )
-    {
-        if ( name != null )
-        {
-            Object fset = terms.get( name );
+    public synchronized FuzzySet getFuzzySet(String name) {
+        if (name != null) {
+            Object fset = terms.get(name);
 
-            if ( fset != null )
-            {
+            if (fset != null) {
                 return (FuzzySet) fset;
             }
         }
@@ -154,29 +121,23 @@ public class LinguisticVariable
      *
      * @return the maximum x-value
      */
-    public final synchronized float getMaxDefinedX(  )
-    {
+    public final synchronized float getMaxDefinedX() {
         float maxX = Float.NaN;
         float maxTermX;
         FuzzySet fs;
 
-        for ( Iterator<FuzzySet> it = terms.values(  ).iterator(  ); it.hasNext(  ); )
-        {
-            fs = it.next(  );
+        for (Iterator<FuzzySet> it = terms.values().iterator(); it.hasNext();) {
+            fs = it.next();
 
-            if ( fs.isDefined(  ) == true )
-            {
-                maxTermX = fs.getMaxDefinedX(  );
+            if (fs.isDefined() == true) {
+                maxTermX = fs.getMaxDefinedX();
 
-                if ( maxX == maxX )
-                { // that means not Float.NaN
+                if (maxX == maxX) { // that means not Float.NaN
 
-                    if ( maxTermX > maxX )
-                    {
+                    if (maxTermX > maxX) {
                         maxX = maxTermX;
                     }
-                } else
-                {
+                } else {
                     maxX = maxTermX;
                 }
             }
@@ -190,29 +151,23 @@ public class LinguisticVariable
      *
      * @return the minimum x-value
      */
-    public final synchronized float getMinDefinedX(  )
-    {
+    public final synchronized float getMinDefinedX() {
         float minX = Float.NaN;
         float minTermX;
         FuzzySet fs;
 
-        for ( Iterator<FuzzySet> it = terms.values(  ).iterator(  ); it.hasNext(  ); )
-        {
-            fs = it.next(  );
+        for (Iterator<FuzzySet> it = terms.values().iterator(); it.hasNext();) {
+            fs = it.next();
 
-            if ( fs.isDefined(  ) )
-            {
-                minTermX = fs.getMinDefinedX(  );
+            if (fs.isDefined()) {
+                minTermX = fs.getMinDefinedX();
 
-                if ( minX == minX )
-                { // that means not Float.NaN
+                if (minX == minX) { // that means not Float.NaN
 
-                    if ( minTermX < minX )
-                    {
+                    if (minTermX < minX) {
                         minX = minTermX;
                     }
-                } else
-                {
+                } else {
                     minX = minTermX;
                 }
             }
@@ -226,8 +181,7 @@ public class LinguisticVariable
      *
      * @return the <code>name</code> property
      */
-    public synchronized String getName(  )
-    {
+    public synchronized String getName() {
         return name;
     }
 
@@ -236,8 +190,7 @@ public class LinguisticVariable
      * @param newName The new value for the property.
      * @see #getName
      */
-    public final synchronized void setName( String newName )
-    {
+    public final synchronized void setName(String newName) {
         this.name = newName;
     }
 
@@ -246,9 +199,8 @@ public class LinguisticVariable
      *
      * @return an iterator of names
      */
-    public synchronized Iterator<String> getNames(  )
-    {
-        return terms.keySet(  ).iterator(  );
+    public synchronized Iterator<String> getNames() {
+        return terms.keySet().iterator();
     }
 
     /**
@@ -258,14 +210,11 @@ public class LinguisticVariable
      * @return <code>true</code>, if linguistic variable is defined,
      *         <code>false</code> otherwise
      */
-    public synchronized boolean isDefined(  )
-    {
-        for ( Iterator<FuzzySet> it = terms.values(  ).iterator(  ); it.hasNext(  ); )
-        {
-            FuzzySet fs = it.next(  );
+    public synchronized boolean isDefined() {
+        for (Iterator<FuzzySet> it = terms.values().iterator(); it.hasNext();) {
+            FuzzySet fs = it.next();
 
-            if ( fs.isDefined(  ) == true )
-            {
+            if (fs.isDefined() == true) {
                 return true;
             }
         }
@@ -279,9 +228,8 @@ public class LinguisticVariable
      * @return <code>true</code> if linguistic variable has not got any terms,
      *         <code>false</code> otherwise.
      */
-    public synchronized boolean isEmpty(  )
-    {
-        return terms.isEmpty(  );
+    public synchronized boolean isEmpty() {
+        return terms.isEmpty();
     }
 
     /**
@@ -291,17 +239,8 @@ public class LinguisticVariable
      *            the name of the removing term
      * @return fuzzy set which has described the removed linguistic term
      */
-    public synchronized FuzzySet remove( String name )
-    {
-        Object retfset = terms.remove( name );
-
-        if ( retfset != null )
-        {
-            return (FuzzySet) retfset;
-        } else
-        {
-            return null;
-        }
+    public synchronized FuzzySet remove(String name) {
+        return terms.remove(name);
     }
 
     /**
@@ -317,24 +256,11 @@ public class LinguisticVariable
      *                if <code>name</code> or <code>fs</code> is
      *                <code>null</code>
      */
-    public synchronized FuzzySet set( String name, FuzzySet fs )
-                              throws NullPointerException
-    {
-        if ( ( name != null ) && ( fs != null ) )
-        {
-            Object retfs = terms.put( name, fs );
-
-            if ( retfs == null )
-            {
-                return null;
-            } else
-            {
-                return (FuzzySet) retfs;
-            }
-        } else
-        {
-            throw new NullPointerException(  );
+    public synchronized FuzzySet set(String name, FuzzySet fs) {
+        if ((name == null) || (fs == null)) {
+            throw new NullPointerException();
         }
+        return terms.put(name, fs);
     }
 
     /**
@@ -342,75 +268,61 @@ public class LinguisticVariable
      *
      * @return the number of linguistic terms
      */
-    public final synchronized int size(  )
-    {
-        return terms.size(  );
+    public final synchronized int size() {
+        return terms.size();
     }
 
     @Override
-    public Object clone(  )
-    {
-        try
-        {
-            LinguisticVariable newObj = (LinguisticVariable) super.clone(  );
+    public Object clone() {
+        try {
+            LinguisticVariable newObj = (LinguisticVariable) super.clone();
             // Duplicate terms physically
-            newObj.terms = new HashMap<String, FuzzySet>(  );
+            newObj.terms = new HashMap<String, FuzzySet>();
 
-            for ( Iterator<String> it = terms.keySet(  ).iterator(  ); it.hasNext(  ); )
-            {
-                String termName = it.next(  );
-                newObj.terms.put( termName, (FuzzySet) terms.get( termName ).clone(  ) );
+            for (Iterator<String> it = terms.keySet().iterator(); it.hasNext();) {
+                String termName = it.next();
+                newObj.terms.put(termName, (FuzzySet) terms.get(termName).clone());
             }
 
             return newObj;
-        } catch ( java.lang.CloneNotSupportedException e )
-        {
+        } catch (java.lang.CloneNotSupportedException e) {
             // It is impossible
-            throw new InternalError( e.toString(  ) );
+            throw new InternalError(e.toString());
         }
     }
 
     @Override
-    public final boolean equals( Object obj )
-    {
-        if ( ( obj != null ) && ( obj instanceof LinguisticVariable ) )
-        {
+    public final boolean equals(Object obj) {
+        if ((obj != null) && (obj instanceof LinguisticVariable)) {
             LinguisticVariable lingVar = (LinguisticVariable) obj;
 
             // Compare name and number of terms
-            if ( ( ! this.name.equals( lingVar.name ) ) ||
-                     ( this.terms.size(  ) != ( (LinguisticVariable) obj ).terms.size(  ) ) )
-            {
+            if ((!this.name.equals(lingVar.name)) ||
+                    (this.terms.size() != ((LinguisticVariable) obj).terms.size())) {
                 return false;
             }
 
             // Compare linguistic terms
-            for ( Iterator<String> it = terms.keySet(  ).iterator(  ); it.hasNext(  ); )
-            {
-                String termName = it.next(  );
+            for (Iterator<String> it = terms.keySet().iterator(); it.hasNext();) {
+                String termName = it.next();
 
-                if ( ! lingVar.terms.containsKey( termName ) )
-                {
+                if (!lingVar.terms.containsKey(termName)) {
                     return false;
                 }
 
-                if ( ! lingVar.terms.get( termName ).equals( this.terms.get( termName ) ) )
-                {
+                if (!lingVar.terms.get(termName).equals(this.terms.get(termName))) {
                     return false;
                 }
             }
 
-            for ( Iterator<String> it = lingVar.terms.keySet(  ).iterator(  ); it.hasNext(  ); )
-            {
-                String termName = it.next(  );
+            for (Iterator<String> it = lingVar.terms.keySet().iterator(); it.hasNext();) {
+                String termName = it.next();
 
-                if ( ! this.terms.containsKey( termName ) )
-                {
+                if (!this.terms.containsKey(termName)) {
                     return false;
                 }
 
-                if ( ! this.terms.get( termName ).equals( lingVar.terms.get( termName ) ) )
-                {
+                if (!this.terms.get(termName).equals(lingVar.terms.get(termName))) {
                     return false;
                 }
             }
@@ -422,20 +334,18 @@ public class LinguisticVariable
     }
 
     @Override
-    public int hashCode(  )
-    {
+    public int hashCode() {
         int hash = 7;
-        hash = ( 47 * hash ) + ( ( this.name != null ) ? this.name.hashCode(  ) : 0 );
-        hash = ( 47 * hash ) + ( ( this.terms != null ) ? this.terms.hashCode(  ) : 0 );
+        hash = (47 * hash) + ((this.name != null) ? this.name.hashCode() : 0);
+        hash = (47 * hash) + ((this.terms != null) ? this.terms.hashCode() : 0);
 
         return hash;
     }
 
     @Override
-    public String toString(  )
-    {
-        return FuzzyResourceManager.getString( this,
-                                               "LINGUISTIC_VARIABLE",
-                                               new String[] { name, terms.toString(  ) } );
+    public String toString() {
+        return FuzzyResourceManager.getString(this,
+                "LINGUISTIC_VARIABLE",
+                new String[]{name, terms.toString()});
     }
 }

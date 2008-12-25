@@ -243,7 +243,7 @@ public class FuzzySet extends MembershipFunction implements Cloneable, Serializa
             elements = tmp_this.points.listIterator();
 
             while (elements.hasNext()) {
-                entry = (MembershipFunctionPoint) elements.next();
+                entry = elements.next();
                 set(entry.getX(), entry.getDegreeOfMembership());
             }
 

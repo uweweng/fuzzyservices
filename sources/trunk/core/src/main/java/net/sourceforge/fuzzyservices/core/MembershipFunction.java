@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Vector;
 import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
@@ -64,27 +63,27 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      * @param x the x coordinate
      * @param dom the new degree of membership at <code>x</code>
      * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
-     * @exception IllegalArgumentException if <code>x</code> is <code>Float.NaN</code> or not 0.0 <= dom <= 1.0.
      */
-    synchronized float setWithoutChecking(final float x, final float dom) throws IllegalArgumentException {
+    synchronized float setWithoutChecking(final float x, final float dom) {
+        float retDoM = getDegreeOfMembership(x);
         if (points.isEmpty()) {
             points.add(new MembershipFunctionPoint(x, dom));
 
-            return Float.NaN;
+            return retDoM;
         }
 
         if (x > (points.get(points.size() - 1)).getX()) {
             // This case appears very often when combining membership functions
             points.add(new MembershipFunctionPoint(x, dom));
 
-            return Float.NaN;
+            return retDoM;
         }
 
         if (x < (points.get(0)).getX()) {
             // This case appears very often when combining membership functions
             points.add(0, new MembershipFunctionPoint(x, dom));
 
-            return Float.NaN;
+            return retDoM;
         }
 
         // Binary search
@@ -118,16 +117,14 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
         fse = points.get(maxPos);
 
         if (x == fse.getX()) {
-            float retvalue = fse.getDegreeOfMembership();
             fse.setDegreeOfMembership(dom);
-
-            return retvalue;
+            return retDoM;
         }
 
         // x value is not defined yet.
         points.add(maxPos, new MembershipFunctionPoint(x, dom));
 
-        return Float.NaN;
+        return retDoM;
     }
 
     /**
@@ -136,18 +133,15 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      * @return the previous degree of membership if specified, <code>Float.NaN</code> otherwise
      */
     synchronized float removeWithoutChecking(final float x) {
+        float retDoM = getDegreeOfMembership(x);
         // The degree of membership is not interesting, because MembershipFunctionPoint.equals()
         // compares only the x value.
         int pos = points.indexOf(new MembershipFunctionPoint(x, 0.0f));
 
         if (pos >= 0) {
-            float retDoM = (points.get(pos)).getDegreeOfMembership();
             points.remove(pos);
-
-            return retDoM;
-        } else {
-            return Float.NaN;
         }
+        return retDoM;
     }
 
     /**
@@ -183,10 +177,10 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     protected synchronized float getHeight() {
         float height = 0.0f;
         float dom;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            dom = ((MembershipFunctionPoint) elements.next()).getDegreeOfMembership();
+            dom = elements.next().getDegreeOfMembership();
 
             if (dom > height) {
                 height = dom;
@@ -220,10 +214,10 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
 
         if (height != 0.0f) {
             MembershipFunctionPoint entry;
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
             while (elements.hasNext()) {
-                entry = (MembershipFunctionPoint) elements.next();
+                entry = elements.next();
                 entry.setDegreeOfMembership(entry.getDegreeOfMembership() / height);
             }
         }
@@ -235,22 +229,24 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
      * @return <code>true</code> if membership function is convex <code>false</code>, otherwise
      */
     protected synchronized boolean isConvex() {
-        if ((points.size() > 2) &&
-                ((points.get(0)).getDegreeOfMembership() == 0.0f) &&
-                ((points.get(points.size() - 1)).getDegreeOfMembership() == 0.0f)) {
+        if (points.size() == 0) {
+            return false;
+        }
+        
+        if (points.size() > 2) {
             int vzw = 0; // number of change of sign
             MembershipFunctionPoint entryLeft;
             MembershipFunctionPoint entryRight;
-            ListIterator elements = points.listIterator();
-            entryLeft = (MembershipFunctionPoint) elements.next();
-            entryRight = (MembershipFunctionPoint) elements.next();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
+            entryLeft = elements.next();
+            entryRight = elements.next();
 
             float slope;
             float lastSlope = getSlope(entryLeft.getX(), entryRight.getX());
             entryLeft = entryRight;
 
             while (elements.hasNext() && (vzw < 2)) {
-                entryRight = (MembershipFunctionPoint) elements.next();
+                entryRight = elements.next();
                 slope = getSlope(entryLeft.getX(), entryRight.getX());
 
                 if (((lastSlope > 0.0f) && (slope < 0.0f)) ||
@@ -268,7 +264,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
             return ((vzw == 1) ? true : false);
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -282,11 +278,11 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     protected synchronized boolean isValidFuzzyNumber() {
         if (isNormalized() && isConvex()) {
             // Additionally, we are checking whether the maximum is defined in one place
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
             boolean max = false; // Maximum not found
 
             while (elements.hasNext()) {
-                if (((MembershipFunctionPoint) elements.next()).getDegreeOfMembership() == 1.0f) {
+                if (elements.next().getDegreeOfMembership() == 1.0f) {
                     if (!max) {
                         max = true;
                     } else {
@@ -327,11 +323,11 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
     protected synchronized boolean isValidFuzzyInterval() {
         if (isNormalized() && isConvex()) {
             // Additionally, we are checking whether the maximum is in an interval
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
             boolean max = false; // maximum not found
 
             while (elements.hasNext()) {
-                if (((MembershipFunctionPoint) elements.next()).getDegreeOfMembership() == 1.0f) {
+                if (elements.next().getDegreeOfMembership() == 1.0f) {
                     if (!max) {
                         max = true;
                     } else {
@@ -586,10 +582,10 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
         f.clear();
 
         MembershipFunctionPoint entry;
-        ListIterator elements = points.listIterator();
+        ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
         while (elements.hasNext()) {
-            entry = (MembershipFunctionPoint) elements.next();
+            entry = elements.next();
             f.setWithoutChecking((entry.getX() * (-1.0f)),
                     entry.getDegreeOfMembership());
         }
@@ -615,10 +611,10 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
             f.clear();
 
             MembershipFunctionPoint entry;
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
             while (elements.hasNext()) {
-                entry = (MembershipFunctionPoint) elements.next();
+                entry = elements.next();
                 f.setWithoutChecking((1.0f / entry.getX()),
                         entry.getDegreeOfMembership());
             }
@@ -683,10 +679,10 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
             // Duplicate entries physically.
             newObj.points = new ArrayList<MembershipFunctionPoint>(points.size());
 
-            ListIterator elements = points.listIterator();
+            ListIterator<MembershipFunctionPoint> elements = points.listIterator();
 
             while (elements.hasNext()) {
-                newObj.points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
+                newObj.points.add((MembershipFunctionPoint) elements.next().clone());
             }
 
             return newObj;

@@ -52,7 +52,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
      * Default constructor is private
      * because an undefined membership function can not be a valid fuzzy interval.
      */
-    public FuzzyInterval() {
+    private FuzzyInterval() {
         super();
     }
 
@@ -70,14 +70,12 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
             final float alpha, final float beta) throws IllegalArgumentException{
         if (((plateau1 - alpha) < plateau1) && (plateau1 < plateau2) &&
                 (plateau2 < (plateau2 + beta))) {
-            points.add(new MembershipFunctionPoint((plateau1 - alpha),
-                    0.0f));
+            points.add(new MembershipFunctionPoint((plateau1 - alpha), 0.0f));
             points.add(new MembershipFunctionPoint(plateau1, 1.0f));
             points.add(new MembershipFunctionPoint(plateau2, 1.0f));
-            points.add(new MembershipFunctionPoint((plateau2 + beta),
-                    0.0f));
+            points.add(new MembershipFunctionPoint((plateau2 + beta), 0.0f));
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));
         }
     }
 
@@ -115,7 +113,7 @@ public class FuzzyInterval extends MembershipFunction implements Cloneable, Seri
     }
 
     @Override
-    public final synchronized void invert() throws ArithmeticException{
+    public final synchronized void invert() throws ArithmeticException {
         super.invert();
     }
 

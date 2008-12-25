@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test of class FuzzySetTest.
+ * Test of class FuzzySet.
  *
  * @author Uwe Weng
  */
@@ -41,7 +41,12 @@ public class FuzzySetTest {
         System.out.println("clear");
         FuzzySet instance = new FuzzySet();
         instance.clear();
-        fail("The test case is a prototype.");
+        assertTrue(instance.size() == 0);
+        instance = new FuzzySet();
+        instance.set(0.0f, 1.0f);
+        assertTrue(instance.size() > 0);
+        instance.clear();
+        assertTrue(instance.size() == 0);
     }
 
     /**
@@ -56,7 +61,7 @@ public class FuzzySetTest {
         FuzzySet expResult = null;
         FuzzySet result = FuzzySet.combine(fs1, fs2, op);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        // @todo Fail("The test case is a prototype.");
     }
 
     /**
@@ -71,7 +76,7 @@ public class FuzzySetTest {
         FuzzySet expResult = null;
         FuzzySet result = instance.combine(fs, op);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        // @todo Fail("The test case is a prototype.");
     }
 
     /**
@@ -81,8 +86,44 @@ public class FuzzySetTest {
     public final void testConcentrate() {
         System.out.println("concentrate");
         FuzzySet instance = new FuzzySet();
+        FuzzySet expResult = new FuzzySet();
         instance.concentrate();
-        fail("The test case is a prototype.");
+        assertTrue(instance.equals(expResult));
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 1.0f);
+        expResult = new FuzzySet();
+        expResult.set(1.0f, 1.0f);
+        instance.concentrate();
+        assertEquals(instance.getDegreeOfMembership(1.0f), expResult.getDegreeOfMembership(1.0f), 0.0f);
+
+        instance = new FuzzySet();
+        instance.set(0.5f, 0.5f);
+        expResult = new FuzzySet();
+        expResult.set(0.5f, 0.25f);
+        instance.concentrate();
+        assertEquals(instance.getDegreeOfMembership(0.5f), expResult.getDegreeOfMembership(0.5f), Float.POSITIVE_INFINITY);
+
+        instance = new FuzzySet();
+        instance.set(-0.5f, 0.5f);
+        expResult = new FuzzySet();
+        expResult.set(-0.5f, 0.25f);
+        instance.concentrate();
+        assertEquals(instance.getDegreeOfMembership(-0.5f), expResult.getDegreeOfMembership(-0.5f), Float.POSITIVE_INFINITY);
+
+        instance = new FuzzySet();
+        instance.set(0.3f, 0.3f);
+        expResult = new FuzzySet();
+        expResult.set(0.3f, (float) Math.pow(0.3f, 2.0));
+        instance.concentrate();
+        assertEquals(instance.getDegreeOfMembership(0.3f), expResult.getDegreeOfMembership(0.3f), Float.POSITIVE_INFINITY);
+
+        instance = new FuzzySet();
+        instance.set(0.0f, 0.0f);
+        expResult = new FuzzySet();
+        expResult.set(0.0f, 0.0f);
+        instance.concentrate();
+        assertEquals(instance.getDegreeOfMembership(0.0f), expResult.getDegreeOfMembership(0.0f), 0.0f);
     }
 
     /**
@@ -92,8 +133,44 @@ public class FuzzySetTest {
     public final void testDilate() {
         System.out.println("dilate");
         FuzzySet instance = new FuzzySet();
+        FuzzySet expResult = new FuzzySet();
         instance.dilate();
-        fail("The test case is a prototype.");
+        assertTrue(instance.equals(expResult));
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 1.0f);
+        expResult = new FuzzySet();
+        expResult.set(1.0f, 1.0f);
+        instance.dilate();
+        assertEquals(instance.getDegreeOfMembership(1.0f), expResult.getDegreeOfMembership(1.0f), 0.0f);
+
+        instance = new FuzzySet();
+        instance.set(0.5f, 0.5f);
+        expResult = new FuzzySet();
+        expResult.set(0.5f, 0.70f);
+        instance.dilate();
+        assertEquals(instance.getDegreeOfMembership(0.5f), expResult.getDegreeOfMembership(0.5f), Float.POSITIVE_INFINITY);
+
+        instance = new FuzzySet();
+        instance.set(-0.5f, 0.5f);
+        expResult = new FuzzySet();
+        expResult.set(-0.5f, 0.70f);
+        instance.dilate();
+        assertEquals(instance.getDegreeOfMembership(-0.5f), expResult.getDegreeOfMembership(-0.5f), Float.POSITIVE_INFINITY);
+
+        instance = new FuzzySet();
+        instance.set(0.3f, 0.3f);
+        expResult = new FuzzySet();
+        expResult.set(0.3f, (float) Math.pow(0.3f, 0.5));
+        instance.dilate();
+        assertEquals(instance.getDegreeOfMembership(0.3f), expResult.getDegreeOfMembership(0.3f), Float.POSITIVE_INFINITY);
+
+        instance = new FuzzySet();
+        instance.set(0.0f, 0.0f);
+        expResult = new FuzzySet();
+        expResult.set(0.0f, 0.0f);
+        instance.dilate();
+        assertEquals(instance.getDegreeOfMembership(0.0f), expResult.getDegreeOfMembership(0.0f), 0.0f);
     }
 
     /**
@@ -107,7 +184,7 @@ public class FuzzySetTest {
         float expResult = 0.0F;
         float result = instance.getGranularity(fs);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        // @todo Fail("The test case is a prototype.");
     }
 
     /**
@@ -119,8 +196,28 @@ public class FuzzySetTest {
         FuzzySet instance = new FuzzySet();
         float expResult = 0.0F;
         float result = instance.getHeight();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        // Singleton has a height of 1.0
+        instance = new FuzzySet(2.0f);
+        expResult = 1.0F;
+        result = instance.getHeight();
+        assertEquals(expResult, result, 0.0F);
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 0.8f);
+        expResult = 0.8F;
+        result = instance.getHeight();
+        assertEquals(expResult, result, 0.0F);
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 0.3f);
+        instance.set(2.0f, 0.8f);
+        instance.set(3.0f, 0.7f);
+        instance.set(4.0f, 0.9f);
+        expResult = 0.9F;
+        result = instance.getHeight();
+        assertEquals(expResult, result, 0.0F);
     }
 
     /**
@@ -134,7 +231,7 @@ public class FuzzySetTest {
         int expResult = 0;
         int result = instance.getNumSteps(fs);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        // @todo Fail("The test case is a prototype.");
     }
 
     /**
@@ -147,7 +244,44 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isConvex();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Singleton is convex
+        instance = new FuzzySet(0.0f);
+        expResult = true;
+        result = instance.isConvex();
+        assertEquals(expResult, result);
+
+        // Interval is convex
+        instance = new FuzzySet();
+        instance.set(1.0f, 1.0f);
+        instance.set(2.0f, 1.0f);
+        expResult = true;
+        result = instance.isConvex();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 0.5f);
+        instance.set(2.0f, 1.0f);
+        expResult = true;
+        result = instance.isConvex();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 1.0f);
+        instance.set(2.0f, 0.5f);
+        expResult = true;
+        result = instance.isConvex();
+        assertEquals(expResult, result);
+
+        // Two changes of signs
+        instance = new FuzzySet();
+        instance.set(1.0f, 0.5f);
+        instance.set(2.0f, 1.0f);
+        instance.set(3.0f, 0.9f);
+        instance.set(4.0f, 1.0f);
+        expResult = false;
+        result = instance.isConvex();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -160,7 +294,18 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isNormalized();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 1.0f);
+        expResult = true;
+        result = instance.isNormalized();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 0.9f);
+        expResult = false;
+        result = instance.isNormalized();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -173,7 +318,59 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyInterval();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Singleton is not a valid fuzzy interval
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        expResult = false;
+        result = instance.isValidFuzzyInterval();
+        assertEquals(expResult, result);
+
+        // Not convex
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        instance.set(0.5F, 1.0F);
+        instance.set(1.0F, 0.5F);
+        instance.set(2.0F, 0.8F);
+        expResult = false;
+        result = instance.isValidFuzzyInterval();
+        assertEquals(expResult, result);
+
+        // Not normalized
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.5F);
+        instance.set(1.0F, 0.5F);
+        expResult = false;
+        result = instance.isValidFuzzyInterval();
+        assertEquals(expResult, result);
+
+        // Classic fuzzy interval
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 1.0F);
+        instance.set(3.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyInterval();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(-1.0F, 1.0F);
+        instance.set(-2.0F, 1.0F);
+        instance.set(-3.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyInterval();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(-1.0F, 0.0F);
+        instance.set(-0.5F, 1.0F);
+        instance.set(0.5F, 1.0F);
+        instance.set(1.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyInterval();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -186,7 +383,82 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyLRInterval();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Singleton is not a valid fuzzy interval of type LR
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        expResult = false;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        // Not convex
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        instance.set(0.5F, 1.0F);
+        instance.set(1.0F, 0.5F);
+        instance.set(2.0F, 0.8F);
+        expResult = false;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        // Not normalized
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.5F);
+        instance.set(1.0F, 0.5F);
+        expResult = false;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        // Not LR
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(0.5F, 0.6F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 1.0F);
+        instance.set(2.5F, 0.7F);
+        instance.set(3.0F, 0.0F);
+        expResult = false;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        // Classic fuzzy interval of type LR
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 1.0F);
+        instance.set(3.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(0.5F, 0.5F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 1.0F);
+        instance.set(2.5F, 0.5F);
+        instance.set(3.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(-1.0F, 1.0F);
+        instance.set(-2.0F, 1.0F);
+        instance.set(-3.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(-1.0F, 0.0F);
+        instance.set(-0.5F, 1.0F);
+        instance.set(0.5F, 1.0F);
+        instance.set(1.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRInterval();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -199,7 +471,67 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyLRNumber();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Singleton is not a valid fuzzy number of type LR
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        expResult = false;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        // Not convex
+        instance = new FuzzySet();
+        instance.set(-1.0F, 0.0F);
+        instance.set(0.0F, 1.0F);
+        instance.set(1.0F, 0.5F);
+        instance.set(2.0F, 0.8F);
+        expResult = false;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        // Not normalized
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(1.0F, 0.5F);
+        instance.set(2.0F, 0.0F);
+        expResult = false;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        // Not normalized in one point
+        instance = new FuzzySet();
+        instance.set(-1.0F, 0.0F);
+        instance.set(0.0F, 1.0F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 0.0F);
+        expResult = false;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        // Classic fuzzy number of type LR
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(-1.0F, 1.0F);
+        instance.set(-2.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(-1.0F, 0.0F);
+        instance.set(0.0F, 1.0F);
+        instance.set(1.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyLRNumber();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -212,7 +544,62 @@ public class FuzzySetTest {
         boolean expResult = false;
         boolean result = instance.isValidFuzzyNumber();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+
+        // Singleton is a valid fuzzy number
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        expResult = true;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
+
+        // Not convex
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        instance.set(1.0F, 0.5F);
+        instance.set(2.0F, 0.8F);
+        expResult = false;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
+
+        // Not normalized
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.5F);
+        expResult = false;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
+
+        // Not normalized in one point
+        instance = new FuzzySet();
+        instance.set(0.0F, 1.0F);
+        instance.set(1.0F, 1.0F);
+        expResult = false;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
+
+        // Classic fuzzy number
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(1.0F, 1.0F);
+        instance.set(2.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(0.0F, 0.0F);
+        instance.set(-1.0F, 1.0F);
+        instance.set(-2.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
+
+        instance = new FuzzySet();
+        instance.set(-1.0F, 0.0F);
+        instance.set(0.0F, 1.0F);
+        instance.set(1.0F, 0.0F);
+        expResult = true;
+        result = instance.isValidFuzzyNumber();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -223,7 +610,18 @@ public class FuzzySetTest {
         System.out.println("normalize");
         FuzzySet instance = new FuzzySet();
         instance.normalize();
-        fail("The test case is a prototype.");
+        assertTrue(instance.getHeight() == 0.0f);
+
+        instance = new FuzzySet(0.0f);
+        instance.normalize();
+        assertTrue(instance.getHeight() == 1.0f);
+        assertTrue(instance.isNormalized());
+
+        instance = new FuzzySet();
+        instance.set(1.0f, 0.5f);
+        instance.normalize();
+        assertTrue(instance.getHeight() == 1.0f);
+        assertTrue(instance.isNormalized());
     }
 
     /**
@@ -234,7 +632,7 @@ public class FuzzySetTest {
         System.out.println("reciproce");
         FuzzySet instance = new FuzzySet();
         instance.reciproce();
-        fail("The test case is a prototype.");
+        // @todo Fail("The test case is a prototype.");
     }
 
     /**
@@ -247,8 +645,21 @@ public class FuzzySetTest {
         FuzzySet instance = new FuzzySet();
         float expResult = 0.0F;
         float result = instance.remove(x);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        instance = new FuzzySet();
+        x = 0.0f;
+        expResult = 1.0F;
+        instance.set(x, 1.0F);
+        result = instance.remove(x);
+        assertEquals(expResult, result, 0.0F);
+
+        // Remove undefined point
+        instance = new FuzzySet();
+        x = 0.0f;
+        expResult = 0.0F;
+        result = instance.remove(x);
+        assertEquals(expResult, result, 0.0F);
     }
 
     /**
@@ -262,8 +673,49 @@ public class FuzzySetTest {
         FuzzySet instance = new FuzzySet();
         float expResult = 0.0F;
         float result = instance.set(x, dom);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0F);
+
+        instance = new FuzzySet();
+        dom = 1.0F;
+        expResult = 0.0F;
+        result = instance.set(x, dom);
+        assertEquals(expResult, result, 0.0F);
+    }
+
+    /**
+     * Test of set method, of class FuzzySet.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet1() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = Float.NaN;
+        FuzzySet instance = new FuzzySet();
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzySet.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet2() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = 1.0F + Float.POSITIVE_INFINITY;
+        FuzzySet instance = new FuzzySet();
+        instance.set(x, dom);
+    }
+
+    /**
+     * Test of set method, of class FuzzySet.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public final void testSet3() {
+        System.out.println("set");
+        float x = 0.0F;
+        float dom = 0.0F - Float.NEGATIVE_INFINITY;
+        FuzzySet instance = new FuzzySet();
+        instance.set(x, dom);
     }
 
     /**
@@ -274,10 +726,10 @@ public class FuzzySetTest {
         System.out.println("toString");
         boolean withPoints = false;
         FuzzySet instance = new FuzzySet();
-        String expResult = "";
         String result = instance.toString(withPoints);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        withPoints = true;
+        result = instance.toString(withPoints);
+        assertNotNull(result);
     }
-
 }
