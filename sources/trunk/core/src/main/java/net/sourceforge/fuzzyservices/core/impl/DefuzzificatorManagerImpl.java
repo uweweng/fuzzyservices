@@ -100,4 +100,16 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
     public AbstractDefuzzificator getDefuzzificator(final String name) {
         return defuzzyOperators.get(name);
     }
+
+    /**
+     * Registers a new defuzzificator on fuzzy system.
+     *
+     * @param defuzzy the new defuzzificator
+     * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
+     */
+    public static void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
+        if (defuzzy != null) {
+            defuzzyOperators.put(defuzzy.getName(), defuzzy);
+        }
+    }
 }

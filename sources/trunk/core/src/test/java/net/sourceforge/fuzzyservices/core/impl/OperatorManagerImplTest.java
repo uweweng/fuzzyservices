@@ -23,7 +23,6 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.impl;
 
-import net.sourceforge.fuzzyservices.core.OperatorManager;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 
@@ -90,12 +89,11 @@ public class OperatorManagerImplTest {
     public final void testGetOperators() {
         System.out.println("getOperators");
         // Any operators already exist
-        Collection<AbstractOperator> expResult = null;
         Collection<AbstractOperator> result = OperatorManagerImpl.getInstance().getOperators();
         assertNotNull(result);
         int size = result.size();
         AbstractOperator operator = new TestOperator();
-        OperatorManager.registerOperator(operator);
+        OperatorManagerImpl.registerOperator(operator);
         result = OperatorManagerImpl.getInstance().getOperators();
         assertNotNull(result);
         int newSize = result.size();
@@ -110,7 +108,7 @@ public class OperatorManagerImplTest {
         System.out.println("getOperator");
         AbstractOperator expResult = new TestOperator();
         String name = expResult.getName();
-        OperatorManager.registerOperator(expResult);
+        OperatorManagerImpl.registerOperator(expResult);
         AbstractOperator result = OperatorManagerImpl.getInstance().getOperator(name);
         assertNotNull(result);
         assertEquals(result, expResult);
@@ -135,11 +133,11 @@ public class OperatorManagerImplTest {
     public final void testRegisterOperator() {
         System.out.println("registerOperator");
         AbstractOperator expResult = new TestOperator();
-        OperatorManager.registerOperator(expResult);
+        OperatorManagerImpl.registerOperator(expResult);
         AbstractOperator result = OperatorManagerImpl.getInstance().getOperator(expResult.getName());
         assertEquals(expResult, result);
-        
+
         // What happens when paramater is null?
-        OperatorManager.registerOperator(null);
+        OperatorManagerImpl.registerOperator(null);
     }
 }

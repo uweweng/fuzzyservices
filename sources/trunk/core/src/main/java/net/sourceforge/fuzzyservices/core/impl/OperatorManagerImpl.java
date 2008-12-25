@@ -162,4 +162,16 @@ public class OperatorManagerImpl implements OperatorManager {
         }
         return null;
     }
+
+    /**
+     * Register a fuzzy operator on the fuzzy system.
+     *
+     * @param op the new fuzzy operator
+     * @see net.sourceforge.fuzzyservices.core.AbstractOperator
+     */
+    public static void registerOperator(final AbstractOperator op) {
+        if (op != null) {
+            combineOperators.put(op.getName(), op);
+        }
+    }
 }

@@ -23,7 +23,6 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.impl;
 
-import net.sourceforge.fuzzyservices.core.DefuzzificatorManager;
 import java.util.Collection;
 import net.sourceforge.fuzzyservices.core.AbstractDefuzzificator;
 import net.sourceforge.fuzzyservices.core.MembershipFunction;
@@ -67,12 +66,11 @@ public class DefuzzificatorManagerImplTest {
     public final void testGetDefuzzificators() {
         System.out.println("getDefuzzificators");
         // Any defuzzificators already exist
-        Collection<AbstractDefuzzificator> expResult = null;
         Collection<AbstractDefuzzificator> result = DefuzzificatorManagerImpl.getInstance().getDefuzzificators();
         assertNotNull(result);
         int size = result.size();
         AbstractDefuzzificator defuzzificator = new TestDefuzzificator();
-        DefuzzificatorManager.registerDefuzzificator(defuzzificator);
+        DefuzzificatorManagerImpl.registerDefuzzificator(defuzzificator);
         result = DefuzzificatorManagerImpl.getInstance().getDefuzzificators();
         assertNotNull(result);
         int newSize = result.size();
@@ -87,7 +85,7 @@ public class DefuzzificatorManagerImplTest {
         System.out.println("getDefuzzificator");
         AbstractDefuzzificator expResult = new TestDefuzzificator();
         String name = expResult.getName();
-        DefuzzificatorManager.registerDefuzzificator(expResult);
+        DefuzzificatorManagerImpl.registerDefuzzificator(expResult);
         AbstractDefuzzificator result = DefuzzificatorManagerImpl.getInstance().getDefuzzificator(name);
         assertNotNull(result);
         assertEquals(result, expResult);
@@ -112,11 +110,11 @@ public class DefuzzificatorManagerImplTest {
     public final void testRegisterDefuzzificator() {
         System.out.println("registerDefuzzificator");
         AbstractDefuzzificator expResult = new TestDefuzzificator();
-        DefuzzificatorManager.registerDefuzzificator(expResult);
+        DefuzzificatorManagerImpl.registerDefuzzificator(expResult);
         AbstractDefuzzificator result = DefuzzificatorManagerImpl.getInstance().getDefuzzificator(expResult.getName());
         assertEquals(expResult, result);
 
         // What happens when parameter is null?
-        DefuzzificatorManager.registerDefuzzificator(null);
+        DefuzzificatorManagerImpl.registerDefuzzificator(null);
     }
 }
