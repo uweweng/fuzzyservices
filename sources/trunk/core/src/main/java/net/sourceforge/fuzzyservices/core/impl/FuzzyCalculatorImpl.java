@@ -64,144 +64,130 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
         // Determine the degree of memberships in ascending order.
         float x;
         float dom = 0.0f;
-        MembershipFunctionPoint entryLeft1;
-        MembershipFunctionPoint entryRight1;
-        MembershipFunctionPoint entryLeft2;
-        MembershipFunctionPoint entryRight2;
         int pos1 = 0;
         int pos2 = 0;
         float add;
+        float[] xValuesOfOperand1 = operand1.getXValues();
+        float[] xValuesOfOperand2 = operand2.getXValues();
 
         // Durchlaufen der aufsteigenden Flanke.
         while (dom != 1.0f) {
-            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                 pos1++;
             } else {
-                while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+                while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
                     pos1++;
                 }
             }
 
-            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                 pos2++;
             } else {
-                while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+                while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
                     pos2++;
                 }
             }
 
-            entryLeft1 = operand1.points.get(pos1 - 1);
-            entryLeft2 = operand2.points.get(pos2 - 1);
-            entryRight1 = operand1.points.get(pos1);
-            entryRight2 = operand2.points.get(pos2);
-            x = entryLeft1.getX();
-            add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                    entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                    entryLeft1.getX())));
+            x = xValuesOfOperand1[pos1 - 1];
+            add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                    operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                    xValuesOfOperand1[pos1 - 1])));
 
-            if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                x = entryLeft1.getX() + add;
+            if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                x = xValuesOfOperand1[pos1 - 1] + add;
             }
 
-            x = x + entryLeft2.getX();
-            add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                    entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                    entryLeft2.getX()));
+            x = x + xValuesOfOperand2[pos1 - 1];
+            add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                    operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                    xValuesOfOperand2[pos2 - 1]));
 
-            if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
+            if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
                 x = x + add;
             }
 
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-            dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-                    ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+            dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                    ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
         }
 
         // Das "Plateau" einfuegen.
-        while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+        while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
             pos1++;
         }
 
-        while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+        while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
             pos2++;
         }
 
         // linke obere Ecke
-        fs.set((operand1.points.get(pos1)).getX() + (operand2.points.get(pos2)).getX(), 1.0f);
+        fs.set(xValuesOfOperand1[pos1] + xValuesOfOperand2[pos2], 1.0f);
 
-        while ((operand1.points.get(pos1)).getDegreeOfMembership() == 1.0f) {
+        while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == 1.0f) {
             pos1++;
         }
 
-        while ((operand2.points.get(pos2)).getDegreeOfMembership() == 1.0f) {
+        while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == 1.0f) {
             pos2++;
         }
 
         // rechte obere Ecke
-        fs.set((operand1.points.get(pos1--)).getX() + (operand2.points.get(pos2--)).getX(), 1.0f);
+        fs.set(xValuesOfOperand1[pos1--] + xValuesOfOperand2[pos2--], 1.0f);
 
         // Durchlaufen der abfallenden Flanke.
         while (dom != 0.0f) {
-            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                 pos1++;
             } else {
-                while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+                while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
                     pos1++;
                 }
             }
 
-            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                 pos2++;
             } else {
-                while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+                while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
                     pos2++;
                 }
             }
 
-            entryLeft1 = operand1.points.get(pos1 - 1);
-            entryLeft2 = operand2.points.get(pos2 - 1);
-            entryRight1 = operand1.points.get(pos1);
-            entryRight2 = operand2.points.get(pos2);
-            //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-            // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
-            //                x = x + (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-            // entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() - entryLeft2.getX()))));
-            x = entryLeft1.getX();
-            add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                    entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                    entryLeft1.getX())));
+            x = xValuesOfOperand1[pos1 - 1];
+            add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                    operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                    xValuesOfOperand1[pos1 - 1])));
 
-            if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                x = entryLeft1.getX() + add;
+            if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                x = xValuesOfOperand1[pos1 - 1] + add;
             }
 
-            x = x + entryLeft2.getX();
-            add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                    entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                    entryLeft2.getX()));
+            x = x + xValuesOfOperand2[pos2 - 1];
+            add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                    operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                    xValuesOfOperand2[pos2 - 1]));
 
-            if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
+            if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
                 x = x + add;
             }
 
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-            dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-                    ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+            dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                    ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
         }
 
         // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
         // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
-        while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+        while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
             pos1++;
         }
 
-        while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+        while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
             pos2++;
         }
 
-        fs.set((operand1.points.get(pos1)).getX() + (operand2.points.get(pos2)).getX(), 0.0f);
+        fs.set(xValuesOfOperand1[pos1] + xValuesOfOperand2[pos2], 0.0f);
         // Zum Schluss unnoetige Punkte eliminieren.
         fs.reduce();
 
@@ -230,8 +216,6 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
         }
 
         FuzzySet fs = new FuzzySet(); // das spaetere Ergebnis
-        MembershipFunctionPoint entry;
-        MembershipFunctionPoint entryNext;
         float m1;
         float m2;
         float n1;
@@ -244,27 +228,18 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
         float delta;
 
         // Werte fuer den ersten Operanden ermitteln.
-        ListIterator elements = op1.points.listIterator();
-        entry = (MembershipFunctionPoint) elements.next();
-        entryNext = (MembershipFunctionPoint) elements.next();
-        alpha = Math.abs((entry.getX() - entryNext.getX()));
-        m1 = entryNext.getX();
-        entryNext = (MembershipFunctionPoint) elements.next();
-        m2 = entryNext.getX();
-        entry = entryNext;
-        entryNext = (MembershipFunctionPoint) elements.next();
-        beta = Math.abs((entry.getX() - entryNext.getX()));
+        float[] xValuesOfOperand1 = op1.getXValues();
+        alpha = Math.abs(xValuesOfOperand1[0] - xValuesOfOperand1[1]);
+        m1 = xValuesOfOperand1[1];
+        m2 = xValuesOfOperand1[2];
+        beta = Math.abs(xValuesOfOperand1[2] - xValuesOfOperand1[3]);
+
         // Werte fuer den zweiten Operanden ermitteln
-        elements = op2.points.listIterator();
-        entry = (MembershipFunctionPoint) elements.next();
-        entryNext = (MembershipFunctionPoint) elements.next();
-        gamma = Math.abs((entry.getX() - entryNext.getX()));
-        n1 = entryNext.getX();
-        entryNext = (MembershipFunctionPoint) elements.next();
-        n2 = entryNext.getX();
-        entry = entryNext;
-        entryNext = (MembershipFunctionPoint) elements.next();
-        delta = Math.abs((entry.getX() - entryNext.getX()));
+        float[] xValuesOfOperand2 = op2.getXValues();
+        gamma = Math.abs(xValuesOfOperand2[0] - xValuesOfOperand2[1]);
+        n1 = xValuesOfOperand2[1];
+        n2 = xValuesOfOperand2[2];
+        delta = Math.abs(xValuesOfOperand2[2] - xValuesOfOperand2[3]);
         // Aus den ermittelten Werten das Ergebnis bestimmen.
         sum1 = m1 + n1;
         sum2 = m2 + n2;
@@ -297,8 +272,6 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
             throw new RuntimeException();
         }
 
-        MembershipFunctionPoint entry;
-        MembershipFunctionPoint entryNext;
         float x1;
         float x2;
         float xSum;
@@ -308,23 +281,17 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
         float delta;
 
         // Werte fuer den ersten Operanden ermitteln.
-        ListIterator elements = op1.points.listIterator();
-        entry = (MembershipFunctionPoint) elements.next();
-        entryNext = (MembershipFunctionPoint) elements.next();
-        alpha = Math.abs((entry.getX() - entryNext.getX()));
-        entry = entryNext;
-        entryNext = (MembershipFunctionPoint) elements.next();
-        beta = Math.abs((entry.getX() - entryNext.getX()));
-        x1 = entry.getX();
+        float[] xValuesOfOperand1 = op1.getXValues();
+        alpha = Math.abs(xValuesOfOperand1[0] - xValuesOfOperand1[1]);
+        beta = Math.abs(xValuesOfOperand1[1] - xValuesOfOperand1[2]);
+        x1 = xValuesOfOperand1[1];
+
         // Werte fuer den zweiten Operanden ermitteln.
-        elements = op2.points.listIterator();
-        entry = (MembershipFunctionPoint) elements.next();
-        entryNext = (MembershipFunctionPoint) elements.next();
-        gamma = Math.abs((entry.getX() - entryNext.getX()));
-        entry = entryNext;
-        entryNext = (MembershipFunctionPoint) elements.next();
-        delta = Math.abs((entry.getX() - entryNext.getX()));
-        x2 = entry.getX();
+        float[] xValuesOfOperand2 = op2.getXValues();
+        gamma = Math.abs(xValuesOfOperand2[0] - xValuesOfOperand2[1]);
+        delta = Math.abs(xValuesOfOperand2[1] - xValuesOfOperand2[2]);
+        x2 = xValuesOfOperand2[1];
+
         // Aus den ermittelten Werten das Ergebnis bestimmen.
         xSum = x1 + x2;
 
@@ -339,132 +306,118 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
         // Reihenfolge untersucht.
         float x;
         float dom = 0.0f;
-        MembershipFunctionPoint entryLeft1;
-        MembershipFunctionPoint entryRight1;
-        MembershipFunctionPoint entryLeft2;
-        MembershipFunctionPoint entryRight2;
         int pos1 = 0;
         int pos2 = 0;
         float add;
+        float[] xValuesOfOperand1 = operand1.getXValues();
+        float[] xValuesOfOperand2 = operand2.getXValues();
 
         // Durchlaufen der aufsteigenden Flanke
         while (dom != 1.0f) {
-            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                 pos1++;
             } else {
-                while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+                while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
                     pos1++;
                 }
             }
 
-            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                 pos2++;
             } else {
-                while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+                while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
                     pos2++;
                 }
             }
 
-            entryLeft1 = operand1.points.get(pos1 - 1);
-            entryLeft2 = operand2.points.get(pos2 - 1);
-            entryRight1 = operand1.points.get(pos1);
-            entryRight2 = operand2.points.get(pos2);
-            x = entryLeft1.getX();
-            add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                    entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                    entryLeft1.getX())));
+            x = xValuesOfOperand1[pos1 - 1];
+            add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                    operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                    xValuesOfOperand1[pos1 - 1])));
 
-            if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                x = entryLeft1.getX() + add;
+            if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                x = xValuesOfOperand1[pos1 - 1] + add;
             }
 
-            x = x + entryLeft2.getX();
-            add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                    entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                    entryLeft2.getX()));
+            x = x + xValuesOfOperand2[pos2 - 1];
+            add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                    operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                    xValuesOfOperand2[pos2 - 1]));
 
-            if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
+            if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
                 x = x + add;
             }
 
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-            dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-                    ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+            dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                    ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
         }
 
         // Die "Spitze" einfuegen.
-        while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+        while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
             pos1++;
         }
 
-        while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+        while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
             pos2++;
         }
 
-        fs.set((operand1.points.get(pos1)).getX() + (operand2.points.get(pos2)).getX(), 1.0f);
+        fs.set(xValuesOfOperand1[pos1] + xValuesOfOperand2[pos2], 1.0f);
 
         // Durchlaufen der abfallenden Flanke.
         while (dom != 0.0f) {
-            if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+            if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                 pos1++;
             } else {
-                while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+                while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
                     pos1++;
                 }
             }
 
-            if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+            if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                 pos2++;
             } else {
-                while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+                while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
                     pos2++;
                 }
             }
 
-            entryLeft1 = operand1.points.get(pos1 - 1);
-            entryLeft2 = operand2.points.get(pos2 - 1);
-            entryRight1 = operand1.points.get(pos1);
-            entryRight2 = operand2.points.get(pos2);
-            //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-            // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
-            //                x = x + (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-            // entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() - entryLeft2.getX()))));
-            x = entryLeft1.getX();
-            add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                    entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                    entryLeft1.getX())));
+            x = xValuesOfOperand1[pos1 - 1];
+            add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                    operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                    xValuesOfOperand1[pos1 - 1])));
 
-            if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                x = entryLeft1.getX() + add;
+            if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                x = xValuesOfOperand1[pos1 - 1] + add;
             }
 
-            x = x + entryLeft2.getX();
-            add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                    entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                    entryLeft2.getX()));
+            x = x + xValuesOfOperand2[pos2 - 1];
+            add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                    operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                    xValuesOfOperand2[pos2 - 1]));
 
-            if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
+            if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
                 x = x + add;
             }
 
             fs.set(x, dom);
             // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-            dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-                    ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+            dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                    ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
         }
 
         // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
         // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein
-        while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+        while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
             pos1++;
         }
 
-        while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+        while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
             pos2++;
         }
 
-        fs.set((operand1.points.get(pos1)).getX() + (operand2.points.get(pos2)).getX(), 0.0f);
+        fs.set(xValuesOfOperand1[pos1] + xValuesOfOperand2[pos2], 0.0f);
         // Zum Schluss unnoetige Punkte eliminieren.
         fs.reduce();
 
@@ -590,156 +543,146 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
             // Es werden die spezifizierten Zugehoerigkeitsgrade in aufsteigender Reihenfolge untersucht.
             float x;
             float dom = 0.0f;
-            MembershipFunctionPoint entryLeft1;
-            MembershipFunctionPoint entryRight1;
-            MembershipFunctionPoint entryLeft2;
-            MembershipFunctionPoint entryRight2;
             int pos1 = 0;
             int pos2 = 0;
             float add;
+            float[] xValuesOfOperand1 = operand1.getXValues();
+            float[] xValuesOfOperand2 = operand2.getXValues();
 
             // Durchlaufen der aufsteigenden Flanke.
             while (dom != 1.0f) {
-                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+                if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                     pos1++;
                 } else {
-                    while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+                    while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
                         pos1++;
                     }
                 }
 
-                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+                if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                     pos2++;
                 } else {
-                    while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+                    while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = operand1.points.get(pos1 - 1);
-                entryLeft2 = operand2.points.get(pos2 - 1);
-                entryRight1 = operand1.points.get(pos1);
-                entryRight2 = operand2.points.get(pos2);
-                x = entryLeft1.getX();
-                add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                        entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                        entryLeft1.getX())));
+                x = xValuesOfOperand1[pos1 - 1];
+                add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                        operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                        xValuesOfOperand1[pos1 - 1])));
 
-                if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                    x = entryLeft1.getX() + add;
+                if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                    x = xValuesOfOperand1[pos1 - 1] + add;
                 }
 
-                add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                        entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                        entryLeft2.getX()));
+                add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                        operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                        xValuesOfOperand2[pos2 - 1]));
 
-                if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
-                    add = add + entryLeft2.getX();
+                if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
+                    add = add + xValuesOfOperand2[pos2 - 1];
                 } else {
-                    add = entryLeft2.getX();
+                    add = xValuesOfOperand2[pos2 - 1];
                 }
 
                 x = x * add;
-                //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
-                // ((entryRight1.getDegreeOfMembership() -
-                // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
-                // x = x * (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) /
-                // ((entryRight2.getDegreeOfMembership() -
-                // entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() - entryLeft2.getX()))));
+                //                x = (xValuesOfOperand1[pos1 - 1] + ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) /
+                // ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                // operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] - xValuesOfOperand1[pos1 - 1]))));
+                // x = x * (xValuesOfOperand2[pos2 - 1] + ((dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) /
+                // ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                // operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] - xValuesOfOperand2[pos2 - 1]))));
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-                dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-                        ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+                dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                        ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
             }
 
             // Das "Plateau" einfuegen.
-            while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+            while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
                 pos1++;
             }
 
-            while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+            while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
                 pos2++;
             }
 
             // linke obere Ecke
-            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 1.0f);
+            fs.set(xValuesOfOperand1[pos1] * xValuesOfOperand2[pos2], 1.0f);
 
-            while ((operand1.points.get(pos1)).getDegreeOfMembership() == 1.0f) {
+            while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == 1.0f) {
                 pos1++;
             }
 
-            while ((operand2.points.get(pos2)).getDegreeOfMembership() == 1.0f) {
+            while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == 1.0f) {
                 pos2++;
             }
 
             // rechte obere Ecke
-            fs.set((operand1.points.get(pos1--)).getX() * (operand2.points.get(pos2--)).getX(), 1.0f);
+            fs.set(xValuesOfOperand1[pos1--] * xValuesOfOperand2[pos2--], 1.0f);
 
             // Durchlaufen der abfallenden Flanke.
             while (dom != 0.0f) {
-                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+                if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                     pos1++;
                 } else {
-                    while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+                    while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
                         pos1++;
                     }
                 }
 
-                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+                if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                     pos2++;
                 } else {
-                    while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+                    while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = operand1.points.get(pos1 - 1);
-                entryLeft2 = operand2.points.get(pos2 - 1);
-                entryRight1 = operand1.points.get(pos1);
-                entryRight2 = operand2.points.get(pos2);
-                x = entryLeft1.getX();
-                add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                        entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                        entryLeft1.getX())));
+                x = xValuesOfOperand1[pos1 - 1];
+                add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                        operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                        xValuesOfOperand1[pos1 - 1])));
 
-                if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                    x = entryLeft1.getX() + add;
+                if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                    x = xValuesOfOperand1[pos1 - 1] + add;
                 }
 
-                add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                        entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                        entryLeft2.getX()));
+                add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                        operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                        xValuesOfOperand2[pos2 - 1]));
 
-                if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
-                    add = add + entryLeft2.getX();
+                if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
+                    add = add + xValuesOfOperand2[pos2 - 1];
                 } else {
-                    add = entryLeft2.getX();
+                    add = xValuesOfOperand2[pos2 - 1];
                 }
 
                 x = x * add;
-                // x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
-                // ((entryRight1.getDegreeOfMembership() -
-                // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
-                //                x = x * (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) /
-                // ((entryRight2.getDegreeOfMembership() -
-                // entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() - entryLeft2.getX()))));
+                // x = (xValuesOfOperand1[pos1 - 1] + ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) /
+                // ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                // operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] - xValuesOfOperand1[pos1 - 1]))));
+                //                x = x * (xValuesOfOperand2[pos2 - 1] + ((dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) /
+                // ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                // operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] - xValuesOfOperand2[pos2 - 1]))));
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-                dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-                        ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+                dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                        ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
             }
 
             // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
             // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
-            while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+            while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
                 pos1++;
             }
 
-            while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+            while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
                 pos2++;
             }
 
-            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 0.0f);
+            fs.set(xValuesOfOperand1[pos1] * xValuesOfOperand2[pos2], 0.0f);
             // Zum Schluss unnoetige Punkte eliminieren.
             fs.reduce();
 
@@ -804,8 +747,6 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
             }
 
             FuzzySet fs = new FuzzySet(); // das spaetere Ergebnis
-            MembershipFunctionPoint entry;
-            MembershipFunctionPoint entryNext;
             float m1;
             float m2;
             float n1;
@@ -818,27 +759,19 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
             float delta;
 
             // Werte fuer den ersten Operanden ermitteln.
-            ListIterator elements = op1.points.listIterator();
-            entry = (MembershipFunctionPoint) elements.next();
-            entryNext = (MembershipFunctionPoint) elements.next();
-            alpha = Math.abs((entry.getX() - entryNext.getX()));
-            m1 = entryNext.getX();
-            entryNext = (MembershipFunctionPoint) elements.next();
-            m2 = entryNext.getX();
-            entry = entryNext;
-            entryNext = (MembershipFunctionPoint) elements.next();
-            beta = Math.abs((entry.getX() - entryNext.getX()));
+            float[] xValuesOfOperand1 = op1.getXValues();
+            alpha = Math.abs(xValuesOfOperand1[0] - xValuesOfOperand1[1]);
+            m1 = xValuesOfOperand1[1];
+            m2 = xValuesOfOperand1[2];
+            beta = Math.abs(xValuesOfOperand1[2] - xValuesOfOperand1[3]);
+
             // Werte fuer den zweiten Operanden ermitteln.
-            elements = op2.points.listIterator();
-            entry = (MembershipFunctionPoint) elements.next();
-            entryNext = (MembershipFunctionPoint) elements.next();
-            gamma = Math.abs((entry.getX() - entryNext.getX()));
-            n1 = entryNext.getX();
-            entryNext = (MembershipFunctionPoint) elements.next();
-            n2 = entryNext.getX();
-            entry = entryNext;
-            entryNext = (MembershipFunctionPoint) elements.next();
-            delta = Math.abs((entry.getX() - entryNext.getX()));
+            float[] xValuesOfOperand2 = op2.getXValues();
+            gamma = Math.abs(xValuesOfOperand2[0] - xValuesOfOperand2[1]);
+            n1 = xValuesOfOperand2[1];
+            n2 = xValuesOfOperand2[2];
+            delta = Math.abs(xValuesOfOperand2[2] - xValuesOfOperand2[3]);
+
             // Aus den ermittelten Werten das Ergebnis bestimmen (nach Dubois und Prade).
             mul1 = m1 * n1;
             mul2 = m2 * n2;
@@ -909,8 +842,6 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
                 op2.negate();
             }
 
-            MembershipFunctionPoint entry;
-            MembershipFunctionPoint entryNext;
             float x1;
             float x2;
             float xMul;
@@ -920,23 +851,17 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
             float delta;
 
             // Werte fuer den ersten Operanden ermitteln.
-            ListIterator elements = op1.points.listIterator();
-            entry = (MembershipFunctionPoint) elements.next();
-            entryNext = (MembershipFunctionPoint) elements.next();
-            alpha = Math.abs((entry.getX() - entryNext.getX()));
-            entry = entryNext;
-            entryNext = (MembershipFunctionPoint) elements.next();
-            beta = Math.abs((entry.getX() - entryNext.getX()));
-            x1 = entry.getX();
+            float[] xValuesOfOperand1 = op1.getXValues();
+            alpha = Math.abs(xValuesOfOperand1[0] - xValuesOfOperand1[1]);
+            beta = Math.abs(xValuesOfOperand1[1] - xValuesOfOperand1[2]);
+            x1 = xValuesOfOperand1[1];
+
             // Werte fuer den zweiten Operanden ermitteln.
-            elements = op2.points.listIterator();
-            entry = (MembershipFunctionPoint) elements.next();
-            entryNext = (MembershipFunctionPoint) elements.next();
-            gamma = Math.abs((entry.getX() - entryNext.getX()));
-            entry = entryNext;
-            entryNext = (MembershipFunctionPoint) elements.next();
-            delta = Math.abs((entry.getX() - entryNext.getX()));
-            x2 = entry.getX();
+            float[] xValuesOfOperand2 = op2.getXValues();
+            gamma = Math.abs(xValuesOfOperand2[0] - xValuesOfOperand2[1]);
+            delta = Math.abs(xValuesOfOperand2[1] - xValuesOfOperand2[2]);
+            x2 = xValuesOfOperand2[1];
+
             // Aus den ermittelten Werten das Ergebnis bestimmen (nach Dubois und Prade).
             xMul = x1 * x2;
 
@@ -990,144 +915,134 @@ public class FuzzyCalculatorImpl implements FuzzyCalculator {
             // Es werden die spezifizierten Zugehoerigkeitsgrade in aufsteigender Reihenfolge untersucht.
             float x;
             float dom = 0.0f;
-            MembershipFunctionPoint entryLeft1;
-            MembershipFunctionPoint entryRight1;
-            MembershipFunctionPoint entryLeft2;
-            MembershipFunctionPoint entryRight2;
             int pos1 = 0;
             int pos2 = 0;
             float add;
+            float[] xValuesOfOperand1 = operand1.getXValues();
+            float[] xValuesOfOperand2 = operand2.getXValues();
 
             // Durchlaufen der aufsteigenden Flanke.
             while (dom != 1.0f) {
-                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+                if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                     pos1++;
                 } else {
-                    while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+                    while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
                         pos1++;
                     }
                 }
 
-                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+                if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                     pos2++;
                 } else {
-                    while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+                    while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = operand1.points.get(pos1 - 1);
-                entryLeft2 = operand2.points.get(pos2 - 1);
-                entryRight1 = operand1.points.get(pos1);
-                entryRight2 = operand2.points.get(pos2);
-                x = entryLeft1.getX();
-                add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                        entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                        entryLeft1.getX())));
+                x = xValuesOfOperand1[pos1 - 1];
+                add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                        operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                        xValuesOfOperand1[pos1 - 1])));
 
-                if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                    x = entryLeft1.getX() + add;
+                if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                    x = xValuesOfOperand1[pos1 - 1] + add;
                 }
 
-                add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                        entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                        entryLeft2.getX()));
+                add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                        operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                        xValuesOfOperand2[pos2 - 1]));
 
-                if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
-                    add = add + entryLeft2.getX();
+                if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
+                    add = add + xValuesOfOperand2[pos2 - 1];
                 } else {
-                    add = entryLeft2.getX();
+                    add = xValuesOfOperand2[pos2 - 1];
                 }
 
                 x = x * add;
-                //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
-                // ((entryRight1.getDegreeOfMembership() -
-                // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
-                //                x = x * (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) /
-                // ((entryRight2.getDegreeOfMembership() -
-                // entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() - entryLeft2.getX()))));
+                //                x = (xValuesOfOperand1[pos1 - 1] + ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) /
+                // ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                // operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] - xValuesOfOperand1[pos1 - 1]))));
+                //                x = x * (xValuesOfOperand2[pos2 - 1] + ((dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) /
+                // ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                // operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] - xValuesOfOperand2[pos2 - 1]))));
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-                dom = ((entryRight1.getDegreeOfMembership() < entryRight2.getDegreeOfMembership())
-                        ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+                dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                        ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
             }
 
             // Die "Spitze" einfuegen.
-            while ((operand1.points.get(pos1)).getDegreeOfMembership() < dom) {
+            while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) < dom) {
                 pos1++;
             }
 
-            while ((operand2.points.get(pos2)).getDegreeOfMembership() < dom) {
+            while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) < dom) {
                 pos2++;
             }
 
-            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 1.0f);
+            fs.set(xValuesOfOperand1[pos1] * xValuesOfOperand2[pos2], 1.0f);
 
             // Durchlaufen der abfallenden Flanke.
             while (dom != 0.0f) {
-                if ((operand1.points.get(pos1)).getDegreeOfMembership() == dom) {
+                if (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) == dom) {
                     pos1++;
                 } else {
-                    while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+                    while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
                         pos1++;
                     }
                 }
 
-                if ((operand2.points.get(pos2)).getDegreeOfMembership() == dom) {
+                if (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) == dom) {
                     pos2++;
                 } else {
-                    while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+                    while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
                         pos2++;
                     }
                 }
 
-                entryLeft1 = operand1.points.get(pos1 - 1);
-                entryLeft2 = operand2.points.get(pos2 - 1);
-                entryRight1 = operand1.points.get(pos1);
-                entryRight2 = operand2.points.get(pos2);
-                x = entryLeft1.getX();
-                add = ((dom - entryLeft1.getDegreeOfMembership()) / ((entryRight1.getDegreeOfMembership() -
-                        entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() -
-                        entryLeft1.getX())));
+                x = xValuesOfOperand1[pos1 - 1];
+                add = ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                        operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] -
+                        xValuesOfOperand1[pos1 - 1])));
 
-                if ((entryRight1.getDegreeOfMembership() - entryLeft1.getDegreeOfMembership()) != 0.0f) {
-                    x = entryLeft1.getX() + add;
+                if ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) != 0.0f) {
+                    x = xValuesOfOperand1[pos1 - 1] + add;
                 }
 
-                add = (dom - entryLeft2.getDegreeOfMembership()) / ((entryRight2.getDegreeOfMembership() -
-                        entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() -
-                        entryLeft2.getX()));
+                add = (dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                        operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] -
+                        xValuesOfOperand2[pos2 - 1]));
 
-                if ((entryRight2.getDegreeOfMembership() - entryLeft2.getDegreeOfMembership()) != 0.0f) {
-                    add = add + entryLeft2.getX();
+                if ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) != 0.0f) {
+                    add = add + xValuesOfOperand2[pos2 - 1];
                 } else {
-                    add = entryLeft2.getX();
+                    add = xValuesOfOperand2[pos2 - 1];
                 }
 
                 x = x * add;
-                //                x = (entryLeft1.getX() + ((dom - entryLeft1.getDegreeOfMembership()) /
-                // ((entryRight1.getDegreeOfMembership() -
-                // entryLeft1.getDegreeOfMembership()) / (entryRight1.getX() - entryLeft1.getX()))));
-                //                x = x * (entryLeft2.getX() + ((dom - entryLeft2.getDegreeOfMembership()) /
-                // ((entryRight2.getDegreeOfMembership() -
-                // entryLeft2.getDegreeOfMembership()) / (entryRight2.getX() - entryLeft2.getX()))));
+                //                x = (xValuesOfOperand1[pos1 - 1] + ((dom - operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) /
+                // ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) -
+                // operand1.getDegreeOfMembership(xValuesOfOperand1[pos1 - 1])) / (xValuesOfOperand1[pos1] - xValuesOfOperand1[pos1 - 1]))));
+                //                x = x * (xValuesOfOperand2[pos2 - 1] + ((dom - operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) /
+                // ((operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) -
+                // operand2.getDegreeOfMembership(xValuesOfOperand2[pos2 - 1])) / (xValuesOfOperand2[pos2] - xValuesOfOperand2[pos2 - 1]))));
                 fs.set(x, dom);
                 // Naechst hoeheren Zugehoerigkeitsgrad auf der aufsteigenden Flanke ermitteln.
-                dom = ((entryRight1.getDegreeOfMembership() > entryRight2.getDegreeOfMembership())
-                        ? entryRight1.getDegreeOfMembership() : entryRight2.getDegreeOfMembership());
+                dom = ((operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]))
+                        ? operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) : operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]));
             }
 
             // Den letzten Punkt bei Zugehoerigkeitsgrad 0.0 einfuegen.
             // Im Prinzip muss es der letzte Eintrag in den Vektoren der Operanden sein.
-            while ((operand1.points.get(pos1)).getDegreeOfMembership() > dom) {
+            while (operand1.getDegreeOfMembership(xValuesOfOperand1[pos1]) > dom) {
                 pos1++;
             }
 
-            while ((operand2.points.get(pos2)).getDegreeOfMembership() > dom) {
+            while (operand2.getDegreeOfMembership(xValuesOfOperand2[pos2]) > dom) {
                 pos2++;
             }
 
-            fs.set((operand1.points.get(pos1)).getX() * (operand2.points.get(pos2)).getX(), 0.0f);
+            fs.set(xValuesOfOperand1[pos1] * xValuesOfOperand2[pos2], 0.0f);
             // Zum Schluss unnoetige Punkte eliminieren.
             fs.reduce();
 
