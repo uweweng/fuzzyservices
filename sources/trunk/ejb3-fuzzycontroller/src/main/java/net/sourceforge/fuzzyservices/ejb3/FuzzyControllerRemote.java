@@ -23,15 +23,7 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
-import net.sourceforge.fuzzyservices.beans.FactBase;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
-import net.sourceforge.fuzzyservices.beans.RuleBase;
-import net.sourceforge.fuzzyservices.core.FactBase;
-import net.sourceforge.fuzzyservices.core.LinguisticVariable;
-import net.sourceforge.fuzzyservices.core.RuleBase;
-
 import javax.ejb.Remote;
-
 
 /**
  * EJB3 remote interface of a fuzzy controller implementation for approximate reasoning.
@@ -42,6 +34,7 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface FuzzyControllerRemote {
+
     /**
      * Inference method for fuzzy JavaBeans.
      * @param ruleBase the rule base
@@ -51,9 +44,9 @@ public interface FuzzyControllerRemote {
      * @throws java.rmi.RemoteException
      * @throws javax.ejb.EJBException
      */
-    FactBase performApproximateReasoning(final RuleBase ruleBase,
-        final FactBase factBase,
-        final LinguisticVariable[] linguisticVariables);
+    public net.sourceforge.fuzzyservices.beans.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.beans.RuleBase ruleBase,
+            final net.sourceforge.fuzzyservices.beans.FactBase factBase,
+            final net.sourceforge.fuzzyservices.beans.LinguisticVariable[] linguisticVariables);
 
     /**
      * Inference method for core fuzzy components.
@@ -64,6 +57,6 @@ public interface FuzzyControllerRemote {
      * @throws java.rmi.RemoteException
      * @throws javax.ejb.EJBException
      */
-    FactBase performApproximateReasoning(final RuleBase ruleBase,
-        final FactBase factBase, final LinguisticVariable[] linguisticVariables);
+    public net.sourceforge.fuzzyservices.core.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.core.RuleBase ruleBase,
+            final net.sourceforge.fuzzyservices.core.FactBase factBase, final net.sourceforge.fuzzyservices.core.LinguisticVariable[] linguisticVariables);
 }

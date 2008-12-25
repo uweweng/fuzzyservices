@@ -23,15 +23,7 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
-import net.sourceforge.fuzzyservices.beans.FactBase;
-import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
-import net.sourceforge.fuzzyservices.beans.RuleBase;
-import net.sourceforge.fuzzyservices.core.FactBase;
-import net.sourceforge.fuzzyservices.core.LinguisticVariable;
-import net.sourceforge.fuzzyservices.core.RuleBase;
-
 import javax.ejb.Stateless;
-
 
 /**
  * EJB implementation of a fuzzy controller for approximate reasoning.
@@ -42,20 +34,18 @@ import javax.ejb.Stateless;
  */
 @Stateless(mappedName = "FuzzyController")
 public class FuzzyControllerBean implements FuzzyControllerRemote {
+
     @Override
-    public FactBase performApproximateReasoning(
-        final RuleBase ruleBase, final FactBase factBase,
-        final LinguisticVariable[] lv) {
-        return net.sourceforge.fuzzyservices.beans.FuzzyController.getInstance()
-                                                                      .performApproximateReasoning(ruleBase,
-            factBase, lv);
+    public net.sourceforge.fuzzyservices.core.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.core.RuleBase ruleBase,
+            final net.sourceforge.fuzzyservices.core.FactBase factBase, final net.sourceforge.fuzzyservices.core.LinguisticVariable[] linguisticVariables) {
+        return net.sourceforge.fuzzyservices.core.impl.FuzzyControllerImpl.getInstance().performApproximateReasoning(ruleBase,
+                factBase, linguisticVariables);
     }
 
     @Override
-    public FactBase performApproximateReasoning(final RuleBase ruleBase,
-        final FactBase factBase, final LinguisticVariable[] lv) {
-        return net.sourceforge.fuzzyservices.core.FuzzyController.getInstance()
-                                                                 .performApproximateReasoning(ruleBase,
-            factBase, lv);
+    public net.sourceforge.fuzzyservices.beans.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.beans.RuleBase ruleBase, final net.sourceforge.fuzzyservices.beans.FactBase factBase,
+            final net.sourceforge.fuzzyservices.beans.LinguisticVariable[] linguisticVariables) {
+        return new net.sourceforge.fuzzyservices.beans.FuzzyController().performApproximateReasoning(ruleBase,
+                factBase, linguisticVariables);
     }
 }
