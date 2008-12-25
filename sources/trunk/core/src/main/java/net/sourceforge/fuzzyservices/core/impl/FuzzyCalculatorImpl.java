@@ -23,14 +23,12 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core.impl;
 
-import java.util.ListIterator;
 import net.sourceforge.fuzzyservices.core.FuzzyCalculator;
 import net.sourceforge.fuzzyservices.core.FuzzyInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRInterval;
 import net.sourceforge.fuzzyservices.core.FuzzyLRNumber;
 import net.sourceforge.fuzzyservices.core.FuzzyNumber;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
-import net.sourceforge.fuzzyservices.core.MembershipFunctionPoint;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**

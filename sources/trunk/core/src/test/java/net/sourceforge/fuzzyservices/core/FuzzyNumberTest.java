@@ -43,7 +43,22 @@ public class FuzzyNumberTest {
         FuzzyNumber expResult = new FuzzyNumber(0.5f, 0.17f, 0.5f);
         instance.invert();
         assertEquals(expResult, instance);
-        // TODO testInvert um weitere Beispiele ergaenzen
+
+        // And negative example
+        instance = new FuzzyNumber(-2.0f, 1.0f);
+        expResult = new FuzzyNumber(-0.5f, 0.5f, 0.17f);
+        instance.invert();
+        assertEquals(expResult, instance);
+    }
+
+    /**
+     * Test of invert method, of class FuzzyNumber.
+     */
+    @Test(expected = ArithmeticException.class)
+    public final void testInvert1() {
+        System.out.println("invert");
+        FuzzyNumber instance = new FuzzyNumber(0.0f, 1.0f);
+        instance.invert();
     }
 
     /**
@@ -248,7 +263,6 @@ public class FuzzyNumberTest {
         instance.set(x, dom);
     }
 
-
     /**
      * Test of toString method, of class FuzzyNumber.
      */
@@ -263,5 +277,4 @@ public class FuzzyNumberTest {
         result = instance.toString(withPoints);
         assertNotNull(result);
     }
-
 }

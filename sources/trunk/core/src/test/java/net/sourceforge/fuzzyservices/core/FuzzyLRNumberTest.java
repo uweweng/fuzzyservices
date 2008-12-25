@@ -84,10 +84,25 @@ public class FuzzyLRNumberTest {
     public final void testInvert() {
         System.out.println("invert");
         FuzzyLRNumber instance = new FuzzyLRNumber(2.0f, 1.0f);
-        FuzzyLRNumber expResult = new FuzzyLRNumber(0.5f, 1.0f);
+        FuzzyLRNumber expResult = new FuzzyLRNumber(0.5f, 0.17f, 0.5f);
         instance.invert();
         assertEquals(expResult, instance);
-        // TODO testInvert um weitere Beispiele ergaenzen
+
+        // And negative example
+        instance = new FuzzyLRNumber(-2.0f, 1.0f);
+        expResult = new FuzzyLRNumber(-0.5f, 0.5f, 0.17f);
+        instance.invert();
+        assertEquals(expResult, instance);
+    }
+
+    /**
+     * Test of invert method, of class FuzzyLRNumber.
+     */
+    @Test(expected = ArithmeticException.class)
+    public final void testInvert1() {
+        System.out.println("invert");
+        FuzzyLRNumber instance = new FuzzyLRNumber(0.0f, 1.0f);
+        instance.invert();
     }
 
     /**
@@ -283,5 +298,4 @@ public class FuzzyLRNumberTest {
         result = instance.toString(withPoints);
         assertNotNull(result);
     }
-
 }

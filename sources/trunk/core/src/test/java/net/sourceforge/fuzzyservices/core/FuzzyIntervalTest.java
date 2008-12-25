@@ -39,11 +39,26 @@ public class FuzzyIntervalTest {
     @Test
     public final void testInvert() {
         System.out.println("invert");
-        FuzzyInterval instance = new FuzzyInterval(2.0f, 1.0f, 1.0f, 1.0f);
-        FuzzyInterval expResult = new FuzzyInterval(0.5f, 1.0f, 1.0f, 1.0f);
+        FuzzyInterval instance = new FuzzyInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        FuzzyInterval expResult = new FuzzyInterval(0.25f, 0.5f, 0.05f, 0.5f);
         instance.invert();
         assertEquals(expResult, instance);
-        // TODO testInvert um weitere Beispiele ergaenzen
+
+        // And negative example
+        instance = new FuzzyInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        expResult = new FuzzyInterval(-0.5f, -0.25f, 0.5f, 0.05f);
+        instance.invert();
+        assertEquals(expResult, instance);
+    }
+
+    /**
+     * Test of invert method, of class FuzzyInterval.
+     */
+    @Test(expected = ArithmeticException.class)
+    public final void testInvert1() {
+        System.out.println("invert");
+        FuzzyInterval instance = new FuzzyInterval(-1.0f, 1.0f, 1.0f, 1.0f);
+        instance.invert();
     }
 
     /**

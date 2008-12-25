@@ -333,6 +333,7 @@ public class Fact implements Cloneable, Serializable {
     public Object clone() {
         try {
             Fact newObj = (Fact) super.clone();
+            newObj.lingVar = lingVar;
             // In opposite to the linguistic variable the value of the fact is cloned
             newObj.value = (FuzzySet) value.clone();
 

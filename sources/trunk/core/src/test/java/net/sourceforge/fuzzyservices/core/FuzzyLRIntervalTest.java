@@ -83,11 +83,26 @@ public class FuzzyLRIntervalTest {
     @Test
     public final void testInvert() {
         System.out.println("invert");
-        FuzzyLRInterval instance = new FuzzyLRInterval(2.0f, 1.0f, 1.0f, 1.0f);
-        FuzzyLRInterval expResult = new FuzzyLRInterval(0.5f, 1.0f, 1.0f, 1.0f);
+        FuzzyLRInterval instance = new FuzzyLRInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        FuzzyLRInterval expResult = new FuzzyLRInterval(0.25f, 0.5f, 0.05f, 0.5f);
         instance.invert();
         assertEquals(expResult, instance);
-        // TODO testInvert um weitere Beispiele ergaenzen
+
+        // And negative example
+        instance = new FuzzyLRInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        expResult = new FuzzyLRInterval(-0.5f, -0.25f, 0.5f, 0.05f);
+        instance.invert();
+        assertEquals(expResult, instance);
+    }
+
+    /**
+     * Test of invert method, of class FuzzyLRInterval.
+     */
+    @Test(expected = ArithmeticException.class)
+    public final void testInvert1() {
+        System.out.println("invert");
+        FuzzyLRInterval instance = new FuzzyLRInterval(-1.0f, 1.0f, 1.0f, 1.0f);
+        instance.invert();
     }
 
     /**
@@ -282,5 +297,4 @@ public class FuzzyLRIntervalTest {
         result = instance.toString(withPoints);
         assertNotNull(result);
     }
-
 }
