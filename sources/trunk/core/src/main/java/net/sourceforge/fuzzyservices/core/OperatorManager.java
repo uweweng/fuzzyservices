@@ -23,21 +23,30 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import java.util.Collection;
+
 /**
- * A fuzzy controller implements an approximate reasoning method.
+ * You can ask an operator manager for all implemented operators.
  *
  * @version 1.0
  * @author Uwe Weng
  */
-public interface FuzzyController {
+public interface OperatorManager {
 
     /**
-     * Performs approximate reasoning based on a fact and rule base.
-     * @return a new fact base with the result of this operation
-     * @param aRuleBase the rule base
-     * @param aFactBase the fact base
-     * @param linguisticVariables the linguistic variables
+     * Returns all registered fuzzy operators as a collection.
+     * @return a collection of fuzzy operators
+     * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
-    public FactBase performApproximateReasoning(RuleBase aRuleBase, FactBase aFactBase,
-            LinguisticVariable[] linguisticVariables);
+    public Collection<AbstractOperator> getOperators();
+
+    /**
+     * Returns a fuzzy operator with passed name.
+     *
+     * @param name the name as identifier
+     * @return an instance of type <code>AbstractOperator</code> or
+     * <code>null</code>
+     * @see net.sourceforge.fuzzyservices.core.AbstractOperator
+     */
+    public AbstractOperator getOperator(final String name);
 }

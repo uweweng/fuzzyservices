@@ -52,16 +52,16 @@ public class Rule implements Cloneable, Serializable {
     /** By default, the certainty is 1.0. */
     private static float defaultCertainty = 1.0f;
     /**
-     * By default, a MIN-AbstractOperator is used for aggregation.
+     * By default, a MIN-Operator is used for aggregation.
      */
     private static AbstractOperator defaultAggregationOperator = new Min(); // beliebig
     /**
-     * By default, a MIN-AbstractOperator is used for reconciliation of
+     * By default, a MIN-Operator is used for reconciliation of
      * result and certainty factor. The operator has to fulfill the t-norm.
      */
     private static AbstractOperator defaultCertaintyOperator = new Min(); // t-Norm
     /**
-     * By default, a MIN-AbstractOperator is used for inference.
+     * By default, a MIN-Operator is used for inference.
      */
     private static AbstractOperator defaultInferenceOperator = new Min(); // t-Norm
     /**

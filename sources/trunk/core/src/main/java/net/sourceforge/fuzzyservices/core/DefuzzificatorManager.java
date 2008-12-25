@@ -23,21 +23,31 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.core;
 
+import java.util.Collection;
+
 /**
- * A fuzzy controller implements an approximate reasoning method.
+ * You can ask an defuzzificator manager for all implemented defuzzificators.
  *
  * @version 1.0
  * @author Uwe Weng
  */
-public interface FuzzyController {
+public interface DefuzzificatorManager {
 
     /**
-     * Performs approximate reasoning based on a fact and rule base.
-     * @return a new fact base with the result of this operation
-     * @param aRuleBase the rule base
-     * @param aFactBase the fact base
-     * @param linguisticVariables the linguistic variables
+     * Returns all registered defuzzificators as an array.
+     *
+     * @return a collection with defuzzificators
+     * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public FactBase performApproximateReasoning(RuleBase aRuleBase, FactBase aFactBase,
-            LinguisticVariable[] linguisticVariables);
+    public Collection<AbstractDefuzzificator> getDefuzzificators();
+
+    /**
+     * Returns the defuzzificator with the passed name.
+     *
+     * @param name the name as identifier of type
+     * <code>AbstractDefuzzificator</code> or <code>null</code> if not found
+     * @return the selected defuzzificator
+     * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
+     */
+    public AbstractDefuzzificator getDefuzzificator(final String name);
 }

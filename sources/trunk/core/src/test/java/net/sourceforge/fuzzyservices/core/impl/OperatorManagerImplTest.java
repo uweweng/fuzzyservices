@@ -21,8 +21,9 @@
  *  The license is also available at http://www.gnu.org/licenses/gpl.txt
  *
  ******************************************************************************/
-package net.sourceforge.fuzzyservices.core.operator;
+package net.sourceforge.fuzzyservices.core.impl;
 
+import net.sourceforge.fuzzyservices.core.OperatorManager;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.FuzzySet;
 
@@ -33,11 +34,11 @@ import org.junit.Test;
 import java.util.Collection;
 
 /**
- * Test of class OperatorManager.
+ * Test of class OperatorManagerImpl.
  *
  * @author Uwe Weng
  */
-public class OperatorManagerTest {
+public class OperatorManagerImplTest {
 
     /**
      * Operator for tests.
@@ -83,26 +84,26 @@ public class OperatorManagerTest {
     }
 
     /**
-     * Test of getOperators method, of class OperatorManager.
+     * Test of getOperators method, of class OperatorManagerImpl.
      */
     @Test
     public final void testGetOperators() {
         System.out.println("getOperators");
         // Any operators already exist
         Collection<AbstractOperator> expResult = null;
-        Collection<AbstractOperator> result = OperatorManager.getOperators();
+        Collection<AbstractOperator> result = OperatorManagerImpl.getInstance().getOperators();
         assertNotNull(result);
         int size = result.size();
         AbstractOperator operator = new TestOperator();
         OperatorManager.registerOperator(operator);
-        result = OperatorManager.getOperators();
+        result = OperatorManagerImpl.getInstance().getOperators();
         assertNotNull(result);
         int newSize = result.size();
         assertEquals(size + 1, newSize);
     }
 
     /**
-     * Test of getOperator method, of class OperatorManager.
+     * Test of getOperator method, of class OperatorManagerImpl.
      */
     @Test
     public final void testGetOperator() {
@@ -110,32 +111,32 @@ public class OperatorManagerTest {
         AbstractOperator expResult = new TestOperator();
         String name = expResult.getName();
         OperatorManager.registerOperator(expResult);
-        AbstractOperator result = OperatorManager.getOperator(name);
+        AbstractOperator result = OperatorManagerImpl.getInstance().getOperator(name);
         assertNotNull(result);
         assertEquals(result, expResult);
 
         // What happens when parameter is null?
         expResult = null;
         name = null;
-        result = OperatorManager.getOperator(name);
+        result = OperatorManagerImpl.getInstance().getOperator(name);
         assertEquals(expResult, result);
 
         // What happens when operator is unknown?
         expResult = null;
         name = "";
-        result = OperatorManager.getOperator(name);
+        result = OperatorManagerImpl.getInstance().getOperator(name);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of registerOperator method, of class OperatorManager.
+     * Test of registerOperator method, of class OperatorManagerImpl.
      */
     @Test
     public final void testRegisterOperator() {
         System.out.println("registerOperator");
         AbstractOperator expResult = new TestOperator();
         OperatorManager.registerOperator(expResult);
-        AbstractOperator result = OperatorManager.getOperator(expResult.getName());
+        AbstractOperator result = OperatorManagerImpl.getInstance().getOperator(expResult.getName());
         assertEquals(expResult, result);
         
         // What happens when paramater is null?
