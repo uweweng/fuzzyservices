@@ -25,7 +25,7 @@ package net.sourceforge.fuzzyservices.beans.swing;
 
 import net.sourceforge.fuzzyservices.beans.Operator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
+import net.sourceforge.fuzzyservices.core.OperatorManager;
 import net.sourceforge.fuzzyservices.swing.AbstractOperatorModel;
 
 import java.beans.PropertyChangeEvent;

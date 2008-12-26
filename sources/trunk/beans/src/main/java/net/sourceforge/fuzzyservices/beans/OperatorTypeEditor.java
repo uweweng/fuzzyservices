@@ -28,7 +28,7 @@ import java.beans.PropertyEditorSupport;
 import java.util.Collection;
 import java.util.Iterator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
+import net.sourceforge.fuzzyservices.core.OperatorManager;
 
 /**
  * Editor support for type property of an operator bean.

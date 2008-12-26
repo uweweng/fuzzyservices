@@ -7,7 +7,7 @@ package net.sourceforge.fuzzyservices.beans;
 import java.beans.PropertyVetoException;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
-import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
+import net.sourceforge.fuzzyservices.core.OperatorManager;
 
 /** 
  * Utility class for converting between core and beans operator. 
