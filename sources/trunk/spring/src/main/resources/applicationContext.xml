@@ -5,16 +5,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"> 
 
-<bean id="FuzzyController" class="net.sourceforge.fuzzyservices.core.FuzzyController"> 
+<bean id="FuzzyController" class="net.sourceforge.fuzzyservices.core.impl.FuzzyControllerImpl"> 
 </bean> 
 
-<bean id="FuzzyCalculator" class="net.sourceforge.fuzzyservices.core.FuzzyCalculator"> 
+<bean id="FuzzyCalculator" class="net.sourceforge.fuzzyservices.core.impl.FuzzyCalculatorImpl"> 
 </bean>
 
-<bean id="DefuzzificatorManager" class="net.sourceforge.fuzzyservices.core.defuzzification.DefuzzificatorManager"> 
+<bean id="DefuzzificatorManager" class="net.sourceforge.fuzzyservices.core.impl.DefuzzificatorManagerImpl"> 
 </bean>
 
-<bean id="OperatorManager" class="net.sourceforge.fuzzyservices.core.operator.OperatorManager"> 
+<bean id="OperatorManager" class="net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl"> 
 </bean>
 
 </beans>

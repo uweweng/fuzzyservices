@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>net.sourceforge.fuzzyservices</groupId>
+        <artifactId>fuzzyservices</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sourceforge.fuzzyservices</groupId>
+    <artifactId>fuzzyservices-osgi</artifactId>
+    <packaging>bundle</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>Fuzzy Services OSGi Support</name>
+    <description>
+    This bundle provides an implementation of fuzzy controller and calculator service.
+    </description>
+    <url>http://sourceforge.net/projects/fuzzyservices</url>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>fuzzyservices-core</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>1.4.0</version>
+<!--
+Where GOAL is one of the following:
+
+    * bundle - build an OSGi bundle jar for the current project
+      configuration options:
+          o manifestLocation defaults to ${project.build.outputDirectory}/META-INF
+          o unpackBundle unpack bundle contents to output directory, defaults to false
+          o excludeDependencies comma-separated list of dependency artifactIds to exclude from the classpath passed to Bnd (use "true" to exclude everything)
+          o classifier attach bundle to the project using the given classifier
+          o supportedProjectTypes defaults to "jar","bundle"
+
+    * bundleall - build OSGi bundle jars for all transitive dependencies
+      configuration options:
+          o wrapImportPackage defaults to "*"
+          o supportedProjectTypes defaults to "jar","bundle"
+
+    * wrap - as above, but limited to the first level of dependencies
+      configuration options:
+          o wrapImportPackage defaults to "*"
+          o supportedProjectTypes defaults to "jar","bundle"
+
+    * manifest - create an OSGi manifest for the current project
+      configuration options:
+          o manifestLocation defaults to ${project.build.outputDirectory}/META-INF
+          o supportedProjectTypes defaults to "jar","bundle"
+
+    * install - adds the current bundle project to the local OBR
+      configuration options:
+          o obrRepository path to local OBR, defaults to <local-maven-repository>/repository.xml
+          o supportedProjectTypes defaults to "jar","bundle"
+* ant - create an Ant build script to rebuild the bundle
+
+    * install-file - adds a local bundle file to the local OBR
+      configuration options:
+          o obrRepository path to local OBR, defaults to <local-maven-repository>/repository.xml
+          o groupId Maven groupId for the bundle, taken from pomFile if given
+          o artifactId Maven artifactId for the bundle, taken from pomFile if given
+          o version Maven version for the bundle, taken from pomFile if given
+          o packaging Maven packaging type for the bundle, taken from pomFile if given
+          o classifier Maven classifier type, defaults to none
+          o pomFile optional Pom file describing the bundle
+          o file bundle file, defaults to the bundle from the local Maven repository
+          o obrXml optional additional properties for the bundle
+
+    * deploy - adds the current bundle project to a remote OBR
+      configuration options:
+          o remoteOBR name of remote OBR, defaults to NONE (which means no remote OBR deployment)
+          o obrRepository used when the remoteOBR name is blank, defaults to repository.xml
+          o prefixUrl optional public URL prefix for the remote repository
+          o bundleUrl optional public URL where the bundle has been deployed
+          o altDeploymentRepository alternative remote repository, id::layout::url
+          o obrDeploymentRepository optional OBR specific deployment repository.
+          o ignoreLock ignore remote locking when updating the OBR
+          o supportedProjectTypes defaults to "jar","bundle"
+
+    * deploy-file - adds a local bundle file to a remote OBR
+      configuration options:
+          o remoteOBR name of remote OBR, defaults to an empty string
+          o obrRepository used when the remoteOBR name is blank, defaults to repository.xml
+          o repositoryId optional repository id, used to lookup authentication settings
+          o url remote repository transport URL, like
+
+            scpexe://host/path/to/obr
+
+          o bundleUrl public URL of deployed bundle, like
+
+            http://www.foo.org/bundles/foo.jar
+
+          o groupId Maven groupId for the bundle, taken from pomFile if given
+          o artifactId Maven artifactId for the bundle, taken from pomFile if given
+          o version Maven version for the bundle, taken from pomFile if given
+          o packaging Maven packaging type for the bundle, taken from pomFile if given
+          o classifier Maven classifier type, defaults to none
+          o pomFile optional Pom file describing the bundle
+          o file bundle file, defaults to the bundle from the local Maven repository
+          o obrXml optional additional properties for the bundle
+          o ignoreLock ignore remote locking when updating the OBR
+
+    * clean - cleans the local OBR, removing missing bundles
+      configuration options:
+          o obrRepository path to local OBR, defaults to <local-maven-repository>/repository.xml
+
+    * remote-clean - cleans a remote OBR, removing missing bundles
+      configuration options:
+          o remoteOBR name of remote OBR, defaults to NONE (which means no remote cleaning)
+          o obrRepository used when the remoteOBR name is blank, defaults to repository.xml
+          o prefixUrl optional public URL prefix for the remote repository
+          o altDeploymentRepository alternative remote repository, id::layout::url
+          o obrDeploymentRepository optional OBR specific deployment repository.
+          o ignoreLock ignore remote locking when updating the OBR
+-->
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>net.sourceforge.fuzzyservices.osgi</Export-Package>
+                        <Private-Package>net.sourceforge.fuzzyservices.osgi.impl</Private-Package>
+                        <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Activator>net.sourceforge.fuzzyservices.osgi.impl.FuzzyServicesActivator</Bundle-Activator>
+                        <Export-Service>net.sourceforge.fuzzyservices.osgi.FuzzyControllerService,net.sourceforge.fuzzyservices.osgi.FuzzyCalculatorService</Export-Service>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

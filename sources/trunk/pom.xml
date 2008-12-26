@@ -96,7 +96,7 @@
     <module>webservice</module>
     <module>swing</module>
     <module>spring</module>
-<!--    <module>osgi</module> -->
+    <module>osgi</module>
   </modules>
 
   <reporting>
