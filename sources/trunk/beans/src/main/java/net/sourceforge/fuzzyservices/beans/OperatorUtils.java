@@ -7,7 +7,7 @@ package net.sourceforge.fuzzyservices.beans;
 import java.beans.PropertyVetoException;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
-import net.sourceforge.fuzzyservices.core.OperatorManager;
+import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
 
 /** 
  * Utility class for converting between core and beans operator. 
@@ -46,7 +46,7 @@ final class OperatorUtils {
      */
     final static AbstractOperator convert(Operator operator) {
         if (operator != null) {
-            AbstractOperator op = OperatorManager.getOperator(operator.getType());
+            AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(operator.getType());
             if (op != null) {
                 if (op.requiresParameter() == true) {
                     ((AbstractParameteredOperator) op).setParameter(operator.getParameter());

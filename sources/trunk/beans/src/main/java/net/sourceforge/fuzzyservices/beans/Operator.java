@@ -34,7 +34,7 @@ import java.beans.VetoableChangeSupport;
 import java.io.Serializable;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
-import net.sourceforge.fuzzyservices.core.OperatorManager;
+import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
 
 /**
  * This class represents a fuzzy operator according to JavaBeans conventions.
@@ -150,7 +150,7 @@ public final class Operator implements Serializable {
         boolean oldIsValidSNorm = isValidSNorm();
         boolean oldIsValidTNorm = isValidTNorm();
 
-        AbstractOperator op = OperatorManager.getOperator(newType);
+        AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(newType);
 
         if ((op != null) && (op instanceof AbstractParameteredOperator)) {
             AbstractParameteredOperator parameterOp = (AbstractParameteredOperator) op;
@@ -186,7 +186,7 @@ public final class Operator implements Serializable {
         float oldValue = this.parameter;
         boolean oldIsValidSNorm = isValidSNorm();
         boolean oldIsValidTNorm = isValidTNorm();
-        AbstractOperator op = OperatorManager.getOperator(this.type);
+        AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(this.type);
 
         if ((op != null) && (op instanceof AbstractParameteredOperator)) {
             if (!AbstractParameteredOperator.isValidParameter(
@@ -215,7 +215,7 @@ public final class Operator implements Serializable {
      * @param fs2 The second fuzzy set as operand
      */
     public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
-        AbstractOperator op = OperatorManager.getOperator(type);
+        AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(type);
 
         if (op != null) {
             if (op instanceof AbstractParameteredOperator) {
@@ -237,7 +237,7 @@ public final class Operator implements Serializable {
      * <code>false</code> otherwise.
      */
     public boolean isValidSNorm() {
-        AbstractOperator op = OperatorManager.getOperator(type);
+        AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(type);
 
         if (op != null) {
             if (op instanceof AbstractParameteredOperator) {
@@ -256,7 +256,7 @@ public final class Operator implements Serializable {
      * <code>false</code> otherwise.
      */
     public boolean isValidTNorm() {
-        AbstractOperator op = OperatorManager.getOperator(type);
+        AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(type);
 
         if (op != null) {
             if (op instanceof AbstractParameteredOperator) {

@@ -28,7 +28,7 @@ import java.beans.PropertyEditorSupport;
 import java.util.Collection;
 import java.util.Iterator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.OperatorManager;
+import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
 
 /**
  * Editor support for type property of an operator bean.
@@ -38,7 +38,7 @@ import net.sourceforge.fuzzyservices.core.OperatorManager;
  */
 public final class OperatorTypeEditor extends PropertyEditorSupport {
 
-    private static Collection<AbstractOperator> supportedTypes = OperatorManager.getOperators();
+    private static Collection<AbstractOperator> supportedTypes = OperatorManagerImpl.getInstance().getOperators();
     private static String[] typeNames = null;
 
     @Override
@@ -47,7 +47,7 @@ public final class OperatorTypeEditor extends PropertyEditorSupport {
             setValue(null);
             return;
         }
-        AbstractOperator op = OperatorManager.getOperator(text);
+        AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(text);
         if (op != null) {
             setValue(op.toString());
             return;
@@ -59,7 +59,7 @@ public final class OperatorTypeEditor extends PropertyEditorSupport {
     public String getAsText() {
         String value = (String) getValue();
         if (value != null) {
-            AbstractOperator op = OperatorManager.getOperator(value);
+            AbstractOperator op = OperatorManagerImpl.getInstance().getOperator(value);
 
             if (op != null) {
                 return op.toString();

@@ -25,7 +25,6 @@ package net.sourceforge.fuzzyservices.beans.swing;
 
 import net.sourceforge.fuzzyservices.beans.Operator;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.OperatorManager;
 import net.sourceforge.fuzzyservices.swing.AbstractOperatorModel;
 
 import java.beans.PropertyChangeEvent;
@@ -36,7 +35,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
 
 /**
  * OperatorBeanModel
@@ -44,7 +43,8 @@ import java.util.logging.Logger;
  * @author Uwe Weng
  */
 public class OperatorBeanModel extends AbstractOperatorModel
-    implements PropertyChangeListener {
+        implements PropertyChangeListener {
+
     private Operator operator = null;
     private String[] operatorNames = null;
 
@@ -64,7 +64,7 @@ public class OperatorBeanModel extends AbstractOperatorModel
     @Override
     public String[] getOperatorNames() {
         if (operatorNames == null) {
-            Collection<AbstractOperator> op = OperatorManager.getOperators();
+            Collection<AbstractOperator> op = OperatorManagerImpl.getInstance().getOperators();
 
             if (op != null) {
                 operatorNames = new String[op.size()];
@@ -94,8 +94,7 @@ public class OperatorBeanModel extends AbstractOperatorModel
             try {
                 operator.setType(name);
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(OperatorBeanModel.class.getName())
-                      .log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperatorBeanModel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -111,11 +110,9 @@ public class OperatorBeanModel extends AbstractOperatorModel
             try {
                 operator.setParameter(parameter);
             } catch (IllegalArgumentException ex) {
-                Logger.getLogger(OperatorBeanModel.class.getName())
-                      .log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperatorBeanModel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(OperatorBeanModel.class.getName())
-                      .log(Level.SEVERE, null, ex);
+                Logger.getLogger(OperatorBeanModel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
