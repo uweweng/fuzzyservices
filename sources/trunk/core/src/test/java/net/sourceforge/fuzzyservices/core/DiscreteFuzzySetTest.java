@@ -25,9 +25,8 @@ package net.sourceforge.fuzzyservices.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -243,7 +242,7 @@ public class DiscreteFuzzySetTest {
         instance.add(obj1, alpha + 0.1f);
         instance.add(obj2, alpha);
         instance.add(obj3, alpha - 0.1f);
-        expResult = new ArrayList<Object>();
+        expResult = new HashSet<Object>();
         expResult.add(obj2);
         expResult.add(obj1);
         result = instance.getAlphaCut(alpha);

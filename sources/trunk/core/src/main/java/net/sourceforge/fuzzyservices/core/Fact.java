@@ -308,11 +308,19 @@ public class Fact implements Cloneable, Serializable {
 
             Fact fact = (Fact) obj;
 
-            if ((this.lingVar != fact.lingVar) || ((this.lingVar != null) && (this.lingVar.equals(fact.lingVar) == false))) {
+            if ((this.lingVar == null) && (this.lingVar != fact.lingVar)) {
                 return false;
             }
 
-            if ((this.value != fact.value) || ((this.value != null) && (this.value.equals(fact.value) == false))) {
+            if ((this.lingVar != null) && (this.lingVar.equals(fact.lingVar) == false)) {
+                return false;
+            }
+
+            if ((this.value == null) && (this.value != fact.value)) {
+                return false;
+            }
+
+            if ((this.value != null) && (this.value.equals(fact.value) == false)) {
                 return false;
             }
             return true;

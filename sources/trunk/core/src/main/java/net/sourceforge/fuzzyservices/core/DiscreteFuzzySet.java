@@ -29,6 +29,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -194,7 +195,7 @@ public final class DiscreteFuzzySet<E> implements Cloneable, Serializable {
      */
     public synchronized Collection<E> getAlphaCut(final float alpha) {
         if ((alpha >= 0.0) && (alpha <= 1.0f)) {
-            Collection<E> col = new ArrayList<E>(objects.size());
+            Collection<E> col = new HashSet<E>(objects.size());
 
             for (Iterator<E> it = objects.keySet().iterator(); it.hasNext();) {
                 E obj = it.next();

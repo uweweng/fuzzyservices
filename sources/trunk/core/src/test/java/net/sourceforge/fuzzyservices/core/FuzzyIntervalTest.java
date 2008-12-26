@@ -124,12 +124,12 @@ public class FuzzyIntervalTest {
         // Classic fuzzy interval of type LR
         instance = new FuzzyInterval(-3.0f, -2.0f, 1.0f, 1.0f);
         expResult = true;
-        result = instance.isValidFuzzyLRNumber();
+        result = instance.isValidFuzzyLRInterval();
         assertEquals(expResult, result);
 
         instance = new FuzzyInterval(0.0f, 1.0f, 1.0f, 1.0f);
         expResult = true;
-        result = instance.isValidFuzzyLRNumber();
+        result = instance.isValidFuzzyLRInterval();
         assertEquals(expResult, result);
     }
 
