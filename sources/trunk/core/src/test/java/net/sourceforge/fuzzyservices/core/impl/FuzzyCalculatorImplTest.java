@@ -390,13 +390,42 @@ public class FuzzyCalculatorImplTest {
     @Test
     public final void testDivide_FuzzyInterval_FuzzyInterval() {
         System.out.println("divide");
-        FuzzyInterval operand1 = null;
-        FuzzyInterval operand2 = null;
+        FuzzyInterval operand1 = new FuzzyInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        FuzzyInterval operand2 = new FuzzyInterval(2.0f, 4.0f, 1.0f, 1.0f);
         FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
-        FuzzyInterval expResult = null;
-//        FuzzyInterval result = instance.divide(operand1, operand2);
-//        assertEquals(expResult, result);
-    // @todo Fail("The test case is a prototype.");
+        FuzzyInterval expResult = new FuzzyInterval(0.5f, 2.0f, 0.3f, 3.0f);
+        FuzzyInterval result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyInterval(0.5f, 2.0f, 0.3f, 3.0f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyInterval(-2.0f, -0.5f, 3.0f, 0.3f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        // Vice versa
+        operand1 = new FuzzyInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyInterval(-2.0f, -0.5f, 3.0f, 0.3f);
+        result = instance.divide(operand2, operand1);
+        assertEquals(expResult, result);
+
+        // 0 divide operand2
+        operand1 = new FuzzyInterval(-1.0f, 1.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = operand1;
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -426,16 +455,58 @@ public class FuzzyCalculatorImplTest {
     /**
      * Test of divide method, of class FuzzyCalculatorImpl.
      */
+    @Test(expected = ArithmeticException.class)
+    public final void testDivide_FuzzyInterval_FuzzyInterval3() {
+        System.out.println("divide");
+        // Division by zero
+        FuzzyInterval operand1 = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        FuzzyInterval operand2 = new FuzzyInterval(1.0f, 2.0f, 1.0f, 1.0f); // 0 at x=0
+        FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
+        instance.divide(operand1, operand2);
+    }
+
+    /**
+     * Test of divide method, of class FuzzyCalculatorImpl.
+     */
     @Test
     public final void testDivide_FuzzyLRInterval_FuzzyLRInterval() {
         System.out.println("divide");
-        FuzzyLRInterval operand1 = null;
-        FuzzyLRInterval operand2 = null;
+        FuzzyLRInterval operand1 = new FuzzyLRInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        FuzzyLRInterval operand2 = new FuzzyLRInterval(2.0f, 4.0f, 1.0f, 1.0f);
         FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
-        FuzzyLRInterval expResult = null;
-//        FuzzyLRInterval result = instance.divide(operand1, operand2);
-//        assertEquals(expResult, result);
-    // @todo Fail("The test case is a prototype.");
+        FuzzyLRInterval expResult = new FuzzyLRInterval(0.5f, 2.0f, 0.3f, 3.0f);
+        FuzzyLRInterval result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyLRInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyLRInterval(0.5f, 2.0f, 0.3f, 3.0f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyLRInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyLRInterval(-2.0f, -0.5f, 3.0f, 0.3f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        // Vice versa
+        operand1 = new FuzzyLRInterval(-4.0f, -2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyLRInterval(-2.0f, -0.5f, 3.0f, 0.3f);
+        result = instance.divide(operand2, operand1);
+        assertEquals(expResult, result);
+
+        // 0 divide operand2
+        operand1 = new FuzzyLRInterval(-1.0f, 1.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRInterval(2.0f, 4.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = operand1;
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -465,16 +536,58 @@ public class FuzzyCalculatorImplTest {
     /**
      * Test of divide method, of class FuzzyCalculatorImpl.
      */
+    @Test(expected = ArithmeticException.class)
+    public final void testDivide_FuzzyLRInterval_FuzzyLRInterval3() {
+        System.out.println("divide");
+        // Division by zero
+        FuzzyLRInterval operand1 = new FuzzyLRInterval(1.0f, 2.0f, 1.0f, 1.0f);
+        FuzzyLRInterval operand2 = new FuzzyLRInterval(1.0f, 2.0f, 1.0f, 1.0f); // 0 at x=0
+        FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
+        instance.divide(operand1, operand2);
+    }
+
+    /**
+     * Test of divide method, of class FuzzyCalculatorImpl.
+     */
     @Test
     public final void testDivide_FuzzyLRNumber_FuzzyLRNumber() {
         System.out.println("divide");
-        FuzzyLRNumber operand1 = null;
-        FuzzyLRNumber operand2 = null;
+        FuzzyLRNumber operand1 = new FuzzyLRNumber(2.0f, 1.0f, 1.0f);
+        FuzzyLRNumber operand2 = new FuzzyLRNumber(2.0f, 1.0f, 1.0f);
         FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
-        FuzzyLRNumber expResult = null;
-//        FuzzyLRNumber result = instance.divide(operand1, operand2);
-//        assertEquals(expResult, result);
-    // @todo Fail("The test case is a prototype.");
+        FuzzyLRNumber expResult = new FuzzyLRNumber(1.0f, 0.67f, 2.0f);
+        FuzzyLRNumber result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyLRNumber(-2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRNumber(-2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyLRNumber(1.0f, 0.67f, 2.0f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyLRNumber(-2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRNumber(2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyLRNumber(-1.0f, 2.0f, 0.67f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        // Vice versa
+        operand1 = new FuzzyLRNumber(-2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRNumber(2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyLRNumber(-1.0f, 2.0f, 0.67f);
+        result = instance.divide(operand2, operand1);
+        assertEquals(expResult, result);
+
+        // 0 divide operand2
+        operand1 = new FuzzyLRNumber(0.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyLRNumber(2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = operand1;
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -504,16 +617,58 @@ public class FuzzyCalculatorImplTest {
     /**
      * Test of divide method, of class FuzzyCalculatorImpl.
      */
+    @Test(expected = ArithmeticException.class)
+    public final void testDivide_FuzzyLRNumber_FuzzyLRNumber3() {
+        System.out.println("divide");
+        // Division by zero
+        FuzzyLRNumber operand1 = new FuzzyLRNumber(1.0f, 1.0f);
+        FuzzyLRNumber operand2 = new FuzzyLRNumber(1.0f, 1.0f); // 0 at x=0
+        FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
+        instance.divide(operand1, operand2);
+    }
+
+    /**
+     * Test of divide method, of class FuzzyCalculatorImpl.
+     */
     @Test
     public final void testDivide_FuzzyNumber_FuzzyNumber() {
         System.out.println("divide");
-        FuzzyNumber operand1 = null;
-        FuzzyNumber operand2 = null;
+        FuzzyNumber operand1 = new FuzzyNumber(2.0f, 1.0f, 1.0f);
+        FuzzyNumber operand2 = new FuzzyNumber(2.0f, 1.0f, 1.0f);
         FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
-        FuzzyNumber expResult = null;
-//        FuzzyNumber result = instance.divide(operand1, operand2);
-//        assertEquals(expResult, result);
-    // @todo Fail("The test case is a prototype.");
+        FuzzyNumber expResult = new FuzzyNumber(1.0f, 0.67f, 2.0f);
+        FuzzyNumber result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyNumber(-2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyNumber(-2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyNumber(1.0f, 0.67f, 2.0f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        operand1 = new FuzzyNumber(-2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyNumber(2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyNumber(-1.0f, 2.0f, 0.67f);
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
+
+        // Vice versa
+        operand1 = new FuzzyNumber(-2.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyNumber(2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = new FuzzyNumber(-1.0f, 2.0f, 0.67f);
+        result = instance.divide(operand2, operand1);
+        assertEquals(expResult, result);
+
+        // 0 divide operand2
+        operand1 = new FuzzyNumber(0.0f, 1.0f, 1.0f);
+        operand2 = new FuzzyNumber(2.0f, 1.0f, 1.0f);
+        instance = FuzzyCalculatorImpl.getInstance();
+        expResult = operand1;
+        result = instance.divide(operand1, operand2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -536,6 +691,20 @@ public class FuzzyCalculatorImplTest {
         System.out.println("devide");
         FuzzyNumber operand1 = new FuzzyNumber(1.0f, 1.0f, 1.0f);
         FuzzyNumber operand2 = null;
+        FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
+        instance.divide(operand1, operand2);
+    }
+
+    /**
+     * Test of divide method, of class FuzzyCalculatorImpl.
+     */
+    @Test(expected = ArithmeticException.class)
+    public final void testDivide_FuzzyNumber_FuzzyNumber3() {
+        System.out.println("divide");
+
+        // Division by zero
+        FuzzyNumber operand1 = new FuzzyNumber(1.0f, 1.0f);
+        FuzzyNumber operand2 = new FuzzyNumber(1.0f, 1.0f); // 0 at x = 0
         FuzzyCalculator instance = FuzzyCalculatorImpl.getInstance();
         instance.divide(operand1, operand2);
     }

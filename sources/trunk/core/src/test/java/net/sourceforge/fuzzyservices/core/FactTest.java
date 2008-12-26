@@ -39,11 +39,60 @@ public class FactTest {
     @Test
     public final void testEvaluate() {
         System.out.println("evaluate");
+        LinguisticVariable lv = null;
         Fact instance = new Fact();
-        DiscreteFuzzySet expResult = new DiscreteFuzzySet();
-        DiscreteFuzzySet result = instance.evaluate();
-        //assertEquals(expResult, result);
-    // @todo Fail("The test case is a prototype.");
+        DiscreteFuzzySet<String> expResult = new DiscreteFuzzySet<String>();
+        DiscreteFuzzySet<String> result = instance.evaluate();
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("Foo");
+        instance = new Fact(lv, 0);
+        expResult = new DiscreteFuzzySet<String>();
+        result = instance.evaluate();
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("Foo");
+        lv.set("term1", new FuzzySet());
+        instance = new Fact(lv, 3);
+        expResult = new DiscreteFuzzySet<String>();
+        expResult.add("Foo", 0.0f);
+        result = instance.evaluate();
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("Foo");
+        lv.set("term1", new FuzzySet(2.0f));
+        instance = new Fact(lv, 3);
+        expResult = new DiscreteFuzzySet<String>();
+        expResult.add("term1", 0.0f);
+        result = instance.evaluate();
+        assertEquals(expResult, result);
+
+        // Perfect match
+        lv = new LinguisticVariable("Foo");
+        lv.set("term1", new FuzzySet(3.0f));
+        instance = new Fact(lv, 3);
+        expResult = new DiscreteFuzzySet<String>();
+        expResult.add("term1", 1.0f);
+        result = instance.evaluate();
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("Foo");
+        lv.set("term1", new FuzzySet(2.0f, 2.0f));
+        instance = new Fact(lv, 3);
+        expResult = new DiscreteFuzzySet<String>();
+        expResult.add("term1", 0.5f);
+        result = instance.evaluate();
+        assertEquals(expResult, result);
+
+        lv = new LinguisticVariable("Foo");
+        lv.set("term1", new FuzzySet(2.0f, 2.0f));
+        lv.set("term2", new FuzzySet(1.5f, 2.0f));
+        instance = new Fact(lv, 3);
+        expResult = new DiscreteFuzzySet<String>();
+        expResult.add("term2", 0.25f);
+        expResult.add("term1", 0.5f);
+        result = instance.evaluate();
+        assertEquals(expResult, result);
     }
 
     /**

@@ -73,7 +73,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
@@ -90,7 +90,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
@@ -107,7 +107,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
@@ -124,7 +124,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
@@ -141,7 +141,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
@@ -162,7 +162,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
@@ -180,7 +180,7 @@ public class Fact implements Cloneable, Serializable {
                     "EXCEPTION_UNKNOWN_LINGUISTIC_VARIABLE"));
         }
         lingVar = lv;
-        set(value);
+        set(newValue);
     }
 
     /**
