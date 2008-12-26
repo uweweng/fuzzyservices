@@ -25,11 +25,11 @@ package net.sourceforge.fuzzyservices.core.swing;
 
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
-import net.sourceforge.fuzzyservices.core.operator.OperatorManager;
 import net.sourceforge.fuzzyservices.swing.AbstractOperatorModel;
 
 import java.util.Collection;
 import java.util.Iterator;
+import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
 
 
 /**
@@ -51,7 +51,7 @@ public class CoreOperatorModel extends AbstractOperatorModel {
     @Override
     public String[] getOperatorNames() {
         if (operatorNames == null) {
-            Collection<AbstractOperator> op = OperatorManager.getOperators();
+            Collection<AbstractOperator> op = OperatorManagerImpl.getInstance().getOperators();
 
             if (op != null) {
                 operatorNames = new String[op.size()];
@@ -77,7 +77,7 @@ public class CoreOperatorModel extends AbstractOperatorModel {
 
     @Override
     public final void setSelectedOperatorName(String name) {
-        selectedOperator = OperatorManager.getOperator(name);
+        selectedOperator = OperatorManagerImpl.getInstance().getOperator(name);
         fireTypeChanged(this);
     }
 
