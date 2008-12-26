@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -41,7 +41,7 @@ import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * Editor class for an array of linguistic terms.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */

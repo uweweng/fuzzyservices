@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -174,9 +174,9 @@ public class FuzzyNumber implements Serializable, PropertyChangeListener, Vetoab
 
     /**
      * Checks whether the fuzzy number fulfills the requirements of a fuzzy LR number.
-     * In addition to the requirements for a fuzzy number the membership 
+     * In addition to the requirements for a fuzzy number the membership
      * function must be represented by two reference function L and R.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy LR number 
+     * @return <code>true</code> if the fuzzy set would be a fuzzy LR number
      * <code>false</code>, otherwise
      * @see #isValidFuzzyNumber
      */

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -32,7 +32,7 @@ import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
 
 /**
  * Editor support for type property of an operator bean.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */

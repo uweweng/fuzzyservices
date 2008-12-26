@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -39,13 +39,13 @@ import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
- * The membership function f(x) is defined by a setDegreeOfMembership of points. 
- * Every point marks a relationship between a value x and its 
+ * The membership function f(x) is defined by a setDegreeOfMembership of points.
+ * Every point marks a relationship between a value x and its
  * degree of membership. All points clamp a traverse.
  * If the degree of membership of a value is not defined by a point exactly
  * it will be calculated by interpolation.
  * This class offers methods for manipulating the membership function, in general.
- * For calculation the pointed membership function is iterated in a certain 
+ * For calculation the pointed membership function is iterated in a certain
  * increment defined in fuzzy manager of this system.
  *
  * @see MembershipFunctionPoint
@@ -345,9 +345,9 @@ public class MembershipFunction implements Cloneable, Serializable {
     }
 
     /**
-     * Checks whether the membership function is normalized. A membership 
+     * Checks whether the membership function is normalized. A membership
      * function is normalized if its height is 1.0.
-     * @return <code>true</code> if membership function is normalized 
+     * @return <code>true</code> if membership function is normalized
      * <code>false</code>, otherwise
      * @see #getHeight
      */
@@ -492,16 +492,16 @@ public class MembershipFunction implements Cloneable, Serializable {
     }
 
     /**
-     * Checks whether the membership function is convex. A membership function 
+     * Checks whether the membership function is convex. A membership function
      * is convex if there is only one change of sign from + to -.
-     * @return <code>true</code> if membership function is convex 
+     * @return <code>true</code> if membership function is convex
      * <code>false</code>, otherwise
      */
     public final synchronized boolean isConvex() {
         if (points.size() == 0) {
             return false;
         }
-        
+
         if (points.size() > 2) {
             int vzw = 0; // number of change of sign
 

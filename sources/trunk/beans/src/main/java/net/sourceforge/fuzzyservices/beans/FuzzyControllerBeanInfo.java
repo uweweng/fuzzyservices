@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -43,7 +43,7 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
 
     // Property identifiers//GEN-FIRST:Properties
 
-    // Property array 
+    // Property array
     /*lazy PropertyDescriptor*/
     private static PropertyDescriptor[] getPdescriptor(){
         PropertyDescriptor[] properties = new PropertyDescriptor[0];//GEN-HEADEREND:Properties
@@ -66,11 +66,11 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
     // Method identifiers//GEN-FIRST:Methods
     private static final int METHOD_performApproximateReasoning0 = 0;
 
-    // Method array 
+    // Method array
     /*lazy MethodDescriptor*/
     private static MethodDescriptor[] getMdescriptor(){
         MethodDescriptor[] methods = new MethodDescriptor[1];
-    
+
         try {
             methods[METHOD_performApproximateReasoning0] = new MethodDescriptor(net.sourceforge.fuzzyservices.beans.FuzzyController.class.getMethod("performApproximateReasoning", new Class[] {net.sourceforge.fuzzyservices.beans.RuleBase.class, net.sourceforge.fuzzyservices.beans.FactBase.class, net.sourceforge.fuzzyservices.beans.LinguisticVariable[].class})); // NOI18N
             methods[METHOD_performApproximateReasoning0].setDisplayName ( java.util.ResourceBundle.getBundle("net/sourceforge/fuzzyservices/beans/resources").getString("DISPLAY_NAME_FUZZY_CONTROLLER_PERFORM_APPROXIMATE_REASONING_METHOD") );
@@ -79,7 +79,7 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
         catch( Exception e) {}//GEN-HEADEREND:Methods
 
     // Here you can add code for customizing the methods array.
-    
+
         return methods;     }//GEN-LAST:Methods
 
     private static java.awt.Image iconColor16 = null;//GEN-BEGIN:IconsDef
@@ -94,16 +94,16 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
     private static final int defaultPropertyIndex = -1;//GEN-BEGIN:Idx
     private static final int defaultEventIndex = -1;//GEN-END:Idx
 
-    
+
 //GEN-FIRST:Superclass
 
     // Here you can add code for customizing the Superclass BeanInfo.
 
 //GEN-LAST:Superclass
-	
+
     /**
      * Gets the bean's <code>BeanDescriptor</code>s.
-     * 
+     *
      * @return BeanDescriptor describing the editable
      * properties of this bean.  May return null if the
      * information should be obtained by automatic analysis.
@@ -114,7 +114,7 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
 
     /**
      * Gets the bean's <code>PropertyDescriptor</code>s.
-     * 
+     *
      * @return An array of PropertyDescriptors describing the editable
      * properties supported by this bean.  May return null if the
      * information should be obtained by automatic analysis.
@@ -130,8 +130,8 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
 
     /**
      * Gets the bean's <code>EventSetDescriptor</code>s.
-     * 
-     * @return  An array of EventSetDescriptors describing the kinds of 
+     *
+     * @return  An array of EventSetDescriptors describing the kinds of
      * events fired by this bean.  May return null if the information
      * should be obtained by automatic analysis.
      */
@@ -141,8 +141,8 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
 
     /**
      * Gets the bean's <code>MethodDescriptor</code>s.
-     * 
-     * @return  An array of MethodDescriptors describing the methods 
+     *
+     * @return  An array of MethodDescriptors describing the methods
      * implemented by this bean.  May return null if the information
      * should be obtained by automatic analysis.
      */
@@ -152,7 +152,7 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
 
     /**
      * A bean may have a "default" property that is the property that will
-     * mostly commonly be initially chosen for update by human's who are 
+     * mostly commonly be initially chosen for update by human's who are
      * customizing the bean.
      * @return  Index of default property in the PropertyDescriptor array
      * 		returned by getPropertyDescriptors.
@@ -164,7 +164,7 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
 
     /**
      * A bean may have a "default" event that is the event that will
-     * mostly commonly be used by human's when using the bean. 
+     * mostly commonly be used by human's when using the bean.
      * @return Index of default event in the EventSetDescriptor array
      *		returned by getEventSetDescriptors.
      * <P>	Returns -1 if there is no default event.
@@ -189,7 +189,7 @@ public class FuzzyControllerBeanInfo extends SimpleBeanInfo {
      * so they can be rendered onto an existing background.
      *
      * @param  iconKind  The kind of icon requested.  This should be
-     *    one of the constant values ICON_COLOR_16x16, ICON_COLOR_32x32, 
+     *    one of the constant values ICON_COLOR_16x16, ICON_COLOR_32x32,
      *    ICON_MONO_16x16, or ICON_MONO_32x32.
      * @return  An image object representing the requested icon.  May
      *    return null if no suitable icon is available.

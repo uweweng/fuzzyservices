@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -232,7 +232,7 @@ public abstract class MembershipFunction implements Cloneable, Serializable {
         if (points.size() == 0) {
             return false;
         }
-        
+
         if (points.size() > 2) {
             int vzw = 0; // number of change of sign
             MembershipFunctionPoint entryLeft;

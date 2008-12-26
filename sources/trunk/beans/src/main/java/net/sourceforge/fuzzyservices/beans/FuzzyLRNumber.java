@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -260,7 +260,7 @@ public class FuzzyLRNumber implements Serializable, PropertyChangeListener, Veto
 
                     propertyChangeSupport.firePropertyChange(BETA_PROPERTY,
                             oldFuzzyLRNumber.getBeta(), getBeta());
-                    
+
                 } catch (PropertyVetoException ex) {
                     Logger.getLogger(FuzzyNumber.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (CloneNotSupportedException ex) {

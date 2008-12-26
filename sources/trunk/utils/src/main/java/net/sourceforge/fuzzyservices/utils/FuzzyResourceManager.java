@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -42,8 +42,8 @@ public final class FuzzyResourceManager {
      */
     private static transient Locale locale = Locale.getDefault();
 
-    /** 
-     * Creates a new instance of FuzzyResourceManager. 
+    /**
+     * Creates a new instance of FuzzyResourceManager.
      */
     private FuzzyResourceManager() {
         // Not allowed
@@ -51,7 +51,7 @@ public final class FuzzyResourceManager {
 
     /**
      * Returns a string resource.
-     * 
+     *
      * @param caller determine location of resource via caller object
      * @param name as identifier within the resoure pool
      * @return localized string
@@ -62,7 +62,7 @@ public final class FuzzyResourceManager {
 
     /**
      * Returns a string resource.
-     * 
+     *
      * @param caller determine location of resource via caller class
      * @param name as identifier within the resoure pool
      * @return localized string
@@ -73,7 +73,7 @@ public final class FuzzyResourceManager {
 
     /**
      * Returns a parametrized string resource.
-     * 
+     *
      * @param caller determine location of resource via caller object
      * @param name as identifier within resource pool
      * @param params the parameters for this resource
@@ -125,7 +125,7 @@ public final class FuzzyResourceManager {
 
     /**
      * Returns the current locale.
-     * 
+     *
      * @return the locale
      */
     public static Locale getLocale() {
@@ -137,7 +137,7 @@ public final class FuzzyResourceManager {
 
     /**
      * Defines a new locale for the resource manager.
-     * 
+     *
      * @param newLocale the new locale
      */
     public static void setLocale(final Locale newLocale) {

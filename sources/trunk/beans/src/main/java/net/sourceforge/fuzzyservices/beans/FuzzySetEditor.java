@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -38,7 +38,7 @@ import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * Editor class for fuzzy set properties.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */
@@ -91,7 +91,7 @@ public class FuzzySetEditor extends PropertyEditorSupport
      */
     @Override
     public Component getCustomEditor() {
-        MembershipFunctionModel model = 
+        MembershipFunctionModel model =
                 new MembershipFunctionBeanModel(((FuzzySet) getValue()).getMembershipFunction());
         model.addChangeListener(this);
         model.setEnabled(true);

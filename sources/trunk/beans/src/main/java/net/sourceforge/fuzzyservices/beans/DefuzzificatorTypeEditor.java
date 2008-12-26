@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -29,7 +29,7 @@ import java.beans.PropertyEditorSupport;
 
 /**
  * Editor support for type property of a defuzzificator bean.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -36,7 +36,7 @@ import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 
 /**
  * Editor class for an array of rules.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */
@@ -57,7 +57,7 @@ public class RuleArrayEditor extends PropertyEditorSupport
         String text = "";
         Rule[] rules = (Rule[]) getValue();
         if (rules != null) {
-            text = FuzzyResourceManager.getString(this, "RULE_ARRAY_EDITOR_VALUE", 
+            text = FuzzyResourceManager.getString(this, "RULE_ARRAY_EDITOR_VALUE",
                     new Object[]{rules.length});
         }
         gfx.drawString(text, box.x, box.y + gfx.getFontMetrics().getHeight());

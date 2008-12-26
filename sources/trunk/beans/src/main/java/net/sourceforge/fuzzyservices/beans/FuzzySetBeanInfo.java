@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -52,11 +52,11 @@ public class FuzzySetBeanInfo extends SimpleBeanInfo {
     private static final int PROPERTY_validFuzzyLRNumber = 6;
     private static final int PROPERTY_validFuzzyNumber = 7;
 
-    // Property array 
+    // Property array
     /*lazy PropertyDescriptor*/
     private static PropertyDescriptor[] getPdescriptor(){
         PropertyDescriptor[] properties = new PropertyDescriptor[8];
-    
+
         try {
             properties[PROPERTY_convex] = new PropertyDescriptor ( "convex", net.sourceforge.fuzzyservices.beans.FuzzySet.class, "isConvex", null ); // NOI18N
             properties[PROPERTY_convex].setExpert ( true );
@@ -115,7 +115,7 @@ public class FuzzySetBeanInfo extends SimpleBeanInfo {
     /*lazy EventSetDescriptor*/
     private static EventSetDescriptor[] getEdescriptor(){
         EventSetDescriptor[] eventSets = new EventSetDescriptor[1];
-    
+
         try {
             eventSets[EVENT_propertyChangeListener] = new EventSetDescriptor ( net.sourceforge.fuzzyservices.beans.FuzzySet.class, "propertyChangeListener", java.beans.PropertyChangeListener.class, new String[] {"propertyChange"}, "addPropertyChangeListener", "removePropertyChangeListener" ); // NOI18N
         }
@@ -133,11 +133,11 @@ public class FuzzySetBeanInfo extends SimpleBeanInfo {
     private static final int METHOD_normalize2 = 2;
     private static final int METHOD_reciproce3 = 3;
 
-    // Method array 
+    // Method array
     /*lazy MethodDescriptor*/
     private static MethodDescriptor[] getMdescriptor(){
         MethodDescriptor[] methods = new MethodDescriptor[4];
-    
+
         try {
             methods[METHOD_concentrate0] = new MethodDescriptor(net.sourceforge.fuzzyservices.beans.FuzzySet.class.getMethod("concentrate", new Class[] {})); // NOI18N
             methods[METHOD_concentrate0].setExpert ( true );

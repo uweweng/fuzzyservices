@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -174,11 +174,11 @@ public class FuzzyInterval implements Serializable, PropertyChangeListener, Veto
     }
 
     /**
-     * Checks whether the fuzzy interval fulfills the requirements of a fuzzy 
+     * Checks whether the fuzzy interval fulfills the requirements of a fuzzy
      * LR interval.
-     * In addition to the requirements for a fuzzy interval the membership 
+     * In addition to the requirements for a fuzzy interval the membership
      * function must be represented by two reference function L and R.
-     * @return <code>true</code> if the fuzzy interval would be a fuzzy LR 
+     * @return <code>true</code> if the fuzzy interval would be a fuzzy LR
      * interval <code>false</code>, otherwise
      * @see #isValidFuzzyInterval
      */

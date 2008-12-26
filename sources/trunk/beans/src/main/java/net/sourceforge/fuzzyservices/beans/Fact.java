@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -74,7 +74,7 @@ public class Fact implements Serializable {
     }
 
     /**
-     * Constructs a new Fact based on the name of a linguistic variable 
+     * Constructs a new Fact based on the name of a linguistic variable
      * and a value described as fuzzy set.
      * @param newLinguisticVariableName The new value for the property.
      * @param newValue The new value for the property.
@@ -83,7 +83,7 @@ public class Fact implements Serializable {
         this.linguisticVariableName = newLinguisticVariableName;
         this.value = newValue;
     }
-    
+
     /**
      * Returns the linguistic variable name of this fact.
      * @return the <code>linguisticVariableName</code> property

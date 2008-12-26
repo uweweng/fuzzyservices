@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -27,7 +27,7 @@ import java.util.Collection;
 
 /**
  * Swing Model for a fact base.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */

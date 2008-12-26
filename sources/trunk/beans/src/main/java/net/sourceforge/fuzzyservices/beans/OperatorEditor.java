@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -31,7 +31,7 @@ import net.sourceforge.fuzzyservices.swing.OperatorModelListener;
 
 /**
  * Editor class for (fuzzy) operator properties.
- * 
+ *
  * @version 1.0
  * @author Uwe Weng
  */

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -77,8 +77,8 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
         // Do nothing
     }
 
-    /** 
-     * Creates a new <code>FuzzySet</code>. 
+    /**
+     * Creates a new <code>FuzzySet</code>.
      * @param newMembershipFunction membership function of the fuzzy set
      */
     public FuzzySet(final MembershipFunction newMembershipFunction) {
@@ -169,9 +169,9 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
     }
 
     /**
-     * Checks whether the membership function is convex. A membership function 
+     * Checks whether the membership function is convex. A membership function
      * is convex if there is only one change of sign from + to -.
-     * @return <code>true</code> if membership function is convex 
+     * @return <code>true</code> if membership function is convex
      * <code>false</code>, otherwise
      */
     public final boolean isConvex() {
@@ -183,9 +183,9 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
     }
 
     /**
-     * Checks whether the membership function is normalized. A membership 
+     * Checks whether the membership function is normalized. A membership
      * function is normalized if its height is 1.0.
-     * @return <code>true</code> if membership function is normalized 
+     * @return <code>true</code> if membership function is normalized
      * <code>false</code>, otherwise
      * @see #getHeight
      */
@@ -199,10 +199,10 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
 
     /**
      * Checks whether the fuzzy set fulfills the requirements of a fuzzy interval.
-     * The membership function has to be convex and normalized. In addition, 
-     * the maximum has to lie between a closed interval (<tt>[a,b]</tt> with 
+     * The membership function has to be convex and normalized. In addition,
+     * the maximum has to lie between a closed interval (<tt>[a,b]</tt> with
      * <tt>a != b</tt>).
-     * @return <code>true</code> if the membership function would be a fuzzy 
+     * @return <code>true</code> if the membership function would be a fuzzy
      * interval <code>false</code>, otherwise
      * @see #isNormalized
      * @see #isConvex
@@ -230,9 +230,9 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
 
     /**
      * Checks whether the fuzzy set fulfills the requirements of a fuzzy LR interval.
-     * In addition to the requirements for a fuzzy interval the membership 
+     * In addition to the requirements for a fuzzy interval the membership
      * function must be represented by two reference function L and R.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy LR interval 
+     * @return <code>true</code> if the fuzzy set would be a fuzzy LR interval
      * <code>false</code>, otherwise
      * @see #isValidFuzzyInterval
      */
@@ -253,9 +253,9 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
 
     /**
      * Checks whether the fuzzy set fulfills the requirements of a fuzzy LR number.
-     * In addition to the requirements for a fuzzy number the membership 
+     * In addition to the requirements for a fuzzy number the membership
      * function must be represented by two reference function L and R.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy LR number 
+     * @return <code>true</code> if the fuzzy set would be a fuzzy LR number
      * <code>false</code>, otherwise
      * @see #isValidFuzzyNumber
      */
@@ -276,9 +276,9 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
 
     /**
      * Checks whether the fuzzy set fulfills the requirements of a fuzzy number.
-     * The membership function has to be convex and normalized. In addition, 
+     * The membership function has to be convex and normalized. In addition,
      * the maximum is reached at one point.
-     * @return <code>true</code> if the fuzzy set would be a fuzzy number 
+     * @return <code>true</code> if the fuzzy set would be a fuzzy number
      * <code>false</code>, otherwise
      * @see #isNormalized
      * @see #isConvex

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -91,7 +91,7 @@ public class Defuzzificator implements Serializable {
     public Defuzzificator() {
         // Do nothing
     }
-    /** 
+    /**
      * Constructs a new defuzzifcator.
      * @param newType The new value for the property <code>type</code>.
      */

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -24,9 +24,9 @@
 package net.sourceforge.fuzzyservices.utils;
 
 /**
- * The <code>FuzzyManager</code> is the place for all options which control the 
+ * The <code>FuzzyManager</code> is the place for all options which control the
  * fuzzy system.
- * For instance, it defines the step width for scanning a fuzzy set at complex 
+ * For instance, it defines the step width for scanning a fuzzy set at complex
  * operations, or the maximal number of steps, or accuracy for computations.
  *
  * @version 1.0

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  *
  *  Copyright (C) 2007  Uwe Weng
  *
@@ -222,7 +222,7 @@ public final class Operator implements Serializable {
                 ((AbstractParameteredOperator) op).setParameter(parameter);
             }
 // TODO Implementing computation
-/*            
+/*
         return FuzzyBeanUtils.convert(op.combine(FuzzyBeanUtils.convert(fs1),
         FuzzyBeanUtils.convert(fs2)));
          */
