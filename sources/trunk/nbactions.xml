@@ -17,4 +17,11 @@
                 <goal>checkstyle:checkstyle</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-doccheck</actionName>
+            <displayName>doccheck</displayName>
+            <goals>
+                <goal>docck:check</goal>
+            </goals>
+        </action>
     </actions>

@@ -29,6 +29,11 @@
             <version>1.0.0</version>
         </dependency>
     </dependencies>
+
+    <properties>
+        <bundle.namespace>${pom.groupId}</bundle.namespace>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -146,11 +151,11 @@ Where GOAL is one of the following:
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>net.sourceforge.fuzzyservices.osgi</Export-Package>
-                        <Private-Package>net.sourceforge.fuzzyservices.osgi.impl</Private-Package>
+                        <Export-Package>${bundle.namespace}.core</Export-Package>
+                        <Private-Package>${bundle.namespace}.osgi.impl</Private-Package>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator>net.sourceforge.fuzzyservices.osgi.impl.FuzzyServicesActivator</Bundle-Activator>
-                        <Export-Service>net.sourceforge.fuzzyservices.osgi.FuzzyControllerService,net.sourceforge.fuzzyservices.osgi.FuzzyCalculatorService</Export-Service>
+                        <Bundle-Activator>${bundle.namespace}.osgi.impl.FuzzyServicesActivator</Bundle-Activator>
+                        <Export-Service>${bundle.namespace}.core.FuzzyController,${bundle.namespace}.core.FuzzyCalculator</Export-Service>
                     </instructions>
                 </configuration>
             </plugin>

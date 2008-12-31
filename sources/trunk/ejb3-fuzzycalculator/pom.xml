@@ -16,7 +16,6 @@
   <url>http://sourceforge.net/projects/fuzzyservices</url>
 
   <build>
-    <defaultGoal>package</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

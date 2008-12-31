@@ -39,7 +39,7 @@ import javax.naming.InitialContext;
 public class FuzzyControllerClientTest {
     @Test
     public final void runRemoteClient() throws Exception {
-/*
+/* TODO Implementing test
         Context ctx = new InitialContext();
         FuzzyControllerRemote controller = (FuzzyControllerRemote) ctx.lookup(
                 "FuzzyController");

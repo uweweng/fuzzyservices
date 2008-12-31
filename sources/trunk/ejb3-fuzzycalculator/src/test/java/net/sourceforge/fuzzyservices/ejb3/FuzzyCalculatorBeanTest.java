@@ -39,12 +39,6 @@ import static org.junit.Assert.*;
  */
 public class FuzzyCalculatorBeanTest {
 
-    /**
-     * Default constructor.
-     */
-    public FuzzyCalculatorBeanTest() {
-    }
-
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -63,9 +57,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -78,9 +72,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -93,9 +87,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -108,9 +102,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -123,9 +117,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,9 +132,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -153,9 +147,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -168,9 +162,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -183,9 +177,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -198,9 +192,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -213,9 +207,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -228,9 +222,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -243,9 +237,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -258,9 +252,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -273,9 +267,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -288,9 +282,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -303,9 +297,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -318,9 +312,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -333,9 +327,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -348,9 +342,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.add(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.add(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -363,9 +357,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -378,9 +372,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -393,9 +387,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -408,9 +402,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.divide(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.divide(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -423,9 +417,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -438,9 +432,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -453,9 +447,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -468,9 +462,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.multiply(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.multiply(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -483,9 +477,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyInterval expResult = null;
-        FuzzyInterval result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyInterval result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -498,9 +492,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRInterval operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRInterval expResult = null;
-        FuzzyLRInterval result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRInterval result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -513,9 +507,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyLRNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyLRNumber expResult = null;
-        FuzzyLRNumber result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyLRNumber result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -528,9 +522,9 @@ public class FuzzyCalculatorBeanTest {
         FuzzyNumber operand2 = null;
         FuzzyCalculatorBean instance = new FuzzyCalculatorBean();
         FuzzyNumber expResult = null;
-        FuzzyNumber result = instance.subtract(operand1, operand2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+//        FuzzyNumber result = instance.subtract(operand1, operand2);
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
 }
