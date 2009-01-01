@@ -23,27 +23,31 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.beans.RuleBase;
 import org.junit.Test;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 
 /**
- * EJB implementation of a fuzzy controller for approximate reasoning.
- * It supports both core objects and JavaBeans.
+ * Test of class FuzzyControllerClient.
  *
- * @version 1.0
  * @author Uwe Weng
  */
 public class FuzzyControllerClientTest {
+
+    /**
+     * Test of performApproximateReasoning method, of class FuzzyControllerClient.
+     */
     @Test
-    public final void runRemoteClient() throws Exception {
-/* TODO Implementing test
-        Context ctx = new InitialContext();
-        FuzzyControllerRemote controller = (FuzzyControllerRemote) ctx.lookup(
-                "FuzzyController");
-*/
-        //removable.remove("Look at the server's log");
+    public void testPerformApproximateReasoning() {
+        System.out.println("performApproximateReasoning");
+        RuleBase aRuleBase = null;
+        FactBase aFactBase = null;
+        LinguisticVariable[] linguisticVariables = null;
+        FuzzyControllerClient instance = new FuzzyControllerClient();
+        // Implementing test
+        //FactBase result = instance.performApproximateReasoning(aRuleBase, aFactBase, linguisticVariables);
     }
 }

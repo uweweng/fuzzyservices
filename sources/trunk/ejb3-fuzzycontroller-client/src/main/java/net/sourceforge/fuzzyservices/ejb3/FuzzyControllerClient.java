@@ -23,13 +23,29 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import javax.ejb.EJB;
+import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.FuzzyControllerI;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.beans.RuleBase;
+
 
 /**
- * EJB implementation of a fuzzy controller for approximate reasoning.
- * It supports both core objects and JavaBeans.
+ * Client of EJB implementation.
  *
  * @version 1.0
  * @author Uwe Weng
  */
-public class FuzzyControllerClient {
+public class FuzzyControllerClient implements FuzzyControllerI {
+    @EJB
+    private static FuzzyControllerI controller;
+
+    private FuzzyControllerI getEJB() {
+        return controller;
+    }
+
+    @Override
+    public FactBase performApproximateReasoning(RuleBase aRuleBase, FactBase aFactBase, LinguisticVariable[] linguisticVariables) {
+        return getEJB().performApproximateReasoning(aRuleBase, aFactBase, linguisticVariables);
+    }
 }

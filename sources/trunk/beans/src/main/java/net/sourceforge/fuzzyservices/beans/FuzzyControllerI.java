@@ -23,26 +23,20 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans;
 
-import java.io.Serializable;
-
 /**
- * This class represents a fuzzy controller according to JavaBeans conventions.
- *
- * @see net.sourceforge.fuzzyservices.core.FuzzyController
+ * A fuzzy controller implements an approximate reasoning method.
  *
  * @version 1.0
  * @author Uwe Weng
  */
-public class FuzzyController implements FuzzyControllerI, Serializable {
+public interface FuzzyControllerI {
 
     /**
-     * Default serial version UID.
+     * Performs approximate reasoning based on a fact and rule base.
+     * @return a new fact base with the result of this operation
+     * @param aRuleBase the rule base
+     * @param aFactBase the fact base
+     * @param linguisticVariables the linguistic variables
      */
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public FactBase performApproximateReasoning(RuleBase aRuleBase, FactBase aFactBase, LinguisticVariable[] linguisticVariables) {
-        // TODO Implementing
-        return null;
-    }
+    public FactBase performApproximateReasoning(RuleBase aRuleBase, FactBase aFactBase, LinguisticVariable[] linguisticVariables);
 }

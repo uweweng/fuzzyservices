@@ -15,41 +15,8 @@
   <name>Fuzzy Services EJB3 Fuzzy Controller Client</name>
   <url>http://sourceforge.net/projects/fuzzyservices</url>
   
-  <build>
-    <plugins>
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-surefire-plugin</artifactId>
-	<configuration>
-	  <includes>
-	    <include>none</include>
-	  </includes>
-	</configuration>
-	<executions>
-	  <execution>
-	    <id>run FuzzyControllerClientTest</id>
-	    <phase>integration-test</phase>
-	    <configuration>
-	      <includes>
-	        <include>**/FuzzyControllerClientTest.java</include>
-	      </includes>
-	    </configuration>
-	    <goals>
-	      <goal>test</goal>
-	    </goals>
-	  </execution>
-	</executions>
-      </plugin>
-    </plugins>
-  </build>
-  
   
   <dependencies>
-    <dependency>
-      <groupId>${pom.groupId}</groupId>
-      <artifactId>fuzzyservices-core</artifactId>
-      <version>${pom.version}</version>
-    </dependency>
     <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>fuzzyservices-beans</artifactId>

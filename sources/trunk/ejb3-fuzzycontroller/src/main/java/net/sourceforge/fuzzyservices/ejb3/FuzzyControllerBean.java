@@ -23,24 +23,20 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import net.sourceforge.fuzzyservices.beans.FuzzyControllerI;
 
 /**
  * EJB implementation of a fuzzy controller for approximate reasoning.
- * It supports both core objects and JavaBeans.
+ * It supports the bean implementation.
  *
  * @version 1.0
  * @author Uwe Weng
  */
 @Stateless(mappedName = "FuzzyController")
-public class FuzzyControllerBean implements FuzzyControllerRemote {
-
-    @Override
-    public net.sourceforge.fuzzyservices.core.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.core.RuleBase ruleBase,
-            final net.sourceforge.fuzzyservices.core.FactBase factBase, final net.sourceforge.fuzzyservices.core.LinguisticVariable[] linguisticVariables) {
-        return net.sourceforge.fuzzyservices.core.impl.FuzzyControllerImpl.getInstance().performApproximateReasoning(ruleBase,
-                factBase, linguisticVariables);
-    }
+@Remote(FuzzyControllerI.class)
+public class FuzzyControllerBean implements FuzzyControllerI {
 
     @Override
     public net.sourceforge.fuzzyservices.beans.FactBase performApproximateReasoning(final net.sourceforge.fuzzyservices.beans.RuleBase ruleBase, final net.sourceforge.fuzzyservices.beans.FactBase factBase,

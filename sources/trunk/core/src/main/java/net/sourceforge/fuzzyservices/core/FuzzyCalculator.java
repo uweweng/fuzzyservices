@@ -27,7 +27,6 @@ package net.sourceforge.fuzzyservices.core;
  * A fuzzy calculator offers the four base aithmethic operations like a normal
  * calculator. It supports addition, substratcion, multiplication, and devision
  * on fuzzy numbers and intervals (even of LR type).
- * The fuzzy calculator is implemented as a singleton.
  *
  * @version 1.0
  * @author Uwe Weng

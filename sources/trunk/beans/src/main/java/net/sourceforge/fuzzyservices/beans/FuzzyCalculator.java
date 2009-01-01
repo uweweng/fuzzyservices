@@ -33,245 +33,106 @@ import java.io.Serializable;
  * @version 1.0
  * @author Uwe Weng
  */
-public class FuzzyCalculator implements Serializable {
+public class FuzzyCalculator implements FuzzyCalculatorI, Serializable {
 
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Adds fuzzy interval <code>operand1</code> to fuzzy interval
-     * <code>operand2</code>.
-     *
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     */
+    @Override
     public FuzzyInterval add(FuzzyInterval operand1, FuzzyInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Adds fuzzy LR interval <code>operand1</code> to fuzzy LR interval
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyLRInterval add(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Adds fuzzy LR number <code>operand1</code> to fuzzy LR number
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyLRNumber add(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Adds fuzzy number <code>operand1</code> to fuzzy number
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyNumber add(FuzzyNumber operand1, FuzzyNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Devides fuzzy interval <code>operand1</code> through fuzzy interval
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     * @exception ArithmeticException if the membership function of
-     * <code>operand2</code> is not defined at <tt>x = 0</tt>. It would be a
-     * division by zero.
-     */
+    @Override
     public FuzzyInterval divide(FuzzyInterval operand1, FuzzyInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Devides fuzzy LR interval <code>operand1</code> through fuzzy LR
-     * interval <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     * @exception ArithmeticException if the membership function of
-     * <code>operand2</code> is not defined at <tt>x = 0</tt>. It would be a
-     * division by zero.
-     */
+    @Override
     public FuzzyLRInterval divide(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Devides fuzzy LR number <code>operand1</code> through fuzzy LR number
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     * @exception ArithmeticException if the membership function of
-     * <code>operand2</code> is not defined at <tt>x = 0</tt>. It would be a
-     * division by zero.
-     */
+    @Override
     public FuzzyLRNumber divide(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Devides fuzzy number <code>operand1</code> through fuzzy number
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     * @exception ArithmeticException if the membership function of
-     * <code>operand2</code> is not defined at <tt>x = 0</tt>. It would be a
-     * division by zero.
-     */
+    @Override
     public FuzzyNumber divide(FuzzyNumber operand1, FuzzyNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Multiplies fuzzy interval <code>operand1</code> with fuzzy interval
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyInterval multiply(FuzzyInterval operand1, FuzzyInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Multiplies fuzzy LR interval <code>operand1</code> with fuzzy LR
-     * interval <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyLRInterval multiply(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Multiplies fuzzy LR number <code>operand1</code> with fuzzy LR number
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyLRNumber multiply(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Multiplies fuzzy number <code>operand1</code> with fuzzy number
-     * <code>operand2</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyNumber multiply(FuzzyNumber operand1, FuzzyNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Subtracts fuzzy interval <code>operand2</code> from fuzzy interval
-     * <code>operand1</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyInterval subtract(FuzzyInterval operand1, FuzzyInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Subtracts fuzzy LR interval <code>operand2</code> from fuzzy LR interval
-     * <code>operand1</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyLRInterval subtract(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Subtracts fuzzy LR number <code>operand2</code> from fuzzy LR number
-     * <code>operand1</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyLRNumber subtract(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
-    /**
-     * Subtracts fuzzy number <code>operand2</code> from fuzzy number
-     * <code>operand1</code>.
-     * @return The result of this algebraic operation
-     * @param operand1 The first operand
-     * @param operand2 The second operand
-     * @exception NullPointerException if at least one operand is
-     * <code>null</code>
-     */
+    @Override
     public FuzzyNumber subtract(FuzzyNumber operand1, FuzzyNumber operand2) throws NullPointerException {
         // TODO Implementing
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 }

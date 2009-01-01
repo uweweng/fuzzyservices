@@ -54,11 +54,6 @@
   
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>fuzzyservices-core</artifactId>
-      <version>${pom.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${pom.groupId}</groupId>
       <artifactId>fuzzyservices-beans</artifactId>
       <version>${pom.version}</version>
     </dependency>

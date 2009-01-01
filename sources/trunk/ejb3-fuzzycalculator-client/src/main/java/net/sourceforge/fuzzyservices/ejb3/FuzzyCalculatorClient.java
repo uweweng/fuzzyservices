@@ -23,13 +23,105 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.ejb3;
 
+import javax.ejb.EJB;
+import net.sourceforge.fuzzyservices.beans.FuzzyCalculatorI;
+import net.sourceforge.fuzzyservices.beans.FuzzyInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRInterval;
+import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
+import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
 
 /**
- * EJB implementation of a fuzzy calculator for arithmetic operations on fuzzy numbers and
- * intervals. It supports both core objects and JavaBeans.
+ * Client of EJB implementation.
  *
  * @version 1.0
  * @author Uwe Weng
  */
-public class FuzzyCalculatorClient {
+public class FuzzyCalculatorClient implements FuzzyCalculatorI {
+
+    @EJB
+    private static FuzzyCalculatorI calculator;
+
+    private FuzzyCalculatorI getEJB() {
+        return calculator;
+    }
+
+    @Override
+    public FuzzyInterval add(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return getEJB().add(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRInterval add(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
+        return getEJB().add(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRNumber add(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return getEJB().add(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyNumber add(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return getEJB().add(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyInterval divide(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return getEJB().add(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRInterval divide(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
+        return getEJB().divide(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRNumber divide(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return getEJB().divide(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyNumber divide(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return getEJB().divide(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyInterval multiply(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRInterval multiply(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRNumber multiply(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyNumber multiply(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyInterval subtract(FuzzyInterval operand1, FuzzyInterval operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRInterval subtract(FuzzyLRInterval operand1, FuzzyLRInterval operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyLRNumber subtract(FuzzyLRNumber operand1, FuzzyLRNumber operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
+
+    @Override
+    public FuzzyNumber subtract(FuzzyNumber operand1, FuzzyNumber operand2) {
+        return getEJB().multiply(operand1, operand2);
+    }
 }
