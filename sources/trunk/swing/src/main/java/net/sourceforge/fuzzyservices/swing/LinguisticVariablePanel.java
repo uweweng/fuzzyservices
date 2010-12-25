@@ -545,8 +545,8 @@ public class LinguisticVariablePanel extends javax.swing.JPanel
     }
 
     /**
-     * Vergrößert einen Punkt von einer Zugehörigkeitsfunktion, nachdem er auf Bildschirmkoordinaten umgerechnet worden ist.
-     * @param entry ein Punkt von einer Zugehörigkeitsfunktion
+     * Vergroessert einen Punkt von einer Zugehoerigkeitsfunktion, nachdem er auf Bildschirmkoordinaten umgerechnet worden ist.
+     * @param entry ein Punkt von einer Zugehoerigkeitsfunktion
      * @return ein Rechteck auf dem Bildschirm, dessen Mittelpunkt den Koordinaten des Punktes <code>entry</code> entspricht
      * @see #pointsize
      */
@@ -558,8 +558,8 @@ public class LinguisticVariablePanel extends javax.swing.JPanel
     }
 
     /**
-     * Überprüft, ob die Maus in ein Rechteck zeigt, welches einem Punkt aus einer Zugehörigkeitsfunktion entspricht.
-     * @return <code>true</code>, falls der Mauszeiger in einem Rechteck zeigt, welches einem Punkt von einer Zugehörigkeitsfunktion entspricht, sonst <code>false</code>
+     * Ueberprueft, ob die Maus in ein Rechteck zeigt, welches einem Punkt aus einer Zugehoerigkeitsfunktion entspricht.
+     * @return <code>true</code>, falls der Mauszeiger in einem Rechteck zeigt, welches einem Punkt von einer Zugehoerigkeitsfunktion entspricht, sonst <code>false</code>
      */
     private boolean isPointInRectangle(Point p, Rectangle rect) {
         return ((p.x >= rect.x) && (p.y >= rect.y) &&

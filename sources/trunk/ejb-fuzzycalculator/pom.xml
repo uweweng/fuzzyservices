@@ -24,46 +24,35 @@
           <ejbVersion>2.1</ejbVersion> 
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-        <configuration>
-          <container>
-            <containerId>${cargo.home}</containerId>
-            <home>${cargo.home}</home>
-          </container>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jboss-maven-plugin</artifactId>
-        <configuration>
-          <jbossHome>${jboss.home}</jbossHome>
-          <serverName>${jboss.server.name}</serverName>
-          <port>${jboss.port}</port>
-          <server>${jboss.home.server}</server>
-        </configuration>
-      </plugin>
-    
     </plugins>
   </build>
   <dependencies>
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>fuzzyservices-core</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>fuzzyservices-beans</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>javax.ejb</groupId>
-      <artifactId>ejb</artifactId>
-      <version>2.0</version>
+	<dependency>
+	  <groupId>javax</groupId>
+	  <artifactId>javaee-api</artifactId>
+	  <version>6.0</version>
+	  <scope>provided</scope>
     </dependency>
+	
   </dependencies>
+  <repositories>
+  
+    <repository>
+      <id>maven2-repository.dev.java.net</id>
+      <name>Java.net Repository for Maven</name>
+      <url>http://download.java.net/maven/2/</url>
+      <layout>default</layout>
+    </repository> 
+	
+  </repositories>
 </project>

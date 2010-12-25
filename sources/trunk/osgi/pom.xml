@@ -19,9 +19,9 @@
     <url>http://sourceforge.net/projects/fuzzyservices</url>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>fuzzyservices-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -31,7 +31,7 @@
     </dependencies>
 
     <properties>
-        <bundle.namespace>${pom.groupId}</bundle.namespace>
+        <bundle.namespace>${project.groupId}</bundle.namespace>
     </properties>
 
     <build>
