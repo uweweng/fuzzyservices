@@ -11,8 +11,6 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.c
             </id>
             <basic name="type"/>
             <basic name="parameter"/>
-            <transient name="validSNorm"/>
-            <transient name="validTNorm"/>
         </attributes>
     </entity>
 </entity-mappings>

@@ -40,5 +40,59 @@
       <version>1.0</version>
     </dependency>
 
+	<!-- EclipseLink as entity manager -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.2.0-M4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <version>2.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.2.0-M4</version>
+            <scope>provided</scope>
+        </dependency>
+	<!-- MySQL DB as entity manager -->
+<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.9</version>
+	</dependency>
+
+<!-- Embedded Derby DB for testing
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+    <version>3.4.0.GA</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.apache.derby</groupId>
+    <artifactId>derby</artifactId>
+    <version>10.7.1.1</version>
+    <scope>test</scope>
+</dependency>
+-->
+<!-- Embedded HSQLDB for testing, need hibernate-entitymanager -->
+<dependency>
+	<groupId>hsqldb</groupId>
+	<artifactId>hsqldb</artifactId>
+	<version>1.8.0.7</version>
+	<scope>test</scope>
+</dependency>
+	
   </dependencies>
+    <repositories>
+        <repository>
+            <id>EclipseLink Repo</id>
+            <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+        </repository> 
+    </repositories>
 </project>

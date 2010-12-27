@@ -20,7 +20,8 @@ public final class OperatorDAO {
     /**
      * Static reference to the Entity Manager Factory for the identity type/table.
      */
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("net.sourceforge.fuzzyservices.test");
+    
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("net.sourceforge.fuzzyservices");
 
     /**
      * Creates a new operator in database.
