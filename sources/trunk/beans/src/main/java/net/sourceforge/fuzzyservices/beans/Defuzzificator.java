@@ -44,7 +44,6 @@ public class Defuzzificator implements Serializable {
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
     //
     // Defuzzificator types
     //
@@ -76,7 +75,6 @@ public class Defuzzificator implements Serializable {
      * @see net.sourceforge.fuzzyservices.core.defuzzification.RightOfMax
      */
     public static final byte TYPE_RIGHT_OF_MAX = 3;
-
     //
     // Bound property names
     //
@@ -91,6 +89,7 @@ public class Defuzzificator implements Serializable {
     public Defuzzificator() {
         // Do nothing
     }
+
     /**
      * Constructs a new defuzzifcator.
      * @param newType The new value for the property <code>type</code>.
@@ -204,8 +203,8 @@ public class Defuzzificator implements Serializable {
                             // Calculate moment
                             // zaehler += 0.33f * slope * tridiff + 0.5f * diff
                             // * quaddiff;
-                            zaehler += (((float) (1.0 / 3.0) * slope * tridiff) +
-                                    ((float) (1.0 / 2.0) * diff * quaddiff));
+                            zaehler += (((float) (1.0 / 3.0) * slope * tridiff)
+                                    + ((float) (1.0 / 2.0) * diff * quaddiff));
                             // Calculate trapez.
                             // nenner += 0.5f * slope * quaddiff + diff * (x2 - x1);
                             nenner += (((float) (1.0 / 2.0) * slope * quaddiff) + (diff * (x2 - x1)));
@@ -267,8 +266,8 @@ public class Defuzzificator implements Serializable {
 
             MembershipFunction membershipFunction = fuzzySet.getMembershipFunction();
             if (membershipFunction != null) {
-                value = ((defuzzifyByLeftOfMaxMethod(fuzzySet) +
-                        defuzzifyByRightOfMaxMethod(fuzzySet)) / 2.0f);
+                value = ((defuzzifyByLeftOfMaxMethod(fuzzySet)
+                        + defuzzifyByRightOfMaxMethod(fuzzySet)) / 2.0f);
             }
         }
         return value;

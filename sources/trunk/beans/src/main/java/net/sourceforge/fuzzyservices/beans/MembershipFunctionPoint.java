@@ -26,6 +26,9 @@ package net.sourceforge.fuzzyservices.beans;
 import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import java.io.Serializable;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a point on a membership function according to
@@ -119,38 +122,74 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
                     this, "EXCEPTION_NOT_A_NUMBER"));
         }
     }
+    /*
+    @Override
+    public Object clone() {
+    try {
+    MembershipFunctionPoint newObj = (MembershipFunctionPoint) super.clone();
+    
+    return newObj;
+    } catch (java.lang.CloneNotSupportedException e) {
+    // kann nicht auftreten
+    throw new InternalError(e.toString());
+    }
+    }
+    
+    @Override
+    public final boolean equals(Object obj) {
+    if ((obj != null) && (obj instanceof MembershipFunctionPoint)) {
+    return (x == ((MembershipFunctionPoint) obj).x);
+    }
+    
+    return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    int hash = 3;
+    hash = (37 * hash) + Float.floatToIntBits(this.x);
+    
+    return hash;
+    }
+    
+    @Override
+    public String toString() {
+    return "(" + x + ", " + degreeOfMembership + ")";
+    }
+     */
 
     @Override
     public Object clone() {
-        try {
-            MembershipFunctionPoint newObj = (MembershipFunctionPoint) super.clone();
-
-            return newObj;
-        } catch (java.lang.CloneNotSupportedException e) {
-            // kann nicht auftreten
-            throw new InternalError(e.toString());
-        }
+        return SerializationUtils.clone(this);
     }
 
     @Override
     public final boolean equals(Object obj) {
-        if ((obj != null) && (obj instanceof MembershipFunctionPoint)) {
-            return (x == ((MembershipFunctionPoint) obj).x);
+        if (obj == null) {
+            return false;
         }
-
-        return false;
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        MembershipFunctionPoint point = (MembershipFunctionPoint) obj;
+        return new EqualsBuilder().append(this.x, point.x).append(this.degreeOfMembership, point.degreeOfMembership).isEquals();
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = (37 * hash) + Float.floatToIntBits(this.x);
-
-        return hash;
+        return new HashCodeBuilder(11, 21).append(this.x).append(this.degreeOfMembership).toHashCode();
     }
 
     @Override
     public String toString() {
-        return new String("(" + x + ", " + degreeOfMembership + ")");
+        return FuzzyResourceManager.getString(this,
+                "MEMBERSHIP_FUNCTION_POINT",
+                new Object[]{
+                    Float.toString(x),
+                    Float.toString(degreeOfMembership)
+                });
     }
 }

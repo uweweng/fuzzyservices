@@ -30,7 +30,10 @@ import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
 
 import java.io.Serializable;
-
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a fact according to JavaBeans conventions.
@@ -41,30 +44,28 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class Fact implements Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Unique technical identifier. Only for persistence is used.
+     */
+    private int id;
     //
     // Bound property names
     //
-
     /** Bound property name for <code>linguisticVariableName</code>. */
     public static final String LINGUISTIC_VARIABLE_NAME_PROPERTY = "linguisticVariableName";
-
     /** Bound property name for <code>value</code>. */
     public static final String VALUE_PROPERTY = "value";
-
     /** The name of a linguistic variable as reference for this fact. */
     private String linguisticVariableName = null;
-
     /** The value is stored as a fuzzy set. */
     private FuzzySet value = new FuzzySet();
-
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
     /** Support for any VetoableChangeListeners which have been registered. */
     private transient VetoableChangeSupport vetoableChangeSupport = new VetoableChangeSupport(this);
 
@@ -82,6 +83,14 @@ public class Fact implements Serializable {
     public Fact(final String newLinguisticVariableName, final FuzzySet newValue) {
         this.linguisticVariableName = newLinguisticVariableName;
         this.value = newValue;
+    }
+
+    /**
+     * Returns the technical identifier (e.g. within a database).
+     * @return the ID
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -110,13 +119,13 @@ public class Fact implements Serializable {
      * @see #getLinguisticVariableName
      */
     public final void setLinguisticVariableName(String newLinguisticVariableName)
-        throws PropertyVetoException {
+            throws PropertyVetoException {
         String oldLinguisticVariableName = this.linguisticVariableName;
         vetoableChangeSupport.fireVetoableChange(LINGUISTIC_VARIABLE_NAME_PROPERTY,
-            oldLinguisticVariableName, newLinguisticVariableName);
+                oldLinguisticVariableName, newLinguisticVariableName);
         this.linguisticVariableName = newLinguisticVariableName;
         propertyChangeSupport.firePropertyChange(LINGUISTIC_VARIABLE_NAME_PROPERTY,
-            oldLinguisticVariableName, newLinguisticVariableName);
+                oldLinguisticVariableName, newLinguisticVariableName);
     }
 
     /**
@@ -128,7 +137,7 @@ public class Fact implements Serializable {
         FuzzySet oldValue = this.value;
         this.value = newValue;
         propertyChangeSupport.firePropertyChange(VALUE_PROPERTY, oldValue,
-            newValue);
+                newValue);
     }
 
     /**
@@ -137,7 +146,7 @@ public class Fact implements Serializable {
      * @param listener  the <code>VetoableChangeListener</code> to be added
      */
     public final synchronized void addVetoableChangeListener(
-        final VetoableChangeListener listener) {
+            final VetoableChangeListener listener) {
         vetoableChangeSupport.addVetoableChangeListener(listener);
     }
 
@@ -148,7 +157,7 @@ public class Fact implements Serializable {
      * @param listener  the <code>VetoableChangeListener</code> to be removed
      */
     public final synchronized void removeVetoableChangeListener(
-        final VetoableChangeListener listener) {
+            final VetoableChangeListener listener) {
         vetoableChangeSupport.removeVetoableChangeListener(listener);
     }
 
@@ -160,7 +169,7 @@ public class Fact implements Serializable {
      * @param listener  the <code>PropertyChangeListener</code> to be added
      */
     public final synchronized void addPropertyChangeListener(
-        final PropertyChangeListener listener) {
+            final PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
@@ -171,7 +180,69 @@ public class Fact implements Serializable {
      * @param listener  the <code>PropertyChangeListener</code> to be removed
      */
     public final synchronized void removePropertyChangeListener(
-        final PropertyChangeListener listener) {
+            final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        Fact fact = (Fact) obj;
+        return new EqualsBuilder().append(this.id, fact.id).append(this.linguisticVariableName, fact.linguisticVariableName).append(this.value, fact.value).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.id).append(this.linguisticVariableName).append(this.value).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        String linguisticVariableText = "";
+        if (linguisticVariableName != null) {
+            linguisticVariableText = FuzzyResourceManager.getString(this,
+                    "FACT_LINGUISTIC_VARIABLE",
+                    new Object[]{
+                        linguisticVariableName
+                    });
+        } else {
+            linguisticVariableText = FuzzyResourceManager.getString(this,
+                    "FACT_UNKNOWN_LINGUISTIC_VARIABLE");
+        }
+
+        String valueText = "";
+        if (value != null) {
+            Defuzzificator def = new Defuzzificator(Defuzzificator.TYPE_CENTER_OF_AREA);
+            valueText = FuzzyResourceManager.getString(this,
+                    "FACT_VALUE",
+                    new Object[]{
+                        value.toString(),
+                        Float.toString(def.defuzzify(value))
+                    });
+        } else {
+            valueText = FuzzyResourceManager.getString(this,
+                    "FACT_UNKNOWN_VALUE");
+        }
+
+        return FuzzyResourceManager.getString(this,
+                "FACT",
+                new Object[]{
+                    id,
+                    linguisticVariableText,
+                    valueText
+                });
     }
 }

@@ -32,6 +32,10 @@
       <artifactId>fuzzyservices-utils</artifactId>
       <version>${project.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>LATEST</version>
+    </dependency>
   </dependencies>
 </project>

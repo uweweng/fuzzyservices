@@ -33,6 +33,9 @@ import java.beans.VetoableChangeListener;
 
 import java.io.Serializable;
 import net.sourceforge.fuzzyservices.core.operator.Min;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents an if-clause (antecedent) of a rule according to
@@ -43,13 +46,12 @@ import net.sourceforge.fuzzyservices.core.operator.Min;
  * @version 1.0
  * @author Uwe Weng
  */
-public final class Antecedent implements VetoableChangeListener, Serializable {
+public class Antecedent implements VetoableChangeListener, Serializable {
 
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
     //
     // Bound property names
     //
@@ -223,5 +225,65 @@ public final class Antecedent implements VetoableChangeListener, Serializable {
                         this, "EXCEPTION_INVALID_T_NORM_OPERATOR"), evt);
             }
         }
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        Antecedent antecedent = (Antecedent) obj;
+        return new EqualsBuilder().append(this.linguisticVariableName, antecedent.linguisticVariableName).append(this.linguisticTermName, antecedent.linguisticTermName).append(this.compatibilityOperator, antecedent.compatibilityOperator).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.linguisticVariableName).append(this.linguisticTermName).append(this.compatibilityOperator).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        String linguisticVariableNameText = "";
+        if (linguisticVariableName != null) {
+            linguisticVariableNameText = FuzzyResourceManager.getString(this,
+                    "RULE_ANTECEDENT_LINGUISTIC_VARIABLE",
+                    new Object[]{
+                        linguisticVariableName
+                    });
+        } else {
+            linguisticVariableNameText = FuzzyResourceManager.getString(this,
+                    "RULE_ANTECEDENT_UNKNOWN_LINGUISTIC_VARIABLE");
+        }
+
+        String linguisticTermNameText = "";
+        if (linguisticTermName != null) {
+            linguisticTermNameText = FuzzyResourceManager.getString(this,
+                    "RULE_ANTECEDENT_LINGUISTIC_TERM",
+                    new Object[]{
+                        linguisticTermName
+                    });
+        } else {
+            linguisticTermNameText = FuzzyResourceManager.getString(this,
+                    "RULE_ANTECEDENT_UNKNOWN_LINGUISTIC_TERM");
+        }
+
+        return FuzzyResourceManager.getString(this,
+                "RULE_ANTECEDENT",
+                new Object[]{
+                    linguisticVariableNameText,
+                    linguisticTermNameText,
+                    compatibilityOperator
+                });
     }
 }

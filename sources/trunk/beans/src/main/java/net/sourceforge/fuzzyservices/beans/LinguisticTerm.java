@@ -30,6 +30,10 @@ import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
 
 import java.io.Serializable;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a term of a linguistic variable
@@ -46,7 +50,10 @@ public class LinguisticTerm implements Serializable {
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Unique technical identifier. Only for persistence is used.
+     */
+    private int id;
     //
     // Bound property names
     //
@@ -76,6 +83,14 @@ public class LinguisticTerm implements Serializable {
     public LinguisticTerm(final String newName, final FuzzySet newFuzzySet) {
         this.name = newName;
         this.fuzzySet = newFuzzySet;
+    }
+
+    /**
+     * Returns the technical identifier (e.g. within a database).
+     * @return the ID
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -164,5 +179,68 @@ public class LinguisticTerm implements Serializable {
     public final synchronized void removePropertyChangeListener(
             final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        LinguisticTerm linguisticTerm = (LinguisticTerm) obj;
+        return new EqualsBuilder().append(this.id, linguisticTerm.id).append(this.name, linguisticTerm.name).append(this.fuzzySet, linguisticTerm.fuzzySet).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.id).append(this.name).append(this.fuzzySet).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        String nameText = "";
+        if (name != null) {
+            nameText = FuzzyResourceManager.getString(this,
+                    "LINGUISTIC_TERM_NAME",
+                    new Object[]{
+                        name
+                    });
+        } else {
+            nameText = FuzzyResourceManager.getString(this,
+                    "LINGUISTIC_TERM_UNKNOWN_NAME");
+        }
+
+        String fuzzySetText = "";
+        if (fuzzySet != null) {
+            Defuzzificator def = new Defuzzificator(Defuzzificator.TYPE_CENTER_OF_AREA);
+            fuzzySetText = FuzzyResourceManager.getString(this,
+                    "LINGUISTIC_TERM_FUZZY_SET",
+                    new Object[]{
+                        fuzzySet.toString(false),
+                        fuzzySet.toString(true),
+                        Float.toString(def.defuzzify(fuzzySet))
+                    });
+        } else {
+            fuzzySetText = FuzzyResourceManager.getString(this,
+                    "LINGUISTIC_TERM_UNKNOWN_FUZZY_SET");
+        }
+
+        return FuzzyResourceManager.getString(this,
+                "LINGUISTIC_TERM",
+                new Object[]{
+                    id,
+                    nameText,
+                    fuzzySetText
+                });
     }
 }

@@ -32,7 +32,13 @@ import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.sourceforge.fuzzyservices.core.operator.Min;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a rule according to JavaBeans conventions.
@@ -42,13 +48,16 @@ import net.sourceforge.fuzzyservices.core.operator.Min;
  * @version 1.0
  * @author Uwe Weng
  */
-public final class Rule implements VetoableChangeListener, Serializable {
+public class Rule implements VetoableChangeListener, Serializable {
 
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Unique technical identifier. Only for persistence is used.
+     */
+    private int id;
     //
     // Bound property names
     //
@@ -64,10 +73,10 @@ public final class Rule implements VetoableChangeListener, Serializable {
     public static final String INFERENCE_OPERATOR_PROPERTY = "inferenceOperator";
     /** Bound property name for <code>certainty</code>. */
     public static final String CERTAINTY_PROPERTY = "certainty";
-    /** Antecedents property as if-clause of this rule. */
-    private Antecedent[] antecedents = null;
-    /** Consequents property as then-clause of this rule. */
-    private Consequent[] consequents = null;
+    /** Antecedents property as if-clause of this rule. It is internal an array list because of JPA support.*/
+    private List<Antecedent> antecedents = new ArrayList<Antecedent>();
+    /** Consequents property as then-clause of this rule. It is internal an array list because of JPA support.*/
+    private List<Consequent> consequents = new ArrayList<Consequent>();
     /** The aggregation operator property. */
     private Operator aggregationOperator = null;
     /** The certainty operator property. */
@@ -112,12 +121,21 @@ public final class Rule implements VetoableChangeListener, Serializable {
     public Rule(final Antecedent[] newAntecedents, final Consequent[] newConsequents,
             final Operator newAggregationOperator, final Operator newInferenceOperator,
             final Operator newCertaintyOperator, final float newCertainty) {
-        this.antecedents = newAntecedents;
-        this.consequents = newConsequents;
+
+        this.antecedents = Arrays.asList(newAntecedents);
+        this.consequents = Arrays.asList(newConsequents);
         setAggregationOperator(newAggregationOperator);
         setInferenceOperator(newInferenceOperator);
         setCertaintyOperator(newCertaintyOperator);
         setCertainty(newCertainty);
+    }
+
+    /**
+     * Returns the technical identifier (e.g. within a database).
+     * @return the ID
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -126,7 +144,7 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #setAntecedents
      */
     public Antecedent[] getAntecedents() {
-        return antecedents;
+        return antecedents.toArray(new Antecedent[antecedents.size()]);
     }
 
     /**
@@ -137,7 +155,7 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #setAntecedents
      */
     public Antecedent getAntecedents(final int index) {
-        return getAntecedents()[index];
+        return antecedents.get(index);
     }
 
     /**
@@ -146,7 +164,7 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #setConsequents
      */
     public Consequent[] getConsequents() {
-        return consequents;
+        return consequents.toArray(new Consequent[consequents.size()]);
     }
 
     /**
@@ -157,7 +175,7 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #setConsequents
      */
     public Consequent getConsequents(final int index) {
-        return getConsequents()[index];
+        return consequents.get(index);
     }
 
     /**
@@ -218,8 +236,8 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #getAntecedents(int)
      */
     public void setAntecedents(final Antecedent[] newAntecedents) {
-        Antecedent[] oldValue = this.antecedents;
-        this.antecedents = newAntecedents;
+        Antecedent[] oldValue = getAntecedents();
+        this.antecedents = Arrays.asList(newAntecedents);
         propertyChangeSupport.firePropertyChange(ANTECEDENTS_PROPERTY,
                 oldValue, newAntecedents);
     }
@@ -231,12 +249,12 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #getAntecedents(int)
      */
     public void setAntecedents(final int index, final Antecedent newAntecedents) {
-        Antecedent oldValue = this.antecedents[index];
-        this.antecedents[index] = newAntecedents;
+        Antecedent oldValue = antecedents.get(index);
+        antecedents.set(index, newAntecedents);
 
         if ((oldValue != null) && !oldValue.equals(newAntecedents)) {
             propertyChangeSupport.firePropertyChange(ANTECEDENTS_PROPERTY,
-                    null, this.antecedents);
+                    null, antecedents.toArray());
         }
     }
 
@@ -286,8 +304,8 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #getConsequents()
      */
     public void setConsequents(final Consequent[] newConsequents) {
-        Consequent[] oldValue = this.consequents;
-        this.consequents = newConsequents;
+        Consequent[] oldValue = getConsequents();
+        consequents = Arrays.asList(newConsequents);
         propertyChangeSupport.firePropertyChange(CONSEQUENTS_PROPERTY,
                 oldValue, newConsequents);
     }
@@ -299,12 +317,12 @@ public final class Rule implements VetoableChangeListener, Serializable {
      * @see #getConsequents()
      */
     public void setConsequents(final int index, final Consequent newConsequents) {
-        Consequent oldValue = this.consequents[index];
-        this.consequents[index] = newConsequents;
+        Consequent oldValue = consequents.get(index);
+        consequents.set(index, newConsequents);
 
         if ((oldValue != null) && !oldValue.equals(newConsequents)) {
             propertyChangeSupport.firePropertyChange(CONSEQUENTS_PROPERTY,
-                    null, this.consequents);
+                    null, consequents.toArray());
         }
     }
 
@@ -397,5 +415,45 @@ public final class Rule implements VetoableChangeListener, Serializable {
     public synchronized void removePropertyChangeListener(
             final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        Rule rule = (Rule) obj;
+        return new EqualsBuilder().append(this.id, rule.id).append(this.certainty, rule.certainty).append(this.certaintyOperator, rule.certaintyOperator).append(this.aggregationOperator, rule.aggregationOperator).append(this.inferenceOperator, rule.inferenceOperator).append(this.antecedents, rule.antecedents).append(this.consequents, rule.consequents).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.id).append(this.certainty).append(this.certaintyOperator).append(this.aggregationOperator).append(this.inferenceOperator).append(this.antecedents).append(this.consequents).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return FuzzyResourceManager.getString(this,
+                "RULE",
+                new Object[]{
+                    id,
+                    antecedents,
+                    consequents,
+                    certainty,
+                    certaintyOperator,
+                    aggregationOperator,
+                    inferenceOperator
+                });
     }
 }

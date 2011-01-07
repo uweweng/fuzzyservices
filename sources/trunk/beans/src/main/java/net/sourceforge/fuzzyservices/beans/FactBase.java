@@ -32,7 +32,13 @@ import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a fact base according to JavaBeans conventions.
@@ -43,33 +49,49 @@ import java.io.Serializable;
  * @author Uwe Weng
  */
 public class FactBase implements VetoableChangeListener, Serializable {
+
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Unique technical identifier. Only for persistence is used.
+     */
+    private int id;
     //
     // Bound property names
     //
-
     /** Bound property name for <code>name</code>. */
     public static final String NAME_PROPERTY = "name";
-
     /** Bound property name for <code>facts</code>. */
     public static final String FACTS_PROPERTY = "facts";
-
     /** Name property. */
     private String name = null;
-
-    /** Facts property. A fact base contains an array of facts. */
-    private Fact[] facts = null;
-
+    /** Facts property. A fact base contains an array of facts. It is internal an array list because of JPA support.*/
+    private List<Fact> facts = new ArrayList<Fact>();
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     /** Default <code>FactBase</code> constructor. */
     public FactBase() {
         // Do nothing
+    }
+
+    /**
+     * Constructs a new fact base with given name.
+     * @param newName The new value for the property.
+     */
+    public FactBase(final String newName) {
+        this();
+        this.name = newName;
+    }
+
+    /**
+     * Returns the technical identifier (e.g. within a database).
+     * @return the ID
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -87,7 +109,7 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * @see #setFacts(Fact[])
      */
     public Fact[] getFacts() {
-        return facts;
+        return facts.toArray(new Fact[facts.size()]);
     }
 
     /**
@@ -98,7 +120,7 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * @see #setFacts(Fact[])
      */
     public Fact getFacts(final int index) {
-        return getFacts()[index];
+        return facts.get(index);
     }
 
     /**
@@ -106,11 +128,11 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * @param newName The new value for the property.
      * @see #getName
      */
-    public final void setName(String newName) {
+    public void setName(String newName) {
         String oldValue = this.name;
         this.name = newName;
         propertyChangeSupport.firePropertyChange(NAME_PROPERTY, oldValue,
-            newName);
+                newName);
     }
 
     /**
@@ -121,7 +143,7 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * or if at least two facts relates to one linguistic variable
      * @see #getFacts()
      */
-    public final void setFacts(Fact[] newFacts) throws IllegalArgumentException {
+    public void setFacts(Fact[] newFacts) throws IllegalArgumentException {
         // Check facts
         if (newFacts != null) {
             // Duplicate facts to one linguistic variable?
@@ -133,10 +155,9 @@ public class FactBase implements VetoableChangeListener, Serializable {
                     }
 
                     for (int j = i + 1; j < newFacts.length; j++) {
-                        if ((newFacts[j] != null) &&
-                                (newFacts[j].getLinguisticVariableName() != null)) {
-                            if (newFacts[j].getLinguisticVariableName()
-                                               .equals(newFacts[i].getLinguisticVariableName()) == true) {
+                        if ((newFacts[j] != null)
+                                && (newFacts[j].getLinguisticVariableName() != null)) {
+                            if (newFacts[j].getLinguisticVariableName().equals(newFacts[i].getLinguisticVariableName()) == true) {
                                 throw new IllegalArgumentException(FuzzyResourceManager.getString(
                                         this,
                                         "EXCEPTION_FACT_BASE_WITH_DUPLICATE_LV"));
@@ -147,30 +168,31 @@ public class FactBase implements VetoableChangeListener, Serializable {
             }
         }
 
-        Fact[] oldValue = this.facts;
+        Fact[] oldValue = getFacts();
 
         // Remove vetoable change listener
-        if (this.facts != null) {
-            for (int i = 0; i < this.facts.length; i++) {
-                if (this.facts[i] != null) {
-                    this.facts[i].removeVetoableChangeListener(this);
-                }
+        for (Iterator<Fact> it = facts.iterator(); it.hasNext();) {
+            Fact fact = it.next();
+            if (fact != null) {
+                fact.removeVetoableChangeListener(this);
             }
         }
 
-        this.facts = newFacts;
+        if (newFacts != null) {
+            this.facts = Arrays.asList(newFacts);
 
-        // Add vetoable change listener
-        if (this.facts != null) {
-            for (int i = 0; i < this.facts.length; i++) {
-                if (this.facts[i] != null) {
-                    this.facts[i].addVetoableChangeListener(this);
+            // Add vetoable change listener
+            for (Iterator<Fact> it = facts.iterator(); it.hasNext();) {
+                Fact fact = it.next();
+                if (fact != null) {
+                    fact.addVetoableChangeListener(this);
                 }
             }
+        } else {
+            this.facts = new ArrayList<Fact>();
         }
-
         propertyChangeSupport.firePropertyChange(FACTS_PROPERTY, oldValue,
-            newFacts);
+                newFacts);
     }
 
     /**
@@ -184,8 +206,8 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * or if at least two facts relates to one linguistic variable
      * @see #getFacts()
      */
-    public final void setFacts(int index, Fact newFacts)
-        throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
+    public void setFacts(int index, Fact newFacts)
+            throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
         // Check facts
         if (newFacts != null) {
             if (newFacts.getLinguisticVariableName() == null) {
@@ -194,10 +216,10 @@ public class FactBase implements VetoableChangeListener, Serializable {
             }
 
             // Duplicate facts to one linguistic variable?
-            for (int i = 0; i < this.facts.length; i++) {
-                if ((this.facts[i] != null) && (i != index)) {
-                    if (newFacts.getLinguisticVariableName()
-                                    .equals(this.facts[i].getLinguisticVariableName()) == true) {
+            for (Iterator<Fact> it = facts.iterator(); it.hasNext();) {
+                Fact fact = it.next();
+                if ((fact != null) && (facts.indexOf(facts) != index)) {
+                    if (newFacts.getLinguisticVariableName().equals(fact.getLinguisticVariableName()) == true) {
                         throw new IllegalArgumentException(FuzzyResourceManager.getString(
                                 this, "EXCEPTION_FACT_BASE_WITH_DUPLICATE_LV"));
                     }
@@ -205,34 +227,29 @@ public class FactBase implements VetoableChangeListener, Serializable {
             }
         }
 
-        if (this.facts[index] != null) {
+        Fact oldValue = facts.get(index);
+
+        if (oldValue != null) {
             // Remove vetoable change listener
-            this.facts[index].removeVetoableChangeListener(this);
+            oldValue.removeVetoableChangeListener(this);
         }
 
-        Fact oldValue = this.facts[index];
-        this.facts[index] = newFacts;
+        facts.set(index, newFacts);
 
-        if (this.facts[index] != null) {
+        if (newFacts != null) {
             // Add vetoable change listener
-            this.facts[index].addVetoableChangeListener(this);
+            newFacts.addVetoableChangeListener(this);
         }
 
         if ((oldValue != null) && !oldValue.equals(newFacts)) {
             propertyChangeSupport.firePropertyChange(FACTS_PROPERTY, null,
-                this.facts);
+                    facts.toArray());
         }
     }
 
-    /**
-     * This method gets called when a constrained property is changed.
-     * @param     evt a <code>PropertyChangeEvent</code> object describing the
-     * event source and the property that has changed.
-     * @exception PropertyVetoException if the recipient wishes the property
-     * change to be rolled back.
-     */
-    public final void vetoableChange(PropertyChangeEvent evt)
-        throws PropertyVetoException {
+    @Override
+    public void vetoableChange(PropertyChangeEvent evt)
+            throws PropertyVetoException {
         String prop = evt.getPropertyName();
 
         if (prop.equals(Fact.LINGUISTIC_VARIABLE_NAME_PROPERTY) == true) {
@@ -244,10 +261,11 @@ public class FactBase implements VetoableChangeListener, Serializable {
             // Check for duplicate facts to one linguistic variable (name)
             String newLinguisticVariableName = (String) evt.getNewValue();
 
-            for (int i = 0; i < this.facts.length; i++) {
-                if ((this.facts[i] != null) &&
-                        (newLinguisticVariableName.equals(
-                            this.facts[i].getLinguisticVariableName()) == true)) {
+            for (Iterator<Fact> it = facts.iterator(); it.hasNext();) {
+                Fact fact = it.next();
+                if ((fact != null)
+                        && (newLinguisticVariableName.equals(
+                        fact.getLinguisticVariableName()) == true)) {
                     throw new PropertyVetoException(FuzzyResourceManager.getString(
                             this, "EXCEPTION_FACT_BASE_WITH_DUPLICATE_LV"), evt);
                 }
@@ -262,8 +280,8 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * a bound property. <p>
      * @param listener  the <code>PropertyChangeListener</code> to be added
      */
-    public final synchronized void addPropertyChangeListener(
-        final PropertyChangeListener listener) {
+    public synchronized void addPropertyChangeListener(
+            final PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
@@ -273,8 +291,67 @@ public class FactBase implements VetoableChangeListener, Serializable {
      * for all properties.
      * @param listener  the <code>PropertyChangeListener</code> to be removed
      */
-    public final synchronized void removePropertyChangeListener(
-        final PropertyChangeListener listener) {
+    public synchronized void removePropertyChangeListener(
+            final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        FactBase factbase = (FactBase) obj;
+        return new EqualsBuilder().append(this.id, factbase.id).append(this.name, factbase.name).append(this.facts, factbase.facts).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.id).append(this.name).append(this.facts).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return toString(false);
+    }
+
+    /**
+     * Returns a textual representation of the fact base
+     *
+     * @param withFacts
+     *            <code>true</code> if all fact definitions are also returned,
+     *            <code>false</code> otherwise.
+     * @return a string representation of the fact base
+     * @see Fact#toString
+     */
+    public String toString(final boolean withFacts) {
+        if (withFacts) {
+            return FuzzyResourceManager.getString(this,
+                    "FACT_BASE_WITH_FACTS",
+                    new Object[]{
+                        id,
+                        name,
+                        Integer.toString(facts.size()),
+                        facts.toString()});
+        } else {
+            return FuzzyResourceManager.getString(this,
+                    "FACT_BASE_WITHOUT_FACTS",
+                    new Object[]{
+                        id,
+                        name,
+                        Integer.toString(facts.size()),
+                        facts.toString()});
+        }
     }
 }

@@ -35,6 +35,9 @@ import java.io.Serializable;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
 import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
 import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a fuzzy operator according to JavaBeans conventions.
@@ -44,17 +47,12 @@ import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
  * @version 1.0
  * @author Uwe Weng
  */
-public final class Operator implements Serializable {
+public class Operator implements Serializable {
 
     /**
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-    /**
-     * Unique technical identifier. Only for persistence is used.
-     */
-    private Integer id;
-
     //
     // Bound property names
     //
@@ -74,7 +72,7 @@ public final class Operator implements Serializable {
     /**
      * Depending on selected <code>type</code> the operator has got a parameter.
      */
-    private float parameter = Float.NaN;
+    private float parameter = 0.0f;
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     /** Support for any VetoableChangeListeners which have been registered. */
@@ -90,12 +88,10 @@ public final class Operator implements Serializable {
 
     /**
      * Constructs a new operator with specified property values.
-     * @param newId The new value for the property <code>id</code>.
      * @param newType The new value for the property <code>type</code>.
      * @param newParameter The new value for the property <code>parameter</code>.
      */
-    public Operator(final Integer newId, final String newType, final float newParameter) {
-        this.id = newId;
+    public Operator(final String newType, final float newParameter) {
         this.type = newType;
         this.parameter = newParameter;
     }
@@ -107,33 +103,6 @@ public final class Operator implements Serializable {
      */
     public String getType() {
         return type;
-    }
-
-    /**
-     * Returns the technical identifier.
-     * @return the <code>id</code> property
-     * @see #setId
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Sets the technical identifier.
-     * @param newId The new value for the property.
-     * @see #getId
-     */
-    public void setId(final Integer newId) {
-        this.id = newId;
-    }
-
-    /**
-     * Returns the parameter of this operator.
-     * @return the <code>parameter</code> property
-     * @see #setParameter
-     */
-    public float getParameter() {
-        return parameter;
     }
 
     /**
@@ -176,6 +145,15 @@ public final class Operator implements Serializable {
     }
 
     /**
+     * Returns the parameter of this operator.
+     * @return the <code>parameter</code> property
+     * @see #setParameter
+     */
+    public float getParameter() {
+        return parameter;
+    }
+
+    /**
      * Sets the parameter of this operator.
      * @param param The new value for the property.
      * @exception PropertyVetoException when the attempt to set the property is
@@ -193,7 +171,7 @@ public final class Operator implements Serializable {
                     (AbstractParameteredOperator) op, param)) {
                 throw new IllegalArgumentException(FuzzyResourceManager.getString(
                         this, "EXCEPTION_OPERATOR_INVALID_PARAMETER",
-                        new Object[]{Float.toString(param)                        }));
+                        new Object[]{Float.toString(param)}));
             }
         }
 
@@ -223,9 +201,9 @@ public final class Operator implements Serializable {
             }
 // TODO Implementing computation
 /*
-        return FuzzyBeanUtils.convert(op.combine(FuzzyBeanUtils.convert(fs1),
-        FuzzyBeanUtils.convert(fs2)));
-         */
+            return FuzzyBeanUtils.convert(op.combine(FuzzyBeanUtils.convert(fs1),
+            FuzzyBeanUtils.convert(fs2)));
+             */
         }
 
         return null;
@@ -311,5 +289,48 @@ public final class Operator implements Serializable {
     public synchronized void removePropertyChangeListener(
             final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        Operator operator = (Operator) obj;
+        return new EqualsBuilder().append(this.type, operator.type).append(this.parameter, operator.parameter).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.type).append(this.parameter).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        if (parameter == Float.NaN) {
+            return FuzzyResourceManager.getString(this,
+                    "OPERATOR_WITHOUT_PARAMETER",
+                    new Object[]{
+                        type
+                    });
+
+        }
+        return FuzzyResourceManager.getString(this,
+                "OPERATOR_WITH_PARAMETER",
+                new Object[]{
+                    type,
+                    Float.toString(parameter)
+                });
     }
 }

@@ -37,6 +37,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sourceforge.fuzzyservices.utils.FuzzyManager;
 import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * The membership function f(x) is defined by a setDegreeOfMembership of points.
@@ -64,7 +67,10 @@ public class MembershipFunction implements Cloneable, Serializable {
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Unique technical identifier. Only for persistence is used.
+     */
+    private int id;
     //
     // Bound property names
     //
@@ -139,6 +145,14 @@ public class MembershipFunction implements Cloneable, Serializable {
     }
 
     /**
+     * Returns the technical identifier (e.g. within a database).
+     * @return the ID
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Defines at <code>x</code> a new degree of membership.
      * @param x the x coordinate
      * @param newDegreeOfMembership the new degree of membership at <code>x</code>
@@ -146,30 +160,30 @@ public class MembershipFunction implements Cloneable, Serializable {
      * vetoed by a listener
      */
     public final synchronized void setDegreeOfMembership(final float x, final float newDegreeOfMembership) throws PropertyVetoException {
-
+        
         if (x == x) { // x is not Float.NaN
 
             if ((newDegreeOfMembership >= 0.0f) && (newDegreeOfMembership <= 1.0f)) {
-
+                
                 float oldDegreeOfMembership = getDegreeOfMembership(x);
                 MembershipFunctionPoint oldPoint = new MembershipFunctionPoint(x, oldDegreeOfMembership);
                 MembershipFunctionPoint newPoint = new MembershipFunctionPoint(x, newDegreeOfMembership);
                 vetoableChangeSupport.fireVetoableChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
-
+                
                 if (points.isEmpty()) {
-
+                    
                     points.add(new MembershipFunctionPoint(x, newDegreeOfMembership));
                     propertyChangeSupport.firePropertyChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
                     return;
                 }
-
+                
                 if (x > (points.get(points.size() - 1)).getX()) {
                     // This case appears very often when combining membership functions
                     points.add(new MembershipFunctionPoint(x, newDegreeOfMembership));
                     propertyChangeSupport.firePropertyChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
                     return;
                 }
-
+                
                 if (x < (points.get(0)).getX()) {
                     // This case appears very often when combining membership functions
                     points.add(0, new MembershipFunctionPoint(x, newDegreeOfMembership));
@@ -182,11 +196,11 @@ public class MembershipFunction implements Cloneable, Serializable {
                 int maxPos = points.size() - 1;
                 int i;
                 MembershipFunctionPoint fse;
-
+                
                 while (maxPos != minPos) {
                     i = (maxPos + minPos) / 2;
                     fse = points.get(i);
-
+                    
                     if (x == fse.getX()) {
                         fse.setDegreeOfMembership(newDegreeOfMembership);
                         return;
@@ -204,7 +218,7 @@ public class MembershipFunction implements Cloneable, Serializable {
                  * i; else minPos = i; }
                  */
                 fse = points.get(maxPos);
-
+                
                 if (x == fse.getX()) {
                     fse.setDegreeOfMembership(newDegreeOfMembership);
                     propertyChangeSupport.firePropertyChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
@@ -222,7 +236,7 @@ public class MembershipFunction implements Cloneable, Serializable {
                             Float.toString(newDegreeOfMembership)
                         }));
             }
-
+            
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_NOT_A_NUMBER"));
@@ -231,7 +245,7 @@ public class MembershipFunction implements Cloneable, Serializable {
 
     /**
      * Sets the degree of membership at <code>x</code> to 0.0.
-     * @param x the x coodinate
+     * @param x the x coordinate
      * @exception PropertyVetoException when the attempt to set the property is
      * vetoed by a listener
      */
@@ -242,18 +256,18 @@ public class MembershipFunction implements Cloneable, Serializable {
             float newDegreeOfMembership = 0.0f;
             MembershipFunctionPoint oldPoint = new MembershipFunctionPoint(x, oldDegreeOfMembership);
             MembershipFunctionPoint newPoint = new MembershipFunctionPoint(x, newDegreeOfMembership);
-
+            
             vetoableChangeSupport.fireVetoableChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
 
             // The degree of membership is not interesting, because MembershipFunctionPoint.equals()
             // compares only the x value.
             int pos = points.indexOf(new MembershipFunctionPoint(x, 0.0f));
-
+            
             if (pos >= 0) {
                 points.remove(pos);
             }
             propertyChangeSupport.firePropertyChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
-
+            
         } else {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_NOT_A_NUMBER"));
@@ -268,7 +282,7 @@ public class MembershipFunction implements Cloneable, Serializable {
     public final synchronized void clear() throws PropertyVetoException {
         MembershipFunctionPoint entry;
         ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+        
         while (elements.hasNext()) {
             entry = elements.next();
             float x = entry.getX();
@@ -280,7 +294,7 @@ public class MembershipFunction implements Cloneable, Serializable {
             entry.setDegreeOfMembership(newDegreeOfMembership);
             propertyChangeSupport.firePropertyChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
         }
-
+        
         points.clear();
     }
 
@@ -291,12 +305,12 @@ public class MembershipFunction implements Cloneable, Serializable {
     public final synchronized float getAlpha() {
         MembershipFunction mf = (MembershipFunction) this.clone();
         mf.reduce();
-
+        
         float x0;
         float x1;
         x0 = mf.points.get(0).getX();
         x1 = mf.points.get(1).getX();
-
+        
         return FuzzyManager.round(x1 - x0);
     }
 
@@ -305,16 +319,16 @@ public class MembershipFunction implements Cloneable, Serializable {
      * @return the spread beta
      */
     public final synchronized float getBeta() {
-
+        
         MembershipFunction mf = (MembershipFunction) this.clone();
         mf.reduce();
-
+        
         float x0;
         float x1;
         int size = mf.size();
         x0 = mf.points.get(size - 2).getX();
         x1 = mf.points.get(size - 1).getX();
-
+        
         return FuzzyManager.round(x1 - x0);
     }
 
@@ -328,19 +342,19 @@ public class MembershipFunction implements Cloneable, Serializable {
         float height = 0.0f;
         float dom;
         ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+        
         while (elements.hasNext()) {
             dom = elements.next().getDegreeOfMembership();
-
+            
             if (dom > height) {
                 height = dom;
-
+                
                 if (height == 1.0f) {
                     return 1.0f;
                 }
             }
         }
-
+        
         return height;
     }
 
@@ -364,11 +378,11 @@ public class MembershipFunction implements Cloneable, Serializable {
      */
     public final synchronized void normalize() throws PropertyVetoException {
         float height = getHeight();
-
+        
         if (height != 0.0f) {
             MembershipFunctionPoint entry;
             ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+            
             while (elements.hasNext()) {
                 entry = elements.next();
                 float x = entry.getX();
@@ -376,7 +390,7 @@ public class MembershipFunction implements Cloneable, Serializable {
                 float newDegreeOfMembership = oldDegreeOfMembership / height;
                 MembershipFunctionPoint oldPoint = new MembershipFunctionPoint(x, oldDegreeOfMembership);
                 MembershipFunctionPoint newPoint = new MembershipFunctionPoint(x, newDegreeOfMembership);
-
+                
                 vetoableChangeSupport.fireVetoableChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
                 entry.setDegreeOfMembership(newDegreeOfMembership);
                 propertyChangeSupport.firePropertyChange(DEGREE_OF_MEMBERSHIP_PROPERTY, oldPoint, newPoint);
@@ -392,7 +406,7 @@ public class MembershipFunction implements Cloneable, Serializable {
     public final synchronized void reciproce() throws PropertyVetoException {
         MembershipFunctionPoint entry;
         ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+        
         while (elements.hasNext()) {
             entry = elements.next();
             float x = entry.getX();
@@ -418,9 +432,9 @@ public class MembershipFunction implements Cloneable, Serializable {
             int numSteps = getNumSteps(this);
             float x = getMinDefinedX();
             MembershipFunction tmpThis = new MembershipFunction();
-
+            
             for (int i = 0; i < numSteps; i++) {
-
+                
                 tmpThis.setDegreeOfMembership(x,
                         (float) Math.pow(getDegreeOfMembership(x),
                         (float) (1.0 / 2.0)));
@@ -430,16 +444,16 @@ public class MembershipFunction implements Cloneable, Serializable {
             // Iterating all existing points.
             MembershipFunctionPoint entry;
             ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+            
             while (elements.hasNext()) {
                 entry = elements.next();
                 tmpThis.setDegreeOfMembership(entry.getX(),
                         (float) Math.pow(entry.getDegreeOfMembership(),
                         (float) (1.0 / 2.0)));
             }
-
+            
             elements = tmpThis.points.listIterator();
-
+            
             while (elements.hasNext()) {
                 entry = elements.next();
                 setDegreeOfMembership(entry.getX(), entry.getDegreeOfMembership());
@@ -462,9 +476,9 @@ public class MembershipFunction implements Cloneable, Serializable {
             int numSteps = getNumSteps(this);
             float x = getMinDefinedX();
             MembershipFunction tmpThis = new MembershipFunction();
-
+            
             for (int i = 0; i < numSteps; i++) {
-
+                
                 tmpThis.setDegreeOfMembership(x, (float) Math.pow(getDegreeOfMembership(x), 2.0));
                 x += granularity;
             }
@@ -472,15 +486,15 @@ public class MembershipFunction implements Cloneable, Serializable {
             // Iterating all existing points.
             MembershipFunctionPoint entry;
             ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+            
             while (elements.hasNext()) {
                 entry = elements.next();
                 tmpThis.setDegreeOfMembership(entry.getX(),
                         (float) Math.pow(entry.getDegreeOfMembership(), 2.0));
             }
-
+            
             elements = tmpThis.points.listIterator();
-
+            
             while (elements.hasNext()) {
                 entry = elements.next();
                 setDegreeOfMembership(entry.getX(), entry.getDegreeOfMembership());
@@ -498,10 +512,10 @@ public class MembershipFunction implements Cloneable, Serializable {
      * <code>false</code>, otherwise
      */
     public final synchronized boolean isConvex() {
-        if (points.size() == 0) {
+        if (points.isEmpty()) {
             return false;
         }
-
+        
         if (points.size() > 2) {
             int vzw = 0; // number of change of sign
 
@@ -510,29 +524,29 @@ public class MembershipFunction implements Cloneable, Serializable {
             ListIterator elements = points.listIterator();
             entryLeft = (MembershipFunctionPoint) elements.next();
             entryRight = (MembershipFunctionPoint) elements.next();
-
+            
             float slope;
             float lastSlope = getSlope(entryLeft.getX(), entryRight.getX());
             entryLeft = entryRight;
-
+            
             while (elements.hasNext() && (vzw < 2)) {
                 entryRight = (MembershipFunctionPoint) elements.next();
                 slope = getSlope(entryLeft.getX(), entryRight.getX());
-
+                
                 if (((lastSlope > 0.0f) && (slope < 0.0f)) || ((lastSlope < 0.0f) && (slope > 0.0f))) {
                     vzw++;
                 }
-
+                
                 entryLeft = entryRight;
-
+                
                 if (slope != 0.0f) {
                     lastSlope = slope;
                 }
             }
-
+            
             return ((vzw == 1) ? true : false);
         }
-
+        
         return true;
     }
 
@@ -547,11 +561,11 @@ public class MembershipFunction implements Cloneable, Serializable {
         List<Float> retVector = new ArrayList<Float>(points.size()); // with x-values
 
         ListIterator<MembershipFunctionPoint> elements = points.listIterator();
-
+        
         while (elements.hasNext()) {
             retVector.add(new Float(elements.next().getX()));
         }
-
+        
         return retVector.iterator();
     }
 
@@ -603,7 +617,7 @@ public class MembershipFunction implements Cloneable, Serializable {
         if (points.isEmpty()) {
             return 0.0f;
         }
-
+        
         if ((x < (points.get(0)).getX()) || (x > (points.get(points.size() - 1)).getX())) {
             return 0.0f;
         }
@@ -612,19 +626,19 @@ public class MembershipFunction implements Cloneable, Serializable {
         int minPos = 0;
         int maxPos = points.size() - 1;
         int i;
-
+        
         while ((maxPos - minPos) > 1) {
             i = (maxPos + minPos) / 2;
-
+            
             if (x <= (points.get(i)).getX()) {
                 maxPos = i;
             } else {
                 minPos = i;
             }
         }
-
+        
         MembershipFunctionPoint fse = points.get(maxPos);
-
+        
         if (x == fse.getX()) {
             return fse.getDegreeOfMembership();
         }
@@ -633,11 +647,11 @@ public class MembershipFunction implements Cloneable, Serializable {
         // Therefore, we calculate the degree of membership by interpolation
         // It is right: y = a + b * x2, mit x2 = x - x1;
         fse = points.get(maxPos - 1);
-
+        
         float a = fse.getDegreeOfMembership();
         float x1 = fse.getX();
         float b = getSlope((maxPos - 1), maxPos);
-
+        
         return (a + (b * (x - x1)));
     }
 
@@ -651,14 +665,14 @@ public class MembershipFunction implements Cloneable, Serializable {
         // y = a + b * x -> b = (y - a) / x, mit x = x2 - x1
         MembershipFunctionPoint fse;
         fse = points.get(posLeft);
-
+        
         float a = fse.getDegreeOfMembership();
         float x1 = fse.getX();
         fse = points.get(posRight);
-
+        
         float y = fse.getDegreeOfMembership();
         float x2 = fse.getX();
-
+        
         return FuzzyManager.round((y - a) / (x2 - x1));
     }
 
@@ -685,7 +699,7 @@ public class MembershipFunction implements Cloneable, Serializable {
         float otherspread = membershipFunction.getMaxDefinedX() - membershipFunction.getMinDefinedX();
         float commonspread = ((thisspread > otherspread) ? thisspread
                 : otherspread);
-
+        
         return ((int) (commonspread / this.getGranularity(membershipFunction)));
     }
 
@@ -716,8 +730,8 @@ public class MembershipFunction implements Cloneable, Serializable {
     public synchronized void reduce() {
         // Eliminating nulls on the left side
         while (points.size() > 1) {
-            if (((points.get(0)).getDegreeOfMembership() == 0.0f) &&
-                    ((points.get(1)).getDegreeOfMembership() == 0.0f)) {
+            if (((points.get(0)).getDegreeOfMembership() == 0.0f)
+                    && ((points.get(1)).getDegreeOfMembership() == 0.0f)) {
                 points.remove(0);
             } else {
                 break;
@@ -726,19 +740,19 @@ public class MembershipFunction implements Cloneable, Serializable {
 
         // Eliminating nulls on the right side
         int lastpos;
-
+        
         while ((lastpos = points.size() - 1) > 0) {
-            if (((points.get(lastpos - 1)).getDegreeOfMembership() == 0.0f) &&
-                    ((points.get(lastpos)).getDegreeOfMembership() == 0.0f)) {
+            if (((points.get(lastpos - 1)).getDegreeOfMembership() == 0.0f)
+                    && ((points.get(lastpos)).getDegreeOfMembership() == 0.0f)) {
                 points.remove(lastpos);
             } else {
                 break;
             }
         }
-
+        
         if (points.size() >= 3) {
             int i = 1;
-
+            
             while (i < (points.size() - 1)) {
                 // Comparing slopes
                 if (getSlope(i - 1, i) == getSlope(i, i + 1)) {
@@ -748,7 +762,7 @@ public class MembershipFunction implements Cloneable, Serializable {
                 }
             }
         }
-
+        
         if ((points.size() == 1) && ((points.get(0)).getDegreeOfMembership() == 0.0f)) {
             points.remove(0);
         }
@@ -763,7 +777,7 @@ public class MembershipFunction implements Cloneable, Serializable {
         if (!points.isEmpty()) {
             return (points.get(0)).getX();
         }
-
+        
         return Float.NaN;
     }
 
@@ -776,7 +790,7 @@ public class MembershipFunction implements Cloneable, Serializable {
         if (!points.isEmpty()) {
             return (points.get(points.size() - 1)).getX();
         }
-
+        
         return Float.NaN;
     }
 
@@ -793,10 +807,10 @@ public class MembershipFunction implements Cloneable, Serializable {
     public final synchronized void negate() throws PropertyVetoException {
         MembershipFunction f = (MembershipFunction) clone();
         f.clear();
-
+        
         MembershipFunctionPoint entry;
         ListIterator elements = points.listIterator();
-
+        
         while (elements.hasNext()) {
             entry = (MembershipFunctionPoint) elements.next();
             f.setDegreeOfMembership((entry.getX() * (-1.0f)), entry.getDegreeOfMembership());
@@ -821,10 +835,10 @@ public class MembershipFunction implements Cloneable, Serializable {
         if (((points.get(0)).getX() * (points.get(points.size() - 1)).getX()) > 0.0f) {
             MembershipFunction f = (MembershipFunction) clone();
             f.clear();
-
+            
             MembershipFunctionPoint entry;
             ListIterator elements = points.listIterator();
-
+            
             while (elements.hasNext()) {
                 entry = (MembershipFunctionPoint) elements.next();
                 f.setDegreeOfMembership((1.0f / entry.getX()), entry.getDegreeOfMembership());
@@ -837,76 +851,77 @@ public class MembershipFunction implements Cloneable, Serializable {
         }
     }
 
+    /**
     @Override
     public final boolean equals(final Object obj) {
-        if ((obj != null) && (obj instanceof MembershipFunction)) {
-            // return points.equals(((FuzzySet)obj).points); // reicht nicht
-            // aus, da MembershipFunctionPoint.equals() nur auf Gleichheit der
-            // x-Werte prueft
-            MembershipFunction tmpThis = (MembershipFunction) this.clone();
-            MembershipFunction tmpObj = (MembershipFunction) ((MembershipFunction) obj).clone();
-            // At first, we reduce the membership functions to a minimum of points.
-            tmpThis.reduce();
-            tmpObj.reduce();
-
-            // Then, we compare the points pairwise.
-            int sizeThis = tmpThis.points.size();
-            int sizeObj = tmpObj.points.size();
-
-            if (sizeThis != sizeObj) {
-                return false;
-            }
-
-            MembershipFunctionPoint entryThis;
-            MembershipFunctionPoint entryObj;
-
-            for (int i = 0; i < sizeThis; i++) {
-                entryThis = tmpThis.points.get(i);
-                entryObj = tmpObj.points.get(i);
-
-                if ((entryThis.getX() != entryObj.getX()) || (entryThis.getDegreeOfMembership() != entryObj.getDegreeOfMembership())) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        return false;
+    if ((obj != null) && (obj instanceof MembershipFunction)) {
+    // return points.equals(((FuzzySet)obj).points); // reicht nicht
+    // aus, da MembershipFunctionPoint.equals() nur auf Gleichheit der
+    // x-Werte prueft
+    MembershipFunction tmpThis = (MembershipFunction) this.clone();
+    MembershipFunction tmpObj = (MembershipFunction) ((MembershipFunction) obj).clone();
+    // At first, we reduce the membership functions to a minimum of points.
+    tmpThis.reduce();
+    tmpObj.reduce();
+    
+    // Then, we compare the points pairwise.
+    int sizeThis = tmpThis.points.size();
+    int sizeObj = tmpObj.points.size();
+    
+    if (sizeThis != sizeObj) {
+    return false;
     }
-
+    
+    MembershipFunctionPoint entryThis;
+    MembershipFunctionPoint entryObj;
+    
+    for (int i = 0; i < sizeThis; i++) {
+    entryThis = tmpThis.points.get(i);
+    entryObj = tmpObj.points.get(i);
+    
+    if ((entryThis.getX() != entryObj.getX()) || (entryThis.getDegreeOfMembership() != entryObj.getDegreeOfMembership())) {
+    return false;
+    }
+    }
+    
+    return true;
+    }
+    
+    return false;
+    }
+    
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + (this.points != null ? this.points.hashCode() : 0);
-        return hash;
+    int hash = 7;
+    hash = 71 * hash + (this.points != null ? this.points.hashCode() : 0);
+    return hash;
     }
-
+    
     @Override
     public final Object clone() {
-        try {
-            MembershipFunction newObj = (MembershipFunction) super.clone();
-            // Duplicate entries physically.
-            newObj.points = new ArrayList<MembershipFunctionPoint>(points.size());
-
-            ListIterator elements = points.listIterator();
-
-            while (elements.hasNext()) {
-                newObj.points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
-            }
-
-            return newObj;
-        } catch (java.lang.CloneNotSupportedException e) {
-            // kann nicht auftreten
-            throw new InternalError(e.toString());
-        }
+    try {
+    MembershipFunction newObj = (MembershipFunction) super.clone();
+    // Duplicate entries physically.
+    newObj.points = new ArrayList<MembershipFunctionPoint>(points.size());
+    
+    ListIterator elements = points.listIterator();
+    
+    while (elements.hasNext()) {
+    newObj.points.add((MembershipFunctionPoint) ((MembershipFunctionPoint) elements.next()).clone());
     }
-
+    
+    return newObj;
+    } catch (java.lang.CloneNotSupportedException e) {
+    // kann nicht auftreten
+    throw new InternalError(e.toString());
+    }
+    }
+    
     @Override
     public final String toString() {
-        return points.toString();
+    return points.toString();
     }
-
+     */
     /**
      * Adds a <code>VetoableChangeListener</code> to the listener list. The
      * listener is registered for all properties.
@@ -949,5 +964,41 @@ public class MembershipFunction implements Cloneable, Serializable {
     public final synchronized void removePropertyChangeListener(
             final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+    
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+    
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        MembershipFunction membershipFunction = (MembershipFunction) obj;
+        return new EqualsBuilder().append(this.id, membershipFunction.id).append(this.points, membershipFunction.points).isEquals();
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.id).append(this.points).toHashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return FuzzyResourceManager.getString(this,
+                "MEMBERSHIP_FUNCTION",
+                new Object[]{
+                    id,
+                    points.toString(),
+                    Integer.toString(points.size())
+                });
     }
 }

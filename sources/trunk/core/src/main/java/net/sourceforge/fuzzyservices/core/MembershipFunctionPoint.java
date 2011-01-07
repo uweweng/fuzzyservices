@@ -117,7 +117,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     }
 
     @Override
-    public final Object clone() {
+    public Object clone() {
         try {
             MembershipFunctionPoint newObj = (MembershipFunctionPoint) super.clone();
             newObj.x = this.x;
@@ -130,7 +130,7 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     }
 
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if ((obj != null) && (obj instanceof MembershipFunctionPoint)) {
             return (x == ((MembershipFunctionPoint) obj).x);
         }
@@ -138,14 +138,18 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         int hash = 3;
         hash = (37 * hash) + Float.floatToIntBits(this.x);
         return hash;
     }
 
     @Override
-    public final String toString() {
-        return new String("(" + x + ", " + degreeOfMembership + ")");
+    public String toString() {
+        return FuzzyResourceManager.getString(this,
+                "MEMBERSHIP_FUNCTION_POINT",
+                new Object[]{
+                    Float.toString(x), Float.toString(degreeOfMembership)
+                });
     }
 }

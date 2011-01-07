@@ -87,8 +87,6 @@ public final class JavaInitializationStringFormatter {
         StringBuffer str = new StringBuffer();
         if (operator != null) {
             str.append("new Operator(");
-            str.append(operator.getId());
-            str.append(", ");
             str.append(operator.getType());
             str.append(", ");
             str.append(operator.getParameter());

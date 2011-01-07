@@ -27,6 +27,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.Serializable;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents an then-clause (consequent) of a rule according to
@@ -43,7 +47,6 @@ public class Consequent implements Serializable {
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
     //
     // Bound property names
     //
@@ -138,5 +141,64 @@ public class Consequent implements Serializable {
     public final synchronized void removePropertyChangeListener(
             final PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        Consequent consequent = (Consequent) obj;
+        return new EqualsBuilder().append(this.linguisticVariableName, consequent.linguisticVariableName).append(this.linguisticTermName, consequent.linguisticTermName).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.linguisticVariableName).append(this.linguisticTermName).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        String linguisticVariableNameText = "";
+        if (linguisticVariableName != null) {
+            linguisticVariableNameText = FuzzyResourceManager.getString(this,
+                    "RULE_CONSEQUENT_LINGUISTIC_VARIABLE",
+                    new Object[]{
+                        linguisticVariableName
+                    });
+        } else {
+            linguisticVariableNameText = FuzzyResourceManager.getString(this,
+                    "RULE_CONSEQUENT_UNKNOWN_LINGUISTIC_VARIABLE");
+        }
+
+        String linguisticTermNameText = "";
+        if (linguisticTermName != null) {
+            linguisticTermNameText = FuzzyResourceManager.getString(this,
+                    "RULE_CONSEQUENT_LINGUISTIC_TERM",
+                    new Object[]{
+                        linguisticTermName
+                    });
+        } else {
+            linguisticTermNameText = FuzzyResourceManager.getString(this,
+                    "RULE_CONSEQUENT_UNKNOWN_LINGUISTIC_TERM");
+        }
+
+        return FuzzyResourceManager.getString(this,
+                "RULE_CONSEQUENT",
+                new Object[]{
+                    linguisticVariableNameText,
+                    linguisticTermNameText
+                });
     }
 }

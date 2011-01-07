@@ -32,6 +32,10 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
+import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class represents a fuzzy setDegreeOfMembership according to JavaBeans conventions.
@@ -47,7 +51,10 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
      * Default serial version UID.
      */
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Unique technical identifier. Only for persistence is used.
+     */
+    private int id;
     //
     // Bound property names
     //
@@ -83,6 +90,14 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
      */
     public FuzzySet(final MembershipFunction newMembershipFunction) {
         this.membershipFunction = newMembershipFunction;
+    }
+
+    /**
+     * Returns the technical identifier (e.g. within a database).
+     * @return the ID
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -261,8 +276,8 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
      */
     public final boolean isValidFuzzyLRNumber() {
         if (membershipFunction != null) {
-            boolean isValidFuzzyInterval = isValidFuzzyInterval();
-            if (isValidFuzzyInterval) {
+            boolean isValidFuzzyNumber = isValidFuzzyNumber();
+            if (isValidFuzzyNumber) {
                 // Creating a copy
                 MembershipFunction f = (MembershipFunction) membershipFunction.clone();
                 f.reduce();
@@ -387,10 +402,75 @@ public class FuzzySet implements Serializable, PropertyChangeListener {
 
                 } catch (PropertyVetoException ex) {
                     Logger.getLogger(FuzzyNumber.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (CloneNotSupportedException ex) {
-                    Logger.getLogger(FuzzyNumber.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+    }
+
+    @Override
+    public Object clone() {
+        return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        FuzzySet fs = (FuzzySet) obj;
+        return new EqualsBuilder().append(this.id, fs.id).append(this.membershipFunction, fs.membershipFunction).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(11, 21).append(this.id).append(this.membershipFunction).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return toString(true);
+    }
+
+    /**
+     * Returns a textual representation of the fuzzy set
+     *
+     * @param withMembershipFunction
+     *            <code>true</code> if all points of membership function are also returned,
+     *            <code>false</code> otherwise.
+     * @return a string representation of the fuzzy set
+     * @see MembershipFunction#toString
+     */
+    public String toString(final boolean withMembershipFunction) {
+        if (membershipFunction == null) {
+            return FuzzyResourceManager.getString(this,
+                    "FUZZY_SET_UNKNOWN_MEMBERSHIP_FUNCTION",
+                    new Object[]{
+                        id,
+                        membershipFunction
+                    });
+        }
+        if (withMembershipFunction) {
+            return FuzzyResourceManager.getString(this,
+                    "FUZZY_SET_WITH_MEMBERSHIP_FUNCTION",
+                    new Object[]{
+                        id,
+                        membershipFunction.toString()
+                    });
+        } else {
+            Defuzzificator def = new Defuzzificator(Defuzzificator.TYPE_CENTER_OF_AREA);
+            return FuzzyResourceManager.getString(this,
+                    "FUZZY_SET_WITHOUT_MEMBERSHIP_FUNCTION",
+                    new Object[]{
+                        id,
+                        Float.toString(def.defuzzify(this)),
+                        membershipFunction.toString()
+                    });
         }
     }
 }
