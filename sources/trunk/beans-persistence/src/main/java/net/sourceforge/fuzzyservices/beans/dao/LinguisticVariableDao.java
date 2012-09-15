@@ -52,8 +52,7 @@ public class LinguisticVariableDao extends AbstractDaoImpl<LinguisticVariable, I
     /**
      * Retrieves a linguistic variable associated with a specific name.
      * 
-     * @param name
-     *            Identifier that matches a specific row in the database to find and return.
+     * @param name Identifier that matches a specific row in the database to find and return.
      * @return The linguistic variable that has the name field which equals name or null if no matches.
      */
     public LinguisticVariable findByName(final String name) {

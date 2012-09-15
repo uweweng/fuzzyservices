@@ -49,6 +49,8 @@ public class FuzzyIntervalDaoTest {
         assertNotNull(id);
         FuzzyInterval result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new FuzzyIntervalDao();
         MembershipFunction membershipFunction = new MembershipFunction(-3.0f, -2.0f, 1.0f, 1.0f);
@@ -59,6 +61,8 @@ public class FuzzyIntervalDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -136,6 +140,8 @@ public class FuzzyIntervalDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -173,5 +179,7 @@ public class FuzzyIntervalDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }

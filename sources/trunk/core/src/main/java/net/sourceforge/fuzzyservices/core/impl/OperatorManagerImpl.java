@@ -63,7 +63,6 @@ public class OperatorManagerImpl implements OperatorManager {
      */
     private static Map<String, AbstractOperator> combineOperators = new HashMap<String, AbstractOperator>();
 
-
     static {
         initCombineOperators();
     }
@@ -74,7 +73,7 @@ public class OperatorManagerImpl implements OperatorManager {
      * Gets an instance of this operator manager.
      * @return an instance of this class
      */
-    public final static OperatorManager getInstance() {
+    public static OperatorManager getInstance() {
         if (instance == null) {
             instance = new OperatorManagerImpl();
         }
@@ -145,7 +144,7 @@ public class OperatorManagerImpl implements OperatorManager {
     }
 
     @Override
-    public Collection<AbstractOperator> getOperators() {
+    public synchronized Collection<AbstractOperator> getOperators() {
         int size = combineOperators.size();
 
         if (size > 0) {
@@ -156,7 +155,7 @@ public class OperatorManagerImpl implements OperatorManager {
     }
 
     @Override
-    public AbstractOperator getOperator(final String name) {
+    public synchronized AbstractOperator getOperator(final String name) {
         if (name != null) {
             return combineOperators.get(name);
         }
@@ -169,7 +168,7 @@ public class OperatorManagerImpl implements OperatorManager {
      * @param op the new fuzzy operator
      * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
-    public static void registerOperator(final AbstractOperator op) {
+    public static synchronized void registerOperator(final AbstractOperator op) {
         if (op != null) {
             combineOperators.put(op.getName(), op);
         }

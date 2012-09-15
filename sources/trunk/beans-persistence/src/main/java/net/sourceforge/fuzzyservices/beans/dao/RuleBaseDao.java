@@ -52,8 +52,7 @@ public class RuleBaseDao extends AbstractDaoImpl<RuleBase, Integer> {
     /**
      * Retrieves a rule base associated with a specific name.
      * 
-     * @param name
-     *            Identifier that matches a specific row in the database to find and return.
+     * @param name Identifier that matches a specific row in the database to find and return.
      * @return The rule base that has the name field which equals name or null if no matches.
      */
     public RuleBase findByName(final String name) {

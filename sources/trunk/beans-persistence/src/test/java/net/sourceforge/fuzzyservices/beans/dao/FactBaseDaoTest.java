@@ -49,6 +49,8 @@ public class FactBaseDaoTest {
         assertNotNull(id);
         FactBase result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
 
         instance = new FactBaseDao();
         expResult = new FactBase("foo1");
@@ -58,6 +60,8 @@ public class FactBaseDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getName());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
 
         instance = new FactBaseDao();
         expResult = new FactBase("foo2");
@@ -69,6 +73,8 @@ public class FactBaseDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getFacts());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
 
         instance = new FactBaseDao();
         expResult = new FactBase("foo3");
@@ -80,6 +86,8 @@ public class FactBaseDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
     }
 
     /**
@@ -262,6 +270,8 @@ public class FactBaseDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -279,11 +289,13 @@ public class FactBaseDaoTest {
         }
 
         instance = new FactBaseDao();
-        String name = "Foo";
+        String name = "testFindByName";
         expResult = new FactBase();
         expResult.setName(name);
         instance.create(expResult);
         FactBase result = instance.findByName(name);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }

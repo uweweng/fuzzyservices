@@ -49,6 +49,8 @@ public class FuzzyNumberDaoTest {
         assertNotNull(id);
         FuzzyNumber result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new FuzzyNumberDao();
         MembershipFunction membershipFunction = new MembershipFunction(-1.0f, 1.0f);
@@ -59,6 +61,8 @@ public class FuzzyNumberDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -136,6 +140,8 @@ public class FuzzyNumberDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -173,5 +179,7 @@ public class FuzzyNumberDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }

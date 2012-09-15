@@ -58,6 +58,8 @@ public class RuleBaseDaoTest {
         assertNotNull(id);
         RuleBase result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new RuleBaseDao();
         expResult = new RuleBase("foo1");
@@ -67,6 +69,8 @@ public class RuleBaseDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getName());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new RuleBaseDao();
         expResult = new RuleBase("foo2");
@@ -78,6 +82,8 @@ public class RuleBaseDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getRules());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new RuleBaseDao();
         expResult = new RuleBase("foo3");
@@ -89,6 +95,8 @@ public class RuleBaseDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -206,7 +214,7 @@ public class RuleBaseDaoTest {
         result = instance.findById(id);
         assertEquals(expResult, result);
         // (2) rules
-        expResult = new RuleBase();
+        expResult = new RuleBase("Foo");
         instance.create(expResult);
         id = expResult.getId();
         assertNotNull(id);
@@ -215,6 +223,8 @@ public class RuleBaseDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         // Complex object
         instance = new RuleBaseDao();
@@ -231,6 +241,8 @@ public class RuleBaseDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -268,6 +280,8 @@ public class RuleBaseDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -285,12 +299,14 @@ public class RuleBaseDaoTest {
         }
 
         instance = new RuleBaseDao();
-        String name = "Foo";
+        String name = "testFindByName";
         expResult = new RuleBase();
         expResult.setName(name);
         instance.create(expResult);
         RuleBase result = instance.findByName(name);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     private Rule getTestRuleWithDefaults() {

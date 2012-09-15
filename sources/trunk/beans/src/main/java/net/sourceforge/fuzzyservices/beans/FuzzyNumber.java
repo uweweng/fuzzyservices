@@ -105,7 +105,7 @@ public class FuzzyNumber implements Serializable, PropertyChangeListener, Vetoab
      * @see #getMembershipFunction()
      */
     public final void setMembershipFunction(final MembershipFunction newMembershipFunction) {
-        FuzzySet fs = new FuzzySet(membershipFunction);
+        FuzzySet fs = new FuzzySet(newMembershipFunction);
         if (!fs.isValidFuzzyNumber()) {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
         }

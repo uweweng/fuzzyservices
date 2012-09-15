@@ -74,9 +74,8 @@ public class FuzzyInterval implements Serializable, PropertyChangeListener, Veto
 
     /**
      * Default <code>FuzzyInterval</code> constructor. This constructor
-     * creates a valid default
-     * fuzzy interval with the coordinates (0.0, 0.0), (1.0, 1.0), (2.0, 1.0)
-     * and (3.0, 0.0).
+     * creates a valid default fuzzy interval with the coordinates 
+     * (0.0, 0.0), (1.0, 1.0), (2.0, 1.0) and (3.0, 0.0).
      */
     public FuzzyInterval() {
         // Create default fuzzy interval
@@ -106,7 +105,7 @@ public class FuzzyInterval implements Serializable, PropertyChangeListener, Veto
      * @see #getMembershipFunction()
      */
     public final void setMembershipFunction(final MembershipFunction newMembershipFunction) {
-        FuzzySet fs = new FuzzySet(membershipFunction);
+        FuzzySet fs = new FuzzySet(newMembershipFunction);
         if (!fs.isValidFuzzyInterval()) {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_INTERVAL"));

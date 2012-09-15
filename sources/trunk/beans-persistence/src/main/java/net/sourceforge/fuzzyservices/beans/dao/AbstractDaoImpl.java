@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -129,7 +130,7 @@ public class AbstractDaoImpl<T, ID extends Serializable> implements DaoI<T, ID> 
     }
 
     @Override
-    public void remove(T data) {
+    public void remove(T data) throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
@@ -145,10 +146,12 @@ public class AbstractDaoImpl<T, ID extends Serializable> implements DaoI<T, ID> 
     }
 
     @Override
-    public void removeById(final ID id) {
+    public void removeById(final ID id) throws EntityNotFoundException {
         T data = findById(id);
         if (data != null) {
             remove(data);
+        } else {
+            throw new EntityNotFoundException();
         }
     }
 

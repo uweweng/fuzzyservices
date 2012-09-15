@@ -144,10 +144,10 @@
             <id name="id">
                 <generated-value strategy="AUTO"/>
             </id>
-            <element-collection name="antecedents">
+            <element-collection name="antecedents" fetch="EAGER">
                 <embedded name="Antecedent"/>
             </element-collection>
-            <element-collection name="consequents">
+            <element-collection name="consequents" fetch="EAGER">
                 <embedded name="Consequent"/>
             </element-collection>
             <embedded name="aggregationOperator">
@@ -186,6 +186,7 @@
             </id>
             <basic name="name"/>
             <one-to-many name="rules">
+                <order-by></order-by>
                 <cascade>
                     <cascade-all></cascade-all>
                 </cascade>

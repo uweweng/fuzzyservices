@@ -50,11 +50,13 @@ public class LinguisticVariableDaoTest {
         }
 
         instance = new LinguisticVariableDao();
-        String name = "Foo";
+        String name = "testFindByName";
         expResult = new LinguisticVariable();
         expResult.setName(name);
         instance.create(expResult);
         LinguisticVariable result = instance.findByName(name);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }

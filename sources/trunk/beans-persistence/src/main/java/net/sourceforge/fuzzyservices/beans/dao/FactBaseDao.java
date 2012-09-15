@@ -52,8 +52,7 @@ public class FactBaseDao extends AbstractDaoImpl<FactBase, Integer> {
     /**
      * Retrieves a fact base associated with a specific name.
      * 
-     * @param name
-     *            Identifier that matches a specific row in the database to find and return.
+     * @param name Identifier that matches a specific row in the database to find and return.
      * @return The fact base that has the name field which equals name or null if no matches.
      */
     public FactBase findByName(final String name) {

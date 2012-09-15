@@ -60,7 +60,7 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
      * Gets an instance of this defuzzificator manager.
      * @return an instance of this class
      */
-    public final static DefuzzificatorManager getInstance() {
+    public static DefuzzificatorManager getInstance() {
         if (instance == null) {
             instance = new DefuzzificatorManagerImpl();
         }
@@ -86,7 +86,7 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
     }
 
     @Override
-    public Collection<AbstractDefuzzificator> getDefuzzificators() {
+    public synchronized Collection<AbstractDefuzzificator> getDefuzzificators() {
         int size = defuzzyOperators.size();
 
         if (size > 0) {
@@ -97,7 +97,7 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
     }
 
     @Override
-    public AbstractDefuzzificator getDefuzzificator(final String name) {
+    public synchronized AbstractDefuzzificator getDefuzzificator(final String name) {
         return defuzzyOperators.get(name);
     }
 
@@ -107,7 +107,7 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
      * @param defuzzy the new defuzzificator
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
+    public static synchronized void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
         if (defuzzy != null) {
             defuzzyOperators.put(defuzzy.getName(), defuzzy);
         }

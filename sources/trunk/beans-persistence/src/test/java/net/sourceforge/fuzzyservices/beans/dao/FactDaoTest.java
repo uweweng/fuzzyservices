@@ -50,6 +50,8 @@ public class FactDaoTest {
         assertNotNull(id);
         Fact result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
 
         instance = new FactDao();
         expResult = new Fact("foo1", null);
@@ -59,6 +61,8 @@ public class FactDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getLinguisticVariableName());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
 
         instance = new FactDao();
         expResult = new Fact("foo2", new FuzzySet());
@@ -68,6 +72,8 @@ public class FactDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getValue());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
 
         instance = new FactDao();
         MembershipFunction membershipFunction = new MembershipFunction(1.0f, 1.0f);
@@ -78,6 +84,8 @@ public class FactDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(id);
         /*
         instance = new FactDao();
         System.out.println(value.getId());
@@ -198,6 +206,9 @@ public class FactDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
+        // Cleaning
+        instance.removeById(expResult.getId());
+        
         // (2) value
         expResult = new Fact();
         instance.create(expResult);
@@ -207,6 +218,8 @@ public class FactDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         // Complex object
         instance = new FactDao();
@@ -221,7 +234,9 @@ public class FactDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
-    }
+        // Cleaning
+        instance.removeById(expResult.getId());
+}
 
     /**
      * Test of size method, of class FactDao.
@@ -258,5 +273,7 @@ public class FactDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }

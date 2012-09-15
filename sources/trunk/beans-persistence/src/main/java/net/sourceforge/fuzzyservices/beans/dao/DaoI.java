@@ -40,8 +40,7 @@ public interface DaoI<T, ID extends Serializable> extends Serializable {
     /**
      * Retrieves an object associated with a specific ID.
      * 
-     * @param id
-     *            Identifier that matches a specific row in the database to find and return.
+     * @param id Identifier that matches a specific row in the database to find and return.
      * @return The object that has the ID field which equals id or null if no matches.
      */
     public T findById(final ID id);
@@ -62,38 +61,36 @@ public interface DaoI<T, ID extends Serializable> extends Serializable {
     public long size();
 
     /**
-     * Create a new row in the database from an object.
+     * Creates a new row in the database from an object.
      * 
-     * @param data
-     *            The data item that we are creating in the database.
+     * @param data The data item that we are creating in the database.
      * @throws EntityExistsException if the entity already exists.
      */
     public void create(T data) throws EntityExistsException;
 
     /**
-     * Save the fields from an object to the database. If you have made changes to an object, this is how you persist
+     * Saves the fields from an object to the database. If you have made changes to an object, this is how you persist
      * those changes to the database. You cannot use this method to update the id field.
      * 
-     * @param data
-     *            The data item that we are updating in the database.
+     * @param data The data item that we are updating in the database.
      * @return the updated and attached entity
      * @throws EntityNotFoundException if the entity no longer exists in database.
      */
     public T update(T data) throws EntityNotFoundException;
 
     /**
-     * Delete an object from the database.
+     * Deletes an object from the database.
      * 
-     * @param data
-     *            The data item that we are deleting from the database.
+     * @param data The data item that we are deleting from the database.
+     * @throws EntityNotFoundException if the entity no longer exists in database.
      */
-    public void remove(T data);
+    public void remove(T data) throws EntityNotFoundException;
 
     /**
-     * Delete an identified object from the database.
+     * Deletes an identified object from the database.
      * 
-     * @param id
-     *            The identifier of the deleting data item.
+     * @param id The identifier of the deleting data item.
+     * @throws EntityNotFoundException if the entity no longer exists in database.
      */
-    public void removeById(final ID id);
+    public void removeById(final ID id) throws EntityNotFoundException;
 }

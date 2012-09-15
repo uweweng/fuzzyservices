@@ -50,6 +50,8 @@ public class FuzzySetDaoTest {
         FuzzySet result = instance.findById(id);
         assertNull(result.getMembershipFunction());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new FuzzySetDao();
         MembershipFunction membershipFunction = new MembershipFunction();
@@ -60,6 +62,8 @@ public class FuzzySetDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getMembershipFunction());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new FuzzySetDao();
         membershipFunction = new MembershipFunction(1.0f, 1.0f);
@@ -70,6 +74,8 @@ public class FuzzySetDaoTest {
         result = instance.findById(id);
         assertNotNull(result.getMembershipFunction());
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -164,6 +170,8 @@ public class FuzzySetDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         // Complex object
         instance = new FuzzySetDao();
@@ -183,6 +191,8 @@ public class FuzzySetDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(result, expResult);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -220,5 +230,7 @@ public class FuzzySetDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }

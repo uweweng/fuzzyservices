@@ -109,7 +109,7 @@ public class FuzzyLRNumber implements Serializable, PropertyChangeListener, Veto
      * @see #getMembershipFunction()
      */
     public final void setMembershipFunction(final MembershipFunction newMembershipFunction) {
-        FuzzySet fs = new FuzzySet(membershipFunction);
+        FuzzySet fs = new FuzzySet(newMembershipFunction);
         if (!fs.isValidFuzzyLRNumber()) {
             throw new IllegalArgumentException(FuzzyResourceManager.getString(
                     this, "EXCEPTION_INVALID_FUZZY_LR_NUMBER"));

@@ -57,9 +57,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.9</version>
+            <version>5.1.15</version>
+            <scope>provided</scope>
         </dependency>
-
 <!-- Embedded Derby DB for testing
 <dependency>
     <groupId>org.hibernate</groupId>
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>1.8.0.7</version>
+            <version>1.8.0.10</version>
             <scope>test</scope>
         </dependency>
 	

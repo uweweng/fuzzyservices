@@ -49,6 +49,8 @@ public class MembershipFunctionDaoTest {
         assertNotNull(id);
         MembershipFunction result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new MembershipFunctionDao();
         MembershipFunctionPoint[] points = new MembershipFunctionPoint[0];
@@ -58,6 +60,8 @@ public class MembershipFunctionDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         instance = new MembershipFunctionDao();
         points = new MembershipFunctionPoint[1];
@@ -68,6 +72,8 @@ public class MembershipFunctionDaoTest {
         assertNotNull(id);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -165,6 +171,8 @@ public class MembershipFunctionDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
 
         // Complex object
         instance = new MembershipFunctionDao();
@@ -182,6 +190,8 @@ public class MembershipFunctionDaoTest {
         expResult = instance.update(expResult);
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 
     /**
@@ -219,5 +229,7 @@ public class MembershipFunctionDaoTest {
         int id = expResult.getId();
         result = instance.findById(id);
         assertEquals(expResult, result);
+        // Cleaning
+        instance.removeById(expResult.getId());
     }
 }
