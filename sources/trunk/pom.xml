@@ -61,12 +61,18 @@
             <url>upload.sourceforge.net/incoming</url>
         </repository>
 	-->
+	<!--
         <site>
             <id>sourceforge.net</id>
-<!--            <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url> -->
-            <url>scp://shell.sourceforge.net/home/project-web/fuzzyservices/htdoc</url>
+            <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url>
         </site>
-    </distributionManagement>
+	-->
+
+        <site>
+            <id>fuzzyservices.sf.net</id>
+            <url>scp://shell.sourceforge.net/home/project-web/fuzzyservices/htdocs</url>
+        </site>
+	</distributionManagement>
 
     <mailingLists>
         <mailingList>
@@ -377,7 +383,7 @@
 				</reportPlugins>
 			  </configuration>
 			</plugin>			
-			
+<!--			
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -390,7 +396,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
+-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

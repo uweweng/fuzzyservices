@@ -41,7 +41,7 @@ import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
  *
  * @see FuzzySet
  * @see FuzzyNumber
- * @see FuzzyManager
+ * @see net.sourceforge.fuzzyservices.utils.FuzzyManager
  *
  * @since 1.0
  * @author Uwe Weng

@@ -40,7 +40,7 @@ import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
  * For calculation the pointed membership function is iterated in a certain increment
  * defined in fuzzy manager of this system.
  *
- * @see FuzzyManager
+ * @see net.sourceforge.fuzzyservices.utils.FuzzyManager
  * @see MembershipFunctionPoint
  * @see FuzzySet
  * @see FuzzyNumber

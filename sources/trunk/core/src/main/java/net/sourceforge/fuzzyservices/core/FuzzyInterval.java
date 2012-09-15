@@ -37,7 +37,7 @@ import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
  * Advanced operations means a separated examination of both edges.
  *
  * @see FuzzySet
- * @see FuzzyManager
+ * @see net.sourceforge.fuzzyservices.utils.FuzzyManager
  *
  * @since 1.0
  * @author Uwe Weng
