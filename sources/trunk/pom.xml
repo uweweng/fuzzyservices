@@ -55,13 +55,16 @@
     </issueManagement>
 
     <distributionManagement>
+	<!--
         <repository>
             <id>ftp-sourceforge.net</id>
             <url>upload.sourceforge.net/incoming</url>
         </repository>
+	-->
         <site>
             <id>sourceforge.net</id>
-            <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url>
+<!--            <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url> -->
+            <url>scp://shell.sourceforge.net/home/project-web/fuzzyservices/htdoc</url>
         </site>
     </distributionManagement>
 
@@ -101,7 +104,6 @@
         <module>spring</module>
         <module>osgi</module>
 <!--        <module>rest</module> -->
-    <module>rest</module>
   </modules>
 
     <reporting>
@@ -110,7 +112,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5.1</version>
                 <configuration>
                     <instrumentation>
                         <excludes>
@@ -123,13 +125,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changelog-plugin</artifactId>
-                <version>LATEST</version>
+                <version>2.2</version>
             </plugin>			
 			
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>LATEST</version>
+                <version>2.7.1</version>
                 <inherited>false</inherited>
                 <reportSets>
                     <reportSet>
@@ -146,14 +148,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>LATEST</version>
+                <version>2.5</version>
                 <configuration/>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>LATEST</version>
+                <version>2.8.1</version>
                 <configuration>
                     <aggregate>false</aggregate>
                     <stylesheet>java</stylesheet>
@@ -171,13 +173,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>LATEST</version>
+                <version>2.12.2</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.9.1</version>
                 <configuration>
                     <configLocation>fuzzyservices/checkstyle.xml</configLocation>
                     <headerLocation>fuzzyservices/LICENSE.txt</headerLocation>
@@ -208,12 +210,38 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>LATEST</version>
+                <version>2.3</version>
                 <configuration>
                     <linkJavadoc>true</linkJavadoc>
                     <aggregate>false</aggregate>
                 </configuration>
             </plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<tagListOptions>
+						<tagClasses>
+							<tagClass>
+								<displayName>Todo Work</displayName>
+								<tags>
+									<tag>
+										<matchString>todo</matchString>
+										<matchType>ignoreCase</matchType>
+									</tag>
+									<tag>
+										<matchString>FIXME</matchString>
+										<matchType>exact</matchType>
+									</tag>
+								</tags>
+							</tagClass>
+						</tagClasses>
+					</tagListOptions>
+				</configuration>
+			</plugin>			
+			
 <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -229,36 +257,17 @@
                 </configuration>
             </plugin>
 -->
-<!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>changelog-maven-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <id>single-report</id>
-                        <configuration>
-                            <type>range</type>
-                            <range>30</range>
-                        </configuration>
-                        <reports>
-                            <report>changelog</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
--->
         </plugins>
     </reporting>
   
     <build>
 
- 
-        <plugins>
+         <plugins>
     
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.5.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -268,10 +277,111 @@
                 </configuration>
             </plugin>
 
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-site-plugin</artifactId>
+			  <version>3.1</version>
+			  <configuration>
+				<reportPlugins>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>2.5</version>
+					<reports>
+					  <report>index</report>
+					  <report>project-team</report>
+					  <report>license</report>
+					  <report>mailing-list</report>
+					  <report>dependencies</report>
+					  <report>dependency-convergence</report>
+					  <report>plugin-management</report>
+					  <report>cim</report>
+					  <report>issue-tracking</report>
+					  <report>scm</report>
+					  <report>summary</report>
+					</reports>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.12.2</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.8.1</version>
+				  </plugin>     
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.9.1</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jdepend-maven-plugin</artifactId>
+					<version>2.0-beta-2</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<instrumentation>
+							<excludes>
+								<exclude>net/sourceforge/fuzzyservices/**/*Test.class</exclude>
+							</excludes>
+						</instrumentation>
+					</configuration>
+				  </plugin>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>taglist-maven-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<tagListOptions>
+							<tagClasses>
+								<tagClass>
+									<displayName>Todo Work</displayName>
+									<tags>
+										<tag>
+											<matchString>todo</matchString>
+											<matchType>ignoreCase</matchType>
+										</tag>
+										<tag>
+											<matchString>FIXME</matchString>
+											<matchType>exact</matchType>
+										</tag>
+									</tags>
+								</tagClass>
+							</tagClasses>
+						</tagListOptions>
+					</configuration>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jxr-plugin</artifactId>
+					<version>2.3</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>2.5</version>
+					<configuration>
+					  <linkXref>true</linkXref>
+					  <minimumTokens>100</minimumTokens>
+					  <minimumPriority>3</minimumPriority>
+					  <!-- Change minimum priority to see more or less messages -->
+					  <targetJdk>1.6</targetJdk>
+					</configuration>
+				  </plugin>
+				</reportPlugins>
+			  </configuration>
+			</plugin>			
+			
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.9.1</version>
                 <dependencies>
                     <dependency>
                         <groupId>${project.groupId}</groupId>
@@ -284,7 +394,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.8</version>
+                <version>2.12.2</version>
                 <!--
                 <configuration>
                     <parallel>classes</parallel>
@@ -296,7 +406,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
+                <version>2.2</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -327,10 +437,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
-                <version>1.4</version>
+                <version>1.7</version>
                 <configuration>
-                    <username>uweng</username>
-                    <password>jobsuche</password>
+					<!-- <goals>install</goals> -->
                 </configuration>
             </plugin>
 <!--      
