@@ -70,13 +70,13 @@
 		<repository>
 			<id>sourceforge.net</id>
 			<name>SourceForge</name>
-			<url>sftp://user,ormlite@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/releases
+			<url>sftp://user,fuzzyservices@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/releases
 			</url>
 		</repository>
 		<snapshotRepository>
 			<id>sourceforge.net</id>
 			<name>SourceForge</name>
-			<url>sftp://user,ormlite@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/snapshots
+			<url>sftp://user,fuzzyservices@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/snapshots
 			</url>
 		</snapshotRepository>
 
@@ -298,7 +298,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.3.1</version>
 			</plugin>
 	  
 			<plugin>
