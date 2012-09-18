@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"> 
+
+<bean id="FuzzyController" class="net.sourceforge.fuzzyservices.core.impl.FuzzyControllerImpl"> 
+</bean> 
+
+<bean id="FuzzyCalculator" class="net.sourceforge.fuzzyservices.core.impl.FuzzyCalculatorImpl"> 
+</bean>
+
+<bean id="DefuzzificatorManager" class="net.sourceforge.fuzzyservices.core.impl.DefuzzificatorManagerImpl"> 
+</bean>
+
+<bean id="OperatorManager" class="net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl"> 
+</bean>
+
+</beans>
