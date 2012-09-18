@@ -14,7 +14,7 @@
     <groupId>net.sourceforge.fuzzyservices</groupId>
     <artifactId>fuzzyservices</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>Fuzzy Services on Sourceforge.net</name>
     <url>http://sourceforge.net/projects/fuzzyservices</url>
 
@@ -49,9 +49,9 @@
     </developers>
 
     <scm>
-        <connection>scm:svn:https://svn.code.sf.net/p/fuzzyservices/code/trunk</connection>
-        <developerConnection>scm:svn:https://svn.code.sf.net/p/fuzzyservices/code/trunk</developerConnection>
-        <url>http://svn.code.sf.net/p/fuzzyservices/code/trunk</url>
+        <connection>scm:svn:https://svn.code.sf.net/p/fuzzyservices/code/tags/fuzzyservices-1.0</connection>
+        <developerConnection>scm:svn:https://svn.code.sf.net/p/fuzzyservices/code/tags/fuzzyservices-1.0</developerConnection>
+        <url>http://svn.code.sf.net/p/fuzzyservices/code/tags/fuzzyservices-1.0</url>
     </scm>
 
     <inceptionYear>2007</inceptionYear>
@@ -174,7 +174,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>2.5</version>
-                <configuration/>
+                <configuration />
             </plugin>
 
             <plugin>

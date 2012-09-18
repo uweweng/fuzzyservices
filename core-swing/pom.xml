@@ -4,14 +4,14 @@
   <parent>
     <groupId>net.sourceforge.fuzzyservices</groupId>
     <artifactId>fuzzyservices</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sourceforge.fuzzyservices</groupId>
   <artifactId>fuzzyservices-swing-core</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Fuzzy Services Swing Models for Core Components</name>
   <url>http://sourceforge.net/projects/fuzzyservices</url>
   <dependencies>
