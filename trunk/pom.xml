@@ -85,12 +85,12 @@
 			<url>sftp://user,fuzzyservices@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/snapshots
 			</url>
 		</snapshotRepository>
-	-->
 
         <site>
             <id>fuzzyservices.sf.net</id>
             <url>scp://shell.sourceforge.net/home/project-web/fuzzyservices/htdocs</url>
         </site>
+	-->
 	</distributionManagement>
 
     <mailingLists>
