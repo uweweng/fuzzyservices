@@ -114,7 +114,7 @@
         <module>build-tools</module>
         <module>utils</module>
         <module>core</module>
-        <module>core-swing</module>
+        <module>swing-core</module>
         <module>beans</module>
         <module>beans-persistence</module>
         <module>ejb-fuzzycalculator</module>
