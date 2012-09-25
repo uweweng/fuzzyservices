@@ -51,28 +51,24 @@ public class Defuzzificator implements Serializable {
      * Constant that defines the center-of-area method as <code>type</code>.
      *
      * @see #setType
-     * @see net.sourceforge.fuzzyservices.core.defuzzification.CenterOfArea
      */
     public static final byte TYPE_CENTER_OF_AREA = 0;
     /**
      * Constant that defines the left-of-max method as <code>type</code>.
      *
      * @see #setType
-     * @see net.sourceforge.fuzzyservices.core.defuzzification.LeftOfMax
      */
     public static final byte TYPE_LEFT_OF_MAX = 1;
     /**
      * Constant that defines the mean-of-max method as <code>type</code>.
      *
      * @see #setType
-     * @see net.sourceforge.fuzzyservices.core.defuzzification.MeanOfMax
      */
     public static final byte TYPE_MEAN_OF_MAX = 2;
     /**
      * Constant that defines the right-of-max method as <code>type</code>.
      *
      * @see #setType
-     * @see net.sourceforge.fuzzyservices.core.defuzzification.RightOfMax
      */
     public static final byte TYPE_RIGHT_OF_MAX = 3;
     //

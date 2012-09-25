@@ -66,7 +66,7 @@ public class Operator implements Serializable {
     public static final String VALID_T_NORM_PROPERTY = "validTNorm";
     /**
      * The operator type is characterized by his name.
-     *  @see net.sourceforge.fuzzyservices.core.operator.OperatorManager#getOperator
+     * @see net.sourceforge.fuzzyservices.core.OperatorManager#getOperator
      */
     private String type = null;
     /**

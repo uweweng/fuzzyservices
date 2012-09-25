@@ -47,7 +47,7 @@ public interface DaoI<T, ID extends Serializable> extends Serializable {
 
     /**
      * Query for all of the items in the object table. For medium sized or large tables, this may load a lot of objects
-     * into memory so you should consider using the {@link #iterator} method instead.
+     * into memory.
      * 
      * @return A list of all of the objects in the table.
      */

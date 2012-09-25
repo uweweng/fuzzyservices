@@ -192,7 +192,7 @@ public class FuzzyNumber implements Serializable, PropertyChangeListener, Vetoab
      * function must be represented by two reference function L and R.
      * @return <code>true</code> if the fuzzy set would be a fuzzy LR number
      * <code>false</code>, otherwise
-     * @see #isValidFuzzyNumber
+     * @see FuzzySet#isValidFuzzyLRNumber() 
      */
     public final boolean isValidFuzzyLRNumber() {
         // Creating a copy
