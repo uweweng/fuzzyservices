@@ -13,7 +13,8 @@
 
 	mvn scm:checkin -Dmessage="" : Commits changed files to SVN Repository
 	mvn deploy -Dgpg.passphrase=mypassphrase : Deployment to snapshot repository of OSS Sonatype
-	mvn release:prepare : Prepares a new release (e.g. checkin changed sources)
+	mvn -B release:prepare : Prepares a new release (e.g. checkin changed sources end tagging)
+	mvn -B release:prepare -DdryRun=true : Simulate the preparation of a new release (without checkin changed sources and tagging)
 	mvn release:clean : Resets a prepared release
 	mvn release:perform -Darguments=-Dgpg.passphrase=mypassphrase : Generation of a new release. You have to close and release it with nexus goals
 	mvn nexus:staging-close nexus:staging-release : Promotes new release
@@ -105,16 +106,16 @@
         </site>
 	-->
 
-		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus Snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</snapshotRepository>
 		<repository>
 			<id>sonatype-nexus-staging</id>
 			<name>Nexus Release Repository</name>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
 
 
 	</distributionManagement>
@@ -600,8 +601,7 @@
 				<version>1.7</version>
 				<extensions>true</extensions>
 				<configuration>
-					<serverId>sonatype-nexus-staging</serverId>
-					<nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</nexusUrl>
+					<serverAuthId>sonatype-nexus-staging</serverAuthId>
 				</configuration>
 			</plugin>			
 <!--      
