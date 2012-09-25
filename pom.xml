@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<!--
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
-  
+-->  
+
+<!--
+	Important Maven Goals:
+
+	mvn scm:checkin -Dmessage="" : Commits changed files to SVN Repository
+	mvn deploy -Dgpg.passphrase=mypassphrase : Deployment to snapshot repository of OSS Sonatype
+	mvn release:prepare : Prepares a new release (e.g. checkin changed sources)
+	mvn release:clean : Resets a prepared release
+	mvn release:perform -Darguments=-Dgpg.passphrase=mypassphrase : Generation of a new release. You have to close and release it with nexus goals
+	mvn nexus:staging-close nexus:staging-release : Promotes new release
+
+
+-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>    
@@ -91,6 +104,19 @@
             <url>scp://shell.sourceforge.net/home/project-web/fuzzyservices/htdocs</url>
         </site>
 	-->
+
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+
+
 	</distributionManagement>
 
     <mailingLists>
@@ -288,7 +314,7 @@
     <build>
 
          <plugins>
-    
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -465,13 +491,45 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
+<!--
                         <phase>deploy</phase>
+-->
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>				
+			</plugin>     
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+                        <phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>				
+			</plugin>     
+			
 <!--	  
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -489,6 +547,29 @@
                 <version>2.5</version>
             </plugin>
 -->      
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
+									<message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums respectively.</message>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
@@ -512,6 +593,17 @@
 					</execution> 
 				</executions> 
 			</plugin>
+			
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-maven-plugin</artifactId>
+				<version>1.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>sonatype-nexus-staging</serverId>
+					<nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</nexusUrl>
+				</configuration>
+			</plugin>			
 <!--      
       <plugin>
         <groupId>maven-plugins</groupId>
