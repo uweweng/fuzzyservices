@@ -599,7 +599,6 @@
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-maven-plugin</artifactId>
 				<version>1.7</version>
-				<extensions>true</extensions>
 				<configuration>
 					<serverAuthId>sonatype-nexus-staging</serverAuthId>
 				</configuration>

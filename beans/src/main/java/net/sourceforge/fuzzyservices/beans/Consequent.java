@@ -67,10 +67,9 @@ public class Consequent implements Serializable {
     }
 
     /**
-     * Constructs an new antecedent with specified property values.
+     * Constructs an new consequent with specified property values.
      * @param newLinguisticVariableName The new value for the property <code>linguisticVariableName</code>.
      * @param newLinguisticTermName The new value for the property <code>linguisticTermName</code>.
-     * @param newCompatibilityOperator The new value for the property <code>compatibilityOperator</code>.
      */
     public Consequent(final String newLinguisticVariableName, final String newLinguisticTermName) {
         this.linguisticVariableName = newLinguisticVariableName;

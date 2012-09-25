@@ -107,7 +107,7 @@ public class Rule implements Cloneable, Serializable {
      *            the linguistic variable name of the antecedent
      * @param lingTermName
      *            the name of the linguistic term
-     * @see #if_(LinguisticVariable, String)
+     * @see #if_(String, String)
      */
     public final synchronized void addAntecedent(final String lvName, final String lingTermName) {
         Antecedent ante = new Antecedent(lvName, lingTermName);
@@ -130,7 +130,7 @@ public class Rule implements Cloneable, Serializable {
      *                if at least one parameter is <code>null</code>
      * @exception IllegalArgumentException
      *                if the fuzzy operator does not fulfill the t-norm
-     * @see #if_(LinguisticVariable, String)
+     * @see #if_(String, String)
      */
     public final synchronized void addAntecedent(final String lvName, final String lingTermName,
             final AbstractOperator compOp)

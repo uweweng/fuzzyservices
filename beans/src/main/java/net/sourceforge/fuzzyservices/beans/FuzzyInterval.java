@@ -193,7 +193,7 @@ public class FuzzyInterval implements Serializable, PropertyChangeListener, Veto
      * function must be represented by two reference function L and R.
      * @return <code>true</code> if the fuzzy interval would be a fuzzy LR
      * interval <code>false</code>, otherwise
-     * @see #isValidFuzzyInterval
+     * @see FuzzySet#isValidFuzzyLRInterval()
      */
     public final boolean isValidFuzzyLRInterval() {
         // Creating a copy
