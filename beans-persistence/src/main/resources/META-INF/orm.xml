@@ -186,7 +186,7 @@
             </id>
             <basic name="name"/>
             <one-to-many name="rules">
-                <order-by></order-by>
+                <order-by>id</order-by>
                 <cascade>
                     <cascade-all></cascade-all>
                 </cascade>
@@ -228,6 +228,7 @@
             </id>
             <basic name="name"/>
             <one-to-many name="facts">
+                <order-by>linguisticVariableName</order-by>
                 <cascade>
                     <cascade-persist></cascade-persist>
                 </cascade>

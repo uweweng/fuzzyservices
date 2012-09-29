@@ -172,7 +172,7 @@ public class LinguisticVariable implements Serializable {
         LinguisticTerm[] oldValue = getLinguisticTerms();
         vetoableChangeSupport.fireVetoableChange(LINGUISTIC_TERMS_PROPERTY,
                 oldValue, newLinguisticTerms);
-        this.linguisticTerms = Arrays.asList(newLinguisticTerms);
+        this.linguisticTerms = new ArrayList(Arrays.asList(newLinguisticTerms));
         propertyChangeSupport.firePropertyChange(LINGUISTIC_TERMS_PROPERTY,
                 oldValue, newLinguisticTerms);
     }

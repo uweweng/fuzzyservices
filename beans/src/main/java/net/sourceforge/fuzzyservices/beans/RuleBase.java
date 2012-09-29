@@ -186,7 +186,7 @@ public class RuleBase implements VetoableChangeListener, Serializable {
     public final void setRules(final Rule[] newRules) {
         Rule[] oldValue = getRules();
         if (newRules != null) {
-            this.rules = Arrays.asList(newRules);
+            this.rules = new ArrayList(Arrays.asList(newRules));
         } else {
             this.rules = new ArrayList<Rule>();
         }
