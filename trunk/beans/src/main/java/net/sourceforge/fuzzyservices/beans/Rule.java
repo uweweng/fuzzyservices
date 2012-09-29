@@ -237,7 +237,7 @@ public class Rule implements VetoableChangeListener, Serializable {
      */
     public void setAntecedents(final Antecedent[] newAntecedents) {
         Antecedent[] oldValue = getAntecedents();
-        this.antecedents = Arrays.asList(newAntecedents);
+        this.antecedents = new ArrayList(Arrays.asList(newAntecedents));
         propertyChangeSupport.firePropertyChange(ANTECEDENTS_PROPERTY,
                 oldValue, newAntecedents);
     }
@@ -305,7 +305,7 @@ public class Rule implements VetoableChangeListener, Serializable {
      */
     public void setConsequents(final Consequent[] newConsequents) {
         Consequent[] oldValue = getConsequents();
-        consequents = Arrays.asList(newConsequents);
+        consequents = new ArrayList(Arrays.asList(newConsequents));
         propertyChangeSupport.firePropertyChange(CONSEQUENTS_PROPERTY,
                 oldValue, newConsequents);
     }

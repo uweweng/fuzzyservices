@@ -196,7 +196,6 @@ public class RuleBaseDaoTest {
     /**
      * Test of update method, of class RuleBaseDao.
      */
-/**    TODO AssertEquals fails
     @Test
     public void testUpdate() throws PropertyVetoException {
         System.out.println("update");
@@ -245,7 +244,7 @@ public class RuleBaseDaoTest {
         // Cleaning
         instance.removeById(expResult.getId());
     }
-*/
+
     /**
      * Test of size method, of class RuleBaseDao.
      */

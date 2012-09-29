@@ -43,7 +43,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version 1.0
  * @author Uwe Weng
  */
-public class Fact implements Serializable {
+public class Fact implements Serializable, Cloneable {
 
     /**
      * Default serial version UID.

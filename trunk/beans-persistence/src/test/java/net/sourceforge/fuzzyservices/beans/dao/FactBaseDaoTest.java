@@ -26,6 +26,7 @@ package net.sourceforge.fuzzyservices.beans.dao;
 import java.beans.PropertyVetoException;
 import net.sourceforge.fuzzyservices.beans.Fact;
 import net.sourceforge.fuzzyservices.beans.FactBase;
+import net.sourceforge.fuzzyservices.beans.FuzzySet;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -211,8 +212,9 @@ public class FactBaseDaoTest {
         instance.create(expResult);
         id = expResult.getId();
         assertNotNull(id);
-        Fact[] facts = new Fact[1];
-        facts[0] = new Fact();
+        Fact[] facts = new Fact[2];
+        facts[0] = new Fact("A", new FuzzySet());
+        facts[1] = new Fact("B", new FuzzySet());
         expResult.setFacts(facts);
         expResult = instance.update(expResult);
         result = instance.findById(id);
@@ -221,8 +223,9 @@ public class FactBaseDaoTest {
         // Complex object
         instance = new FactBaseDao();
         expResult = new FactBase("Foo");
-        facts = new Fact[1];
-        facts[0] = new Fact();
+        facts = new Fact[2];
+        facts[0] = new Fact("B", new FuzzySet());
+        facts[1] = new Fact("A", new FuzzySet());
         expResult.setFacts(facts);
         instance.create(expResult);
         id = expResult.getId();

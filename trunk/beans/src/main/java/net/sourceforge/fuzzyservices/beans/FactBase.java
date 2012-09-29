@@ -48,7 +48,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version 1.0
  * @author Uwe Weng
  */
-public class FactBase implements VetoableChangeListener, Serializable {
+public class FactBase implements VetoableChangeListener, Serializable, Cloneable {
 
     /**
      * Default serial version UID.
@@ -179,8 +179,8 @@ public class FactBase implements VetoableChangeListener, Serializable {
         }
 
         if (newFacts != null) {
-            this.facts = Arrays.asList(newFacts);
-
+            this.facts = new ArrayList(Arrays.asList(newFacts));
+            
             // Add vetoable change listener
             for (Iterator<Fact> it = facts.iterator(); it.hasNext();) {
                 Fact fact = it.next();
