@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE ejb-jar PUBLIC '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN' 'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
+<ejb-jar>
+    <display-name>Fuzzy Services Controller EJB</display-name>
+    <enterprise-beans>
+        <session>
+            <display-name>Fuzzy Controller</display-name>
+            <ejb-name>FuzzyServicesControllerEJB</ejb-name>
+            <home>net.sourceforge.fuzzyservices.ejb.FuzzyControllerHome</home>
+            <remote>net.sourceforge.fuzzyservices.ejb.FuzzyController</remote>
+            <ejb-class>net.sourceforge.fuzzyservices.ejb.FuzzyControllerBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+    </enterprise-beans>
+    <assembly-descriptor>
+        <container-transaction>
+            <method>
+                <ejb-name>FuzzyServicesControllerEJB</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>NotSupported</trans-attribute>
+        </container-transaction>
+    </assembly-descriptor>
+</ejb-jar>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>net.sourceforge.fuzzyservices</groupId>
+		<artifactId>fuzzyservices</artifactId>
+		<version>1.1</version>
+	</parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.fuzzyservices</groupId>
+  <artifactId>fuzzyservices-ejb-fuzzycalculator</artifactId>
+  <packaging>ejb</packaging>
+  <version>1.1</version>
+  <name>Fuzzy Services EJB Fuzzy Calculator</name>
+  <url>http://sourceforge.net/projects/fuzzyservices</url>
+  <build>
+    <defaultGoal>package</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <ejbVersion>2.1</ejbVersion> 
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>fuzzyservices-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>fuzzyservices-beans</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+	<dependency>
+	  <groupId>javax</groupId>
+	  <artifactId>javaee-api</artifactId>
+	  <version>6.0</version>
+	  <scope>provided</scope>
+    </dependency>
+	
+  </dependencies>
+
+</project>

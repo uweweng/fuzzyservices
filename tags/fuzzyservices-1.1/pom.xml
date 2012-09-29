@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<!--
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+-->  
+
+<!--
+	Important Maven Goals:
+
+	mvn scm:checkin -Dmessage="" : Commits changed files to SVN Repository
+	mvn deploy -Dgpg.passphrase=mypassphrase : Deployment to snapshot repository of OSS Sonatype
+	mvn -B release:prepare : Prepares a new release (e.g. checkin changed sources end tagging)
+	mvn -B release:prepare -DdryRun=true : Simulate the preparation of a new release (without checkin changed sources and tagging)
+	mvn release:clean : Resets a prepared release
+	mvn release:perform -Darguments=-Dgpg.passphrase=mypassphrase : Generation of a new release. You have to close and release it with nexus goals
+	mvn nexus:staging-close nexus:staging-release : Promotes new release
+
+
+-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sourceforge.fuzzyservices</groupId>
+    <artifactId>fuzzyservices</artifactId>
+    <packaging>pom</packaging>
+    <version>1.1</version>
+    <name>Fuzzy Services on Sourceforge.net</name>
+    <url>http://sourceforge.net/projects/fuzzyservices</url>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE</name>
+            <url>http://www.gnu.org/licenses/gpl.txt</url>
+            <distribution>repo</distribution>
+            <comments>Version 2, June 1991</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Fuzzy Services</name>
+        <url>http://sourceforge.net/projects/fuzzyservices</url>
+    </organization>
+  
+    <developers>
+        <developer>
+            <id>uweng</id>
+            <name>Uwe</name>
+            <email>uweng@users.sourceforge.net</email>
+            <url>http://sourceforge.net/users/uweng/</url>
+            <organization>Fuzzy Services</organization>
+            <organizationUrl>http://sourceforge.net/projects/fuzzyservices</organizationUrl>
+            <roles>
+                <role>developer</role>
+                <role>project leader</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:svn:https://svn.code.sf.net/p/fuzzyservices/code/tags/fuzzyservices-1.1</connection>
+        <developerConnection>scm:svn:https://svn.code.sf.net/p/fuzzyservices/code/tags/fuzzyservices-1.1</developerConnection>
+        <url>http://svn.code.sf.net/p/fuzzyservices/code/tags/fuzzyservices-1.1</url>
+    </scm>
+
+    <inceptionYear>2007</inceptionYear>
+
+    <issueManagement>
+        <system>sourceforge</system>
+        <url>http://sourceforge.net/tracker/?group_id=186696</url>
+    </issueManagement>
+
+    <distributionManagement>
+	<!--
+        <repository>
+            <id>ftp-sourceforge.net</id>
+            <url>upload.sourceforge.net/incoming</url>
+        </repository>
+	-->
+	<!--
+        <site>
+            <id>sourceforge.net</id>
+            <url>scp://shell.sourceforge.net/home/groups/f/fu/fuzzyservices/htdocs</url>
+        </site>
+		<repository>
+			<id>sourceforge.net</id>
+			<name>SourceForge</name>
+			<url>sftp://user,fuzzyservices@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/releases
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>sourceforge.net</id>
+			<name>SourceForge</name>
+			<url>sftp://user,fuzzyservices@frs.sourceforge.net:/home/frs/project/f/fu/fuzzyservices/snapshots
+			</url>
+		</snapshotRepository>
+
+        <site>
+            <id>fuzzyservices.sf.net</id>
+            <url>scp://shell.sourceforge.net/home/project-web/fuzzyservices/htdocs</url>
+        </site>
+	-->
+
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+
+
+	</distributionManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Fuzzyservices Development Mailing list</name>
+            <subscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-development</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-development</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=fuzzyservices-development</archive>
+            <post>fuzzyservices-development@lists.sourceforge.net</post>
+        </mailingList>
+        <mailingList>
+            <name>Fuzzyservices User Mailing list</name>
+            <subscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-users</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/fuzzyservices-users</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=fuzzyservices-users</archive>
+            <post>fuzzyservices-users@lists.sourceforge.net</post>
+        </mailingList>
+    </mailingLists>
+
+    <modules>
+        <module>build-tools</module>
+        <module>utils</module>
+        <module>core</module>
+        <module>swing-core</module>
+        <module>beans</module>
+        <module>beans-persistence</module>
+        <module>ejb-fuzzycalculator</module>
+        <module>ejb-fuzzycontroller</module>
+        <module>ejb3-fuzzycalculator</module>
+        <module>ejb3-fuzzycalculator-client</module>
+        <module>ejb3-fuzzycontroller</module>
+        <module>ejb3-fuzzycontroller-client</module>
+        <module>ear</module>
+        <module>webservice</module>
+        <module>swing</module>
+        <module>spring</module>
+        <module>osgi</module>
+<!--        <module>rest</module> -->
+  </modules>
+
+    <reporting>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>net/sourceforge/fuzzyservices/**/*Test.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>			
+			
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <version>2.7.1</version>
+                <inherited>false</inherited>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+                <configuration>
+                    <issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.5</version>
+                <configuration />
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <aggregate>false</aggregate>
+                    <stylesheet>java</stylesheet>
+                    <footer>${project.url}</footer>
+                    <header>${project.name} ${project.version}</header>
+                    <keywords>true</keywords>
+                    <show>private</show>
+                    <source>1.6</source>
+          <!--
+          <linksource>true</linksource>
+          -->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.12.2</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <configLocation>fuzzyservices/checkstyle.xml</configLocation>
+                    <headerLocation>fuzzyservices/LICENSE.txt</headerLocation>
+                    <enableRulesSummary>false</enableRulesSummary>
+                </configuration>
+            </plugin>
+<!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+				<version>2.5</version>
+                <configuration>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.6</targetJdk>
+                    <linkXref>true</linkXref>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>pmd</report>
+                            <report>cpd</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+-->			
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <linkJavadoc>true</linkJavadoc>
+                    <aggregate>false</aggregate>
+                </configuration>
+            </plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<tagListOptions>
+						<tagClasses>
+							<tagClass>
+								<displayName>Todo Work</displayName>
+								<tags>
+									<tag>
+										<matchString>todo</matchString>
+										<matchType>ignoreCase</matchType>
+									</tag>
+									<tag>
+										<matchString>FIXME</matchString>
+										<matchType>exact</matchType>
+									</tag>
+								</tags>
+							</tagClass>
+						</tagClasses>
+					</tagListOptions>
+				</configuration>
+			</plugin>			
+			
+<!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+-->
+<!--      
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+            </plugin>
+-->
+        </plugins>
+    </reporting>
+  
+    <build>
+
+         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <optimize>false</optimize>
+                </configuration>
+            </plugin>
+			
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-8</version>
+				<configuration>
+					<mavenExecutorId>forked-path</mavenExecutorId>
+				</configuration> 				
+			</plugin>
+	  
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-site-plugin</artifactId>
+			  <version>3.1</version>
+			  <configuration>
+				<reportPlugins>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>2.5</version>
+					<reports>
+					  <report>index</report>
+					  <report>project-team</report>
+					  <report>license</report>
+					  <report>mailing-list</report>
+					  <report>dependencies</report>
+					  <report>dependency-convergence</report>
+					  <report>plugin-management</report>
+					  <report>cim</report>
+					  <report>issue-tracking</report>
+					  <report>scm</report>
+					  <report>summary</report>
+					</reports>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.12.2</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.8.1</version>
+					<configuration>
+						<aggregate>false</aggregate>
+						<stylesheet>java</stylesheet>
+						<footer>${project.url}</footer>
+						<header>${project.name} ${project.version}</header>
+						<keywords>true</keywords>
+						<show>private</show>
+						<source>1.6</source>
+						<!--
+						<linksource>true</linksource>
+						-->
+					</configuration>
+				  </plugin>     
+<!--				  
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.9.1</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jdepend-maven-plugin</artifactId>
+					<version>2.0-beta-2</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<instrumentation>
+							<excludes>
+								<exclude>net/sourceforge/fuzzyservices/**/*Test.class</exclude>
+							</excludes>
+						</instrumentation>
+					</configuration>
+				  </plugin>
+				  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>taglist-maven-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<tagListOptions>
+							<tagClasses>
+								<tagClass>
+									<displayName>Todo Work</displayName>
+									<tags>
+										<tag>
+											<matchString>todo</matchString>
+											<matchType>ignoreCase</matchType>
+										</tag>
+										<tag>
+											<matchString>FIXME</matchString>
+											<matchType>exact</matchType>
+										</tag>
+									</tags>
+								</tagClass>
+							</tagClasses>
+						</tagListOptions>
+					</configuration>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jxr-plugin</artifactId>
+					<version>2.3</version>
+				  </plugin>
+				  <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>2.5</version>
+					<configuration>
+					  <linkXref>true</linkXref>
+					  <minimumTokens>100</minimumTokens>
+					  <minimumPriority>3</minimumPriority>
+					  <targetJdk>1.6</targetJdk>
+					</configuration>
+				  </plugin>
+-->				  
+				</reportPlugins>
+			  </configuration>
+			</plugin>			
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.9.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>build-tools</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.2</version>
+                <!--
+                <configuration>
+                    <parallel>classes</parallel>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
+                </configuration>
+                -->
+            </plugin>
+    
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+<!--
+                        <phase>deploy</phase>
+-->
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>				
+			</plugin>     
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+                        <phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>				
+			</plugin>     
+			
+<!--	  
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jalopy-maven-plugin</artifactId>
+                <version>1.0-alpha-1</version>
+                <configuration>
+                    <convention>build-tools/src/main/resources/fuzzyservices/jalopy.xml</convention>
+                    <failOnError>true</failOnError>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+-->      
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
+									<message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums respectively.</message>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.7</version>
+                <configuration>
+					<goals>install</goals>
+                </configuration>
+            </plugin>
+
+			<plugin> 
+				<!-- explicitly define maven-deploy-plugin after other to force exec order -->
+				<artifactId>maven-deploy-plugin</artifactId> 
+                <version>2.7</version>
+				<executions> 
+					<execution> 
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals> 
+					</execution> 
+				</executions> 
+			</plugin>
+			
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-maven-plugin</artifactId>
+				<version>1.7</version>
+				<configuration>
+					<serverAuthId>sonatype-nexus-staging</serverAuthId>
+				</configuration>
+			</plugin>			
+<!--      
+      <plugin>
+        <groupId>maven-plugins</groupId>
+        <artifactId>maven-sourceforge-plugin</artifactId>
+        <version>1.3</version>
+      </plugin>
+-->      
+        </plugins>
+
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <type>jar</type>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+  
+</project>
