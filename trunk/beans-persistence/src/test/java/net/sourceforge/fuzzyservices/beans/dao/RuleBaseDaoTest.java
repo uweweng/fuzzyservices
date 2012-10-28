@@ -23,20 +23,22 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.core.operator.EinsteinProduct;
-import net.sourceforge.fuzzyservices.beans.Antecedent;
-import net.sourceforge.fuzzyservices.core.operator.HamacherProduct;
-import net.sourceforge.fuzzyservices.core.operator.HamacherIntersection;
-import net.sourceforge.fuzzyservices.core.operator.DrasticProduct;
-import net.sourceforge.fuzzyservices.beans.OperatorUtils;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
+import net.sourceforge.fuzzyservices.beans.Antecedent;
 import net.sourceforge.fuzzyservices.beans.Consequent;
+import net.sourceforge.fuzzyservices.beans.OperatorUtils;
 import net.sourceforge.fuzzyservices.beans.Rule;
 import net.sourceforge.fuzzyservices.beans.RuleBase;
 import net.sourceforge.fuzzyservices.core.operator.BoundedDifference;
+import net.sourceforge.fuzzyservices.core.operator.DrasticProduct;
 import net.sourceforge.fuzzyservices.core.operator.DrasticSum;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.core.operator.EinsteinProduct;
+import net.sourceforge.fuzzyservices.core.operator.HamacherIntersection;
+import net.sourceforge.fuzzyservices.core.operator.HamacherProduct;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class RuleBaseDao.
@@ -252,10 +254,10 @@ public class RuleBaseDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         RuleBaseDao instance = new RuleBaseDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         RuleBase RuleBase = new RuleBase();
         instance.create(RuleBase);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(RuleBase);
@@ -263,6 +265,70 @@ public class RuleBaseDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class RuleBaseDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        RuleBaseDao instance = new RuleBaseDao();
+        int expResult = instance.size();
+        List<RuleBase> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new RuleBaseDao();
+        RuleBase ruleBase = new RuleBase();
+        instance.create(ruleBase);
+        result = instance.findAll();
+        assertTrue(result.contains(ruleBase));
+        // Cleaning
+        instance.removeById(ruleBase.getId());
+    }
+
+    /**
+     * Test of iterate method, of class RuleBaseDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        RuleBaseDao instance = new RuleBaseDao();
+
+        int size = instance.size();
+        Iterable<RuleBase> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new RuleBaseDao();
+        RuleBase ruleBase = new RuleBase();
+        instance.create(ruleBase);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(ruleBase, result.iterator().next());
+        // Cleaning
+        instance.removeById(ruleBase.getId());
+
+        // Checking order
+        instance = new RuleBaseDao();
+        RuleBase ruleBase1 = new RuleBase();
+        RuleBase ruleBase2 = new RuleBase();
+        instance.create(ruleBase1);
+        instance.create(ruleBase2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(ruleBase1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(ruleBase2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<RuleBase> it = result.iterator();
+        assertEquals(ruleBase1, it.next());
+        assertEquals(ruleBase2, it.next());
+        // Cleaning
+        instance.removeById(ruleBase1.getId());
+        instance.removeById(ruleBase2.getId());
+    }
+    
     /**
      * Test of findById method, of class RuleBaseDao.
      */

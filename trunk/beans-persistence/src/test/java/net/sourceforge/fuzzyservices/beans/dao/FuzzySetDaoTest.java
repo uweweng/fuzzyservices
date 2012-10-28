@@ -23,11 +23,13 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
 import net.sourceforge.fuzzyservices.beans.FuzzySet;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class FuzzySetDao.
@@ -202,10 +204,10 @@ public class FuzzySetDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         FuzzySetDao instance = new FuzzySetDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         FuzzySet FuzzySet = new FuzzySet();
         instance.create(FuzzySet);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(FuzzySet);
@@ -213,6 +215,70 @@ public class FuzzySetDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class FuzzySetDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        FuzzySetDao instance = new FuzzySetDao();
+        int expResult = instance.size();
+        List<FuzzySet> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new FuzzySetDao();
+        FuzzySet fuzzySet = new FuzzySet();
+        instance.create(fuzzySet);
+        result = instance.findAll();
+        assertTrue(result.contains(fuzzySet));
+        // Cleaning
+        instance.removeById(fuzzySet.getId());
+    }
+
+    /**
+     * Test of iterate method, of class FuzzySetDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        FuzzySetDao instance = new FuzzySetDao();
+
+        int size = instance.size();
+        Iterable<FuzzySet> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new FuzzySetDao();
+        FuzzySet fuzzySet = new FuzzySet();
+        instance.create(fuzzySet);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzySet, result.iterator().next());
+        // Cleaning
+        instance.removeById(fuzzySet.getId());
+
+        // Checking order
+        instance = new FuzzySetDao();
+        FuzzySet fuzzySet1 = new FuzzySet();
+        FuzzySet fuzzySet2 = new FuzzySet();
+        instance.create(fuzzySet1);
+        instance.create(fuzzySet2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(fuzzySet1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzySet2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<FuzzySet> it = result.iterator();
+        assertEquals(fuzzySet1, it.next());
+        assertEquals(fuzzySet2, it.next());
+        // Cleaning
+        instance.removeById(fuzzySet1.getId());
+        instance.removeById(fuzzySet2.getId());
+    }
+    
     /**
      * Test of findById method, of class FuzzySetDao.
      */

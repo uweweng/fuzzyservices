@@ -25,8 +25,8 @@ package net.sourceforge.fuzzyservices.beans.dao;
 
 import java.beans.PropertyVetoException;
 import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class LinguisticVariableDao.

@@ -23,11 +23,13 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
 import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class FuzzyNumberDao.
@@ -151,10 +153,10 @@ public class FuzzyNumberDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         FuzzyNumberDao instance = new FuzzyNumberDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         FuzzyNumber FuzzyNumber = new FuzzyNumber();
         instance.create(FuzzyNumber);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(FuzzyNumber);
@@ -162,6 +164,70 @@ public class FuzzyNumberDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class FuzzyNumberDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        FuzzyNumberDao instance = new FuzzyNumberDao();
+        int expResult = instance.size();
+        List<FuzzyNumber> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new FuzzyNumberDao();
+        FuzzyNumber fuzzyNumber = new FuzzyNumber();
+        instance.create(fuzzyNumber);
+        result = instance.findAll();
+        assertTrue(result.contains(fuzzyNumber));
+        // Cleaning
+        instance.removeById(fuzzyNumber.getId());
+    }
+
+    /**
+     * Test of iterate method, of class FuzzyNumberDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        FuzzyNumberDao instance = new FuzzyNumberDao();
+
+        int size = instance.size();
+        Iterable<FuzzyNumber> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new FuzzyNumberDao();
+        FuzzyNumber fuzzyNumber = new FuzzyNumber();
+        instance.create(fuzzyNumber);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzyNumber, result.iterator().next());
+        // Cleaning
+        instance.removeById(fuzzyNumber.getId());
+
+        // Checking order
+        instance = new FuzzyNumberDao();
+        FuzzyNumber fuzzyNumber1 = new FuzzyNumber();
+        FuzzyNumber fuzzyNumber2 = new FuzzyNumber();
+        instance.create(fuzzyNumber1);
+        instance.create(fuzzyNumber2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(fuzzyNumber1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzyNumber2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<FuzzyNumber> it = result.iterator();
+        assertEquals(fuzzyNumber1, it.next());
+        assertEquals(fuzzyNumber2, it.next());
+        // Cleaning
+        instance.removeById(fuzzyNumber1.getId());
+        instance.removeById(fuzzyNumber2.getId());
+    }
+    
     /**
      * Test of findById method, of class FuzzyNumberDao.
      */

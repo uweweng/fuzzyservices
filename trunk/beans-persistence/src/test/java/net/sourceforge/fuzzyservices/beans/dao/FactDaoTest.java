@@ -23,12 +23,14 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
 import net.sourceforge.fuzzyservices.beans.Fact;
 import net.sourceforge.fuzzyservices.beans.FuzzySet;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class FactDao.
@@ -245,10 +247,10 @@ public class FactDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         FactDao instance = new FactDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         Fact fact = new Fact();
         instance.create(fact);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(fact);
@@ -256,6 +258,70 @@ public class FactDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class FactDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        FactDao instance = new FactDao();
+        int expResult = instance.size();
+        List<Fact> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new FactDao();
+        Fact fact = new Fact();
+        instance.create(fact);
+        result = instance.findAll();
+        assertTrue(result.contains(fact));
+        // Cleaning
+        instance.removeById(fact.getId());
+    }
+
+    /**
+     * Test of iterate method, of class FactDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        FactDao instance = new FactDao();
+
+        int size = instance.size();
+        Iterable<Fact> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new FactDao();
+        Fact fact = new Fact();
+        instance.create(fact);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fact, result.iterator().next());
+        // Cleaning
+        instance.removeById(fact.getId());
+
+        // Checking order
+        instance = new FactDao();
+        Fact fact1 = new Fact();
+        Fact fact2 = new Fact();
+        instance.create(fact1);
+        instance.create(fact2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(fact1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fact2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<Fact> it = result.iterator();
+        assertEquals(fact1, it.next());
+        assertEquals(fact2, it.next());
+        // Cleaning
+        instance.removeById(fact1.getId());
+        instance.removeById(fact2.getId());
+    }
+    
     /**
      * Test of findById method, of class FactDao.
      */
