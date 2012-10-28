@@ -23,11 +23,13 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
 import net.sourceforge.fuzzyservices.beans.FuzzyLRInterval;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class FuzzyLRIntervalDao.
@@ -151,10 +153,10 @@ public class FuzzyLRIntervalDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         FuzzyLRIntervalDao instance = new FuzzyLRIntervalDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         FuzzyLRInterval FuzzyLRInterval = new FuzzyLRInterval();
         instance.create(FuzzyLRInterval);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(FuzzyLRInterval);
@@ -162,6 +164,70 @@ public class FuzzyLRIntervalDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class FuzzyLRIntervalDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        FuzzyLRIntervalDao instance = new FuzzyLRIntervalDao();
+        int expResult = instance.size();
+        List<FuzzyLRInterval> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new FuzzyLRIntervalDao();
+        FuzzyLRInterval fuzzyLRInterval = new FuzzyLRInterval();
+        instance.create(fuzzyLRInterval);
+        result = instance.findAll();
+        assertTrue(result.contains(fuzzyLRInterval));
+        // Cleaning
+        instance.removeById(fuzzyLRInterval.getId());
+    }
+
+    /**
+     * Test of iterate method, of class FuzzyLRIntervalDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        FuzzyLRIntervalDao instance = new FuzzyLRIntervalDao();
+
+        int size = instance.size();
+        Iterable<FuzzyLRInterval> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new FuzzyLRIntervalDao();
+        FuzzyLRInterval fuzzyLRInterval = new FuzzyLRInterval();
+        instance.create(fuzzyLRInterval);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzyLRInterval, result.iterator().next());
+        // Cleaning
+        instance.removeById(fuzzyLRInterval.getId());
+
+        // Checking order
+        instance = new FuzzyLRIntervalDao();
+        FuzzyLRInterval fuzzyLRInterval1 = new FuzzyLRInterval();
+        FuzzyLRInterval fuzzyLRInterval2 = new FuzzyLRInterval();
+        instance.create(fuzzyLRInterval1);
+        instance.create(fuzzyLRInterval2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(fuzzyLRInterval1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzyLRInterval2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<FuzzyLRInterval> it = result.iterator();
+        assertEquals(fuzzyLRInterval1, it.next());
+        assertEquals(fuzzyLRInterval2, it.next());
+        // Cleaning
+        instance.removeById(fuzzyLRInterval1.getId());
+        instance.removeById(fuzzyLRInterval2.getId());
+    }
+    
     /**
      * Test of findById method, of class FuzzyLRIntervalDao.
      */

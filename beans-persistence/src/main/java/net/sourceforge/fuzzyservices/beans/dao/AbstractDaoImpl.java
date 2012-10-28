@@ -31,6 +31,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * Abstract class implementing the interface <code>DaoI<code/>.
@@ -156,17 +157,30 @@ public class AbstractDaoImpl<T, ID extends Serializable> implements DaoI<T, ID> 
     }
 
     @Override
-    public long size() {
+    public int size() {
         EntityManager em = emf.createEntityManager();
         try {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(dataClass)));
-            return em.createQuery(criteriaQuery).getSingleResult();
+            return em.createQuery(criteriaQuery).getSingleResult().intValue();
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             em.close();
         }
     }
+
+    @Override
+    public Iterable<T> iterate(int offset, int max) {
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        cq.select(cq.from(dataClass));
+        Root<T> c = cq.from(dataClass);
+        cq.select(c);
+        cq.orderBy(cb.asc(c.get("id")));
+        return em.createQuery(cq).setFirstResult(offset).setMaxResults(max).getResultList();
+    }
 }
+

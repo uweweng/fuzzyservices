@@ -23,11 +23,13 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
 import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class FuzzyLRNumberDao.
@@ -151,10 +153,10 @@ public class FuzzyLRNumberDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         FuzzyLRNumberDao instance = new FuzzyLRNumberDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         FuzzyLRNumber FuzzyLRNumber = new FuzzyLRNumber();
         instance.create(FuzzyLRNumber);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(FuzzyLRNumber);
@@ -162,6 +164,70 @@ public class FuzzyLRNumberDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class FuzzyLRNumberDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        FuzzyLRNumberDao instance = new FuzzyLRNumberDao();
+        int expResult = instance.size();
+        List<FuzzyLRNumber> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new FuzzyLRNumberDao();
+        FuzzyLRNumber fuzzyLRNumber = new FuzzyLRNumber();
+        instance.create(fuzzyLRNumber);
+        result = instance.findAll();
+        assertTrue(result.contains(fuzzyLRNumber));
+        // Cleaning
+        instance.removeById(fuzzyLRNumber.getId());
+    }
+
+    /**
+     * Test of iterate method, of class FuzzyLRNumberDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        FuzzyLRNumberDao instance = new FuzzyLRNumberDao();
+
+        int size = instance.size();
+        Iterable<FuzzyLRNumber> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new FuzzyLRNumberDao();
+        FuzzyLRNumber fuzzyLRNumber = new FuzzyLRNumber();
+        instance.create(fuzzyLRNumber);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzyLRNumber, result.iterator().next());
+        // Cleaning
+        instance.removeById(fuzzyLRNumber.getId());
+
+        // Checking order
+        instance = new FuzzyLRNumberDao();
+        FuzzyLRNumber fuzzyLRNumber1 = new FuzzyLRNumber();
+        FuzzyLRNumber fuzzyLRNumber2 = new FuzzyLRNumber();
+        instance.create(fuzzyLRNumber1);
+        instance.create(fuzzyLRNumber2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(fuzzyLRNumber1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(fuzzyLRNumber2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<FuzzyLRNumber> it = result.iterator();
+        assertEquals(fuzzyLRNumber1, it.next());
+        assertEquals(fuzzyLRNumber2, it.next());
+        // Cleaning
+        instance.removeById(fuzzyLRNumber1.getId());
+        instance.removeById(fuzzyLRNumber2.getId());
+    }
+    
     /**
      * Test of findById method, of class FuzzyLRNumberDao.
      */

@@ -23,11 +23,13 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans.dao;
 
-import net.sourceforge.fuzzyservices.beans.MembershipFunctionPoint;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
+import java.util.List;
 import net.sourceforge.fuzzyservices.beans.MembershipFunction;
-import org.junit.Test;
+import net.sourceforge.fuzzyservices.beans.MembershipFunctionPoint;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Test of class MembershipFunctionDao.
@@ -201,10 +203,10 @@ public class MembershipFunctionDaoTest {
     public void testSize() throws PropertyVetoException {
         System.out.println("size");
         MembershipFunctionDao instance = new MembershipFunctionDao();
-        long expResult = instance.size() + 1;
+        int expResult = instance.size() + 1;
         MembershipFunction MembershipFunction = new MembershipFunction();
         instance.create(MembershipFunction);
-        long result = instance.size();
+        int result = instance.size();
         assertEquals(expResult, result);
         expResult = expResult - 1;
         instance.remove(MembershipFunction);
@@ -212,6 +214,70 @@ public class MembershipFunctionDaoTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of findAll method, of class MembershipFunctionDao.
+     */
+    @Test
+    public void testFindAll() throws PropertyVetoException {
+        System.out.println("findAll");
+        MembershipFunctionDao instance = new MembershipFunctionDao();
+        int expResult = instance.size();
+        List<MembershipFunction> result = instance.findAll();
+        assertEquals(expResult, result.size());
+
+        instance = new MembershipFunctionDao();
+        MembershipFunction membershipFunction = new MembershipFunction();
+        instance.create(membershipFunction);
+        result = instance.findAll();
+        assertTrue(result.contains(membershipFunction));
+        // Cleaning
+        instance.removeById(membershipFunction.getId());
+    }
+
+    /**
+     * Test of iterate method, of class MembershipFunctionDao.
+     */
+    @Test
+    public void testIterate() throws PropertyVetoException {
+        System.out.println("iterate");
+        MembershipFunctionDao instance = new MembershipFunctionDao();
+
+        int size = instance.size();
+        Iterable<MembershipFunction> result = instance.iterate(size, 0);
+        assertFalse(result.iterator().hasNext());
+        
+        result = instance.iterate(size, 1);
+        assertFalse(result.iterator().hasNext());
+
+        instance = new MembershipFunctionDao();
+        MembershipFunction membershipFunction = new MembershipFunction();
+        instance.create(membershipFunction);
+        size = instance.size();
+        result = instance.iterate(size - 1, 1);
+        assertEquals(membershipFunction, result.iterator().next());
+        // Cleaning
+        instance.removeById(membershipFunction.getId());
+
+        // Checking order
+        instance = new MembershipFunctionDao();
+        MembershipFunction membershipFunction1 = new MembershipFunction();
+        MembershipFunction membershipFunction2 = new MembershipFunction();
+        instance.create(membershipFunction1);
+        instance.create(membershipFunction2);
+        size = instance.size();
+        result = instance.iterate(size - 2, 1);
+        assertEquals(membershipFunction1, result.iterator().next());
+        result = instance.iterate(size - 1, 1);
+        assertEquals(membershipFunction2, result.iterator().next());
+        result = instance.iterate(size - 2, 2);
+        Iterator<MembershipFunction> it = result.iterator();
+        assertEquals(membershipFunction1, it.next());
+        assertEquals(membershipFunction2, it.next());
+        // Cleaning
+        instance.removeById(membershipFunction1.getId());
+        instance.removeById(membershipFunction2.getId());
+    }
+    
     /**
      * Test of findById method, of class MembershipFunctionDao.
      */

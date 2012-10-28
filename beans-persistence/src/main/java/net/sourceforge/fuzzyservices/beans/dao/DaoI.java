@@ -50,15 +50,25 @@ public interface DaoI<T, ID extends Serializable> extends Serializable {
      * into memory.
      * 
      * @return A list of all of the objects in the table.
+     * @see #iterate(int, int)
      */
     public List<T> findAll();
+
+    /**
+     * Gets an iterator with <code>max</code> objects from <code>offset</code>.
+     * 
+     * @param offset start position for reading objects from database ordered by id.
+     * @param max maximum count of objects.
+     * @return An iterator with limited count of objects.
+     */
+    public Iterable<T> iterate(int offset, int max);
 
     /**
      * Counts the entities.
      * 
      * @return number of rows / entities in the table.
      */
-    public long size();
+    public int size();
 
     /**
      * Creates a new row in the database from an object.
