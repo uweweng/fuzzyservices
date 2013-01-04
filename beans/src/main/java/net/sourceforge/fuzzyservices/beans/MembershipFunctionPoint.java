@@ -52,6 +52,12 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
     private float degreeOfMembership = FuzzyManager.round(0);
 
     /**
+     * Constructor for initialisation.
+     */
+    private MembershipFunctionPoint() {
+    }
+
+    /**
      * Constructs a <code>MembershipFunctionPoint</code> which is
      * initialized with <code>x</code> as x value and
      * <code>0.0</code> as degree of membership of this x
@@ -60,12 +66,9 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      */
     @ConstructorProperties({"x"})
     public MembershipFunctionPoint(final float newX) {
-        if (newX == x) { // x is not Float.NaN
+        if (newX == newX) { // x is not Float.NaN
             // Reduce number of delimiters
             this.x = FuzzyManager.round(newX);
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_NOT_A_NUMBER"));
         }
     }
 
@@ -79,12 +82,9 @@ public class MembershipFunctionPoint implements Cloneable, Serializable {
      */
     @ConstructorProperties({"x"})
     public MembershipFunctionPoint(final float newX, final float newDegreeOfMembership) {
-        if (newX == x) { // x is not Float.NaN
+        if (newX == newX) { // x is not Float.NaN
             // Reduce number of delimiters
             this.x = FuzzyManager.round(newX);
-        } else {
-            throw new IllegalArgumentException(FuzzyResourceManager.getString(
-                    this, "EXCEPTION_NOT_A_NUMBER"));
         }
         setDegreeOfMembership(newDegreeOfMembership);
     }
