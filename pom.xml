@@ -13,8 +13,8 @@
 
 	mvn scm:checkin -Dmessage="" : Commits changed files to SVN Repository
 	mvn deploy -Dgpg.passphrase=mypassphrase : Deployment to snapshot repository of OSS Sonatype
-	mvn -B release:prepare : Prepares a new release (e.g. checkin changed sources end tagging)
-	mvn -B release:prepare -DdryRun=true : Simulate the preparation of a new release (without checkin changed sources and tagging)
+	mvn release:prepare -Darguments=-Dgpg.passphrase=mypassphrase : Prepares a new release (e.g. checkin changed sources end tagging)
+	mvn release:prepare -DdryRun=true -Darguments=-Dgpg.passphrase=mypassphrase : Simulate the preparation of a new release (without checkin changed sources and tagging)
 	mvn release:clean : Resets a prepared release
 	mvn release:perform -Darguments=-Dgpg.passphrase=mypassphrase : Generation of a new release. You have to close and release it with nexus goals
 	mvn nexus:staging-close nexus:staging-release : Promotes new release
@@ -30,6 +30,7 @@
     <packaging>pom</packaging>
     <version>1.2-SNAPSHOT</version>
     <name>Fuzzy Services on Sourceforge.net</name>
+	<description>Fuzzy services deliver APIs for representing and processing fuzzy information.</description>
     <url>http://sourceforge.net/projects/fuzzyservices</url>
 
     <licenses>
@@ -155,8 +156,9 @@
         <module>swing</module>
         <module>spring</module>
         <module>osgi</module>
-<!--        <module>rest</module> -->
-  </modules>
+        <module>rest</module>
+        <module>osgi-test</module>
+    </modules>
 
     <reporting>
         <plugins>
@@ -321,8 +323,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <optimize>false</optimize>
@@ -338,7 +340,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0-beta-8</version>
+				<version>2.2.1</version>
 				<configuration>
 					<mavenExecutorId>forked-path</mavenExecutorId>
 				</configuration> 				
