@@ -145,6 +145,25 @@ public class MembershipFunction implements Cloneable, Serializable {
     }
 
     /**
+     * Creates a membership function looks like a triangle.
+     * The degree of membership between <code>plateau1</code> and <code>plateau2</code> is 1.0.
+     * @param x the x value with degree of membership of 1.0
+     * @param alpha the distance to <code>x</code> on the left side and degree of membership 0.0
+     * @param beta the distance to <code>x</code> on the right side and degree of membership 0.0
+     * @exception IllegalArgumentException if <code>alpha</code> or <code>beta</code> is not positive
+     */
+    public MembershipFunction(final float x, final float alpha, final float beta) {
+        if ((alpha > 0.0f) && (beta > 0.0f)) {
+            points.add(new MembershipFunctionPoint((x - alpha), 0.0f));
+            points.add(new MembershipFunctionPoint(x, 1.0f));
+            points.add(new MembershipFunctionPoint((x + beta), 0.0f));
+        } else {
+            throw new IllegalArgumentException(FuzzyResourceManager.getString(
+                    this, "EXCEPTION_INVALID_FUZZY_NUMBER"));
+        }
+    }
+
+    /**
      * Returns the technical identifier (e.g. within a database).
      * @return the ID
      */
