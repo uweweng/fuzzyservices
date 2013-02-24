@@ -26,7 +26,6 @@ package net.sourceforge.fuzzyservices.beans;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
 import java.beans.PropertyVetoException;
 import java.io.Serializable;
 import java.util.Iterator;
