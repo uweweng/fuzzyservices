@@ -24,12 +24,13 @@
 package net.sourceforge.fuzzyservices.rest;
 
 import java.net.URI;
-import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import net.sourceforge.fuzzyservices.beans.FuzzySet;
@@ -61,39 +62,70 @@ public class FuzzySetResources {
      * The data access object (as data store)
      */
     private DaoI<FuzzySet, Integer> dao = new FuzzySetDao();
-
     /**
-     * Delegates request with sub-path "id" to sub-resource.
-     * 
-     * @param id the id of the requested sub-resource
-     * @return the requested sub-resource
+     * Returns the resource identified by <code>id</code>.
+     *
+     * @param id the identifier of the bean
+     * @return the status of the operation containing the resource with the bean
      */
+    @GET
     @Path("{id}")
-    public FuzzySetResource getFuzzySetResourceById(@PathParam("id") int id) {
+    public Response getById(@PathParam("id") int id) {
         FuzzySet bean = dao.findById(id);
-        return new FuzzySetResource(bean);
+        if (bean == null) {
+            return Response.status(404).build();
+        }
+        return Response.ok(new FuzzySetResource(bean)).build();
     }
 
     /**
      * Creates a new resource.
-     * 
+     *
      * @param newResource the new resource to be created
-     * @return the result of the operation as response object with the new 
+     * @return the result of the operation as response object with the new
      * resource as entity
      */
     @POST
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
-    public Response createFuzzySet(FuzzySetResource newResource) {
+    public Response create(FuzzySetResource newResource) {
         if ((newResource == null) || (newResource.getBean() == null)) {
             return Response.status(404).build();
         }
-        try {
-            dao.create(newResource.getBean());
-            URI FuzzySetUri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(newResource.getBean().getId())).build();
-            return Response.created(FuzzySetUri).build();
+        dao.create(newResource.getBean());
+        URI myResourceUri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(newResource.getBean().getId())).build();
+        return Response.created(myResourceUri).entity(newResource).build();
+    }
 
-        } catch (Exception e) {
-            return Response.status(400).build();
-        }
+    /**
+     * Updates an existing resource. Note that the ID in the bean passed as args
+     * must be the same as that which was passed as args in the URL.
+     *
+     * @param resource the resource to be updated
+     * @return the status of the operation.
+     */
+    @PUT
+    public Response put(FuzzySetResource resource) {
+        FuzzySetResource response = new FuzzySetResource(dao.update(resource.getBean()));
+        return Response.ok(response).build();
+    }
+
+    /**
+     * Removes the bean from the data store.
+     *
+     * @param id the identifier of the bean
+     */
+    @DELETE
+    @Path("{id}")
+    public void delete(@PathParam("id") int id) {
+        dao.removeById(id);
+    }
+
+    /**
+     * Removes the resource from the data store.
+     *
+     * @param resource the resource to be deleted
+     */
+    @DELETE
+    public void delete(FuzzySetResource resource) {
+        dao.removeById(resource.getBean().getId());
     }
 }
