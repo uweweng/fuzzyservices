@@ -79,7 +79,7 @@ public class MembershipFunction implements Cloneable, Serializable {
     /**
      * Set of points specifying the mathematical membership function.
      */
-    private List<MembershipFunctionPoint> points = new ArrayList<MembershipFunctionPoint>(FuzzyManager.getMaxNumStep());
+    private List<MembershipFunctionPoint> points = new ArrayList<>(FuzzyManager.getMaxNumStep());
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     /** Support for any VetoableChangeListeners which have been registered. */

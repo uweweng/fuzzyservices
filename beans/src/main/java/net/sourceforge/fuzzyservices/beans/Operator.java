@@ -23,18 +23,16 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans;
 
-import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
-
 import java.io.Serializable;
 import net.sourceforge.fuzzyservices.core.AbstractOperator;
-import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
 import net.sourceforge.fuzzyservices.core.impl.OperatorManagerImpl;
+import net.sourceforge.fuzzyservices.core.operator.AbstractParameteredOperator;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
