@@ -1,1 +1,0 @@
-{"requestUrl":"http://localhost:8080/net/sourceforge/fuzzyservices/myresources/12","requestMethod":"GET","requestBody":"","headers":["Authorization","Basic YWRtaW46YWRtaW5hZG1pbg=="]}

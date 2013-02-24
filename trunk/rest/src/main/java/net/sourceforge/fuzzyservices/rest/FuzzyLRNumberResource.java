@@ -23,18 +23,8 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.rest;
 
-import javax.persistence.EntityNotFoundException;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import net.sourceforge.fuzzyservices.beans.FuzzyLRNumber;
-import net.sourceforge.fuzzyservices.beans.dao.DaoI;
-import net.sourceforge.fuzzyservices.beans.dao.FuzzyLRNumberDao;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -59,11 +49,6 @@ public class FuzzyLRNumberResource {
      * The managed bean representing as resource
      */
     protected FuzzyLRNumber bean;
-    /**
-     * The Data Access Object
-     */
-    @XmlTransient
-    protected DaoI<FuzzyLRNumber, Integer> dao = new FuzzyLRNumberDao();
 
     /**
      * Default constructor
@@ -96,57 +81,6 @@ public class FuzzyLRNumberResource {
      */
     public void setBean(FuzzyLRNumber bean) {
         this.bean = bean;
-    }
-
-    /**
-     * Returns the resource identified by <code>id</code>.
-     * 
-     * @param id the identifier of the bean
-     * @return the status of the operation containing this resource with the bean
-     */
-    @GET
-    public Response get(@PathParam("id") int id) {
-        if (bean == null) {
-            return Response.status(404).build();
-        }
-        return Response.ok(this).build();
-    }
-
-    /**
-     * Updates an existing resource. Note that the ID in the bean passed
-     * as args must be the same as that which was passed as args in the URL.
-     *
-     * @param resource the resource to be updated
-     * @return the status of the operation.
-     */
-    @PUT
-    public Response put(FuzzyLRNumberResource resource) {
-        try {
-            this.bean = dao.update(resource.getBean());
-            return Response.ok(this).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(404).entity(e.getMessage()).type(MediaType.TEXT_PLAIN).build();
-        } catch (Exception e) {
-            return Response.status(400).entity(e.getMessage()).type(MediaType.TEXT_PLAIN).build();
-        }
-    }
-
-    /**
-     * Removes the bean from the data store.
-     * 
-     * @param id the identifier of the bean
-     * @return the status of the operation
-     */
-    @DELETE
-    public Response delete(@PathParam("id") int id) {
-        try {
-            dao.removeById(id);
-            return Response.ok().build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(404).entity(e.getMessage()).type(MediaType.TEXT_PLAIN).build();
-        } catch (Exception e) {
-            return Response.status(400).entity(e.getMessage()).type(MediaType.TEXT_PLAIN).build();
-        }
     }
 
     @Override
