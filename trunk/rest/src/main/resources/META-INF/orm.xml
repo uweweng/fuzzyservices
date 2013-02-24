@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings 
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+  version="2.0">
+    <package>net.sourceforge.fuzzyservices.beans</package>
+    <embeddable class="Operator">
+        <attributes>
+            <basic name="type"/>
+            <basic name="parameter"/>
+        </attributes>
+    </embeddable>
+    <embeddable class="MembershipFunctionPoint">
+        <attributes>
+            <basic name="x" optional="false"/>
+            <basic name="degreeOfMembership"/>
+        </attributes>
+    </embeddable>
+    <embeddable class="Antecedent">
+        <attributes>
+            <basic name="linguisticVariableName"/>
+            <basic name="linguisticTermName"/>
+            <embedded name="compatibilityOperator">
+                <attribute-override name="type">
+                    <column name="COMPATIBILITY_OP_TYPE"/>
+                </attribute-override>
+                <attribute-override name="parameter">
+                    <column name="COMPATIBILITY_OP_PARAMETER"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </embeddable>
+    <embeddable class="Consequent">
+        <attributes>
+            <basic name="linguisticVariableName"/>
+            <basic name="linguisticTermName"/>
+        </attributes>
+    </embeddable>
+    <entity class="MembershipFunction" name="MembershipFunction">
+        <table name="MEMBERSHIP_FUNCTION"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <element-collection name="points">
+                <embedded name="MembershipFunctionPoint"/>
+            </element-collection>
+        </attributes>
+    </entity>
+    <entity class="FuzzySet" name="FuzzySet">
+        <table name="FUZZY_SET"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <many-to-one name="membershipFunction">
+                <cascade>
+                    <cascade-all></cascade-all>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="FuzzyNumber" name="FuzzyNumbr">
+        <table name="FUZZY_NUMBER"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <many-to-one name="membershipFunction">
+                <cascade>
+                    <cascade-all></cascade-all>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="FuzzyInterval" name="FuzzyInterval">
+        <table name="FUZZY_INTERVAL"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <many-to-one name="membershipFunction">
+                <cascade>
+                    <cascade-all></cascade-all>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="FuzzyLRNumber" name="FuzzyLRNumber">
+        <table name="FUZZY_LR_NUMBER"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <many-to-one name="membershipFunction">
+                <cascade>
+                    <cascade-all></cascade-all>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="FuzzyLRInterval" name="FuzzyLRInterval">
+        <table name="FUZZY_LR_INTERVAL"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <many-to-one name="membershipFunction">
+                <cascade>
+                    <cascade-all></cascade-all>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="LinguisticTerm" name="LinguisticTerm">
+        <table name="LINGUISTIC_TERM"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <basic name="name"/>
+            <many-to-one name="fuzzySet"/>
+        </attributes>
+    </entity>
+    <entity class="LinguisticVariable" name="LinguisticVariable">
+        <table name="LINGUISTIC_VARIABLE"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <basic name="name"/>
+            <one-to-many name="linguisticTerms" fetch="EAGER"/>
+        </attributes>
+        <named-query name="findLinguisticVariableByName">
+            <query>
+                <![CDATA[select lv from LinguisticVariable lv where lv.name = :name]]>
+            </query>
+        </named-query>
+    </entity>
+    <entity class="Rule" name="Rule">
+        <table name="RULE"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <element-collection name="antecedents" fetch="EAGER">
+                <embedded name="Antecedent"/>
+            </element-collection>
+            <element-collection name="consequents" fetch="EAGER">
+                <embedded name="Consequent"/>
+            </element-collection>
+            <embedded name="aggregationOperator">
+                <attribute-override name="type">
+                    <column name="AGGREGATION_OP_TYPE"/>
+                </attribute-override>
+                <attribute-override name="parameter">
+                    <column name="AGGREGATION_OP_PARAMETER"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="certaintyOperator">
+                <attribute-override name="type">
+                    <column name="CERTAINTY_OP_TYPE"/>
+                </attribute-override>
+                <attribute-override name="parameter">
+                    <column name="CERTAINTY_OP_PARAMETER"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="inferenceOperator">
+                <attribute-override name="type">
+                    <column name="INFERENCE_OP_TYPE"/>
+                </attribute-override>
+                <attribute-override name="parameter">
+                    <column name="INFERENCE_OP_PARAMETER"/>
+                </attribute-override>
+            </embedded>
+            <basic name="certainty"/>
+        </attributes>
+    </entity>
+
+    <entity class="RuleBase" name="RuleBase">
+        <table name="RULE_BASE"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <basic name="name"/>
+            <one-to-many name="rules">
+                <order-by>id</order-by>
+                <cascade>
+                    <cascade-all></cascade-all>
+                </cascade>
+            </one-to-many>
+            <embedded name="accumulationOperator">
+                <attribute-override name="type">
+                    <column name="ACCUMULATION_OP_TYPE"/>
+                </attribute-override>
+                <attribute-override name="parameter">
+                    <column name="ACCUMULATION_OP_PARAMETER"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+        <named-query name="findRuleBaseByName">
+            <query>
+                <![CDATA[select rb from RuleBase rb where rb.name = :name]]>
+            </query>
+        </named-query>
+    </entity>
+    <entity class="Fact" name="Fact">
+        <table name="FACT"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <many-to-one name="value">
+                <cascade>
+                    <cascade-persist></cascade-persist>
+                </cascade>
+            </many-to-one>
+            <basic name="linguisticVariableName"/>
+        </attributes>
+    </entity>
+    <entity class="FactBase" name="FactBase">
+        <table name="FACT_BASE"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="AUTO"/>
+            </id>
+            <basic name="name"/>
+            <one-to-many name="facts">
+                <order-by>linguisticVariableName</order-by>
+                <cascade>
+                    <cascade-persist></cascade-persist>
+                </cascade>
+            </one-to-many>
+        </attributes>
+        <named-query name="findFactBaseByName">
+            <query>
+                <![CDATA[select fb from FactBase fb where fb.name = :name]]>
+            </query>
+        </named-query>
+    </entity>
+</entity-mappings>
