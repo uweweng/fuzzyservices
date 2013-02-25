@@ -120,7 +120,11 @@
                 <generated-value strategy="AUTO"/>
             </id>
             <basic name="name"/>
-            <many-to-one name="fuzzySet"/>
+            <many-to-one name="fuzzySet">
+                <cascade>
+                    <cascade-persist></cascade-persist>
+                </cascade>
+            </many-to-one>
         </attributes>
     </entity>
     <entity class="LinguisticVariable" name="LinguisticVariable">
@@ -130,7 +134,11 @@
                 <generated-value strategy="AUTO"/>
             </id>
             <basic name="name"/>
-            <one-to-many name="linguisticTerms" fetch="EAGER"/>
+            <one-to-many name="linguisticTerms" fetch="EAGER">
+                <cascade>
+                    <cascade-persist></cascade-persist>
+                </cascade>
+            </one-to-many> 
         </attributes>
         <named-query name="findLinguisticVariableByName">
             <query>

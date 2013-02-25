@@ -24,7 +24,10 @@
 package net.sourceforge.fuzzyservices.beans.dao;
 
 import java.beans.PropertyVetoException;
+import net.sourceforge.fuzzyservices.beans.FuzzySet;
+import net.sourceforge.fuzzyservices.beans.LinguisticTerm;
 import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
+import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -53,6 +56,8 @@ public class LinguisticVariableDaoTest {
         String name = "testFindByName";
         expResult = new LinguisticVariable();
         expResult.setName(name);
+        LinguisticTerm linguisticTerm = new LinguisticTerm("a", new FuzzySet(new MembershipFunction(1.0f, 1.0f)));
+        expResult.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
         instance.create(expResult);
         LinguisticVariable result = instance.findByName(name);
         assertEquals(expResult, result);
