@@ -50,7 +50,7 @@ public class FuzzyIntervalResourcesTest extends JerseyTest {
      * @return a new resource for testing
      */
     private WebResource getTestResource() {
-        return resource().path("fuzzyintervals");
+        return resource().path("fuzzy_intervals");
     }
 
     /**

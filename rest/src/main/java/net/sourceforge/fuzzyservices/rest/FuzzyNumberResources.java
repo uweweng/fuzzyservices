@@ -39,17 +39,17 @@ import net.sourceforge.fuzzyservices.beans.dao.FuzzyNumberDao;
 
 /**
  * This class represents fuzzy number beans as resources hosted at the URI path 
- * "/fuzzynumbers". For instance,
+ * "/fuzzy_numbers". For instance,
  * 
- * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzynumbers/4711
- * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzynumbers/4711 -H ’Accept: text/plain’
+ * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_numbers/4711
+ * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_numbers/4711 -H ’Accept: text/plain’
  *
  * @see FuzzyNumberResource
  * 
  * @version 1.0
  * @author Uwe Weng
  */
-@Path("/fuzzynumbers")
+@Path("/fuzzy_numbers")
 public class FuzzyNumberResources {
 
     /**

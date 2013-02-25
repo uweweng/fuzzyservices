@@ -39,17 +39,17 @@ import net.sourceforge.fuzzyservices.beans.dao.FuzzySetDao;
 
 /**
  * This class represents fuzzy set beans as resources hosted at the URI path 
- * "/fuzzysets". For instance,
+ * "/fuzzy_sets". For instance,
  * 
- * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzysets/4711
- * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzysets/4711 -H ’Accept: text/plain’
+ * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_sets/4711
+ * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_sets/4711 -H ’Accept: text/plain’
  *
  * @see FuzzySetResource
  * 
  * @version 1.0
  * @author Uwe Weng
  */
-@Path("/fuzzysets")
+@Path("/fuzzy_sets")
 public class FuzzySetResources {
 
     /**

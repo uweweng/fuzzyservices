@@ -32,8 +32,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * This class represents a fuzzy set bean as resource hosted at the URI path 
  * "/id". JAXB is used for serialisation.
  * 
- * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzysets
- * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzysets -H ’Accept: text/plain’
+ * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_sets
+ * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_sets -H ’Accept: text/plain’
  *
  * @version 1.0
  * @author Uwe Weng

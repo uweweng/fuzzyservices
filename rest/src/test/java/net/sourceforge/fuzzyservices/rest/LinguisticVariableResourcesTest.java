@@ -27,20 +27,23 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.test.framework.JerseyTest;
+import java.beans.PropertyVetoException;
 import java.net.URI;
 import net.sourceforge.fuzzyservices.beans.FuzzySet;
+import net.sourceforge.fuzzyservices.beans.LinguisticTerm;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
 import net.sourceforge.fuzzyservices.beans.MembershipFunction;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Test of class FuzzySetResources.
+ * Test of class LinguisticVariableResources.
  *
  * @author Uwe Weng
  */
-public class FuzzySetResourcesTest extends JerseyTest {
+public class LinguisticVariableResourcesTest extends JerseyTest {
 
-    public FuzzySetResourcesTest() throws Exception {
+    public LinguisticVariableResourcesTest() throws Exception {
         super("net.sourceforge.fuzzyservices.rest");
     }
 
@@ -50,34 +53,39 @@ public class FuzzySetResourcesTest extends JerseyTest {
      * @return a new resource for testing
      */
     private WebResource getTestResource() {
-        return resource().path("fuzzy_sets");
+        return resource().path("linguistic_variables");
     }
 
     /**
-     * Test of getById method, of class FuzzySetResources.
+     * Test of getById method, of class LinguisticVariableResources.
      */
     @Test
-    public void testGetById() {
+    public void testGetById() throws PropertyVetoException {
         System.out.println("getById");
         // Simple test with undefined id
         WebResource instance = getTestResource();
         ClientResponse response1 = instance.path("-1").get(ClientResponse.class);
         assertEquals(404, response1.getStatus());
 
-        // Test without membership function
+        // Test without linguistic term
         instance = getTestResource();
-        FuzzySetResource result = null;
+        LinguisticVariableResource result = null;
+        String linguisticVariableName = null;
+        String linguisticTermName = null;
         MembershipFunction membershipFunction = null;
-        FuzzySetResource expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        FuzzySet fuzzySet = null;
+        LinguisticTerm linguisticTerm = null;
+        LinguisticVariable linguisticVariable = new LinguisticVariable();
+        LinguisticVariableResource expResult = new LinguisticVariableResource(linguisticVariable);
         ClientResponse response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         URI location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         int id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
             assertEquals(result.getBean(), expResult.getBean());
         } catch (UniformInterfaceException e) {
             fail();
@@ -86,20 +94,27 @@ public class FuzzySetResourcesTest extends JerseyTest {
         instance = getTestResource();
         instance.uri(location).delete();
 
-        // Test with membership function
+        // Test with linguistic term
         instance = getTestResource();
         result = null;
+        linguisticVariableName = "foo";
+        linguisticTermName = "a";
         membershipFunction = new MembershipFunction(1.0f, 2.0f, 3.0f);
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm = new LinguisticTerm(linguisticTermName, fuzzySet);
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        linguisticVariable.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
             assertEquals(result.getBean(), expResult.getBean());
         } catch (UniformInterfaceException e) {
             fail();
@@ -110,75 +125,91 @@ public class FuzzySetResourcesTest extends JerseyTest {
     }
 
     /**
-     * Test of create method, of class FuzzySetResources.
+     * Test of create method, of class LinguisticVariableResources.
      */
     @Test
-    public void testCreate() {
+    public void testCreate() throws PropertyVetoException {
         System.out.println("create");
-        // Simple test without a membership function
+        // Simple test without a value
         WebResource instance = getTestResource();
-        FuzzySetResource result = null;
+        LinguisticVariableResource result = null;
+        String linguisticVariableName = null;
+        String linguisticTermName = null;
         MembershipFunction membershipFunction = null;
-        FuzzySetResource expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        FuzzySet fuzzySet = null;
+        LinguisticTerm linguisticTerm = null;
+        LinguisticVariable linguisticVariable = new LinguisticVariable();
+        LinguisticVariableResource expResult = new LinguisticVariableResource(linguisticVariable);
         ClientResponse response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         URI location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         int id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
         } catch (UniformInterfaceException e) {
             fail();
         }
-        assertNull(result.getBean().getMembershipFunction());
         assertEquals(expResult, result);
         // Cleaning
         instance = getTestResource();
         instance.uri(location).delete();
 
-        // Complex test with a membership function
+        // Complex test with a value
         instance = getTestResource();
         result = null;
-        membershipFunction = new MembershipFunction();
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        linguisticVariableName = "foo";
+        linguisticTermName = "a";
+        membershipFunction = null;
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm = new LinguisticTerm(linguisticTermName, fuzzySet);
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        linguisticVariable.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
         } catch (UniformInterfaceException e) {
             fail();
         }
-        assertNotNull(result.getBean().getMembershipFunction());
         assertEquals(expResult, result);
         // Cleaning
         instance = getTestResource();
         instance.uri(location).delete();
 
-        // Complex test with a defined membership function
+        // Complex test with a defined linguistic term
         instance = getTestResource();
         result = null;
-        membershipFunction = new MembershipFunction(1.0f, 1.0f);
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        linguisticVariableName = "foo2";
+        linguisticTermName = "x";
+        membershipFunction = new MembershipFunction(1.0f, 2.0f, 3.0f);
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm = new LinguisticTerm(linguisticTermName, fuzzySet);
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        linguisticVariable.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
         } catch (UniformInterfaceException e) {
             fail();
         }
-        assertNotNull(result.getBean().getMembershipFunction());
         assertEquals(expResult, result);
         // Cleaning
         instance = getTestResource();
@@ -187,8 +218,14 @@ public class FuzzySetResourcesTest extends JerseyTest {
         // Creating the same resource twice makes two different resources
         instance = getTestResource();
         result = null;
+        linguisticVariableName = "foo3";
+        linguisticTermName = null;
         membershipFunction = null;
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        fuzzySet = null;
+        linguisticTerm = null;
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         URI location1 = response.getLocation();
@@ -204,46 +241,53 @@ public class FuzzySetResourcesTest extends JerseyTest {
     }
 
     /**
-     * Test of put method, of class FuzzySetResources.
+     * Test of put method, of class LinguisticVariableResources.
      */
     @Test
-    public void testPut() {
+    public void testPut() throws PropertyVetoException {
         System.out.println("put");
         WebResource instance = getTestResource();
-        FuzzySetResource expResult = new FuzzySetResource(new FuzzySet(null));
+        String linguisticVariableName = null;
+        String linguisticTermName = null;
+        MembershipFunction membershipFunction = null;
+        FuzzySet fuzzySet = null;
+        LinguisticTerm linguisticTerm = null;
+        LinguisticVariable linguisticVariable = new LinguisticVariable();
+        LinguisticVariableResource expResult = new LinguisticVariableResource(linguisticVariable);
         // Creating the resource
         ClientResponse response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         URI location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         int id = expResult.getBean().getId();
         assertNotNull(id);
-        FuzzySetResource result = null;
+        LinguisticVariableResource result = null;
 
         // Update without changes
         instance = getTestResource();
         response = instance.entity(expResult).put(ClientResponse.class);
         assertEquals(200, response.getStatus());
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
 
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
             assertEquals(result, expResult);
         } catch (UniformInterfaceException e) {
             fail();
         }
         // Update values
-        // (1) new membership function
-        expResult.getBean().setMembershipFunction(new MembershipFunction());
+        // (1) new name
+        linguisticVariableName = "foo";
+        expResult.getBean().setName(linguisticVariableName);
         // Updating the resource
         instance = getTestResource();
         response = instance.entity(expResult).put(ClientResponse.class);
         assertEquals(200, response.getStatus());
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
             // Comparing values
             assertEquals(expResult, result);
         } catch (UniformInterfaceException e) {
@@ -254,39 +298,49 @@ public class FuzzySetResourcesTest extends JerseyTest {
         instance.uri(location).delete();
 
         // Complex object
-        MembershipFunction membershipFunction = new MembershipFunction(1.0f, 1.0f);
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        linguisticVariableName = "foo2";
+        linguisticTermName = "a";
+        membershipFunction = null;
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm = new LinguisticTerm(linguisticTermName, fuzzySet);
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        linguisticVariable.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         id = expResult.getBean().getId();
         assertNotNull(id);
-        // Update values
-        // New complex membership function
+        // Update linguistic terms
+        // New complex linguistic term
         instance = getTestResource();
-        expResult.getBean().setMembershipFunction(new MembershipFunction(1.0f, 2.0f, 1.0f, 1.0f));
+        membershipFunction = new MembershipFunction(1.0f, 2.0f, 1.0f, 1.0f);
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm.setFuzzySet(fuzzySet);
+        expResult.getBean().setLinguisticTerms(0, linguisticTerm);
         response = instance.entity(expResult).put(ClientResponse.class);
         assertEquals(200, response.getStatus());
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
 
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
             assertEquals(result, expResult);
         } catch (UniformInterfaceException e) {
             fail();
         }
-        // Clear membership function
-        expResult.getBean().setMembershipFunction(null);
+        // Clear linguistic term
+        expResult.getBean().setLinguisticTerms(null);
         // Updating the resource
         instance = getTestResource();
         response = instance.entity(expResult).put(ClientResponse.class);
         assertEquals(200, response.getStatus());
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         instance = getTestResource();
         try {
-            result = instance.uri(location).get(FuzzySetResource.class);
+            result = instance.uri(location).get(LinguisticVariableResource.class);
             // Comparing values
             assertEquals(expResult, result);
         } catch (UniformInterfaceException e) {
@@ -298,65 +352,84 @@ public class FuzzySetResourcesTest extends JerseyTest {
     }
 
     /**
-     * Test of delete method, of class FuzzySetResources.
+     * Test of delete method, of class LinguisticVariableResources.
      */
     @Test
-    public void testDelete() {
+    public void testDelete() throws PropertyVetoException {
         System.out.println("delete");
         WebResource instance = getTestResource();
+        String linguisticVariableName = null;
+        String linguisticTermName = null;
         MembershipFunction membershipFunction = null;
-        FuzzySetResource expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        FuzzySet fuzzySet = null;
+        LinguisticTerm linguisticTerm = null;
+        LinguisticVariable linguisticVariable = new LinguisticVariable();
+        LinguisticVariableResource expResult = new LinguisticVariableResource(linguisticVariable);
         ClientResponse response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         URI location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         int id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         instance.uri(location).delete();
         try {
             instance = getTestResource();
-            instance.uri(location).get(FuzzySetResource.class);
+            instance.uri(location).get(LinguisticVariableResource.class);
             fail();
         } catch (UniformInterfaceException e) {
             assertEquals(404, e.getResponse().getStatus());
         }
 
-        // With membership function
+        // With linguistic term
         instance = getTestResource();
-        membershipFunction = new MembershipFunction();
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        linguisticVariableName = "foo";
+        linguisticTermName = "a";
+        membershipFunction = null;
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm = new LinguisticTerm(linguisticTermName, fuzzySet);
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        linguisticVariable.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         instance.uri(location).delete();
         try {
             instance = getTestResource();
-            instance.uri(location).get(FuzzySetResource.class);
+            instance.uri(location).get(LinguisticVariableResource.class);
             fail();
         } catch (UniformInterfaceException e) {
             assertEquals(404, e.getResponse().getStatus());
         }
 
-        // With complex membership function
+        // With complex linguistic term
         instance = getTestResource();
-        membershipFunction = new MembershipFunction(1.0f, 1.0f);
-        expResult = new FuzzySetResource(new FuzzySet(membershipFunction));
+        linguisticVariableName = "foo2";
+        linguisticTermName = "x";
+        membershipFunction = new MembershipFunction(1.0f, 2.0f, 3.0f);
+        fuzzySet = new FuzzySet(membershipFunction);
+        linguisticTerm = new LinguisticTerm(linguisticTermName, fuzzySet);
+        linguisticVariable = new LinguisticVariable();
+        linguisticVariable.setName(linguisticVariableName);
+        linguisticVariable.setLinguisticTerms(new LinguisticTerm[]{linguisticTerm});
+        expResult = new LinguisticVariableResource(linguisticVariable);
         response = instance.entity(expResult).post(ClientResponse.class);
         assertEquals(201, response.getStatus());
         location = response.getLocation();
-        expResult = response.getEntity(FuzzySetResource.class);
+        expResult = response.getEntity(LinguisticVariableResource.class);
         id = expResult.getBean().getId();
         assertNotNull(id);
         instance = getTestResource();
         instance.uri(location).delete();
         try {
             instance = getTestResource();
-            instance.uri(location).get(FuzzySetResource.class);
+            instance.uri(location).get(LinguisticVariableResource.class);
             fail();
         } catch (UniformInterfaceException e) {
             assertEquals(404, e.getResponse().getStatus());

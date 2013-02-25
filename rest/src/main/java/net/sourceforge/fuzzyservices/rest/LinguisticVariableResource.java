@@ -24,22 +24,22 @@
 package net.sourceforge.fuzzyservices.rest;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import net.sourceforge.fuzzyservices.beans.FuzzyNumber;
+import net.sourceforge.fuzzyservices.beans.LinguisticVariable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
- * This class represents a fuzzy number bean as resource hosted at the URI path 
+ * This class represents a linguistic variable bean as resource hosted at the URI path 
  * "/id". JAXB is used for serialisation.
  * 
- * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_numbers
- * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_numbers -H ’Accept: text/plain’
+ * http://localhost:8080/net/sourceforge/fuzzyservices/linguistic_variables
+ * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/linguistic_variables -H ’Accept: text/plain’
  *
  * @version 1.0
  * @author Uwe Weng
  */
 @XmlRootElement
-public class FuzzyNumberResource {
+public class LinguisticVariableResource {
 
     /**
      * Default serial version UID.
@@ -48,12 +48,12 @@ public class FuzzyNumberResource {
     /**
      * The managed bean representing as resource
      */
-    protected FuzzyNumber bean;
+    protected LinguisticVariable bean;
 
     /**
      * Default constructor
      */
-    public FuzzyNumberResource() {
+    public LinguisticVariableResource() {
     }
 
     /**
@@ -61,7 +61,7 @@ public class FuzzyNumberResource {
      * 
      * @param bean the managing bean
      */
-    public FuzzyNumberResource(FuzzyNumber bean) {
+    public LinguisticVariableResource(LinguisticVariable bean) {
         this.bean = bean;
     }
 
@@ -70,7 +70,7 @@ public class FuzzyNumberResource {
      * 
      * @return the bean of the managed resource
      */
-    public FuzzyNumber getBean() {
+    public LinguisticVariable getBean() {
         return bean;
     }
 
@@ -79,7 +79,7 @@ public class FuzzyNumberResource {
      * 
      * @param bean the bean to set
      */
-    public void setBean(FuzzyNumber bean) {
+    public void setBean(LinguisticVariable bean) {
         this.bean = bean;
     }
 
@@ -94,7 +94,7 @@ public class FuzzyNumberResource {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        FuzzyNumberResource res = (FuzzyNumberResource) obj;
+        LinguisticVariableResource res = (LinguisticVariableResource) obj;
 
         return new EqualsBuilder().append(this.bean, res.bean).isEquals();
     }
