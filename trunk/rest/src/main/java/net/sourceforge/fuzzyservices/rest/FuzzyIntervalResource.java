@@ -32,8 +32,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * This class represents a fuzzy interval bean as resource hosted at the URI path 
  * "/id". JAXB is used for serialisation.
  * 
- * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzyintervals
- * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzyintervals -H ’Accept: text/plain’
+ * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_intervals
+ * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_intervals -H ’Accept: text/plain’
  *
  * @version 1.0
  * @author Uwe Weng

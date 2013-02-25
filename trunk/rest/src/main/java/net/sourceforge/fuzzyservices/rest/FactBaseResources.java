@@ -33,24 +33,24 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import net.sourceforge.fuzzyservices.beans.FuzzyInterval;
+import net.sourceforge.fuzzyservices.beans.FactBase;
 import net.sourceforge.fuzzyservices.beans.dao.DaoI;
-import net.sourceforge.fuzzyservices.beans.dao.FuzzyIntervalDao;
+import net.sourceforge.fuzzyservices.beans.dao.FactBaseDao;
 
 /**
- * This class represents fuzzy interval beans as resources hosted at the URI path 
- * "/fuzzy_intervals". For instance,
+ * This class represents fuzzy set beans as resources hosted at the URI path 
+ * "/fact_bases". For instance,
  * 
- * http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_intervals/4711
- * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fuzzy_intervals/4711 -H ’Accept: text/plain’
+ * http://localhost:8080/net/sourceforge/fuzzyservices/fact_bases/4711
+ * curl -i http://localhost:8080/net/sourceforge/fuzzyservices/fact_bases/4711 -H ’Accept: text/plain’
  *
- * @see FuzzyIntervalResource
+ * @see FactBaseResource
  * 
  * @version 1.0
  * @author Uwe Weng
  */
-@Path("/fuzzy_intervals")
-public class FuzzyIntervalResources {
+@Path("/fact_bases")
+public class FactBaseResources {
 
     /**
      * Provides both static and dynamic, per-request information, 
@@ -61,8 +61,7 @@ public class FuzzyIntervalResources {
     /**
      * The data access object (as data store)
      */
-    private DaoI<FuzzyInterval, Integer> dao = new FuzzyIntervalDao();
-
+    private DaoI<FactBase, Integer> dao = new FactBaseDao();
     /**
      * Returns the resource identified by <code>id</code>.
      *
@@ -72,11 +71,11 @@ public class FuzzyIntervalResources {
     @GET
     @Path("{id}")
     public Response getById(@PathParam("id") int id) {
-        FuzzyInterval bean = dao.findById(id);
+        FactBase bean = dao.findById(id);
         if (bean == null) {
             return Response.status(404).build();
         }
-        return Response.ok(new FuzzyIntervalResource(bean)).build();
+        return Response.ok(new FactBaseResource(bean)).build();
     }
 
     /**
@@ -87,7 +86,7 @@ public class FuzzyIntervalResources {
      * resource as entity
      */
     @POST
-    public Response create(FuzzyIntervalResource newResource) {
+    public Response create(FactBaseResource newResource) {
         if ((newResource == null) || (newResource.getBean() == null)) {
             return Response.status(404).build();
         }
@@ -104,8 +103,8 @@ public class FuzzyIntervalResources {
      * @return the status of the operation.
      */
     @PUT
-    public Response put(FuzzyIntervalResource resource) {
-        FuzzyIntervalResource response = new FuzzyIntervalResource(dao.update(resource.getBean()));
+    public Response put(FactBaseResource resource) {
+        FactBaseResource response = new FactBaseResource(dao.update(resource.getBean()));
         return Response.ok(response).build();
     }
 
@@ -126,7 +125,7 @@ public class FuzzyIntervalResources {
      * @param resource the resource to be deleted
      */
     @DELETE
-    public void delete(FuzzyIntervalResource resource) {
+    public void delete(FactBaseResource resource) {
         dao.removeById(resource.getBean().getId());
     }
 }
