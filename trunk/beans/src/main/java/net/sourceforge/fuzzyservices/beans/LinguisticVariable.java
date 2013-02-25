@@ -23,19 +23,17 @@
  ******************************************************************************/
 package net.sourceforge.fuzzyservices.beans;
 
-import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 import java.beans.VetoableChangeSupport;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import net.sourceforge.fuzzyservices.utils.FuzzyResourceManager;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -69,7 +67,7 @@ public class LinguisticVariable implements Serializable {
     /** Name property. */
     private String name = null;
     /** A linguistic variable consists of an array of linguistic terms. It is internal an array list because of JPA support.*/
-    private List<LinguisticTerm> linguisticTerms = new ArrayList<LinguisticTerm>();
+    private List<LinguisticTerm> linguisticTerms = new ArrayList<>();
     /** Support for any PropertyChangeListeners which have been registered. */
     private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     /** Support for any VetoableChangeListeners which have been registered. */
@@ -172,7 +170,11 @@ public class LinguisticVariable implements Serializable {
         LinguisticTerm[] oldValue = getLinguisticTerms();
         vetoableChangeSupport.fireVetoableChange(LINGUISTIC_TERMS_PROPERTY,
                 oldValue, newLinguisticTerms);
-        this.linguisticTerms = new ArrayList(Arrays.asList(newLinguisticTerms));
+        if (newLinguisticTerms != null) {
+            this.linguisticTerms = new ArrayList(Arrays.asList(newLinguisticTerms));
+        } else {
+            this.linguisticTerms = new ArrayList<>();
+        }
         propertyChangeSupport.firePropertyChange(LINGUISTIC_TERMS_PROPERTY,
                 oldValue, newLinguisticTerms);
     }
