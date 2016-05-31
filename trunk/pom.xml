@@ -31,6 +31,9 @@
 		</server>
 	(3) mvn site:deploy : Deploys the site on SF.net. You will get a warning "The authenticity of host 'shell.sourceforge.net' can't be established.", but just type "yes" to continue.
 	(4) Open a web browser to http://fuzzyservices.sf.net
+	
+	
+	mvn versions:display-dependency-updates : Checks for newer versions of dependencies (http://mojo.codehaus.org/versions-maven-plugin/index.html)
 
 -->
     <properties>

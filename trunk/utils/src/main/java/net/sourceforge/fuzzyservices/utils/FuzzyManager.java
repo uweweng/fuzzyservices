@@ -67,7 +67,7 @@ public final class FuzzyManager {
      * Returns the increment for traversing fuzzy sets.
      *
      * @return the increment
-     * @see #increment
+     * @see #stepwidth
      */
     public static float getStepwidth() {
         return stepwidth;
@@ -77,7 +77,7 @@ public final class FuzzyManager {
      * Sets the increment. The value has to be greater than 0.0.
      *
      * @param width the new value
-     * @see #increment
+     * @see #stepwidth
      */
     public static void setStepwidth(final float width) {
         if (width > 0.0f) {
@@ -148,7 +148,7 @@ public final class FuzzyManager {
      *
      * @param increment the increment
      * @return the number of decimal places
-     * @see #increment
+     * @see #stepwidth
      */
     private static int computeScale(final float increment) {
         int i = 0;

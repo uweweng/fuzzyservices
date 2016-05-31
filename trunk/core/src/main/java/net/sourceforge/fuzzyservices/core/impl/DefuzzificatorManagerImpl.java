@@ -46,25 +46,21 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
      * Contains all known defuzzificators of the fuzzy system with its name as
      * key.
      */
-    private static Map<String, AbstractDefuzzificator> defuzzyOperators =
-            new HashMap<String, AbstractDefuzzificator>();
+    private static final Map<String, AbstractDefuzzificator> defuzzyOperators =
+            new HashMap<>();
 
 
     static {
         initDefuzzificators();
     }
     /** The singleton instance of this defuzzificator manager. */
-    private static transient DefuzzificatorManager instance = null;
+    private static final transient DefuzzificatorManager instance = new DefuzzificatorManagerImpl();
 
     /**
      * Gets an instance of this defuzzificator manager.
      * @return an instance of this class
      */
     public static DefuzzificatorManager getInstance() {
-        if (instance == null) {
-            instance = new DefuzzificatorManagerImpl();
-        }
-
         return instance;
     }
 
@@ -107,7 +103,7 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
      * @param defuzzy the new defuzzificator
      * @see net.sourceforge.fuzzyservices.core.AbstractDefuzzificator
      */
-    public static synchronized void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
+    public static void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
         if (defuzzy != null) {
             defuzzyOperators.put(defuzzy.getName(), defuzzy);
         }
