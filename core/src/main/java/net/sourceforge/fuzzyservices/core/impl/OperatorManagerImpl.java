@@ -61,23 +61,19 @@ public class OperatorManagerImpl implements OperatorManager {
      * Contains all known fuzzy operators of the fuzzy system with its name as
      * key.
      */
-    private static Map<String, AbstractOperator> combineOperators = new HashMap<String, AbstractOperator>();
+    private static final Map<String, AbstractOperator> combineOperators = new HashMap<>();
 
     static {
         initCombineOperators();
     }
     /** The singleton instance of this operator manager. */
-    private static transient OperatorManager instance = null;
+    private static final transient OperatorManager instance = new OperatorManagerImpl();
 
     /**
      * Gets an instance of this operator manager.
      * @return an instance of this class
      */
     public static OperatorManager getInstance() {
-        if (instance == null) {
-            instance = new OperatorManagerImpl();
-        }
-
         return instance;
     }
 
@@ -168,7 +164,7 @@ public class OperatorManagerImpl implements OperatorManager {
      * @param op the new fuzzy operator
      * @see net.sourceforge.fuzzyservices.core.AbstractOperator
      */
-    public static synchronized void registerOperator(final AbstractOperator op) {
+    public static void registerOperator(final AbstractOperator op) {
         if (op != null) {
             combineOperators.put(op.getName(), op);
         }
