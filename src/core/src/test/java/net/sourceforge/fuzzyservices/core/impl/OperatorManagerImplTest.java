@@ -51,6 +51,12 @@ public class OperatorManagerImplTest {
          */
         private static final long serialVersionUID = 1L;
 
+        private String name;
+        
+        public TestOperator(final String name) {
+            this.name = name;
+        }
+
         @Override
         public FuzzySet combine(final FuzzySet fs1, final FuzzySet fs2) {
             throw new UnsupportedOperationException("Not supported yet.");
@@ -92,7 +98,7 @@ public class OperatorManagerImplTest {
         Collection<AbstractOperator> result = OperatorManagerImpl.getInstance().getOperators();
         assertNotNull(result);
         int size = result.size();
-        AbstractOperator operator = new TestOperator();
+        AbstractOperator operator = new TestOperator("getOperators");
         OperatorManagerImpl.registerOperator(operator);
         result = OperatorManagerImpl.getInstance().getOperators();
         assertNotNull(result);
@@ -106,7 +112,7 @@ public class OperatorManagerImplTest {
     @Test
     public final void testGetOperator() {
         System.out.println("getOperator");
-        AbstractOperator expResult = new TestOperator();
+        AbstractOperator expResult = new TestOperator("getOperator");
         String name = expResult.getName();
         OperatorManagerImpl.registerOperator(expResult);
         AbstractOperator result = OperatorManagerImpl.getInstance().getOperator(name);
@@ -132,7 +138,7 @@ public class OperatorManagerImplTest {
     @Test
     public final void testRegisterOperator() {
         System.out.println("registerOperator");
-        AbstractOperator expResult = new TestOperator();
+        AbstractOperator expResult = new TestOperator("registerOperator");
         OperatorManagerImpl.registerOperator(expResult);
         AbstractOperator result = OperatorManagerImpl.getInstance().getOperator(expResult.getName());
         assertEquals(expResult, result);

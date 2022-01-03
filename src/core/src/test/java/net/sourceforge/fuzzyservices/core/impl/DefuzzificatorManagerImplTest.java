@@ -43,11 +43,18 @@ public class DefuzzificatorManagerImplTest {
      */
     public class TestDefuzzificator extends AbstractDefuzzificator {
 
+        private String name;;
+        
+        public TestDefuzzificator(final String name) {
+            this.name = name;
+        }
+
         /**
          * Default serial version UID.
          */
         private static final long serialVersionUID = 1L;
 
+        
         @Override
         public float defuzzify(final MembershipFunction membershipFunction) {
             throw new UnsupportedOperationException("Not supported yet.");
@@ -55,7 +62,7 @@ public class DefuzzificatorManagerImplTest {
 
         @Override
         public String getName() {
-            return "TestDefuzzificator";
+            return name;
         }
     }
 
@@ -69,7 +76,7 @@ public class DefuzzificatorManagerImplTest {
         Collection<AbstractDefuzzificator> result = DefuzzificatorManagerImpl.getInstance().getDefuzzificators();
         assertNotNull(result);
         int size = result.size();
-        AbstractDefuzzificator defuzzificator = new TestDefuzzificator();
+        AbstractDefuzzificator defuzzificator = new TestDefuzzificator("getDefuzzificators");
         DefuzzificatorManagerImpl.registerDefuzzificator(defuzzificator);
         result = DefuzzificatorManagerImpl.getInstance().getDefuzzificators();
         assertNotNull(result);
@@ -83,7 +90,7 @@ public class DefuzzificatorManagerImplTest {
     @Test
     public final void testGetDefuzzificator() {
         System.out.println("getDefuzzificator");
-        AbstractDefuzzificator expResult = new TestDefuzzificator();
+        AbstractDefuzzificator expResult = new TestDefuzzificator("getDefuzzificator");
         String name = expResult.getName();
         DefuzzificatorManagerImpl.registerDefuzzificator(expResult);
         AbstractDefuzzificator result = DefuzzificatorManagerImpl.getInstance().getDefuzzificator(name);
@@ -109,7 +116,7 @@ public class DefuzzificatorManagerImplTest {
     @Test
     public final void testRegisterDefuzzificator() {
         System.out.println("registerDefuzzificator");
-        AbstractDefuzzificator expResult = new TestDefuzzificator();
+        AbstractDefuzzificator expResult = new TestDefuzzificator("registerDefuzzificator");
         DefuzzificatorManagerImpl.registerDefuzzificator(expResult);
         AbstractDefuzzificator result = DefuzzificatorManagerImpl.getInstance().getDefuzzificator(expResult.getName());
         assertEquals(expResult, result);

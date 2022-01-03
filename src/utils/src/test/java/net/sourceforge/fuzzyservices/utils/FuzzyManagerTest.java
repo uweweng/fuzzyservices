@@ -36,7 +36,7 @@ public class FuzzyManagerTest {
     /**
      * Test parameter.
      */
-    private static final int MAX_NUM_STEP = 100;
+    private static final int MAX_NUM_STEP = 200;
     /**
      * Test parameter.
      */
