@@ -91,9 +91,7 @@
         <module>swing-core</module>
         <module>swing</module>
         <module>spring</module>
-        <module>osgi</module>
         <module>rest</module>
-        <module>osgi-test</module>
     </modules>
 
     <build>
