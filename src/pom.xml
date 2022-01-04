@@ -89,8 +89,6 @@
         <module>utils</module>
         <module>core</module>
         <module>swing-core</module>
-        <module>beans</module>
-        <module>beans-persistence</module>
         <module>ejb-fuzzycalculator</module>
         <module>ejb-fuzzycontroller</module>
         <module>ejb3-fuzzycalculator</module>

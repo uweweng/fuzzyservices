@@ -25,3 +25,6 @@ hs_err_pid*
 /src/build-tools/target/
 /src/utils/target/
 /src/core/target/
+/src/swing/target/
+/src/swing-core/target/
+/src/beans/target/
