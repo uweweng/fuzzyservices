@@ -91,7 +91,6 @@
         <module>swing-core</module>
         <module>swing</module>
         <module>spring</module>
-        <module>rest</module>
     </modules>
 
     <build>
