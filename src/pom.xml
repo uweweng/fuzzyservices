@@ -89,13 +89,6 @@
         <module>utils</module>
         <module>core</module>
         <module>swing-core</module>
-        <module>ejb-fuzzycalculator</module>
-        <module>ejb-fuzzycontroller</module>
-        <module>ejb3-fuzzycalculator</module>
-        <module>ejb3-fuzzycalculator-client</module>
-        <module>ejb3-fuzzycontroller</module>
-        <module>ejb3-fuzzycontroller-client</module>
-        <module>ear</module>
         <module>webservice</module>
         <module>swing</module>
         <module>spring</module>
