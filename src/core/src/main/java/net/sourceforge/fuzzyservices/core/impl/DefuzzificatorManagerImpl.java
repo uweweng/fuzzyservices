@@ -46,13 +46,8 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
      * Contains all known defuzzificators of the fuzzy system with its name as
      * key.
      */
-    private static final Map<String, AbstractDefuzzificator> defuzzyOperators =
-            new HashMap<>();
+    private static Map<String, AbstractDefuzzificator> defuzzyOperators;
 
-
-    static {
-        initDefuzzificators();
-    }
     /** The singleton instance of this defuzzificator manager. */
     private static final transient DefuzzificatorManager instance = new DefuzzificatorManagerImpl();
 
@@ -64,21 +59,29 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
         return instance;
     }
 
+    public DefuzzificatorManagerImpl() {
+        initDefuzzificators();
+    }
+
     /**
      * Initializes the list of defuzzicators while loading the defuzzificator manager.
      */
     private static void initDefuzzificators() {
-        CenterOfArea center = new CenterOfArea();
-        defuzzyOperators.put(center.getName(), center);
+        if (defuzzyOperators == null) {
+            defuzzyOperators = new HashMap<>();
 
-        LeftOfMax left = new LeftOfMax();
-        defuzzyOperators.put(left.getName(), left);
+            CenterOfArea center = new CenterOfArea();
+            defuzzyOperators.put(center.getName(), center);
 
-        MeanOfMax mean = new MeanOfMax();
-        defuzzyOperators.put(mean.getName(), mean);
+            LeftOfMax left = new LeftOfMax();
+            defuzzyOperators.put(left.getName(), left);
 
-        RightOfMax right = new RightOfMax();
-        defuzzyOperators.put(right.getName(), right);
+            MeanOfMax mean = new MeanOfMax();
+            defuzzyOperators.put(mean.getName(), mean);
+
+            RightOfMax right = new RightOfMax();
+            defuzzyOperators.put(right.getName(), right);
+        }
     }
 
     @Override
@@ -105,6 +108,7 @@ public class DefuzzificatorManagerImpl implements DefuzzificatorManager {
      */
     public static void registerDefuzzificator(final AbstractDefuzzificator defuzzy) {
         if (defuzzy != null) {
+            initDefuzzificators();
             defuzzyOperators.put(defuzzy.getName(), defuzzy);
         }
     }

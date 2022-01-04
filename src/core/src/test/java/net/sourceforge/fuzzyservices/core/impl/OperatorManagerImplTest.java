@@ -78,13 +78,8 @@ public class OperatorManagerImplTest {
         }
 
         @Override
-        public final String toString() {
-            return "TestOperator";
-        }
-
-        @Override
         public String getName() {
-            return "TestOperator";
+            return name;
         }
     }
 

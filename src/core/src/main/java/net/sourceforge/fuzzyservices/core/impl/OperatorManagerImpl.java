@@ -61,11 +61,8 @@ public class OperatorManagerImpl implements OperatorManager {
      * Contains all known fuzzy operators of the fuzzy system with its name as
      * key.
      */
-    private static final Map<String, AbstractOperator> combineOperators = new HashMap<>();
+    private static Map<String, AbstractOperator> combineOperators;
 
-    static {
-        initCombineOperators();
-    }
     /** The singleton instance of this operator manager. */
     private static final transient OperatorManager instance = new OperatorManagerImpl();
 
@@ -77,66 +74,74 @@ public class OperatorManagerImpl implements OperatorManager {
         return instance;
     }
 
+    public OperatorManagerImpl() {
+        initCombineOperators();
+    }
+
     /**
      * Initializes the list of fuzzy operators while loading the manager.
      */
     private static void initCombineOperators() {
-        Min minOp = new Min();
-        combineOperators.put(minOp.getName(), minOp);
+        if (combineOperators == null) {
+            combineOperators = new HashMap<>();
+            
+            Min minOp = new Min();
+            combineOperators.put(minOp.getName(), minOp);
 
-        Max maxOp = new Max();
-        combineOperators.put(maxOp.getName(), maxOp);
+            Max maxOp = new Max();
+            combineOperators.put(maxOp.getName(), maxOp);
 
-        AlgebraicSum algSumOp = new AlgebraicSum();
-        combineOperators.put(algSumOp.getName(), algSumOp);
+            AlgebraicSum algSumOp = new AlgebraicSum();
+            combineOperators.put(algSumOp.getName(), algSumOp);
 
-        AlgebraicProduct algProdOp = new AlgebraicProduct();
-        combineOperators.put(algProdOp.getName(), algProdOp);
+            AlgebraicProduct algProdOp = new AlgebraicProduct();
+            combineOperators.put(algProdOp.getName(), algProdOp);
 
-        BoundedDifference boundedDiffOp = new BoundedDifference();
-        combineOperators.put(boundedDiffOp.getName(), boundedDiffOp);
+            BoundedDifference boundedDiffOp = new BoundedDifference();
+            combineOperators.put(boundedDiffOp.getName(), boundedDiffOp);
 
-        BoundedSum boundedSumOp = new BoundedSum();
-        combineOperators.put(boundedSumOp.getName(), boundedSumOp);
+            BoundedSum boundedSumOp = new BoundedSum();
+            combineOperators.put(boundedSumOp.getName(), boundedSumOp);
 
-        DrasticProduct drasticProdOp = new DrasticProduct();
-        combineOperators.put(drasticProdOp.getName(), drasticProdOp);
+            DrasticProduct drasticProdOp = new DrasticProduct();
+            combineOperators.put(drasticProdOp.getName(), drasticProdOp);
 
-        DrasticSum drasticSumOp = new DrasticSum();
-        combineOperators.put(drasticSumOp.getName(), drasticSumOp);
+            DrasticSum drasticSumOp = new DrasticSum();
+            combineOperators.put(drasticSumOp.getName(), drasticSumOp);
 
-        EinsteinProduct einsteinProdOp = new EinsteinProduct();
-        combineOperators.put(einsteinProdOp.getName(), einsteinProdOp);
+            EinsteinProduct einsteinProdOp = new EinsteinProduct();
+            combineOperators.put(einsteinProdOp.getName(), einsteinProdOp);
 
-        EinsteinSum einsteinSumOp = new EinsteinSum();
-        combineOperators.put(einsteinSumOp.getName(), einsteinSumOp);
+            EinsteinSum einsteinSumOp = new EinsteinSum();
+            combineOperators.put(einsteinSumOp.getName(), einsteinSumOp);
 
-        HamacherIntersection hamacherInterOp = new HamacherIntersection(0.0f);
-        combineOperators.put(hamacherInterOp.getName(), hamacherInterOp);
+            HamacherIntersection hamacherInterOp = new HamacherIntersection(0.0f);
+            combineOperators.put(hamacherInterOp.getName(), hamacherInterOp);
 
-        HamacherProduct hamacherProdOp = new HamacherProduct();
-        combineOperators.put(hamacherProdOp.getName(), hamacherProdOp);
+            HamacherProduct hamacherProdOp = new HamacherProduct();
+            combineOperators.put(hamacherProdOp.getName(), hamacherProdOp);
 
-        HamacherSum hamacherSumOp = new HamacherSum();
-        combineOperators.put(hamacherSumOp.getName(), hamacherSumOp);
+            HamacherSum hamacherSumOp = new HamacherSum();
+            combineOperators.put(hamacherSumOp.getName(), hamacherSumOp);
 
-        HamacherUnion hamacherUnionOp = new HamacherUnion(-1.0f);
-        combineOperators.put(hamacherUnionOp.getName(), hamacherUnionOp);
+            HamacherUnion hamacherUnionOp = new HamacherUnion(-1.0f);
+            combineOperators.put(hamacherUnionOp.getName(), hamacherUnionOp);
 
-        MinMaxCompensation minMaxCompOp = new MinMaxCompensation(0.0f);
-        combineOperators.put(minMaxCompOp.getName(), minMaxCompOp);
+            MinMaxCompensation minMaxCompOp = new MinMaxCompensation(0.0f);
+            combineOperators.put(minMaxCompOp.getName(), minMaxCompOp);
 
-        WernersAnd wernersAndOp = new WernersAnd(0.0f);
-        combineOperators.put(wernersAndOp.getName(), wernersAndOp);
+            WernersAnd wernersAndOp = new WernersAnd(0.0f);
+            combineOperators.put(wernersAndOp.getName(), wernersAndOp);
 
-        WernersOr wernersOrOp = new WernersOr(0.0f);
-        combineOperators.put(wernersOrOp.getName(), wernersOrOp);
+            WernersOr wernersOrOp = new WernersOr(0.0f);
+            combineOperators.put(wernersOrOp.getName(), wernersOrOp);
 
-        YagerIntersection yagerInterOp = new YagerIntersection(1.0f);
-        combineOperators.put(yagerInterOp.getName(), yagerInterOp);
+            YagerIntersection yagerInterOp = new YagerIntersection(1.0f);
+            combineOperators.put(yagerInterOp.getName(), yagerInterOp);
 
-        YagerUnion yagerUnionOp = new YagerUnion(1.0f);
-        combineOperators.put(yagerUnionOp.getName(), yagerUnionOp);
+            YagerUnion yagerUnionOp = new YagerUnion(1.0f);
+            combineOperators.put(yagerUnionOp.getName(), yagerUnionOp);
+        }
     }
 
     @Override
@@ -166,6 +171,7 @@ public class OperatorManagerImpl implements OperatorManager {
      */
     public static void registerOperator(final AbstractOperator op) {
         if (op != null) {
+            initCombineOperators();
             combineOperators.put(op.getName(), op);
         }
     }
