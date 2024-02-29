@@ -74,7 +74,7 @@
     <scm>
 		<!-- https://maven.apache.org/scm/git.html -->
         <url>https://github.com/uweweng/fuzzyservices</url>
-        <connection>scm:git:git://github.com/uweweng/fuzzyservices.git</connection>
+        <connection>scm:git:git@github.com:uweweng/fuzzyservices.git</connection>
         <developerConnection>scm:git:git@github.com:uweweng/fuzzyservices.git</developerConnection>
     </scm>
 
