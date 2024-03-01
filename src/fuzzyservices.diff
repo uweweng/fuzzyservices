@@ -1,0 +1,174 @@
+diff --git a/src/build-tools/.classpath b/src/build-tools/.classpath
+index 2e2268a..f7e4a1d 100644
+--- a/src/build-tools/.classpath
++++ b/src/build-tools/.classpath
+@@ -26,7 +26,7 @@
+ 			<attribute name="optional" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+ 		<attributes>
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+diff --git a/src/build-tools/.settings/org.eclipse.jdt.core.prefs b/src/build-tools/.settings/org.eclipse.jdt.core.prefs
+index a3b98fd..2f5cc74 100644
+--- a/src/build-tools/.settings/org.eclipse.jdt.core.prefs
++++ b/src/build-tools/.settings/org.eclipse.jdt.core.prefs
+@@ -1,8 +1,8 @@
+ eclipse.preferences.version=1
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+-org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.compliance=1.8
+ org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+ org.eclipse.jdt.core.compiler.release=disabled
+-org.eclipse.jdt.core.compiler.source=1.7
++org.eclipse.jdt.core.compiler.source=1.8
+diff --git a/src/core/.classpath b/src/core/.classpath
+index 2e2268a..f7e4a1d 100644
+--- a/src/core/.classpath
++++ b/src/core/.classpath
+@@ -26,7 +26,7 @@
+ 			<attribute name="optional" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+ 		<attributes>
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+diff --git a/src/core/.settings/org.eclipse.jdt.core.prefs b/src/core/.settings/org.eclipse.jdt.core.prefs
+index a3b98fd..2f5cc74 100644
+--- a/src/core/.settings/org.eclipse.jdt.core.prefs
++++ b/src/core/.settings/org.eclipse.jdt.core.prefs
+@@ -1,8 +1,8 @@
+ eclipse.preferences.version=1
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+-org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.compliance=1.8
+ org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+ org.eclipse.jdt.core.compiler.release=disabled
+-org.eclipse.jdt.core.compiler.source=1.7
++org.eclipse.jdt.core.compiler.source=1.8
+diff --git a/src/spring/.classpath b/src/spring/.classpath
+index 2e2268a..f7e4a1d 100644
+--- a/src/spring/.classpath
++++ b/src/spring/.classpath
+@@ -26,7 +26,7 @@
+ 			<attribute name="optional" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+ 		<attributes>
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+diff --git a/src/spring/.settings/org.eclipse.jdt.core.prefs b/src/spring/.settings/org.eclipse.jdt.core.prefs
+index a3b98fd..2f5cc74 100644
+--- a/src/spring/.settings/org.eclipse.jdt.core.prefs
++++ b/src/spring/.settings/org.eclipse.jdt.core.prefs
+@@ -1,8 +1,8 @@
+ eclipse.preferences.version=1
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+-org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.compliance=1.8
+ org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+ org.eclipse.jdt.core.compiler.release=disabled
+-org.eclipse.jdt.core.compiler.source=1.7
++org.eclipse.jdt.core.compiler.source=1.8
+diff --git a/src/swing-core/.classpath b/src/swing-core/.classpath
+index 2e2268a..f7e4a1d 100644
+--- a/src/swing-core/.classpath
++++ b/src/swing-core/.classpath
+@@ -26,7 +26,7 @@
+ 			<attribute name="optional" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+ 		<attributes>
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+diff --git a/src/swing-core/.settings/org.eclipse.jdt.core.prefs b/src/swing-core/.settings/org.eclipse.jdt.core.prefs
+index a3b98fd..2f5cc74 100644
+--- a/src/swing-core/.settings/org.eclipse.jdt.core.prefs
++++ b/src/swing-core/.settings/org.eclipse.jdt.core.prefs
+@@ -1,8 +1,8 @@
+ eclipse.preferences.version=1
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+-org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.compliance=1.8
+ org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+ org.eclipse.jdt.core.compiler.release=disabled
+-org.eclipse.jdt.core.compiler.source=1.7
++org.eclipse.jdt.core.compiler.source=1.8
+diff --git a/src/swing/.classpath b/src/swing/.classpath
+index 2e2268a..f7e4a1d 100644
+--- a/src/swing/.classpath
++++ b/src/swing/.classpath
+@@ -26,7 +26,7 @@
+ 			<attribute name="optional" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+ 		<attributes>
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+diff --git a/src/swing/.settings/org.eclipse.jdt.core.prefs b/src/swing/.settings/org.eclipse.jdt.core.prefs
+index a3b98fd..2f5cc74 100644
+--- a/src/swing/.settings/org.eclipse.jdt.core.prefs
++++ b/src/swing/.settings/org.eclipse.jdt.core.prefs
+@@ -1,8 +1,8 @@
+ eclipse.preferences.version=1
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+-org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.compliance=1.8
+ org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+ org.eclipse.jdt.core.compiler.release=disabled
+-org.eclipse.jdt.core.compiler.source=1.7
++org.eclipse.jdt.core.compiler.source=1.8
+diff --git a/src/utils/.classpath b/src/utils/.classpath
+index 2e2268a..f7e4a1d 100644
+--- a/src/utils/.classpath
++++ b/src/utils/.classpath
+@@ -26,7 +26,7 @@
+ 			<attribute name="optional" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+ 		<attributes>
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+diff --git a/src/utils/.settings/org.eclipse.jdt.core.prefs b/src/utils/.settings/org.eclipse.jdt.core.prefs
+index a3b98fd..2f5cc74 100644
+--- a/src/utils/.settings/org.eclipse.jdt.core.prefs
++++ b/src/utils/.settings/org.eclipse.jdt.core.prefs
+@@ -1,8 +1,8 @@
+ eclipse.preferences.version=1
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+-org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.compliance=1.8
+ org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures=disabled
+ org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+ org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures=ignore
+ org.eclipse.jdt.core.compiler.release=disabled
+-org.eclipse.jdt.core.compiler.source=1.7
++org.eclipse.jdt.core.compiler.source=1.8

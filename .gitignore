@@ -30,3 +30,6 @@ hs_err_pid*
 /src/beans/target/
 /src/spring/target/
 /src/osgi/target/
+
+*.classpath
+*.settings
